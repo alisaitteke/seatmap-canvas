@@ -1,0 +1,66 @@
+@import "lib";
+
+.seatmap-svg {
+  .stage {
+    .blocks-container {
+      .block-item-container {
+        .block-bounds {
+          .block-hull-border {
+            stroke-linejoin: round;
+          }
+          .block-hull {
+            stroke-linejoin: round;
+          }
+        }
+        .seats-container {
+          .seat {
+          }
+        }
+        .labels-container {
+          .label {
+            circle {
+              stroke: rgba(0, 0, 0, .2);
+            }
+            .label-text {
+              text-anchor: middle;
+              dominant-baseline: central;
+            }
+          }
+        }
+        .zoom-layers-container {
+          .zoom-layer-hull {
+            stroke-width:80px;
+            stroke-linejoin:round;
+          }
+        }
+        .block-info {
+          .block-text {
+          }
+        }
+      }
+      .zoom-circle {
+        fill: rgba(0, 0, 0, 0);
+        pointer-events: none;
+        stroke: #aaaaaa;
+        @include stroke-width(4)
+
+      }
+    }
+
+  }
+  .zoom-out-button {
+
+  }
+  .legend-container {
+    .legend-node {
+      circle {
+        stroke: #adadad;
+        @include stroke-width(1);
+      }
+      text {
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+    }
+  }
+}
