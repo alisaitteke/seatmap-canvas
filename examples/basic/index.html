@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap.min.css" crossorigin="anonymous">
 
     <title>Hello, world!</title>
 
@@ -74,188 +73,92 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first then Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="jquery.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="/build/seatmap.canvas.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
-        let config = {
-            "container": ".seats_container",
-            "max_zoom": 1.2,
-            "resizable": true,
-            "seat_style": {
-                "radius": 12,
-                "color": "#FFFFFF",
-                "hover": "#dce7ff",
-                "not_salable": "#424747",
-                "selected": "#56aa45",
-                "focus": "#c3f7ff",
-                "focus_out": "#56aa45",
-            },
-            "block_style": {
-                "fill": "#e2e2e2",
-                "stroke": "#e2e2e2"
-            },
-            "label_style": {
-                "color": "#000",
-                "radius": 12,
-                "font-size": "12px",
-                "bg": "#ffffff"
-            },
-            "legend_style": {
-                "radius": 12,
-                "font_size": 11,
-                "padding": 100
-            }
-        };
+        let seatmap = new SeatMapCanvas(".seats_container");
+
+        $.getJSON("/data/small.json", function (result) {
+            let blocks = [];
+
+            let block_colors = ["#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
 
 
-        let seatmap = new SeatmapCanvas(config);
-
-        seatmap.addEventListener("seat.click", (seat) => {
-            console.log(seat);
-            if (seat.selected) {
-                seatmap.seatUnselect(seat);
-            } else {
-                seatmap.seatSelect(seat);
-            }
-        });
-        seatmap.addEventListener("seat.hover", (seat) => {
-            //console.log(seat);
-        });
-        seatmap.addEventListener("seat.leave", (seat) => {
-            //console.log(seat);
-        });
-
-        seatmap.addEventListener("seat.context_menu", (seat) => {
-            console.log(seat);
-        });
-
-        seatmap.addEventListener("label.click", (label) => {
-            console.log(label);
-        });
-
-        seatmap.addEventListener("label.hover", (label) => {
-            seatmap.hideSeatsOfTags(["row_" + label.title], label.block.id).showSeatsOfTags(["row_" + label.title], label.block.id);
-        });
-
-        seatmap.addEventListener("label.leave", (label) => {
-            seatmap.showSeatsOfTags(["row_" + label.title], label.block.id);
-        });
-
-        $("#best-find-start").on("click", function () {
-            seatmap.findBestSeat(3);
-        });
-        $("#zoomout-button").on("click", function () {
-            seatmap.centerStage(true);
-        });
-        $("#best-find-cancel").on("click", function () {
-            seatmap.cancelBestSeat();
-        });
-        $("#get-data").on("click", function () {
-            var data = seatmap.getSelectedSeats(true);
-            console.log(JSON.stringify(data));
-        });
-        $("#set-filter").on("click", function () {
-            seatmap.hideSeatsOfTags(["a"]);
-        });
-
-        $("#set-filter-disable").on("click", function () {
-            seatmap.showSeatsOfTags(["a"]);
-        });
-
-        $("#zoom-block-1").on("click", function () {
-            seatmap.zoomToBlock(1);
-        });
-
-        $("#zoom-block-2").on("click", function () {
-            seatmap.zoomToBlock(2);
-        });
-        $("#zoom-block-3").on("click", function () {
-            seatmap.zoomToBlock(3);
-        });
-        $("#zoom-block-4").on("click", function () {
-            seatmap.zoomToBlock(4);
-        });
+            let x_gap = 0;
+            let y_gap = 0;
 
 
-        setTimeout(() => {
-            $.getJSON("/data/small.json", function (result) {
+            for (let i = 0; i < 3; i++) {
 
-                let data = {
-                    "blocks": []
-                };
+                let labels = [];
+                let label_index = {};
 
-                let block_colors = ["#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
+                let color = block_colors[i % block_colors.length];
 
+                //x_gap = 890;
 
-                let x_gap = 0;
-                let y_gap = 0;
-
-
-                for (let i = 0; i < 10; i++) {
-
-                    let labels = [];
-                    let label_index = {};
-
-                    let color = block_colors[i % block_colors.length];
-
-                    //x_gap = 890;
-
-                    if (i % 2 === 0) {
-                        y_gap += 500;
-                        x_gap = 0;
-                    } else {
-                        x_gap += 890;
-                    }
-
-
-                    let seats = result.seats.map((item, index) => {
-                        if (!label_index[item.rowName]) {
-                            var label_data = {
-                                title: item.rowName,
-                                x: item.positionLeft + x_gap,
-                                y: item.positionTop + y_gap
-                            };
-                            label_index[item.rowName] = label_data;
-                            labels.push(label_data);
-                        }
-
-                        let tags = [];
-                        if (index % 2 === 1) {
-                            tags.push("a");
-                        } else {
-                            tags.push("b");
-                        }
-                        tags.push("row_" + item.rowName);
-                        return {
-                            id: index + 1,
-                            x: item.positionLeft + x_gap + 40,
-                            y: item.positionTop + y_gap,
-                            color: item.color || null,
-                            salable: item.isSold === true ? false : true,
-                            note: "note test",
-                            tags: tags,
-                            title: item.displayName
-                        }
-                    });
-
-                    data.blocks.push({
-                        "id": i + 1,
-                        "title": "Block " + (i + 1),
-                        "labels": labels,
-                        "color": color,
-                        "seats": seats
-                    });
-
+                if (i % 2 === 0) {
+                    y_gap += 500;
+                    x_gap = 0;
+                } else {
+                    x_gap += 890;
                 }
 
-                seatmap.setData(data);
-            });
-        }, 250);
 
+                let seats = result.seats.map((item, index) => {
+                    if (!label_index[item.rowName]) {
+                        var label_data = {
+                            title: item.rowName,
+                            x: item.positionLeft + x_gap,
+                            y: item.positionTop + y_gap
+                        };
+                        label_index[item.rowName] = label_data;
+                        labels.push(label_data);
+                    }
 
+                    let tags = [];
+                    if (index % 2 === 1) {
+                        tags.push("a");
+                    } else {
+                        tags.push("b");
+                    }
+                    tags.push("row_" + item.rowName);
+                    return {
+                        id: i + "-" + (index + 1),
+                        x: item.positionLeft + x_gap + 40,
+                        y: item.positionTop + y_gap,
+                        color: item.color || null,
+                        salable: item.isSold === true ? false : true,
+                        note: "note test",
+                        tags: tags,
+                        title: item.displayName
+                    }
+                });
+
+                let block = {
+                    "id": i + 1,
+                    "title": "Block " + (i + 1),
+                    "labels": labels,
+                    "color": color,
+                    "seats": seats
+                };
+
+                //seatmap.data.addBlock(block)
+                blocks.push(block);
+            }
+            seatmap.data.addBulkBlock(blocks);
+            //console.log(blocks.length);
+            // setTimeout(()=>{
+            //
+            //     //console.log(blocks.length)
+            //     seatmap.svg.stage.blocks.clear();
+            //     seatmap.data.addBulkBlock(blocks);
+            // },2000);
+
+        });
     });
 </script>
 </body>

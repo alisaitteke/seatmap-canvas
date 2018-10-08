@@ -1,22 +1,12 @@
 /*
-  index.ts - seatmap canvas seat model
-  Copyright (C) 2018  Ali Sait TEKE
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * $project.fileName
+ * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ */
 
 
-import {Block} from "./block";
+import BlockModel from "./block.model";
 
-export class SeatClass {
+export default class SeatModel {
     private _id: any;
     private _x: number;
     private _y: number;
@@ -24,7 +14,7 @@ export class SeatClass {
     private _selected: boolean;
 
     private _color: string;
-    private _block: Block;
+    private _block: BlockModel;
     private _salable: boolean;
     private _note: string;
 
@@ -96,11 +86,11 @@ export class SeatClass {
         this._color = value;
     }
 
-    get block(): Block {
+    get block(): BlockModel {
         return this._block;
     }
 
-    set block(value: Block) {
+    set block(value: BlockModel) {
         this._block = value;
     }
 

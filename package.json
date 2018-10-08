@@ -1,7 +1,7 @@
 {
   "name": "@seatmap/canvas",
   "version": "0.0.12",
-  "tags":"seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
+  "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
   "homepage": "https://github.com/seatmap/canvas",
   "bugs": {
@@ -24,10 +24,13 @@
   "license": "MIT",
   "main": "build/seatmap.canvas.js",
   "devDependencies": {
+    "@types/d3": "^5.0.0",
+    "@types/node": "^10.11.4",
     "css-loader": "^1.0.0",
     "d3": "^5.7.0",
     "mini-css-extract-plugin": "^0.4.3",
     "node-sass": "^4.9.3",
+    "reflect-metadata": "^0.1.12",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "ts-loader": "^5.2.1",

@@ -3,7 +3,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     mode: "production",
-    entry: path.resolve(__dirname, '../src', "lib", "index.ts"),
+    entry: {
+        "main": path.resolve(__dirname, '../src', "lib", "canvas.index.ts")
+    },
     output: {
         path: path.resolve(__dirname, '../build'),
         filename: 'seatmap.canvas.js',
