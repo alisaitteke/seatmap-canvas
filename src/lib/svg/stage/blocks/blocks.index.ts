@@ -29,6 +29,7 @@ export default class Blocks extends SvgBase {
     }
 
     public update(): this {
+        this.clear();
         this.global.data.getBlocks().map((item: any, i: number) => {
             let _blockItem = new Block(this, item);
             let _seats = item.seats;

@@ -10,6 +10,7 @@ import "reflect-metadata";
 import {SeatMapCanvas} from "../canvas.index";
 import SvgBase from "./svg.base";
 import {dom} from "../decorators/dom";
+import {EventType} from "../enums/global";
 
 declare const window: any;
 
@@ -32,6 +33,10 @@ export default class Svg extends SvgBase {
         this.stage = new Stage(this);
         this.addChild(this.stage);
         this.updateChilds();
+        this.node.on("mousemove",()=>{
+            let cor = d3.mouse(this.stage.node.node());
+            this.parent.eventManager.dispatch(EventType.MOUSE_MOVE,cor);
+        })
 
 
         //this.stage.updateEvents(true);

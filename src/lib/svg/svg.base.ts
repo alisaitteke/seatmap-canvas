@@ -95,7 +95,7 @@ export default class SvgBase {
         return this;
     }
 
-    public addChild(item: any, attrs?: any): this {
+    public addChild(item: any, attrs?: any, replace: boolean = true): this {
         for (let key in attrs) {
             let value = attrs[key];
             item.dom_attrs.push({

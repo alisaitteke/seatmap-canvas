@@ -1,8 +1,5 @@
 @import "lib";
 
-
-
-
 .seatmap-svg {
   position: relative;
   width: 100%;
@@ -22,6 +19,7 @@
           .venue-level-mask {
             @include trans();
             stroke-linejoin: round;
+            cursor: pointer;
             opacity: 1;
           }
           .block-level-mask {
@@ -31,6 +29,7 @@
           }
           .seat-level-mask {
             @include trans();
+            cursor: none;
             stroke-linejoin: round;
             opacity: 0;
           }
@@ -66,11 +65,24 @@
           }
         }
       }
-      .zoom-circle {
-        fill: rgba(0, 0, 0, 0);
-        pointer-events: none;
-        stroke: #aaaaaa;
-        @include stroke-width(4)
+      .search-circle {
+        opacity: 0;
+        @include trans();
+        .circle {
+          fill: rgba(0, 0, 0, 0);
+          pointer-events: none;
+          stroke: rgba(0, 0, 0, 0.4);
+          @include stroke-width(4)
+        }
+        &.hide {
+          @include trans();
+          opacity: 0;
+
+        }
+        &.show {
+          @include trans();
+          opacity: 1;
+        }
 
       }
     }
