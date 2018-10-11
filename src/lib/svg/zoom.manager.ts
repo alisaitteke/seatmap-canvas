@@ -105,7 +105,6 @@ export default class ZoomManager {
     }
 
     zoomHandAnimated(_self: this): any {
-        //console.log(_self._self.config)
         return function () {
             let x = d3.event.transform.x;
             let y = d3.event.transform.y;
@@ -258,12 +257,6 @@ export default class ZoomManager {
             this.zoomToBlock(_block.id,animation);
             return;
         }
-        // if (this.data.getBlocks().length === 1) {
-        //     this.zoomManager.zoomToBlock(1);
-        //     console.log(this.data.getBlocks()[0])
-        // } else {
-        //     this.zoomManager.zoomToVenue(false);
-        // }
 
         if (x && y && k) {
             if (animation) {
@@ -271,7 +264,6 @@ export default class ZoomManager {
             } else {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
             }
-            //this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, this.zoomLevel);
             this.zoomLevel = ZoomLevel.VENUE;
             this.dispatchZoomEvent();
         }
@@ -290,7 +282,6 @@ export default class ZoomManager {
         this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, {
             level: this.zoomLevel,
             values: this.getZoomLevelValues(this.zoomLevel)
-        })
-        console.log(this.zoomLevel)
+        });
     }
 }

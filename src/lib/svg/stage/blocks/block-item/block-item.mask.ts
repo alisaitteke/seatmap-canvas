@@ -63,10 +63,6 @@ export default class BlockMask extends SvgBase {
 
         this.updateChilds();
 
-        // this.blockLevelMask.node.on("click",(a:any)=>{
-        //     console.log(a)
-        // })
-
         return this;
     }
 }
