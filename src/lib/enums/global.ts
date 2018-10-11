@@ -17,6 +17,7 @@ export enum EventType {
     ADD_SEAT = "SEAT.ADD",
     REMOVE_SEAT = "SEAT.REMOVE",
     ZOOM_LEVEL_CHANGE = "ZOOM_LEVEL_CHANGE",
+    BOUND_CLICK = "BOUND.CLICK"
 }
 
 export enum ZoomLevel {

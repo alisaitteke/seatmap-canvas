@@ -10,6 +10,7 @@ import SeatModel from "../../../../../models/seat.model";
 import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
+import {EventType, ZoomLevel} from "../../../../../enums/global";
 
 
 @dom({
@@ -26,6 +27,7 @@ export class SeatItem extends SvgBase {
         super(parent);
         this.coordinates = new CoordinateModel(item);
         this.attr("transform", "translate(" + this.coordinates.toArray() + ")");
+
         return this;
     }
 

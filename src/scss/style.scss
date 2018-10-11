@@ -1,5 +1,8 @@
 @import "lib";
 
+
+
+
 .seatmap-svg {
   position: relative;
   width: 100%;
@@ -13,6 +16,28 @@
           }
           .block-hull {
             stroke-linejoin: round;
+          }
+        }
+        .masks {
+          .venue-level-mask {
+            @include trans();
+            stroke-linejoin: round;
+            opacity: 1;
+          }
+          .block-level-mask {
+            @include trans();
+            stroke-linejoin: round;
+            opacity: 1;
+          }
+          .seat-level-mask {
+            @include trans();
+            stroke-linejoin: round;
+            opacity: 0;
+          }
+          .bound-hide {
+            @include trans();
+            pointer-events: none;
+            opacity: 0;
           }
         }
         .seats-container {
@@ -32,8 +57,8 @@
         }
         .zoom-layers-container {
           .zoom-layer-hull {
-            stroke-width:80px;
-            stroke-linejoin:round;
+            stroke-width: 80px;
+            stroke-linejoin: round;
           }
         }
         .block-info {

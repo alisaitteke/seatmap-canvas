@@ -7,10 +7,10 @@ import StageManager from "../stage.index";
 import Block from "./block-item/block-item.index";
 import SvgBase from "../../svg.base";
 import {dom} from "../../../decorators/dom";
-import BlockModel from "../../../models/block.model";
 import SeatModel from "../../../models/seat.model";
 import * as d3 from "d3";
 import {SeatItem} from "./block-item/seat/seat-item.index";
+import BlocksSearchCircle from "./blocks.search-circle";
 
 @dom({
     tag: "g",
@@ -21,17 +21,11 @@ export default class Blocks extends SvgBase {
 
     public seats: Array<SeatItem>;
 
+    public searchCircle: BlocksSearchCircle;
+
     constructor(public parent: StageManager) {
         super(parent);
         return this;
-    }
-
-    public beforeRender(){
-        console.log("before blocks")
-    }
-
-    public afterRender(){
-        console.log("after blocks")
     }
 
     public update(): this {
@@ -44,6 +38,11 @@ export default class Blocks extends SvgBase {
 
             this.addChild(_blockItem);
         });
+
+
+        this.searchCircle = new BlocksSearchCircle(this);
+        this.addChild(this.searchCircle);
+
         this.updateChilds();
         this.seats = this.node.selectAll(".seat");
 
@@ -51,14 +50,14 @@ export default class Blocks extends SvgBase {
     }
 
     public getBlock(id: any): Block {
-        return this.child_items.find((block: Block) => block.item.id == id);
+        return this.getBlocks().find((block: Block) => block.item.id == id);
     }
 
     public getBlocks(): Array<Block> {
-        return this.child_items;
+        return this.getChilds(Block.name);
     }
 
-    public center(){
+    public center() {
 
     }
 }

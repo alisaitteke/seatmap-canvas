@@ -77,13 +77,13 @@ export class SeatMapCanvas {
             this.zoomManager.calculateZoomLevels(this.data.getBlocks());
             console.log("added block",addedBlocks)
             //this.windowManager.resizeHandler();
-            this.zoomManager.zoomToVenue();
+            this.zoomManager.zoomToVenue(false);
         });
 
-        this.eventManager.addEventListener(EventType.CLICK_BLOCK, (_block: Block) => {
-            console.log(_block)
-            //this.svg.node.interrupt().call(this.svg.zoomTypes.animated.translateTo, _block.item.zoom_bbox.x, _block.item.zoom_bbox.y).call(this.svg.zoomTypes.animated.scaleTo, _block.item.zoom_bbox.a);
-        });
+        // this.eventManager.addEventListener(EventType.CLICK_BLOCK, (_block: Block) => {
+        //     console.log(_block)
+        //     //this.svg.node.interrupt().call(this.svg.zoomTypes.animated.translateTo, _block.item.zoom_bbox.x, _block.item.zoom_bbox.y).call(this.svg.zoomTypes.animated.scaleTo, _block.item.zoom_bbox.a);
+        // });
 
 
 

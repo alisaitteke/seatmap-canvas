@@ -8,6 +8,7 @@ import SvgBase from "../../../../svg.base";
 import {dom} from "../../../../../decorators/dom";
 import BlockBounds from "../block-item.bounds";
 import BlockModel from "../../../../../models/block.model";
+import BlockMask from "../block-item.mask";
 
 
 @dom({
@@ -18,8 +19,16 @@ import BlockModel from "../../../../../models/block.model";
 export class BoundItem extends SvgBase {
 
 
-    constructor(public parent: BlockBounds, public item: BlockModel) {
+    constructor(public parent: BlockBounds|BlockMask, public item: BlockModel) {
         super(parent);
+    }
+
+    show(){
+        this.node.classed("bound-hide",false);
+    }
+
+    hide(){
+        this.node.classed("bound-hide",true);
     }
 
     update(): this {

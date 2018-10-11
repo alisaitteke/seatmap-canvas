@@ -16,6 +16,15 @@ interface ZoomCoordinate {
     k: number
 }
 
+export interface ZoomLevelObject {
+    level: string,
+    values: {
+        x: number,
+        y: number,
+        k: number
+    }
+}
+
 export default class ZoomManager {
 
     public zoomTypes: any = {
@@ -39,10 +48,13 @@ export default class ZoomManager {
     public minZoom: number = null;
     public zoomLevel: ZoomLevel;
 
+
     constructor(private _self: SeatMapCanvas) {
 
         this.activeBlocks = [];
         this.zoomLevel = ZoomLevel.VENUE;
+
+        this.dispatchZoomEvent();
     }
 
     public init() {
@@ -187,22 +199,42 @@ export default class ZoomManager {
                     ratio: Number(ratio.toFixed(2))
                 });
             }
-
-            this.activeBlocks = this.activeBlocks.sort((a, b) => b.ratio - a.ratio);
-            // if (this.activeBlocks.length > 0) {
-            //     this.activeBlocks = this.activeBlocks[0];
-            // } else {
-            //     this.activeBlocks = null;
-            // }
         });
-        console.log(this.activeBlocks);
+
+        this.activeBlocks = this.activeBlocks.sort((a, b) => b.ratio - a.ratio);
+        if (this.activeBlocks.length) {
+            let _activeBlock: BlockModel = this.activeBlocks[0].block.item;
+            this.zoomLevels.BLOCK = _activeBlock.zoom_bbox;
+        }
 
         return this.activeBlocks;
     }
 
+    public zoomToSelection(animation: boolean = true) {
+
+        let cor = d3.mouse(this._self.svg.stage.blocks.node.node());
+        let x = cor[0];
+        let y = cor[1];
+        let k = 1.5;
+
+        this.zoomLevels.SEAT = {
+            x: x,
+            y: y,
+            k: k
+        };
+
+        if (animation) {
+            this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
+        } else {
+            this._self.svg.node.svg.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
+        }
+        this.zoomLevel = ZoomLevel.SEAT;
+        this.dispatchZoomEvent();
+
+    }
+
     public zoomToBlock(id: string | number, animation: boolean = true) {
         let _block = this._self.data.getBlocks().find((block: BlockModel) => block.id === id);
-        console.log(_block);
         if (_block) {
             if (animation) {
                 this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.animated.scaleTo, _block.zoom_bbox.k);
@@ -210,11 +242,11 @@ export default class ZoomManager {
                 this._self.svg.node.svg.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
             }
             this.zoomLevel = ZoomLevel.BLOCK;
+            this.dispatchZoomEvent();
         }
     }
 
     public zoomToVenue(animation: boolean = true) {
-        console.log("zoom hand");
 
         let x = this.zoomLevels.VENUE.x;
         let y = this.zoomLevels.VENUE.y;
@@ -225,9 +257,26 @@ export default class ZoomManager {
             } else {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
             }
-            this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, this.zoomLevel);
+            //this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, this.zoomLevel);
             this.zoomLevel = ZoomLevel.VENUE;
+            this.dispatchZoomEvent();
         }
 
+    }
+
+    public getZoomLevelValues(level: ZoomLevel) {
+        return this.zoomLevels[level];
+    }
+
+    public getActiveZoom() {
+        return this.zoomLevels[this.zoomLevel];
+    }
+
+    private dispatchZoomEvent() {
+        this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, {
+            level: this.zoomLevel,
+            values: this.getZoomLevelValues(this.zoomLevel)
+        })
+        console.log(this.zoomLevel)
     }
 }

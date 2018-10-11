@@ -15,6 +15,7 @@ export default class SvgBase {
     public domTag: string = null;
     public eventCode: string = null;
     public autoGenerate: boolean = false;
+    public tags: Array<string>;
 
     public child_items: Array<any> | any;
 
@@ -28,6 +29,7 @@ export default class SvgBase {
         this.child_items = [];
         this.dom_attrs = [];
         this.dom_classeds = [];
+        this.tags = [];
 
         this.eventCode = null;
 
@@ -165,11 +167,24 @@ export default class SvgBase {
         return this;
     }
 
-    public beforeRender(){
+    public addTag(tag: string): this {
+        this.tags.push(tag);
+        return this;
+    }
+
+    public hasTag(tag: string): boolean {
+        return this.tags.indexOf(tag) !== -1
+    }
+
+    public getChilds(type: string): Array<any> {
+        return this.child_items.filter((item: any) => item.constructor.name === type);
+    }
+
+    public beforeRender() {
 
     }
 
-    public afterRender(){
+    public afterRender() {
 
     }
 
