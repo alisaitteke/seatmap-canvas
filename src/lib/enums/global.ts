@@ -19,7 +19,11 @@ export enum EventType {
     ZOOM_LEVEL_CHANGE = "ZOOM_LEVEL_CHANGE",
     BOUND_CLICK = "BOUND.CLICK",
 
-    MOUSE_MOVE = "MOUSE.MOVE"
+    MOUSE_MOVE = "MOUSE.MOVE",
+
+    RESIZE_WINDOW = "WINDOW.RESIZE",
+
+    CLICK_ZOOMOUT = "ZOOM-OUT-BG.CLICK",
 }
 
 export enum ZoomLevel {

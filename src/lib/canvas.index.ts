@@ -70,21 +70,35 @@ export class SeatMapCanvas {
         this.windowManager.resizeHandler();
         this.zoomManager.init();
 
+        this.eventManager.addEventListener(EventType.CLICK_ZOOMOUT,()=>{
+            this.zoomManager.zoomToVenue();
+        });
+
+
         // update block data change trigger
         this.eventManager.addEventListener(EventType.ADD_BLOCK, (addedBlocks: Array<BlockModel>) => {
             //let blocks = this.data.getBlocks();
             this.svg.stage.blocks.update();
             this.zoomManager.calculateZoomLevels(this.data.getBlocks());
-            console.log("added block",addedBlocks)
+            this.zoomManager.calculateActiveBlocks(this.data.getBlocks());
+            //console.log("added block", addedBlocks)
             //this.windowManager.resizeHandler();
+
+            // if (this.data.getBlocks().length === 1) {
+            //     this.zoomManager.zoomToBlock(1);
+            //     console.log(this.data.getBlocks()[0])
+            // } else {
+            //     this.zoomManager.zoomToVenue(false);
+            // }
             this.zoomManager.zoomToVenue(false);
         });
+
+
 
         // this.eventManager.addEventListener(EventType.CLICK_BLOCK, (_block: Block) => {
         //     console.log(_block)
         //     //this.svg.node.interrupt().call(this.svg.zoomTypes.animated.translateTo, _block.item.zoom_bbox.x, _block.item.zoom_bbox.y).call(this.svg.zoomTypes.animated.scaleTo, _block.item.zoom_bbox.a);
         // });
-
 
 
         // setTimeout(()=>{

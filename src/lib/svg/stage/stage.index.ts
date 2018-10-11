@@ -25,6 +25,7 @@ export default class Stage extends SvgBase {
     update() {
         this.blocks = new Blocks(this);
         this.addChild(this.blocks);
+
         this.updateChilds();
     }
 }

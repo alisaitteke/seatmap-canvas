@@ -215,7 +215,7 @@ export default class ZoomManager {
         let cor = d3.mouse(this._self.svg.stage.blocks.node.node());
         let x = cor[0];
         let y = cor[1];
-        let k = 1.5;
+        let k = 2;
 
         this.zoomLevels.SEAT = {
             x: x,
@@ -226,7 +226,7 @@ export default class ZoomManager {
         if (animation) {
             this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
         } else {
-            this._self.svg.node.svg.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
+            this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
         }
         this.zoomLevel = ZoomLevel.SEAT;
         this.dispatchZoomEvent();
@@ -239,7 +239,7 @@ export default class ZoomManager {
             if (animation) {
                 this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.animated.scaleTo, _block.zoom_bbox.k);
             } else {
-                this._self.svg.node.svg.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
+                this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
             }
             this.zoomLevel = ZoomLevel.BLOCK;
             this.dispatchZoomEvent();
@@ -251,6 +251,20 @@ export default class ZoomManager {
         let x = this.zoomLevels.VENUE.x;
         let y = this.zoomLevels.VENUE.y;
         let k = this.zoomLevels.VENUE.k;
+
+
+        if(this._self.data.getBlocks().length===1){
+            let _block = this._self.data.getBlocks()[0];
+            this.zoomToBlock(_block.id,animation);
+            return;
+        }
+        // if (this.data.getBlocks().length === 1) {
+        //     this.zoomManager.zoomToBlock(1);
+        //     console.log(this.data.getBlocks()[0])
+        // } else {
+        //     this.zoomManager.zoomToVenue(false);
+        // }
+
         if (x && y && k) {
             if (animation) {
                 this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
