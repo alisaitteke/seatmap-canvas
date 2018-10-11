@@ -77,7 +77,7 @@ export class SeatMapCanvas {
             this.zoomManager.calculateZoomLevels(this.data.getBlocks());
             console.log("added block",addedBlocks)
             //this.windowManager.resizeHandler();
-            this.zoomManager.zoom(ZoomLevel.VENUE);
+            this.zoomManager.zoomToVenue();
         });
 
         this.eventManager.addEventListener(EventType.CLICK_BLOCK, (_block: Block) => {

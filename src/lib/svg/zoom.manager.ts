@@ -157,14 +157,28 @@ export default class ZoomManager {
 
 
             let bound = _block_item.node.node().getBoundingClientRect();
-            // console.log(bound)
+            let bbox = _block_item.node.node().getBBox();
+
+            block.bbox = bbox;
+
+            let x = (this._self.windowManager.width / bbox.width) - ((this._self.windowManager.width / bbox.width) / 3);
+            let y = (this._self.windowManager.height / bbox.height) - ((this._self.windowManager.height / bbox.height) / 3);
+            let k = (x < y) ? x : y;
+
+            x += bbox.x + (bbox.width / 2);
+            y += bbox.y + (bbox.height / 2);
+
+            block.zoom_bbox = {
+                x: x,
+                y: y,
+                k: k
+            };
+
 
             let x_overlap = Math.max(0, Math.min(this._self.windowManager.width, bound.right) - Math.max(0, bound.left));
             let y_overlap = Math.max(0, Math.min(this._self.windowManager.height, bound.bottom) - Math.max(0, bound.top));
             let overlapArea = (x_overlap * y_overlap);
-
             let allOverlapArea = this._self.windowManager.width * this._self.windowManager.height;
-
             let ratio: number = (overlapArea * 100) / allOverlapArea;
 
             if (overlapArea > 0) {
@@ -186,25 +200,33 @@ export default class ZoomManager {
         return this.activeBlocks;
     }
 
-    public zoom(level: ZoomLevel, animation: boolean = true) {
-        console.log("zoom hand")
-        let x: number = null;
-        let y: number = null;
-        let k: number = null;
-        if (level === ZoomLevel.VENUE && this.zoomLevels.VENUE) {
-            x = this.zoomLevels.VENUE.x;
-            y = this.zoomLevels.VENUE.y;
-            k = this.zoomLevels.VENUE.k;
+    public zoomToBlock(id: string | number, animation: boolean = true) {
+        let _block = this._self.data.getBlocks().find((block: BlockModel) => block.id === id);
+        console.log(_block);
+        if (_block) {
+            if (animation) {
+                this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.animated.scaleTo, _block.zoom_bbox.k);
+            } else {
+                this._self.svg.node.svg.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
+            }
+            this.zoomLevel = ZoomLevel.BLOCK;
         }
+    }
 
+    public zoomToVenue(animation: boolean = true) {
+        console.log("zoom hand");
+
+        let x = this.zoomLevels.VENUE.x;
+        let y = this.zoomLevels.VENUE.y;
+        let k = this.zoomLevels.VENUE.k;
         if (x && y && k) {
-            this.zoomLevel = level;
             if (animation) {
                 this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
             } else {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
             }
             this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, this.zoomLevel);
+            this.zoomLevel = ZoomLevel.VENUE;
         }
 
     }

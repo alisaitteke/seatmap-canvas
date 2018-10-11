@@ -55,16 +55,13 @@
                     <button class="btn btn-default btn-block" id="set-filter-disable">Filter of</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-1">Zoom Block 1</button>
+                    <button class="btn btn-default btn-block zoom-to-block" block-id="1">Zoom Block 1</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-2">Zoom Block 2</button>
+                    <button class="btn btn-default btn-block zoom-to-block" block-id="2">Zoom Block 2</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-3">Zoom Block 3</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-4">Zoom Block 4</button>
+                    <button class="btn btn-default btn-block zoom-to-block" block-id="3">Zoom Block 3</button>
                 </div>
             </div>
         </div>
@@ -85,9 +82,14 @@
             console.log(item)
         });
 
-        $("#zoomout-button").on("click",function () {
-            seatmap.zoomManager.zoom("VENUE");
-        })
+        $("#zoomout-button").on("click", function () {
+            seatmap.zoomManager.zoomToVenue();
+        });
+
+        $(".zoom-to-block").on("click", function (a) {
+            var blockId = parseInt($(this).attr('block-id'));
+            seatmap.zoomManager.zoomToBlock(blockId);
+        });
 
 
         let block_colors = ["#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
@@ -167,7 +169,6 @@
             console.log("adding blocks", blocks.length)
             seatmap.data.addBulkBlock(blocks);
         });
-
 
 
     });
