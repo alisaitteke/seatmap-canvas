@@ -7,7 +7,7 @@
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
 
-import {BlockItem} from "./block-item.index";
+import Block from "./block-item.index";
 import SeatModel from "../../../../models/seat.model";
 import {SeatItem} from "./seat/seat-item.index";
 import BlockModel from "../../../../models/block.model";
@@ -18,9 +18,9 @@ import BlockModel from "../../../../models/block.model";
     class: "seats",
     autoGenerate: false
 })
-export class BlockItemSeats extends SvgBase {
+export default class Seats extends SvgBase {
 
-    constructor(public parent: BlockItem, public item: BlockModel) {
+    constructor(public parent: Block, public item: BlockModel) {
         super(parent);
         return this;
     }
@@ -38,5 +38,11 @@ export class BlockItemSeats extends SvgBase {
     // ex: seatmap.stage.blocks.getBlock(2).seats.getSeat("1-1")
     public getSeat(id: any): SeatItem {
         return this.child_items.find((seat: SeatItem) => seat.item.id == id);
+    }
+
+    // Getting seats method
+    // ex: seatmap.stage.blocks.getBlock(2).seats.getSeat("1-1")
+    public getSeats(): Array<SeatItem> {
+        return this.child_items;
     }
 }

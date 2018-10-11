@@ -5,7 +5,9 @@
 
 
 import BlockModel from "./block.model";
-import {DataEventType} from "../enums/global";
+import {EventType} from "../enums/global";
+import EventManager from "../svg/event.manager";
+import {SeatMapCanvas} from "../canvas.index";
 
 interface BlockQuery {
     id?: number | string
@@ -14,24 +16,29 @@ interface BlockQuery {
 export default class DataModel {
     private blocks: Array<BlockModel>;
 
-    private events: Array<any>;
 
-    constructor() {
+    private eventManager: EventManager;
+    public addEventListener: any;
+
+    constructor(private _self: SeatMapCanvas) {
         this.blocks = [];
-        this.events = [];
+        this.eventManager = _self.eventManager;
+        this.addEventListener = _self.eventManager.addEventListener;
     }
 
     public addBlock(block_data: any): this {
         this.blocks.push(new BlockModel(block_data));
-        this.runEvents(DataEventType.ADD_BLOCK, [block_data]);
+        this.eventManager.dispatch(EventType.ADD_BLOCK, [block_data]);
+        this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;
     }
 
-    public addBulkBlock(block_data: Array<any>): this {
+    public addBulkBlock(block_data: Array<BlockModel>): this {
         block_data.map((item: any) => {
             this.blocks.push(new BlockModel(item));
         });
-        this.runEvents(DataEventType.ADD_BLOCK, block_data);
+        this.eventManager.dispatch(EventType.ADD_BLOCK, [block_data]);
+        this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;
     }
 
@@ -53,7 +60,8 @@ export default class DataModel {
         this.filterBlock({id: id}).map((item: BlockModel, index: number) => {
             this.blocks.splice(index, 1);
         });
-        this.runEvents(DataEventType.REMOVE_BLOCK, id);
+        this.eventManager.dispatch(EventType.REMOVE_BLOCK, id);
+        this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;
     }
 
@@ -61,20 +69,6 @@ export default class DataModel {
         return this.blocks.filter((item: BlockModel) => item.id === query.id)
     }
 
-    public addEventListener(type: DataEventType, cb_fn: any): this {
-        this.events.push({
-            type: type,
-            fn: cb_fn
-        });
-        return this;
-    }
-
-    public runEvents(type: DataEventType, data: any): this {
-        this.events.filter((item: any) => item.type === type).map((item: any) => {
-            item.fn(data);
-        });
-        return this;
-    }
 
     toJson() {
         return {

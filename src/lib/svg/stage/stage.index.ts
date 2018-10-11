@@ -3,22 +3,28 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
-import BlocksManager from "./blocks/blocks.index";
-import {SvgManager} from "../svg.index";
+import Blocks from "./blocks/blocks.index";
+import Svg from "../svg.index";
 import SvgBase from "../svg.base";
 import {dom} from "../../decorators/dom";
 
 
 @dom({
     tag: "g",
-    class: "stage"
+    class: "stage",
+    autoGenerate: false
 })
-export default class StageManager extends SvgBase {
+export default class Stage extends SvgBase {
 
-    public blocks: BlocksManager;
+    public blocks: Blocks;
 
-    constructor(public parent: SvgManager) {
+    constructor(public parent: Svg) {
         super(parent);
-        this.blocks = new BlocksManager(this);
+    }
+
+    update() {
+        this.blocks = new Blocks(this);
+        this.addChild(this.blocks);
+        this.updateChilds();
     }
 }

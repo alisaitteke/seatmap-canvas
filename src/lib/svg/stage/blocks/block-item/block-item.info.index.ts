@@ -7,7 +7,7 @@ import BlocksManager from "../blocks.index";
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
 import BlockModel from "../../../../models/block.model";
-import {BlockItem} from "./block-item.index";
+import Block from "./block-item.index";
 import SeatModel from "../../../../models/seat.model";
 
 @dom({
@@ -15,9 +15,9 @@ import SeatModel from "../../../../models/seat.model";
     class: "info",
     autoGenerate:false
 })
-export class BlockItemInfo extends SvgBase {
+export default class BlockInfo extends SvgBase {
 
-    constructor(public parent: BlockItem, public item:BlockModel) {
+    constructor(public parent: Block, public item:BlockModel) {
         super(parent);
         return this;
     }

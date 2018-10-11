@@ -7,6 +7,7 @@
 interface DomInterface {
     tag?: string,
     class?: string,
+    event_code?: string,
     autoGenerate?: boolean
 }
 
@@ -18,6 +19,15 @@ export function dom(values: DomInterface) {
         }
         if (values.class) {
             target.prototype['dom_params']['class'] = values.class
+        }
+
+        if (values.event_code) {
+            target.prototype['dom_params']['event_code'] = values.event_code
+        }else{
+            if (values.class) {
+                target.prototype['dom_params']['event_code'] = values.class
+            }
+
         }
 
         if (typeof values.autoGenerate !== "undefined") {

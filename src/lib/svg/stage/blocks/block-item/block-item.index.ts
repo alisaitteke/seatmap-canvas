@@ -7,21 +7,21 @@ import BlocksManager from "../blocks.index";
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
 import BlockModel from "../../../../models/block.model";
-import {BlockItemSeats} from "./block-item.seats.index";
-import {BlockItemInfo} from "./block-item.info.index";
-import * as d3 from "d3";
+import Seats from "./block-item.seats.index";
+import BlockInfo from "./block-item.info.index";
+import BlockBounds from "./block-item.bounds";
 
 
 @dom({
     tag: "g",
-    class: "block-item",
+    class: "block",
     autoGenerate: false
 })
-export class BlockItem extends SvgBase {
+export default class Block extends SvgBase {
 
 
-    public seats: BlockItemSeats;
-    public info: BlockItemInfo;
+    public seats: Seats;
+    public info: BlockInfo;
 
     constructor(public parent: BlocksManager, public item: BlockModel) {
         super(parent);
@@ -31,12 +31,17 @@ export class BlockItem extends SvgBase {
 
     public update() {
 
+        // add Block Bounds container
+        this.info = new BlockBounds(this, this.item);
+        this.addChild(this.info);
+
+
         // add Seat container
-        this.seats = new BlockItemSeats(this, this.item);
+        this.seats = new Seats(this, this.item);
         this.addChild(this.seats);
 
         // add Block Info container
-        this.info = new BlockItemInfo(this, this.item);
+        this.info = new BlockInfo(this, this.item);
         this.addChild(this.info);
 
         // update childs

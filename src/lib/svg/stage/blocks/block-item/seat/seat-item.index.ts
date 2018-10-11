@@ -7,7 +7,7 @@
 import SvgBase from "../../../../svg.base";
 import {dom} from "../../../../../decorators/dom";
 import SeatModel from "../../../../../models/seat.model";
-import {BlockItemSeats} from "../block-item.seats.index";
+import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
 
@@ -22,17 +22,11 @@ export class SeatItem extends SvgBase {
     public circle: SeatItemCircle;
     public coordinates: CoordinateModel;
 
-    constructor(public parent: BlockItemSeats, public item: SeatModel) {
+    constructor(public parent: Seats, public item: SeatModel) {
         super(parent);
         this.coordinates = new CoordinateModel(item);
-        //console.log(this.node);
-        this.attr("transform", this.getTransform());
-
+        this.attr("transform", "translate(" + this.coordinates.toArray() + ")");
         return this;
-    }
-
-    getTransform(): string {
-        return "translate(" + this.coordinates.toArray() + ")";
     }
 
     update(): this {
