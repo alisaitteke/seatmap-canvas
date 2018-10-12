@@ -5,6 +5,7 @@
  */
 
 
+
 import "../scss/style.scss";
 import * as d3 from 'd3';
 import Svg from "./svg/svg.index";

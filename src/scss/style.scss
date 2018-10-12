@@ -1,3 +1,4 @@
+//@import "bourbon";
 @import "lib";
 
 .seatmap-svg {
@@ -7,6 +8,7 @@
   .zoom-out-bg {
     fill: rgba(0,0,0,0);
     cursor: zoom-out;
+
   }
   .stage {
     .blocks {
@@ -67,6 +69,11 @@
         .block-info {
           .block-text {
           }
+        }
+      }
+      @media (any-pointer: coarse) {
+        .search-circle {
+          display: none;
         }
       }
       .search-circle {
