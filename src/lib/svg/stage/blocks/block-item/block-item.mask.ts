@@ -42,18 +42,18 @@ export default class BlockMask extends SvgBase {
 
         // add Border Bounds container
         this.seatLevelMask = new BoundItem(this, this.item);
-        this.seatLevelMask.attr("fill", this.item.border_color);
+        this.seatLevelMask.attr("fill", this.item.color);
         this.seatLevelMask.attr("stroke-width", 59);
-        this.seatLevelMask.attr("stroke", this.item.border_color);
+        this.seatLevelMask.attr("stroke", this.item.color);
         this.seatLevelMask.tags.push("seat-level");
         this.seatLevelMask.classed("seat-level-mask");
 
 
         // add Border Bounds container
         this.blockLevelMask = new BoundItem(this, this.item);
-        this.blockLevelMask.attr("fill", this.item.border_color);
+        this.blockLevelMask.attr("fill", this.item.color);
         this.blockLevelMask.attr("stroke-width", 59);
-        this.blockLevelMask.attr("stroke", this.item.border_color);
+        this.blockLevelMask.attr("stroke", this.item.color);
         this.blockLevelMask.tags.push("block-level");
         this.blockLevelMask.classed("block-level-mask");
 

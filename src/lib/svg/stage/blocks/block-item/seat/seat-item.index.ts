@@ -28,6 +28,7 @@ export class SeatItem extends SvgBase {
         this.coordinates = new CoordinateModel(item);
         this.attr("transform", "translate(" + this.coordinates.toArray() + ")");
 
+
         return this;
     }
 

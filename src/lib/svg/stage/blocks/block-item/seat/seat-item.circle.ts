@@ -18,7 +18,7 @@ export class SeatItemCircle extends SvgBase {
         super(parent);
         this.attr("block-id", parent.item.block.id);
         this.attr("r", this.global.config.seat_style.radius);
-        this.attr("fill", this.global.config.seat_style.color);
+        this.attr("fill", this.parent.parent.item.color);
         return this;
     }
 

@@ -58,6 +58,14 @@ export default class ZoomManager {
     }
 
     public init() {
+
+        this.zoomInit();
+        // this._self.eventManager.addEventListener(EventType.UPDATE_BLOCK, (blocks: Array<BlockModel>) => {
+        //     this.calculateZoomLevels(blocks);
+        // })
+    }
+
+    zoomInit() {
         this.zoomTypes.normal = d3.zoom()
             .scaleExtent([this._self.config.min_zoom, this._self.config.max_zoom])
             .on("end", this.zoomEnd(this))
@@ -69,10 +77,6 @@ export default class ZoomManager {
             .on("zoom", this.zoomHandAnimated(this));
 
         this._self.svg.node.call(this.zoomTypes.normal);
-
-        // this._self.eventManager.addEventListener(EventType.UPDATE_BLOCK, (blocks: Array<BlockModel>) => {
-        //     this.calculateZoomLevels(blocks);
-        // })
     }
 
     zoomEnd(_self: this): any {
@@ -142,8 +146,8 @@ export default class ZoomManager {
 
         });
 
-        this.scale.x = (_wm.width / _stage.width) - ((_wm.width / _stage.width) / 2);
-        this.scale.y = (_wm.height / _stage.height) - ((_wm.height / _stage.height) / 2);
+        this.scale.x = (_wm.width / _stage.width) - ((_wm.width / _stage.width) / 5);
+        this.scale.y = (_wm.height / _stage.height) - ((_wm.height / _stage.height) / 5);
         this.scale.k = (this.scale.x < this.scale.y) ? this.scale.x : this.scale.y;
         this.minZoom = this.scale.k < 1 ? this.scale.k : 1;
 
@@ -251,10 +255,13 @@ export default class ZoomManager {
         let y = this.zoomLevels.VENUE.y;
         let k = this.zoomLevels.VENUE.k;
 
+        this._self.config.min_zoom = k;
+        this.zoomInit();
 
-        if(this._self.data.getBlocks().length===1){
+
+        if (this._self.data.getBlocks().length === 1) {
             let _block = this._self.data.getBlocks()[0];
-            this.zoomToBlock(_block.id,animation);
+            this.zoomToBlock(_block.id, animation);
             return;
         }
 
