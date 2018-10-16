@@ -5,20 +5,19 @@
 
 import SvgBase from "../../../../svg.base";
 import {dom} from "../../../../../decorators/dom";
-import {SeatItem} from "./seat-item.index";
+import {LabelItem} from "./label-item.index";
 
 @dom({
     tag: "circle",
-    class: "seat-circle",
+    class: "label-circle",
     autoGenerate: false
 })
-export class SeatItemCircle extends SvgBase {
+export class LabelItemCircle extends SvgBase {
 
-    constructor(public parent: SeatItem) {
+    constructor(public parent: LabelItem) {
         super(parent);
-        this.attr("block-id", parent.item.block.id);
-        this.attr("r", this.global.config.seat_style.radius);
-        this.attr("fill", this.global.config.seat_style.color);
+        this.attr("r", this.global.config.label_style.radius);
+        this.attr("fill", this.global.config.label_style.bg);
         return this;
     }
 

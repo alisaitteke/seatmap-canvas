@@ -4,12 +4,12 @@
  */
 
 
-import {dom} from "../../../decorators";
-import SvgBase from "../../svg.base";
+import {dom} from "../../decorators";
+import SvgBase from "../svg.base";
 
-import Blocks from "./blocks.index";
 import Circle from "./search-circle/circle";
-import {EventType, ZoomLevel} from "../../../enums/global";
+import {EventType, ZoomLevel} from "../../enums/global";
+import Stage from "./stage.index";
 
 @dom({
     tag: "g",
@@ -21,7 +21,7 @@ export default class BlocksSearchCircle extends SvgBase {
 
     public circle: Circle;
 
-    constructor(public parent: Blocks) {
+    constructor(public parent: Stage) {
         super(parent);
         this.parent.global.eventManager.addEventListener(EventType.MOUSE_MOVE, (mouse: any) => {
             this.node.attr("transform", "translate(" + mouse + ")");

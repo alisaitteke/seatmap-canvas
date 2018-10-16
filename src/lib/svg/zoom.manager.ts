@@ -29,7 +29,8 @@ export default class ZoomManager {
 
     public zoomTypes: any = {
         normal: null,
-        animated: null
+        animated: null,
+        fastAnimated: null
     };
 
     public scale: any = {
@@ -76,6 +77,11 @@ export default class ZoomManager {
             .on("end", this.animatedZoomEnd(this))
             .on("zoom", this.zoomHandAnimated(this));
 
+        this.zoomTypes.fastAnimated = d3.zoom()
+            .scaleExtent([this._self.config.min_zoom, this._self.config.max_zoom])
+            .on("end", this.animatedFastZoomEnd(this))
+            .on("zoom", this.zoomHandFastAnimated(this));
+
         this._self.svg.node.call(this.zoomTypes.normal);
     }
 
@@ -86,6 +92,7 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
+            _self.canvasScopeHandler();
         }
     }
 
@@ -95,6 +102,16 @@ export default class ZoomManager {
             let y = d3.event.transform.y;
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self.calculateActiveBlocks();
+        }
+    }
+
+    animatedFastZoomEnd(_self: this): any {
+        return function () {
+            let x = d3.event.transform.x;
+            let y = d3.event.transform.y;
+            let k = d3.event.transform.k;
+            _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
         }
     }
@@ -115,6 +132,32 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+        }
+    }
+
+    zoomHandFastAnimated(_self: this): any {
+        return function () {
+            let x = d3.event.transform.x;
+            let y = d3.event.transform.y;
+            let k = d3.event.transform.k;
+
+            _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+        }
+    }
+
+    canvasScopeHandler() {
+
+        let _blocks_values = this._self.svg.stage.blocks.node.node().getBoundingClientRect();
+        let _svg_values = this._self.svg.node.node().getBoundingClientRect();
+
+        if (this.zoomLevel === ZoomLevel.VENUE || (this.zoomLevel === ZoomLevel.BLOCK && this._self.data.getBlocks().length === 1)) {
+
+            if (_blocks_values.left < _svg_values.left ||
+                _blocks_values.top < _svg_values.top ||
+                _blocks_values.right > _svg_values.right ||
+                _blocks_values.bottom > _svg_values.bottom) {
+                this.zoomToVenue(true, true);
+            }
         }
     }
 
@@ -236,11 +279,17 @@ export default class ZoomManager {
 
     }
 
-    public zoomToBlock(id: string | number, animation: boolean = true) {
+    public zoomToBlock(id: string | number, animation: boolean = true, fastAnimated: boolean = false) {
         let _block = this._self.data.getBlocks().find((block: BlockModel) => block.id === id);
         if (_block) {
             if (animation) {
-                this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.animated.scaleTo, _block.zoom_bbox.k);
+                if (fastAnimated) {
+                    this._self.svg.node.interrupt().call(this.zoomTypes.fastAnimated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.fastAnimated.scaleTo, _block.zoom_bbox.k);
+                } else {
+                    this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.animated.scaleTo, _block.zoom_bbox.k);
+                }
+
+
             } else {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
             }
@@ -249,7 +298,7 @@ export default class ZoomManager {
         }
     }
 
-    public zoomToVenue(animation: boolean = true) {
+    public zoomToVenue(animation: boolean = true, fastAnimated: boolean = false) {
 
         let x = this.zoomLevels.VENUE.x;
         let y = this.zoomLevels.VENUE.y;
@@ -259,15 +308,23 @@ export default class ZoomManager {
         this.zoomInit();
 
 
+        // single mode
         if (this._self.data.getBlocks().length === 1) {
             let _block = this._self.data.getBlocks()[0];
-            this.zoomToBlock(_block.id, animation);
+            this.zoomToBlock(_block.id, animation, fastAnimated);
             return;
         }
 
+
         if (x && y && k) {
             if (animation) {
-                this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
+                if (fastAnimated) {
+                    console.log(123)
+                    this._self.svg.node.interrupt().call(this.zoomTypes.fastAnimated.translateTo, x, y).call(this.zoomTypes.fastAnimated.scaleTo, k);
+                } else {
+                    this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
+                }
+
             } else {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, x, y).call(this.zoomTypes.normal.scaleTo, k);
             }

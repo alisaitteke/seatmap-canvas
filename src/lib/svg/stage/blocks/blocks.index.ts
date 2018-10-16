@@ -10,7 +10,6 @@ import {dom} from "../../../decorators/dom";
 import SeatModel from "../../../models/seat.model";
 import * as d3 from "d3";
 import {SeatItem} from "./block-item/seat/seat-item.index";
-import BlocksSearchCircle from "./blocks.search-circle";
 
 @dom({
     tag: "g",
@@ -21,7 +20,6 @@ export default class Blocks extends SvgBase {
 
     public seats: Array<SeatItem>;
 
-    public searchCircle: BlocksSearchCircle;
 
     constructor(public parent: StageManager) {
         super(parent);
@@ -40,9 +38,6 @@ export default class Blocks extends SvgBase {
             this.addChild(_blockItem);
         });
 
-
-        this.searchCircle = new BlocksSearchCircle(this);
-        this.addChild(this.searchCircle);
 
         this.updateChilds();
         this.seats = this.node.selectAll(".seat");

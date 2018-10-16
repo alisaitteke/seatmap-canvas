@@ -16,6 +16,7 @@
         .bounds {
           .block-hull-border {
             stroke-linejoin: round;
+            opacity: 0.5;
           }
           .block-hull {
             stroke-linejoin: round;
@@ -49,7 +50,7 @@
           .seat {
           }
         }
-        .labels-container {
+        .labels {
           .label {
             circle {
               stroke: rgba(0, 0, 0, .2);
@@ -76,26 +77,26 @@
           display: none;
         }
       }
-      .search-circle {
-        opacity: 0;
+    }
+    .search-circle {
+      opacity: 0;
+      @include trans();
+      .circle {
+        fill: rgba(0, 0, 0, 0);
+        pointer-events: none;
+        stroke: rgba(0, 0, 0, 0.4);
+        @include stroke-width(4)
+      }
+      &.hide {
         @include trans();
-        .circle {
-          fill: rgba(0, 0, 0, 0);
-          pointer-events: none;
-          stroke: rgba(0, 0, 0, 0.4);
-          @include stroke-width(4)
-        }
-        &.hide {
-          @include trans();
-          opacity: 0;
-
-        }
-        &.show {
-          @include trans();
-          opacity: 1;
-        }
+        opacity: 0;
 
       }
+      &.show {
+        @include trans();
+        opacity: 1;
+      }
+
     }
 
   }

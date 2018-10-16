@@ -4,8 +4,8 @@
  */
 
 
-import {dom} from "../../../../decorators";
-import SvgBase from "../../../svg.base";
+import {dom} from "../../../decorators";
+import SvgBase from "../../svg.base";
 import BlocksSearchCircle from "../blocks.search-circle";
 
 @dom({

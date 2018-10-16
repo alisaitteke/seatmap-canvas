@@ -12,6 +12,7 @@ import BlockInfo from "./block-item.info.index";
 import BlockBounds from "./block-item.bounds";
 import {EventType, ZoomLevel} from "../../../../enums/global";
 import BlockMask from "./block-item.mask";
+import Labels from "./block-item.labels.index";
 
 
 @dom({
@@ -23,6 +24,7 @@ export default class Block extends SvgBase {
 
 
     public seats: Seats;
+    public labels: Labels;
     public info: BlockInfo;
     public mask: BlockMask;
     public bounds: BlockBounds;
@@ -56,16 +58,25 @@ export default class Block extends SvgBase {
         this.seats = new Seats(this, this.item);
         this.addChild(this.seats);
 
-        // add Block Info container
-        this.info = new BlockInfo(this, this.item);
-        this.addChild(this.info);
+
+
+        // add Labels container
+        this.labels = new Labels(this, this.item);
+        this.addChild(this.labels);
+
 
         // add Block Info container
         this.mask = new BlockMask(this, this.item);
         this.addChild(this.mask);
 
+
+        // add Block Info container
+        this.info = new BlockInfo(this, this.item);
+        this.addChild(this.info);
+
         // update childs
         this.updateChilds();
+
         return this;
     }
 

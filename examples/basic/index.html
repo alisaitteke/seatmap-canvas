@@ -78,8 +78,15 @@
     $(document).ready(function () {
 
         let seatmap = new SeatMapCanvas(".seats_container");
-        seatmap.eventManager.addEventListener("SEAT.CLICK", (item) => {
-            console.log(item)
+        seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
+            console.log(seat)
+            console.log(seat.isSelected())
+            if(!seat.isSelected()){
+                seat.select()
+            }else{
+                seat.unSelect()
+            }
+
         });
 
         $("#zoomout-button").on("click", function () {
@@ -165,7 +172,7 @@
             });
         };
 
-        getDummyBlocks(10, (blocks) => {
+        getDummyBlocks(7, (blocks) => {
             console.log("adding blocks", blocks.length)
             seatmap.data.addBulkBlock(blocks);
         });
