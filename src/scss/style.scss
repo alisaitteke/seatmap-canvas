@@ -116,8 +116,8 @@
   .zoom-out-button {
 
   }
-  .legend-container {
-    .legend-node {
+  .legend {
+    .legend-item {
       circle {
         stroke: #adadad;
         @include stroke-width(1);

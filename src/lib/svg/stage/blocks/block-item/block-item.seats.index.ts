@@ -45,4 +45,26 @@ export default class Seats extends SvgBase {
     public getSeats(): Array<SeatItem> {
         return this.child_items;
     }
+
+    public getSeatsCount():number
+    {
+        return this.child_items.length;
+    }
+
+    public getSeatByIndex(index:number):SeatItem
+    {
+        return this.child_items[index];
+    }
+
+    public resetSeatsColors(animation:boolean = false){
+        for (let i = 0; i < this.getSeatsCount(); i++) {
+            let _seat = this.getSeatByIndex(i);
+            let _item: SeatModel = _seat.item;
+            let color = _item.color;
+
+            _seat.setColor(color,animation);
+        }
+    }
+
+
 }

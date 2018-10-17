@@ -37,9 +37,11 @@ export default class BlocksSearchCircle extends SvgBase {
         this.addChild(this.circle);
         this.updateChilds();
 
-        this.parent.blocks.node.on("mouseleave", () =>  this.node.classed("show", false));
+        this.parent.blocks.node.on("mouseleave.search", () =>  {
+            this.node.classed("show", false);
+        });
 
-        this.parent.blocks.node.on("mousemove", () => {
+        this.parent.blocks.node.on("mousemove.search", () => {
             if (this.global.zoomManager.zoomLevel === ZoomLevel.VENUE) {
                 this.node.classed("show", false);
             } else if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {

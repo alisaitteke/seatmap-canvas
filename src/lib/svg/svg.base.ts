@@ -22,6 +22,8 @@ export default class SvgBase {
     public dom_attrs: Array<any>;
     public dom_classeds: Array<any>;
 
+    public child_index:number = null;
+
 
     public global: GlobalModel;
 
@@ -60,6 +62,7 @@ export default class SvgBase {
         if (this.autoGenerate) {
             this.domGenerate(this.parent.node);
         }
+
         return this;
 
     }
@@ -83,7 +86,7 @@ export default class SvgBase {
             let _dom_class = this.dom_classeds[ci];
             this.node.classed(_dom_class.name, _dom_class.value);
         }
-
+        this.afterGenerate();
         return this;
     }
 
@@ -180,11 +183,11 @@ export default class SvgBase {
         return this.child_items.filter((item: any) => item.constructor.name === type);
     }
 
-    public beforeRender() {
+    public beforeGenerate() {
 
     }
 
-    public afterRender() {
+    public afterGenerate() {
 
     }
 

@@ -13,6 +13,8 @@ import BlockBounds from "./block-item.bounds";
 import {EventType, ZoomLevel} from "../../../../enums/global";
 import BlockMask from "./block-item.mask";
 import Labels from "./block-item.labels.index";
+import * as d3 from "d3";
+import SeatModel from "../../../../models/seat.model";
 
 
 @dom({
@@ -46,6 +48,7 @@ export default class Block extends SvgBase {
             if (levelObject.level === ZoomLevel.VENUE) {
                 this.mask.blockLevelMask.show();
                 this.mask.seatLevelMask.show();
+                this.seats.resetSeatsColors(true);
                 this.infosToCenter();
             } else if (levelObject.level === ZoomLevel.BLOCK) {
                 this.mask.blockLevelMask.hide();
@@ -54,11 +57,37 @@ export default class Block extends SvgBase {
             } else if (levelObject.level === ZoomLevel.SEAT) {
                 this.mask.blockLevelMask.hide();
                 this.mask.seatLevelMask.hide();
+                this.seats.resetSeatsColors(true);
                 this.infosToTop();
             }
         });
+
+
+        this.global.eventManager.addEventListener(EventType.MOUSEMOVE_BLOCK, (block_item: Block) => {
+            let cor = d3.mouse(this.parent.parent.blocks.node.node());
+            let gap = this.global.config.zoom_focus_circle_radius;
+
+            if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {
+                for (let i = 0; i < block_item.seats.getSeatsCount(); i++) {
+                    let _seat = block_item.seats.getSeatByIndex(i);
+                    let _item: SeatModel = _seat.item;
+                    let color = _item.color;
+
+                    if ((_item.x - gap < cor[0] && _item.x + gap > cor[0]) && (_item.y - gap < cor[1] && _item.y + gap > cor[1])) {
+                        color = this.global.config.seat_style.focus;
+                    }
+                    _seat.setColor(color);
+                }
+            }
+        });
+
+        this.parent.node.on("mouseleave.seats", () =>  {
+            this.seats.resetSeatsColors(true);
+        });
+
         return this;
     }
+
 
     public update() {
 
@@ -107,12 +136,12 @@ export default class Block extends SvgBase {
 
     public infosToTop() {
         if (this.info.node && this.top_position.x)
-            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.top_position.x + "," + this.top_position.y + ")").attr("opacity", 1).attr("font-size", 14).attr("fill","#ffffff");
+            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.top_position.x + "," + this.top_position.y + ")").attr("opacity", 1).attr("font-size", 14).attr("fill", "#ffffff");
     }
 
     public infosToCenter() {
         if (this.info.node && this.center_position.x)
-            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.center_position.x + "," + this.center_position.y + ")").attr("opacity", 1).attr("font-size", 28).attr("fill","#ffffff");
+            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.center_position.x + "," + this.center_position.y + ")").attr("opacity", 1).attr("font-size", 28).attr("fill", "#ffffff");
 
     }
 

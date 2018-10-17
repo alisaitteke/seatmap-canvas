@@ -12,6 +12,7 @@ import SvgBase from "./svg.base";
 import {dom} from "../decorators/dom";
 import {EventType} from "../enums/global";
 import ZoomOutBg from "./zoom-out.bg";
+import Legend from "./legend";
 
 declare const window: any;
 
@@ -22,8 +23,8 @@ declare const window: any;
 })
 export default class Svg extends SvgBase {
     public stage: Stage;
-
     public zoomOutBg:ZoomOutBg;
+    public legend:Legend;
 
 
     constructor(public parent: SeatMapCanvas) {
@@ -38,9 +39,14 @@ export default class Svg extends SvgBase {
         this.zoomOutBg = new ZoomOutBg(this);
         this.addChild(this.zoomOutBg);
 
+
+        this.legend = new Legend(this);
+        this.addChild(this.legend);
+
         this.updateChilds();
 
         this.stage.node.raise();
+        this.legend.node.raise();
 
         this.node.on("mousemove",()=>{
             let cor = d3.mouse(this.stage.node.node());

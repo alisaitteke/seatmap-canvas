@@ -32,19 +32,29 @@ export class SeatItem extends SvgBase {
         return this;
     }
 
+    public setColor(color: string, animation:boolean = false): this {
+        if(animation){
+            this.circle.node.interrupt().transition().duration(this.global.config.animation_speed).attr("fill", color);
+        }else{
+            this.circle.node.attr("fill", color);
+        }
+
+        return this;
+    }
+
     public select(color: string = null) {
         this.item.selected = true;
         this.node.classed("selected", true);
-        this.circle.node.attr("fill",this.global.config.seat_style.selected);
+        this.circle.node.attr("fill", this.global.config.seat_style.selected);
     }
 
     public unSelect() {
         this.item.selected = false;
         this.node.classed("selected", false);
-        this.circle.node.attr("fill",this.global.config.seat_style.color);
+        this.circle.node.attr("fill", this.global.config.seat_style.color);
     }
 
-    public isSelected(){
+    public isSelected() {
         return this.item.selected;
     }
 

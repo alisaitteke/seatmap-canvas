@@ -44,6 +44,12 @@ export default class DefaultsModel {
         radius: number
     };
 
+    lang: {
+        selectable: string,
+        non_selectable: string,
+        your_selection: string
+    }
+
     constructor(config: any) {
 
         this.zoom_focus_circle_radius = config.zoom_focus_circle_radius ? config.zoom_focus_circle_radius : this.zoom_focus_circle_radius;
@@ -79,6 +85,12 @@ export default class DefaultsModel {
             radius: config.legend_style && config.legend_style.radius || 12,
             padding: config.legend_style && config.legend_style.padding || 100,
             font_size: config.legend_style && config.legend_style.font_size || 100,
+        };
+
+        this.lang = {
+            selectable: config.lang && config.lang.selectable || "Selectable",
+            non_selectable: config.lang && config.lang.non_selectable || "Non Selectable or Rezerved",
+            your_selection: config.lang && config.lang.your_selection || "Your Selection",
         };
 
 
