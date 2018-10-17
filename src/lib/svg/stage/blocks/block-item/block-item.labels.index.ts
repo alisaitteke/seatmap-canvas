@@ -6,7 +6,6 @@
 
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
-
 import Block from "./block-item.index";
 import BlockModel from "../../../../models/block.model";
 import {LabelItem} from "./label/label-item.index";

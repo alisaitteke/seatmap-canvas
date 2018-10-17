@@ -6,9 +6,6 @@
 
 import SvgBase from "../../../../svg.base";
 import {dom} from "../../../../../decorators/dom";
-import BlockBounds from "../block-item.bounds";
-import BlockModel from "../../../../../models/block.model";
-import BlockMask from "../block-item.mask";
 import BlockInfo from "../block-item.info.index";
 
 

@@ -6,7 +6,6 @@
 
 import {dom} from "../../decorators";
 import SvgBase from "../svg.base";
-
 import Circle from "./search-circle/circle";
 import {EventType, ZoomLevel} from "../../enums/global";
 import Stage from "./stage.index";

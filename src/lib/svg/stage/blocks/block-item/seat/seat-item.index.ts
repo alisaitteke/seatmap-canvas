@@ -10,9 +10,7 @@ import SeatModel from "../../../../../models/seat.model";
 import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
-import {EventType, ZoomLevel} from "../../../../../enums/global";
 import {SeatItemTitle} from "./seat-item.title";
-
 
 @dom({
     tag: "g",

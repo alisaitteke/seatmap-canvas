@@ -6,7 +6,6 @@
 
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
-
 import Block from "./block-item.index";
 import SeatModel from "../../../../models/seat.model";
 import {SeatItem} from "./seat/seat-item.index";

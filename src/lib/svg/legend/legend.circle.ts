@@ -6,9 +6,6 @@
 
 import {dom} from "../../decorators";
 import SvgBase from "./../svg.base";
-import Svg from "../svg.index";
-import {EventType} from "../../enums/global";
-import Legend from "../legend";
 import LegendItem from "./legend.item";
 
 @dom({

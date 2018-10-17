@@ -1,4 +1,4 @@
-/// <reference path="models/index.ts" />
+
 /*
  * index.ts
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
@@ -15,11 +15,10 @@ import DataModel from "./models/data.model";
 import BlockModel from "./models/block.model";
 import DefaultsModel from "./models/defaults.model";
 import {GlobalModel} from "./models/global.model";
-import Block from "./svg/stage/blocks/block-item/block-item.index";
 
 import ZoomManager from "./svg/zoom.manager";
 import EventManager from "./svg/event.manager";
-import {EventType, ZoomLevel} from "./enums/global";
+import {EventType} from "./enums/global";
 import WindowManager from "./window.manager";
 
 

@@ -6,11 +6,8 @@
 
 import SvgBase from "../../../../svg.base";
 import {dom} from "../../../../../decorators/dom";
-import SeatModel from "../../../../../models/seat.model";
-import Seats from "../block-item.seats.index";
 import {LabelItemCircle} from "./label-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
-import {EventType, ZoomLevel} from "../../../../../enums/global";
 import Labels from "../block-item.labels.index";
 import LabelModel from "../../../../../models/label.model";
 import {LabelItemTitle} from "./label-item.title";

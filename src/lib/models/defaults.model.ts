@@ -48,7 +48,7 @@ export default class DefaultsModel {
         selectable: string,
         non_selectable: string,
         your_selection: string
-    }
+    };
 
     constructor(config: any) {
 

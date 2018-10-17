@@ -6,7 +6,6 @@
 
 import SeatModel from "./seat.model";
 import LabelModel from "./label.model";
-import {extent} from "d3-array";
 import ModelBase from "./model.base";
 
 

@@ -8,7 +8,6 @@ import {dom} from "../../../../decorators/dom";
 import BlockModel from "../../../../models/block.model";
 import Block from "./block-item.index";
 import {BlockTitle} from "./info/title";
-import {EventType, ZoomLevel} from "../../../../enums/global";
 
 @dom({
     tag: "g",

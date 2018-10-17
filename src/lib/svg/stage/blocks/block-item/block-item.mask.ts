@@ -3,12 +3,10 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
-import BlocksManager from "../blocks.index";
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
 import BlockModel from "../../../../models/block.model";
 import Block from "./block-item.index";
-import SeatModel from "../../../../models/seat.model";
 import {BoundItem} from "./bound/bound-item.index";
 import {EventType} from "../../../../enums/global";
 
