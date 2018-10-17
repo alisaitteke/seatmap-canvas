@@ -27,16 +27,6 @@ export default class BlocksSearchCircle extends SvgBase {
             this.node.attr("transform", "translate(" + mouse + ")");
         });
 
-        this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (levelObject: any) => {
-            if (levelObject.level === ZoomLevel.VENUE) {
-                this.node.classed("show", false);
-            } else if (levelObject.level === ZoomLevel.BLOCK) {
-                this.node.classed("show", true);
-            } else if (levelObject.level === ZoomLevel.SEAT) {
-                this.node.classed("show", false);
-            }
-        });
-
         return this;
     }
 
@@ -47,16 +37,8 @@ export default class BlocksSearchCircle extends SvgBase {
         this.addChild(this.circle);
         this.updateChilds();
 
-        this.parent.blocks.node.on("mouseleave", () => {
-            if (this.global.zoomManager.zoomLevel === ZoomLevel.VENUE) {
-                this.node.classed("show", false);
-            } else if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {
-                this.node.classed("show", true);
-            } else if (this.global.zoomManager.zoomLevel === ZoomLevel.SEAT) {
-                this.node.classed("show", false);
-            }
+        this.parent.blocks.node.on("mouseleave", () =>  this.node.classed("show", false));
 
-        });
         this.parent.blocks.node.on("mousemove", () => {
             if (this.global.zoomManager.zoomLevel === ZoomLevel.VENUE) {
                 this.node.classed("show", false);
@@ -66,11 +48,6 @@ export default class BlocksSearchCircle extends SvgBase {
                 this.node.classed("show", false);
             }
         });
-
-        // this.parent.parent.zoomOutBg.node.on("mousemove",()=>{
-        //     this.node.classed("show",false);
-        // });
-
         return this;
     }
 }

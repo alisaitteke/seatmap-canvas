@@ -107,7 +107,7 @@ export default class Block extends SvgBase {
 
     public infosToTop() {
         if (this.info.node && this.top_position.x)
-            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.top_position.x + "," + this.top_position.y + ")").attr("opacity", 1).attr("font-size", 14).attr("fill","#000000");
+            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.top_position.x + "," + this.top_position.y + ")").attr("opacity", 1).attr("font-size", 14).attr("fill","#ffffff");
     }
 
     public infosToCenter() {
