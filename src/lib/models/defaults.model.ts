@@ -64,10 +64,10 @@ export default class DefaultsModel {
         this.seat_style = {
             radius: config.seat_style && config.seat_style.radius || 12,
             color: config.seat_style && config.seat_style.color || "#77b2ff",
-            not_salable: config.seat_style && config.seat_style.not_salable || "#77b2ff",
+            not_salable: config.seat_style && config.seat_style.not_salable || "#ccc9c9",
             selected: config.seat_style && config.seat_style.selected || "#51ff48",
             hover: config.seat_style && config.seat_style.hover || "#4770ff",
-            focus: config.seat_style && config.seat_style.focus || "#51ff48",
+            focus: config.seat_style && config.seat_style.focus || "#6293d2",
             focus_out: config.seat_style && config.seat_style.focus_out || "#ff001c"
         };
         this.block_style = {
@@ -83,7 +83,7 @@ export default class DefaultsModel {
         };
         this.legend_style = {
             radius: config.legend_style && config.legend_style.radius || 12,
-            padding: config.legend_style && config.legend_style.padding || 100,
+            padding: config.legend_style && config.legend_style.padding || 36,
             font_size: config.legend_style && config.legend_style.font_size || 100,
         };
 

@@ -5,8 +5,9 @@
 
 
 import BlockModel from "./block.model";
+import ModelBase from "./model.base";
 
-export default class SeatModel {
+export default class SeatModel extends ModelBase {
     private _id: any;
     private _x: number;
     private _y: number;
@@ -23,7 +24,7 @@ export default class SeatModel {
 
 
     constructor(item: any) {
-
+        super();
         this.id = item.id;
         this.x = item.x;
         this.y = item.y;

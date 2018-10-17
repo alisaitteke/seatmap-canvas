@@ -7,7 +7,6 @@
 import {dom} from "../decorators";
 import SvgBase from "./svg.base";
 import Svg from "./svg.index";
-import {EventType} from "../enums/global";
 import LegendItem from "./legend/legend.item";
 
 @dom({
@@ -39,15 +38,20 @@ export default class Legend extends SvgBase {
             color: this.global.config.seat_style.selected
         });
 
-        for(let i = 0;i<legend_data.length;i++){
-            let legend:LegendItem = new LegendItem(this,legend_data[i]);
+        for (let i = 0; i < legend_data.length; i++) {
+            let legend: LegendItem = new LegendItem(this, legend_data[i]);
             this.addChild(legend);
         }
 
         this.updateChilds()
     }
 
-    afterGenerate(){
-        this.node.attr("transform","translate(350,100)")
+    afterGenerate() {
+
+        let x = this.global.config.legend_style.radius * 2;
+        let y = 150 - (this.global.config.legend_style.padding * this.getChildCount());
+        this.node.attr("transform", "translate(" + [x, y] + ")");
+
+        console.log(this.child_items.length);
     }
 }

@@ -6,9 +6,11 @@
 
 import SeatModel from "./seat.model";
 import LabelModel from "./label.model";
+import {extent} from "d3-array";
+import ModelBase from "./model.base";
 
 
-export default class BlockModel {
+export default class BlockModel extends ModelBase {
     private _id: string;
     private _seats: Array<SeatModel>;
     private _labels: Array<LabelModel>;
@@ -24,6 +26,7 @@ export default class BlockModel {
     private _zoom_bbox: any;
 
     constructor(item: any) {
+        super();
         this.id = item.id ? item.id : (Math.random() * 1000).toString();
         this.width = item.width || null;
         this.height = item.height || null;

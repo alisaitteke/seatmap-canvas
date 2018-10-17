@@ -5,7 +5,9 @@
 
 
 
-export default class LegendModel {
+import ModelBase from "./model.base";
+
+export default class LegendModel extends ModelBase {
     private _x: number;
     private _y: number;
     private _title: string;
@@ -13,6 +15,7 @@ export default class LegendModel {
 
 
     constructor(item: any) {
+        super();
         this.x = item.x;
         this.y = item.y;
         this.title = item.title;

@@ -27,6 +27,13 @@ export default class BlocksSearchCircle extends SvgBase {
             this.node.attr("transform", "translate(" + mouse + ")");
         });
 
+        this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (zoom_level: any) => {
+            if (zoom_level.level === ZoomLevel.VENUE || zoom_level.level === ZoomLevel.SEAT) {
+                this.node.classed("show", false);
+            }
+        });
+
+
         return this;
     }
 
@@ -37,7 +44,8 @@ export default class BlocksSearchCircle extends SvgBase {
         this.addChild(this.circle);
         this.updateChilds();
 
-        this.parent.blocks.node.on("mouseleave.search", () =>  {
+
+        this.parent.blocks.node.on("mouseleave.search", () => {
             this.node.classed("show", false);
         });
 
@@ -50,6 +58,7 @@ export default class BlocksSearchCircle extends SvgBase {
                 this.node.classed("show", false);
             }
         });
+
         return this;
     }
 }

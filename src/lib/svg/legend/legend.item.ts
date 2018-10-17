@@ -25,6 +25,7 @@ export default class LegendItem extends SvgBase {
 
     constructor(public parent: Legend, public legend_data: LegendModel) {
         super(parent);
+
     }
 
     update() {
@@ -36,6 +37,14 @@ export default class LegendItem extends SvgBase {
         this.addChild(this.title);
 
         this.updateChilds();
+
+        this.title.node.text(this.legend_data.title);
+
+        let x = 0;
+        let y = this.child_index * this.global.config.legend_style.padding;
+
+        this.node.attr("transform", "translate(" + [x, y] + ")")
+
 
     }
 

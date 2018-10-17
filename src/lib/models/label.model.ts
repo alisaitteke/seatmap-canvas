@@ -6,8 +6,9 @@
 
 
 import BlockModel from "./block.model";
+import ModelBase from "./model.base";
 
-export default class LabelModel {
+export default class LabelModel extends ModelBase {
     private _x: number;
     private _y: number;
     private _title: string;
@@ -15,6 +16,7 @@ export default class LabelModel {
     private _block: BlockModel;
 
     constructor(item: any) {
+        super();
         this.x = item.x;
         this.y = item.y;
         this.title = item.title;

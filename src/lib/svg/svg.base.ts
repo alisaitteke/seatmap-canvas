@@ -22,7 +22,7 @@ export default class SvgBase {
     public dom_attrs: Array<any>;
     public dom_classeds: Array<any>;
 
-    public child_index:number = null;
+    public child_index: number = null;
 
 
     public global: GlobalModel;
@@ -61,14 +61,16 @@ export default class SvgBase {
     public generateThisDom(): this {
         if (this.autoGenerate) {
             this.domGenerate(this.parent.node);
+            this.afterGenerate();
         }
 
         return this;
 
     }
 
-    public domGenerate(to: any): this {
+    public domGenerate(to: any, index: number = 0): this {
         let domTag = this.domTag ? this.domTag : "g";
+        this.child_index = index;
 
         this.node = to.datum(this.parent).append(domTag);
 
@@ -86,7 +88,7 @@ export default class SvgBase {
             let _dom_class = this.dom_classeds[ci];
             this.node.classed(_dom_class.name, _dom_class.value);
         }
-        this.afterGenerate();
+
         return this;
     }
 
@@ -129,10 +131,11 @@ export default class SvgBase {
     }
 
     public updateChilds(): this {
-        this.child_items.map((item: Block) => {
-            item.domGenerate(this.node);
+        this.child_items.map((item: Block, index: number) => {
+            item.domGenerate(this.node, index);
             item.update();
         });
+        this.afterGenerate();
         this.updateEvents(false);
         return this;
     }
@@ -140,7 +143,7 @@ export default class SvgBase {
     public updateEvents(recursive: boolean = false): this {
         let _self = this;
 
-        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseenter","mousemove"];
+        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseenter", "mousemove"];
 
         for (let i = 0; i < this.global.eventManager.events.length; i++) {
             let _event = this.global.eventManager.events[i];
@@ -179,8 +182,16 @@ export default class SvgBase {
         return this.tags.indexOf(tag) !== -1
     }
 
-    public getChilds(type: string): Array<any> {
-        return this.child_items.filter((item: any) => item.constructor.name === type);
+    public getChilds(type: string = null): Array<any> {
+        if (type === null) {
+            return this.child_items.filter((item: any) => item.constructor.name === type);
+        } else {
+            return this.child_items;
+        }
+    }
+
+    public getChildCount(): number {
+        return this.child_items.length;
     }
 
     public beforeGenerate() {

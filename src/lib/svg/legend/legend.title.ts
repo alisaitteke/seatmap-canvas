@@ -21,13 +21,10 @@ export default class LegendTitle extends SvgBase {
 
     constructor(public parent: LegendItem) {
         super(parent);
+        this.attr("x", this.global.config.legend_style.radius * 1.5);
     }
 
     update() {
 
-    }
-
-    afterGenerate(){
-        this.node.text(this.parent.legend_data.title);
     }
 }
