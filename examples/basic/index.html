@@ -99,7 +99,7 @@
         });
 
 
-        let block_colors = ["#2c2828", "#ff1f5a", "#fccf4d", "#ef255f","#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
+        let block_colors = ["#00a5ff", "#ef255f", "#fccf4d", "#ef255f","#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
         let x_gap = 0;
         let y_gap = 0;
         let block_i = 0;
@@ -113,7 +113,8 @@
                     let labels = [];
                     let label_index = {};
 
-                    let color = block_colors[i % block_colors.length];
+                    let color = block_colors[block_i % block_colors.length];
+                    console.log(color)
 
                     //x_gap = 890;
 
@@ -147,7 +148,7 @@
                             id: i + "-" + (index + 1),
                             x: item.positionLeft + x_gap + 40,
                             y: item.positionTop + y_gap,
-                            color: item.color || null,
+                            color: item.color || color || null,
                             salable: item.isSold === true ? false : true,
                             note: "note test",
                             tags: tags,
@@ -172,7 +173,7 @@
             });
         };
 
-        getDummyBlocks(7, (blocks) => {
+        getDummyBlocks(1, (blocks) => {
             console.log("adding blocks", blocks.length)
             seatmap.data.addBulkBlock(blocks);
         });

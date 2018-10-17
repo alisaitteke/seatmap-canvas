@@ -11,6 +11,7 @@ import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
 import {EventType, ZoomLevel} from "../../../../../enums/global";
+import {SeatItemTitle} from "./seat-item.title";
 
 
 @dom({
@@ -21,6 +22,7 @@ import {EventType, ZoomLevel} from "../../../../../enums/global";
 export class SeatItem extends SvgBase {
 
     public circle: SeatItemCircle;
+    public title: SeatItemTitle;
     public coordinates: CoordinateModel;
 
     constructor(public parent: Seats, public item: SeatModel) {
@@ -49,7 +51,16 @@ export class SeatItem extends SvgBase {
     update(): this {
         this.circle = new SeatItemCircle(this);
         this.addChild(this.circle);
+
+
+        // this.title = new SeatItemTitle(this);
+        // this.addChild(this.title);
+
+
         this.updateChilds();
+
+        //this.title.node.text(this.item.title);
+
         return this;
     }
 }
