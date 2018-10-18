@@ -19,17 +19,28 @@ export default class BlocksSearchCircle extends SvgBase {
 
 
     public circle: Circle;
+    public is_enable: boolean = true;
 
     constructor(public parent: Stage) {
         super(parent);
         this.global.eventManager.addEventListener(EventType.MOUSE_MOVE, (mouse: any) => {
-            this.node.attr("transform", "translate(" + mouse + ")");
+            if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK && this.is_enable) {
+                this.node.attr("transform", "translate(" + mouse + ")");
+            }
         });
 
         this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (zoom_level: any) => {
             if (zoom_level.level === ZoomLevel.VENUE || zoom_level.level === ZoomLevel.SEAT) {
                 this.node.classed("show", false);
             }
+        });
+
+
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, (e: any) => {
+            this.disable();
+        });
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, (e: any) => {
+            this.enable();
         });
 
 
@@ -58,6 +69,18 @@ export default class BlocksSearchCircle extends SvgBase {
             }
         });
 
+        return this;
+    }
+
+    public enable(): this {
+        this.is_enable = true;
+        this.node.style("display", "block");
+        return this;
+    }
+
+    public disable(): this {
+        this.is_enable = false;
+        this.node.style("display", "none");
         return this;
     }
 }

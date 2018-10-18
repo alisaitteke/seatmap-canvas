@@ -10,7 +10,7 @@ import BlockModel from "../../../../models/block.model";
 import Seats from "./block-item.seats.index";
 import BlockInfo from "./block-item.info.index";
 import BlockBounds from "./block-item.bounds";
-import {EventType, ZoomLevel} from "../../../../enums/global";
+import {EventType, SeatAction, ZoomLevel} from "../../../../enums/global";
 import BlockMask from "./block-item.mask";
 import Labels from "./block-item.labels.index";
 import * as d3 from "d3";
@@ -62,8 +62,18 @@ export default class Block extends SvgBase {
             }
         });
 
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE,()=>{
+            this.seats.resetSeatsColors(false);
+        });
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE,()=>{
+            this.seats.resetSeatsColors(false);
+        });
 
+
+        // grid search
         this.global.eventManager.addEventListener(EventType.MOUSEMOVE_BLOCK, (block_item: Block) => {
+
+            if (!this.parent.parent.searchCircle.is_enable) return;
             let cor = d3.mouse(this.parent.parent.blocks.node.node());
             let gap = this.global.config.zoom_focus_circle_radius;
 
@@ -71,17 +81,24 @@ export default class Block extends SvgBase {
                 for (let i = 0; i < block_item.seats.getSeatsCount(); i++) {
                     let _seat = block_item.seats.getSeatByIndex(i);
                     let _item: SeatModel = _seat.item;
-                    let color = _item.color;
 
-                    if ((_item.x - gap < cor[0] && _item.x + gap > cor[0]) && (_item.y - gap < cor[1] && _item.y + gap > cor[1])) {
-                        color = this.global.config.seat_style.focus;
+
+                    let color = _seat.getColor();
+                    if (_seat.isSelected()) {
+                        color = _seat.getColor(SeatAction.SELECT);
+                    } else {
+                        if ((_item.x - gap < cor[0] && _item.x + gap > cor[0]) && (_item.y - gap < cor[1] && _item.y + gap > cor[1])) {
+                            color = _seat.getColor(SeatAction.FOCUS);
+                        }
+                        _seat.setColor(color);
                     }
-                    _seat.setColor(color);
+
+
                 }
             }
         });
 
-        this.parent.node.on("mouseleave.seats", () =>  {
+        this.parent.node.on("mouseleave.seats", () => {
             this.seats.resetSeatsColors(true);
         });
 

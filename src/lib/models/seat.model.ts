@@ -32,7 +32,7 @@ export default class SeatModel extends ModelBase {
         this.color = item.color || null;
         this.block = item.block;
         this.note = item.note || null;
-        this.salable = item.salable;
+        this.salable = item.salable || true;
         this.selected = false;
         this.tags = item.tags || [];
         this._tag_index = {};

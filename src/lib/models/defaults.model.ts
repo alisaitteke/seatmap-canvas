@@ -29,8 +29,8 @@ export default class DefaultsModel {
         fill: string
         stroke: string,
         border_width: number,
-        title_color:string,
-        title_font_size:string
+        title_color: string,
+        title_font_size: string
     };
 
     legend_style: {
@@ -44,6 +44,12 @@ export default class DefaultsModel {
         bg: string
         font_size: number
         radius: number
+    };
+
+    tooltip_style: {
+        border_width: string,
+        width: number,
+        height: number
     };
 
     lang: {
@@ -60,7 +66,7 @@ export default class DefaultsModel {
         this.max_zoom = config.max_zoom ? config.max_zoom : this.max_zoom;
 
         this.resizable = config.resizable ? config.resizable : this.resizable;
-        this.zoom_out_button = "M192.9,183.3l-65.7-65.7c10.3-12.3,16.4-28.4,16.4-45.8C143.7,32.2,111.5,0,71.8,0S0,32.2,0,71.8 s32.2,71.8,71.8,71.8c17.4,0,33.2-6.2,45.8-16.4l65.7,65.7L192.9,183.3z M13.7,71.8c0-32.2,26-58.2,58.2-58.2s58.2,26,58.2,58.2 S104,130,71.8,130S13.7,104,13.7,71.8z M47.9,65h47.9v13.7H47.9V65z";
+        this.zoom_out_button = config.zoom_out_button ? config.zoom_out_button : ".zoom-out-button";
 
 
         this.seat_style = {
@@ -89,6 +95,11 @@ export default class DefaultsModel {
             radius: config.legend_style && config.legend_style.radius || 12,
             padding: config.legend_style && config.legend_style.padding || 36,
             font_size: config.legend_style && config.legend_style.font_size || 100,
+        };
+        this.tooltip_style = {
+            border_width: config.tooltip_style && config.tooltip_style.border_width || 1,
+            width: config.tooltip_style && config.tooltip_style.width || 120,
+            height: config.tooltip_style && config.tooltip_style.height || 80
         };
 
         this.lang = {

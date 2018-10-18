@@ -7,28 +7,28 @@
 import {dom} from "../../decorators";
 import SvgBase from "../svg.base";
 
-import Circle from "./search-circle/circle";
-import Stage from "./stage.index";
+import BlocksTooltip from "../blocks.tooltip";
 
 @dom({
-    tag: "g",
-    class: "tooltip",
+    tag: "text",
+    class: "tooltip-title",
     autoGenerate: false
 })
-export default class BlocksTooltip extends SvgBase {
+export default class TooltipRect extends SvgBase {
 
 
-    public circle: Circle;
-
-    constructor(public parent: Stage) {
+    constructor(public parent: BlocksTooltip) {
         super(parent);
-
-
         return this;
     }
 
     update(): this {
         this.updateChilds();
         return this;
+    }
+
+    afterGenerate() {
+
+        this.node.style("pointer-events", "none");
     }
 }

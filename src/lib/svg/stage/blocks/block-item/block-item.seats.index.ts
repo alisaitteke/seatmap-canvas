@@ -10,6 +10,7 @@ import Block from "./block-item.index";
 import SeatModel from "../../../../models/seat.model";
 import {SeatItem} from "./seat/seat-item.index";
 import BlockModel from "../../../../models/block.model";
+import {EventType, SeatAction} from "../../../../enums/global";
 
 
 @dom({
@@ -21,6 +22,14 @@ export default class Seats extends SvgBase {
 
     constructor(public parent: Block, public item: BlockModel) {
         super(parent);
+
+        this.global.eventManager.addEventListener(EventType.MOUSEENTER_SEAT,(seat:SeatItem)=>{
+            seat.setColor(this.global.config.seat_style.hover);
+        });
+        this.global.eventManager.addEventListener(EventType.MOUSELEAVE_SEAT,(seat:SeatItem)=>{
+            seat.setColor(seat.getColor());
+        });
+
         return this;
     }
 
@@ -59,9 +68,15 @@ export default class Seats extends SvgBase {
         for (let i = 0; i < this.getSeatsCount(); i++) {
             let _seat = this.getSeatByIndex(i);
             let _item: SeatModel = _seat.item;
-            let color = _item.color;
 
-            _seat.setColor(color,animation);
+            let color = _seat.getColor();
+
+            if (!_seat.isSelected() && _seat.isSalable()) {
+                color = _seat.getColor(SeatAction.LEAVE);
+                _seat.setColor(color,animation);
+            }
+
+
         }
     }
 

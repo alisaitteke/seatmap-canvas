@@ -143,12 +143,14 @@ export default class SvgBase {
     public updateEvents(recursive: boolean = false): this {
         let _self = this;
 
-        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseenter", "mousemove"];
+        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseenter", "mousemove","keydown","keypress"];
 
         for (let i = 0; i < this.global.eventManager.events.length; i++) {
             let _event = this.global.eventManager.events[i];
             let _split = _event.type.toString().split(".");
+
             if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
+                //console.log(this.eventCode.toLowerCase(),_split)
                 this.node.on(_split[1].toLowerCase(), function (item: EventObject) {
                     _event.fn(_self, item);
 
@@ -200,6 +202,16 @@ export default class SvgBase {
 
     public afterGenerate() {
 
+    }
+
+    public addToParent(): this {
+        this.parent.addChild(this);
+        return this;
+    }
+
+    public addTo(container: any): this {
+        container.addChild(this);
+        return this;
     }
 
 

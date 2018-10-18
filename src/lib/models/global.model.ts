@@ -18,5 +18,7 @@ export interface GlobalModel {
     data: DataModel,
     root: SeatMapCanvas,
     zoomManager: ZoomManager,
-    svg:Svg
+    svg:Svg,
+    multi_select:boolean,
+    best_available:boolean
 }

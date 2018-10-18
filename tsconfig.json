@@ -23,6 +23,6 @@
     ]
   },
   "files": [
-    "build/canvas.d.ts"
+    "src/lib/canvas.index.ts"
   ]
 }

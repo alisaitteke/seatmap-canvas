@@ -11,6 +11,8 @@ import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
+import {SeatAction} from "../../../../../enums/global";
+
 
 @dom({
     tag: "g",
@@ -30,30 +32,95 @@ export class SeatItem extends SvgBase {
         return this;
     }
 
-    public setColor(color: string, animation:boolean = false): this {
-        if(animation){
+    public setColor(color: string, animation: boolean = false): this {
+        if (animation) {
             this.circle.node.interrupt().transition().duration(this.global.config.animation_speed).attr("fill", color);
-        }else{
+        } else {
             this.circle.node.attr("fill", color);
         }
 
         return this;
     }
 
-    public select(color: string = null) {
+    public updateColor(color: string = null): this {
+        this.setColor(this.getColor());
+        return this;
+    }
+
+    public select(color: string = null): this {
         this.item.selected = true;
         this.node.classed("selected", true);
         this.circle.node.attr("fill", this.global.config.seat_style.selected);
+        return this;
     }
 
-    public unSelect() {
+    public unSelect(): this {
         this.item.selected = false;
         this.node.classed("selected", false);
         this.circle.node.attr("fill", this.global.config.seat_style.color);
+        return this;
     }
 
-    public isSelected() {
+    public isSelected(): Boolean {
         return this.item.selected;
+    }
+
+    public isSalable(): Boolean {
+        return this.item.salable;
+    }
+
+    public hover() {
+        this.setColor(this.global.config.seat_style.hover);
+    }
+
+    public blur() {
+        this.setColor(this.getColor());
+    }
+
+    public getColor(action: SeatAction = null): string {
+
+
+        if (this.isSalable()) {
+
+            if (action == SeatAction.FOCUS) {
+                if (this.isSelected()) {
+                    return this.global.config.seat_style.focus_out;
+                } else {
+                    return this.global.config.seat_style.focus;
+                }
+
+            } else if (action == SeatAction.HOVER) {
+                if (this.isSelected()) {
+                    return this.global.config.seat_style.selected;
+                } else {
+                    return this.global.config.seat_style.hover;
+                }
+            }
+            else if (action == SeatAction.LEAVE) {
+                if (this.isSelected()) {
+                    return this.global.config.seat_style.selected;
+                } else {
+                    return this.global.config.seat_style.color;
+                }
+            }
+            else if (action == SeatAction.SELECT) {
+                if (this.isSelected()) {
+                    return this.global.config.seat_style.selected;
+                } else {
+                    return this.global.config.seat_style.selected;
+                }
+            } else {
+                if (this.isSelected()) {
+                    return this.global.config.seat_style.selected;
+                } else {
+                    return this.global.config.seat_style.color;
+                }
+            }
+
+        } else {
+            return this.global.config.seat_style.not_salable;
+        }
+
     }
 
     update(): this {

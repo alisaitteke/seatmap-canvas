@@ -1,9 +1,7 @@
-
 /*
  * index.ts
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
-
 
 
 import "../scss/style.scss";
@@ -18,7 +16,7 @@ import {GlobalModel} from "./models/global.model";
 
 import ZoomManager from "./svg/zoom.manager";
 import EventManager from "./svg/event.manager";
-import {EventType} from "./enums/global";
+import {EventType, ZoomLevel} from "./enums/global";
 import WindowManager from "./window.manager";
 
 
@@ -40,6 +38,7 @@ export class SeatMapCanvas {
 
 
     constructor(public container_selector: any, _config: any = {}) {
+        let _self = this;
         this.config = new DefaultsModel(_config);
         this.eventManager = new EventManager(this);
         this.addEventListener = this.eventManager.addEventListener;
@@ -57,9 +56,16 @@ export class SeatMapCanvas {
             data: this.data,
             zoomManager: this.zoomManager,
             root: this,
-            svg: this.svg
+            svg: this.svg,
+            multi_select: false,
+            best_available: false
         };
-
+        d3.select(window).on("keydown.dispatch", function (a, b, c) {
+            _self.eventManager.dispatch(EventType.KEYDOWN_SVG, d3.event);
+        });
+        d3.select(window).on("keyup.dispatch", function (a, b, c) {
+            _self.eventManager.dispatch(EventType.KEYUP_SVG, d3.event);
+        });
 
         this.dev = new SeatMapDevTools(this);
         this.svg = new Svg(this);
@@ -67,12 +73,35 @@ export class SeatMapCanvas {
         this.svg.domGenerate(this.node);
         this.svg.update();
 
+
         this.windowManager.resizeHandler();
         this.zoomManager.init();
 
-        this.eventManager.addEventListener(EventType.CLICK_ZOOMOUT,()=>{
-            this.zoomManager.zoomToVenue();
+        this.eventManager.addEventListener(EventType.CLICK_ZOOMOUT, () => this.zoomManager.zoomToVenue());
+        this.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => this.global.multi_select = true);
+        this.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, () => this.global.multi_select = false);
+        this.eventManager.addEventListener(EventType.BEST_AVAILABLE_ENABLE, () => this.global.best_available = true);
+        this.eventManager.addEventListener(EventType.MBEST_AVAILABLE_DISABLE, () => this.global.best_available = false);
+
+        // Zoomout button show/hide for zoom level
+        this.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (zoom_level: any) => {
+            if (zoom_level.level === ZoomLevel.VENUE) {
+                d3.select(this.config.zoom_out_button).style("display", "none");
+            } else if (zoom_level.level === ZoomLevel.BLOCK) {
+                d3.select(this.config.zoom_out_button).style("display", "none");
+            } else if (zoom_level.level === ZoomLevel.SEAT) {
+                d3.select(this.config.zoom_out_button).style("display", "block");
+            }
         });
+
+        d3.select(this.config.zoom_out_button).on("click", () => {
+            this.zoomManager.zoomToVenue(true);
+        });
+
+
+        // this.eventManager.addEventListener(EventType.KEYDOWN_SVG,()=>{
+        //     console.log(123);
+        // });
 
 
         // update block data change trigger
@@ -89,7 +118,6 @@ export class SeatMapCanvas {
 
             this.zoomManager.zoomToVenue(false);
         });
-
 
 
         // this.eventManager.addEventListener(EventType.CLICK_BLOCK, (_block: Block) => {

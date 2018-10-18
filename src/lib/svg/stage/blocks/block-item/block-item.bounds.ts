@@ -28,16 +28,16 @@ export default class BlockBounds extends SvgBase {
 
         // add Border Bounds container
         this.bound1 = new BoundItem(this, this.item);
-        this.bound1.attr("fill", this.parent.item.color);
+        this.bound1.attr("fill", this.parent.item.border_color);
         this.bound1.attr("stroke-width", 70);
-        this.bound1.attr("stroke", this.parent.item.color);
+        this.bound1.attr("stroke", this.parent.item.border_color);
         this.bound1.classed("block-hull-border");
 
         // add Border Bounds container
         this.bound2 = new BoundItem(this, this.item);
-        this.bound2.attr("fill", this.item.border_color);
+        this.bound2.attr("fill", this.item.color);
         this.bound2.attr("stroke-width", 60);
-        this.bound2.attr("stroke", this.item.border_color);
+        this.bound2.attr("stroke", this.item.color);
         this.bound2.classed("block-hull");
 
 
