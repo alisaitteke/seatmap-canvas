@@ -28,7 +28,6 @@ npm i <a href="https://www.npmjs.com/package/@seatmap/canvas">@seatmap/canvas</a
 #### Example Config
 ```json
 {
-    "container": ".seats_container",
     "resizable": true,
     "seat_style": {
         "radius": 12,
@@ -55,7 +54,7 @@ npm i <a href="https://www.npmjs.com/package/@seatmap/canvas">@seatmap/canvas</a
 
 #### Usage
 ```js
-var seatmap = new SeatmapCanvas(config);
+var seatmap = new SeatmapCanvas(".seats_container",config);
 ```
 
 #### Seat Model

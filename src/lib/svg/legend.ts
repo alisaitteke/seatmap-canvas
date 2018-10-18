@@ -51,7 +51,5 @@ export default class Legend extends SvgBase {
         let x = this.global.config.legend_style.radius * 2;
         let y = 150 - (this.global.config.legend_style.padding * this.getChildCount());
         this.node.attr("transform", "translate(" + [x, y] + ")");
-
-        console.log(this.child_items.length);
     }
 }

@@ -47,7 +47,7 @@ export default class ZoomManager {
 
     public activeBlocks: Array<any>;
     public minZoom: number = null;
-    public zoomLevel: ZoomLevel;
+    private _zoomLevel: ZoomLevel;
 
 
     constructor(private _self: SeatMapCanvas) {
@@ -93,6 +93,7 @@ export default class ZoomManager {
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.canvasScopeHandler();
+            _self.calculateZoomLevel(k);
         }
     }
 
@@ -103,6 +104,7 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
+            _self.calculateZoomLevel(k);
         }
     }
 
@@ -113,6 +115,7 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
+            _self.calculateZoomLevel(k);
         }
     }
 
@@ -122,6 +125,7 @@ export default class ZoomManager {
             let y = d3.event.transform.y;
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self.calculateZoomLevel(k);
         }
     }
 
@@ -132,6 +136,7 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self.calculateZoomLevel(k);
         }
     }
 
@@ -142,6 +147,17 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self.calculateZoomLevel(k);
+        }
+    }
+
+    calculateZoomLevel(k: number) {
+        if (this.zoomLevels.SEAT && k <= this.zoomLevels.SEAT.k) {
+            this.zoomLevel = ZoomLevel.SEAT;
+        } else if (this.zoomLevels.BLOCK && k <= this.zoomLevels.BLOCK.k) {
+            this.zoomLevel = ZoomLevel.BLOCK;
+        } else if (this.zoomLevels.VENUE && k <= this.zoomLevels.VENUE.k) {
+            this.zoomLevel = ZoomLevel.VENUE;
         }
     }
 
@@ -194,6 +210,8 @@ export default class ZoomManager {
         this.scale.k = (this.scale.x < this.scale.y) ? this.scale.x : this.scale.y;
         this.minZoom = this.scale.k < 1 ? this.scale.k : 1;
 
+        this.scale.k = this.scale.k > this._self.config.max_zoom ? this._self.config.max_zoom : this.scale.k;
+
 
         let x = _stage.width / 2;
         let y = _stage.height / 2;
@@ -225,6 +243,8 @@ export default class ZoomManager {
 
             x += bbox.x + (bbox.width / 2);
             y += bbox.y + (bbox.height / 2);
+
+            k = k > this._self.config.max_zoom ? this._self.config.max_zoom : k;
 
             block.zoom_bbox = {
                 x: x,
@@ -281,6 +301,8 @@ export default class ZoomManager {
 
     public zoomToBlock(id: string | number, animation: boolean = true, fastAnimated: boolean = false) {
         let _block = this._self.data.getBlocks().find((block: BlockModel) => block.id === id);
+
+
         if (_block) {
             if (animation) {
                 if (fastAnimated) {
@@ -288,12 +310,16 @@ export default class ZoomManager {
                 } else {
                     this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.animated.scaleTo, _block.zoom_bbox.k);
                 }
-
-
             } else {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
             }
-            this.zoomLevel = ZoomLevel.BLOCK;
+
+            if (_block.zoom_bbox.k === this._self.config.max_zoom) {
+                this.zoomLevel = ZoomLevel.SEAT;
+            } else {
+                this.zoomLevel = ZoomLevel.BLOCK;
+            }
+
             this.dispatchZoomEvent();
         }
     }
@@ -319,7 +345,6 @@ export default class ZoomManager {
         if (x && y && k) {
             if (animation) {
                 if (fastAnimated) {
-                    console.log(123)
                     this._self.svg.node.interrupt().call(this.zoomTypes.fastAnimated.translateTo, x, y).call(this.zoomTypes.fastAnimated.scaleTo, k);
                 } else {
                     this._self.svg.node.interrupt().call(this.zoomTypes.animated.translateTo, x, y).call(this.zoomTypes.animated.scaleTo, k);
@@ -334,18 +359,28 @@ export default class ZoomManager {
 
     }
 
+
+    get zoomLevel(): ZoomLevel {
+        return this._zoomLevel;
+    }
+
+    set zoomLevel(value: ZoomLevel) {
+        console.log(value);
+        this._zoomLevel = value;
+    }
+
     public getZoomLevelValues(level: ZoomLevel) {
         return this.zoomLevels[level];
     }
 
     public getActiveZoom() {
-        return this.zoomLevels[this.zoomLevel];
+        return this.zoomLevels[this._zoomLevel];
     }
 
     private dispatchZoomEvent() {
         this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, {
-            level: this.zoomLevel,
-            values: this.getZoomLevelValues(this.zoomLevel)
+            level: this._zoomLevel,
+            values: this.getZoomLevelValues(this._zoomLevel)
         });
     }
 }

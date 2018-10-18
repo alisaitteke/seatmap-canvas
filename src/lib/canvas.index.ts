@@ -79,17 +79,14 @@ export class SeatMapCanvas {
         this.eventManager.addEventListener(EventType.ADD_BLOCK, (addedBlocks: Array<BlockModel>) => {
             //let blocks = this.data.getBlocks();
             this.svg.stage.blocks.update();
+
+            this.windowManager.resizeHandler();
             this.zoomManager.calculateZoomLevels(this.data.getBlocks());
             this.zoomManager.calculateActiveBlocks(this.data.getBlocks());
             //console.log("added block", addedBlocks)
-            //this.windowManager.resizeHandler();
+            this.windowManager.resizeHandler();
 
-            // if (this.data.getBlocks().length === 1) {
-            //     this.zoomManager.zoomToBlock(1);
-            //     console.log(this.data.getBlocks()[0])
-            // } else {
-            //     this.zoomManager.zoomToVenue(false);
-            // }
+
             this.zoomManager.zoomToVenue(false);
         });
 

@@ -22,12 +22,13 @@
     "node": ">=4.0.0"
   },
   "license": "MIT",
-  "main": "build/seatmap.canvas.js",
+  "main": "src/canvas.index.ts",
   "devDependencies": {
     "@types/d3": "^5.0.0",
     "@types/node": "^10.11.4",
     "css-loader": "^1.0.0",
     "d3": "^5.7.0",
+    "dts-generator-webpack-plugin": "^1.0.0",
     "mini-css-extract-plugin": "^0.4.3",
     "node-sass": "^4.9.3",
     "reflect-metadata": "^0.1.12",
@@ -58,5 +59,6 @@
     "seatmap",
     "seat-selection"
   ],
-  "types": "src/index.ts"
+  "types": "./build/index.ts",
+  "typings": "./build/core.d.ts"
 }

@@ -1,6 +1,6 @@
 var path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const bourbon = require("bourbon").includePaths;
+//const bourbon = require("bourbon").includePaths;
 
 
 
@@ -36,7 +36,7 @@ module.exports = {
                     }, {
                         loader: "sass-loader", options: {
                             sourceMap: true,
-                            includePaths: bourbon
+                            //includePaths: bourbon
                         }
                     }
                 ]

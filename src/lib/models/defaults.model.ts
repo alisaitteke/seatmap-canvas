@@ -12,7 +12,7 @@ export default class DefaultsModel {
     animation_speed: number = 600;
     resizable: boolean = false;
     container: any = null;
-    zoom_focus_circle_radius: number = 100;
+    zoom_focus_circle_radius: number = 60;
     click_enable_sold_seats: boolean = false;
     zoom_out_button: string = null;
     autohide_legend: boolean = false;
@@ -28,7 +28,9 @@ export default class DefaultsModel {
     block_style: {
         fill: string
         stroke: string,
-        border_width: number
+        border_width: number,
+        title_color:string,
+        title_font_size:string
     };
 
     legend_style: {
@@ -73,7 +75,9 @@ export default class DefaultsModel {
         this.block_style = {
             fill: config.block_style && config.block_style.fill || "#ffffff",
             stroke: config.block_style && config.block_style.stroke || "#ffffff",
-            border_width: config.block_style && config.block_style.border_width || 4
+            border_width: config.block_style && config.block_style.border_width || 4,
+            title_color: config.block_style && config.block_style.title_color || "#000000",
+            title_font_size: config.block_style && config.block_style.title_font_size || 28,
         };
         this.label_style = {
             color: config.label_style && config.label_style.color || "#000000",
