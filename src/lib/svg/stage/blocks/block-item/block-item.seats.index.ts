@@ -23,10 +23,11 @@ export default class Seats extends SvgBase {
     constructor(public parent: Block, public item: BlockModel) {
         super(parent);
 
-        this.global.eventManager.addEventListener(EventType.MOUSEENTER_SEAT,(seat:SeatItem)=>{
-            seat.setColor(this.global.config.seat_style.hover);
+        this.global.eventManager.addEventListener(EventType.MOUSEENTER_SEAT, (seat: SeatItem) => {
+            if (this.global.multi_select) return;
+            seat.setColor(seat.getColor(SeatAction.HOVER));
         });
-        this.global.eventManager.addEventListener(EventType.MOUSELEAVE_SEAT,(seat:SeatItem)=>{
+        this.global.eventManager.addEventListener(EventType.MOUSELEAVE_SEAT, (seat: SeatItem) => {
             seat.setColor(seat.getColor());
         });
 
@@ -54,17 +55,15 @@ export default class Seats extends SvgBase {
         return this.child_items;
     }
 
-    public getSeatsCount():number
-    {
+    public getSeatsCount(): number {
         return this.child_items.length;
     }
 
-    public getSeatByIndex(index:number):SeatItem
-    {
+    public getSeatByIndex(index: number): SeatItem {
         return this.child_items[index];
     }
 
-    public resetSeatsColors(animation:boolean = false){
+    public resetSeatsColors(animation: boolean = false) {
         for (let i = 0; i < this.getSeatsCount(); i++) {
             let _seat = this.getSeatByIndex(i);
             let _item: SeatModel = _seat.item;
@@ -73,7 +72,7 @@ export default class Seats extends SvgBase {
 
             if (!_seat.isSelected() && _seat.isSalable()) {
                 color = _seat.getColor(SeatAction.LEAVE);
-                _seat.setColor(color,animation);
+                _seat.setColor(color, animation);
             }
 
 

@@ -28,11 +28,9 @@ export default class Tooltip extends SvgBase {
         super(parent);
         this.attr("transform", "translate(0,0)");
         this.global.eventManager.addEventListener(EventType.MOUSEMOVE_SEAT, (seat: SeatItem) => {
-
+            if (this.global.multi_select) return;
             let x = seat.coordinates.x - (this.global.config.tooltip_style.width / 2);
             let y = seat.coordinates.y - (this.global.config.tooltip_style.height + (this.global.config.seat_style.radius) + 2);
-
-
             this.node.attr("transform", "translate(" + [x, y] + ")").attr("opacity", 1);
         });
         this.global.eventManager.addEventListener(EventType.MOUSELEAVE_SEAT, (seat: SeatItem) => {

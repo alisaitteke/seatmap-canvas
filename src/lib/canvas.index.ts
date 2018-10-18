@@ -2,7 +2,7 @@
  * index.ts
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
-
+declare const window: any;
 
 import "../scss/style.scss";
 import * as d3 from 'd3';
@@ -18,10 +18,6 @@ import ZoomManager from "./svg/zoom.manager";
 import EventManager from "./svg/event.manager";
 import {EventType, ZoomLevel} from "./enums/global";
 import WindowManager from "./window.manager";
-
-
-declare const window: any;
-
 
 export class SeatMapCanvas {
 
@@ -45,7 +41,6 @@ export class SeatMapCanvas {
         this.node = d3.select(container_selector);
         this.windowManager = new WindowManager(this);
         this.zoomManager = new ZoomManager(this);
-
 
         this.data = new DataModel(this);
 
@@ -73,15 +68,24 @@ export class SeatMapCanvas {
         this.svg.domGenerate(this.node);
         this.svg.update();
 
-
         this.windowManager.resizeHandler();
         this.zoomManager.init();
 
         this.eventManager.addEventListener(EventType.CLICK_ZOOMOUT, () => this.zoomManager.zoomToVenue());
-        this.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => this.global.multi_select = true);
-        this.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, () => this.global.multi_select = false);
-        this.eventManager.addEventListener(EventType.BEST_AVAILABLE_ENABLE, () => this.global.best_available = true);
-        this.eventManager.addEventListener(EventType.MBEST_AVAILABLE_DISABLE, () => this.global.best_available = false);
+        this.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => {
+            this.global.multi_select = true;
+            this.node.classed("multi-select-enable", true);
+        });
+        this.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, () => {
+            this.global.multi_select = false;
+            this.node.classed("multi-select-enable", false);
+        });
+        this.eventManager.addEventListener(EventType.BEST_AVAILABLE_ENABLE, () => {
+            this.global.best_available = true;
+        });
+        this.eventManager.addEventListener(EventType.MBEST_AVAILABLE_DISABLE, () => {
+            this.global.best_available = false;
+        });
 
         // Zoomout button show/hide for zoom level
         this.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (zoom_level: any) => {
@@ -94,46 +98,44 @@ export class SeatMapCanvas {
             }
         });
 
+        let multi_select_start: boolean = false;
+        let multi_select_mode: string = "click"; // click, mouseup // @todo develop
+
+        this.global.eventManager.addEventListener(EventType.MOUSE_MOVE, () => {
+            if (this.global.multi_select) {
+
+            }
+        });
+        this.global.eventManager.addEventListener(EventType.MOUSEDOWN_BLOCK, () => {
+            if (!this.global.multi_select) return;
+            if (multi_select_start) {
+                console.log("finish");
+                multi_select_start = false;
+            } else {
+                console.log("start");
+                multi_select_start = true;
+            }
+        });
+        this.global.eventManager.addEventListener(EventType.MOUSEUP_BLOCK, () => {
+            if (this.global.multi_select && multi_select_start) {
+                //console.log("up");
+            }
+        });
+
         d3.select(this.config.zoom_out_button).on("click", () => {
             this.zoomManager.zoomToVenue(true);
         });
 
-
-        // this.eventManager.addEventListener(EventType.KEYDOWN_SVG,()=>{
-        //     console.log(123);
-        // });
-
-
         // update block data change trigger
         this.eventManager.addEventListener(EventType.ADD_BLOCK, (addedBlocks: Array<BlockModel>) => {
-            //let blocks = this.data.getBlocks();
             this.svg.stage.blocks.update();
-
             this.windowManager.resizeHandler();
             this.zoomManager.calculateZoomLevels(this.data.getBlocks());
             this.zoomManager.calculateActiveBlocks(this.data.getBlocks());
-            //console.log("added block", addedBlocks)
             this.windowManager.resizeHandler();
-
-
             this.zoomManager.zoomToVenue(false);
         });
-
-
-        // this.eventManager.addEventListener(EventType.CLICK_BLOCK, (_block: Block) => {
-        //     console.log(_block)
-        //     //this.svg.node.interrupt().call(this.svg.zoomTypes.animated.translateTo, _block.item.zoom_bbox.x, _block.item.zoom_bbox.y).call(this.svg.zoomTypes.animated.scaleTo, _block.item.zoom_bbox.a);
-        // });
-
-
-        // setTimeout(()=>{
-        //     this.zoomManager.zoom(ZoomLevel.VENUE);
-        // },2500)
-
-
     }
-
-
 }
 
 window['SeatMapCanvas'] = SeatMapCanvas;

@@ -10,10 +10,11 @@ import "reflect-metadata";
 import {SeatMapCanvas} from "../canvas.index";
 import SvgBase from "./svg.base";
 import {dom} from "../decorators/dom";
-import {EventType} from "../enums/global";
+import {EventType, ZoomLevel} from "../enums/global";
 import ZoomOutBg from "./zoom-out.bg";
 import Legend from "./legend";
 import Tooltip from "./tooltip";
+import MultiSelect from "./multi-select";
 
 declare const window: any;
 
@@ -24,31 +25,41 @@ declare const window: any;
 })
 export default class Svg extends SvgBase {
     public stage: Stage;
-    public zoomOutBg:ZoomOutBg;
-    public legend:Legend;
-    public tooltip:Tooltip;
+    public zoomOutBg: ZoomOutBg;
+    public legend: Legend;
+    public tooltip: Tooltip;
+    public multi_select: MultiSelect;
 
 
     constructor(public parent: SeatMapCanvas) {
         super(parent);
+        this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (zoom_level: any) => {
+            this.node.classed("zoom-level-" + ZoomLevel.SEAT, false);
+            this.node.classed("zoom-level-" + ZoomLevel.BLOCK, false);
+            this.node.classed("zoom-level-" + ZoomLevel.VENUE, false);
+            this.node.classed("zoom-level-" + zoom_level.level, true);
+        })
         //this.update();
     }
 
-    update(){
+    update() {
         this.stage = new Stage(this).addToParent();
         this.zoomOutBg = new ZoomOutBg(this).addToParent();
         this.legend = new Legend(this).addToParent();
         this.tooltip = new Tooltip(this).addToParent();
+        this.tooltip = new Tooltip(this).addToParent();
+        this.multi_select = new MultiSelect(this).addToParent();
 
         this.updateChilds();
 
         this.stage.node.raise();
         this.legend.node.raise();
         this.tooltip.node.raise();
+        this.multi_select.node.raise();
 
-        this.node.on("mousemove",()=>{
+        this.node.on("mousemove", () => {
             let cor = d3.mouse(this.stage.node.node());
-            this.parent.eventManager.dispatch(EventType.MOUSE_MOVE,cor);
+            this.parent.eventManager.dispatch(EventType.MOUSE_MOVE, cor);
         })
 
 

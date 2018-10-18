@@ -74,6 +74,7 @@ export default class Block extends SvgBase {
         this.global.eventManager.addEventListener(EventType.MOUSEMOVE_BLOCK, (block_item: Block) => {
 
             if (!this.parent.parent.searchCircle.is_enable) return;
+            if (this.global.multi_select) return;
             let cor = d3.mouse(this.parent.parent.blocks.node.node());
             let gap = this.global.config.zoom_focus_circle_radius;
 

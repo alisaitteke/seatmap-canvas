@@ -24,6 +24,7 @@ export default class BlockMask extends SvgBase {
         super(parent);
 
         this.global.eventManager.addEventListener(EventType.BOUND_CLICK, (bound: BoundItem) => {
+            if(this.global.multi_select)return;
             let _block = bound.parent.parent.item;
             if (bound.hasTag("block-level")) {
                 parent.global.zoomManager.zoomToBlock(_block.id);
