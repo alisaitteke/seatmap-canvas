@@ -4,7 +4,6 @@
  */
 
 import {SeatMapCanvas} from "../canvas.index";
-import {EventType} from "../enums/global";
 
 
 export interface EventObject {
@@ -14,15 +13,10 @@ export interface EventObject {
 
 export default class EventManager {
     private _events: Array<EventObject>;
-    private multi_select_disable_events: Array<string>;
 
 
     constructor(private _self: SeatMapCanvas) {
         this._events = [];
-        this.multi_select_disable_events = [];
-        this.multi_select_disable_events.push(EventType.CLICK_BLOCK);
-        this.multi_select_disable_events.push(EventType.CLICK_SEAT);
-
     }
 
     addEventListener(type: string, fn: any): this {
@@ -34,8 +28,6 @@ export default class EventManager {
     }
 
     dispatch(type: string, data: any): this {
-        console.log(type);
-        if (this.multi_select_disable_events.indexOf(type) > -1) return;
         this._events
             .filter((event: EventObject) => event.type === type)
             .map((event: EventObject) => event.fn(data));

@@ -98,29 +98,7 @@ export class SeatMapCanvas {
             }
         });
 
-        let multi_select_start: boolean = false;
-        let multi_select_mode: string = "click"; // click, mouseup // @todo develop
 
-        this.global.eventManager.addEventListener(EventType.MOUSE_MOVE, () => {
-            if (this.global.multi_select) {
-
-            }
-        });
-        this.global.eventManager.addEventListener(EventType.MOUSEDOWN_BLOCK, () => {
-            if (!this.global.multi_select) return;
-            if (multi_select_start) {
-                console.log("finish");
-                multi_select_start = false;
-            } else {
-                console.log("start");
-                multi_select_start = true;
-            }
-        });
-        this.global.eventManager.addEventListener(EventType.MOUSEUP_BLOCK, () => {
-            if (this.global.multi_select && multi_select_start) {
-                //console.log("up");
-            }
-        });
 
         d3.select(this.config.zoom_out_button).on("click", () => {
             this.zoomManager.zoomToVenue(true);

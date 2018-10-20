@@ -8,14 +8,13 @@
 
 export default class DefaultsModel {
     min_zoom: number = 0.1;
-    max_zoom: number = 2;
+    max_zoom: number = 1.9;
     animation_speed: number = 600;
     resizable: boolean = false;
     container: any = null;
     zoom_focus_circle_radius: number = 60;
     click_enable_sold_seats: boolean = false;
     zoom_out_button: string = null;
-    autohide_legend: boolean = false;
     seat_style: {
         radius: number,
         color: string,
@@ -62,7 +61,6 @@ export default class DefaultsModel {
 
         this.zoom_focus_circle_radius = config.zoom_focus_circle_radius ? config.zoom_focus_circle_radius : this.zoom_focus_circle_radius;
         this.click_enable_sold_seats = config.click_enable_sold_seats ? config.click_enable_sold_seats : this.click_enable_sold_seats;
-        this.autohide_legend = config.autohide_legend ? config.autohide_legend : this.autohide_legend;
         this.max_zoom = config.max_zoom ? config.max_zoom : this.max_zoom;
 
         this.resizable = config.resizable ? config.resizable : this.resizable;

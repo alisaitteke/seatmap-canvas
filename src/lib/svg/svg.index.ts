@@ -14,7 +14,8 @@ import {EventType, ZoomLevel} from "../enums/global";
 import ZoomOutBg from "./zoom-out.bg";
 import Legend from "./legend";
 import Tooltip from "./tooltip";
-import MultiSelect from "./multi-select";
+
+
 
 declare const window: any;
 
@@ -28,7 +29,6 @@ export default class Svg extends SvgBase {
     public zoomOutBg: ZoomOutBg;
     public legend: Legend;
     public tooltip: Tooltip;
-    public multi_select: MultiSelect;
 
 
     constructor(public parent: SeatMapCanvas) {
@@ -38,7 +38,9 @@ export default class Svg extends SvgBase {
             this.node.classed("zoom-level-" + ZoomLevel.BLOCK, false);
             this.node.classed("zoom-level-" + ZoomLevel.VENUE, false);
             this.node.classed("zoom-level-" + zoom_level.level, true);
-        })
+        });
+
+
         //this.update();
     }
 
@@ -48,14 +50,13 @@ export default class Svg extends SvgBase {
         this.legend = new Legend(this).addToParent();
         this.tooltip = new Tooltip(this).addToParent();
         this.tooltip = new Tooltip(this).addToParent();
-        this.multi_select = new MultiSelect(this).addToParent();
+
 
         this.updateChilds();
 
         this.stage.node.raise();
         this.legend.node.raise();
         this.tooltip.node.raise();
-        this.multi_select.node.raise();
 
         this.node.on("mousemove", () => {
             let cor = d3.mouse(this.stage.node.node());

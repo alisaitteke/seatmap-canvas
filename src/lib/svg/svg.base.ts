@@ -6,6 +6,7 @@
 import Block from "./stage/blocks/block-item/block-item.index";
 import {GlobalModel} from "../models/global.model";
 import {EventObject} from "./event.manager";
+import * as d3 from "d3";
 
 
 export default class SvgBase {
@@ -143,7 +144,7 @@ export default class SvgBase {
     public updateEvents(recursive: boolean = false): this {
         let _self = this;
 
-        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseenter", "mousemove","keydown","keypress","mousedown","mouseup"];
+        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseenter", "mousemove", "keydown", "keypress", "mousedown", "mouseup"];
 
         for (let i = 0; i < this.global.eventManager.events.length; i++) {
             let _event = this.global.eventManager.events[i];
@@ -152,7 +153,8 @@ export default class SvgBase {
             if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
                 //console.log(this.eventCode.toLowerCase(),_split)
                 this.node.on(_split[1].toLowerCase(), function (item: EventObject) {
-                    _event.fn(_self, item);
+                    let _mouse = d3.mouse(_self.parent.node.node());
+                    _event.fn(_self, item, _mouse);
 
                 })
             }
