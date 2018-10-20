@@ -47,15 +47,21 @@ export default class Svg extends SvgBase {
     update() {
         this.stage = new Stage(this).addToParent();
         this.zoomOutBg = new ZoomOutBg(this).addToParent();
-        this.legend = new Legend(this).addToParent();
-        this.tooltip = new Tooltip(this).addToParent();
+        if(this.global.config.legend_show){
+            this.legend = new Legend(this).addToParent();
+            console.log(123);
+        }
+
         this.tooltip = new Tooltip(this).addToParent();
 
 
         this.updateChilds();
 
         this.stage.node.raise();
-        this.legend.node.raise();
+        if(this.global.config.legend_show){
+            this.legend.node.raise();
+        }
+
         this.tooltip.node.raise();
 
         this.node.on("mousemove", () => {

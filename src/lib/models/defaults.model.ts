@@ -15,6 +15,7 @@ export default class DefaultsModel {
     zoom_focus_circle_radius: number = 60;
     click_enable_sold_seats: boolean = false;
     zoom_out_button: string = null;
+    legend_show: boolean = false;
     seat_style: {
         radius: number,
         color: string,
@@ -65,6 +66,7 @@ export default class DefaultsModel {
 
         this.resizable = config.resizable ? config.resizable : this.resizable;
         this.zoom_out_button = config.zoom_out_button ? config.zoom_out_button : ".zoom-out-button";
+        this.legend_show = config.legend_show == false ? config.legend_show : true;
 
 
         this.seat_style = {
@@ -107,5 +109,9 @@ export default class DefaultsModel {
         };
 
 
+    }
+
+    getAll():this{
+        return this;
     }
 }

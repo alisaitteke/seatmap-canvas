@@ -60,6 +60,7 @@ export default class ZoomManager {
 
     public init() {
 
+        this.calculateZoomLevels();
         this.zoomInit();
         // this._self.eventManager.addEventListener(EventType.UPDATE_BLOCK, (blocks: Array<BlockModel>) => {
         //     this.calculateZoomLevels(blocks);
@@ -106,8 +107,8 @@ export default class ZoomManager {
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
-            _self.canvasScopeHandler();
             _self.calculateZoomLevel(k);
+            _self.canvasScopeHandler();
         }
     }
 
@@ -139,7 +140,7 @@ export default class ZoomManager {
             let y = d3.event.transform.y;
             let k = d3.event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
-            //_self.calculateZoomLevel(k);
+            _self.calculateZoomLevel(k);
         }
     }
 
@@ -166,13 +167,27 @@ export default class ZoomManager {
     }
 
     calculateZoomLevel(k: number) {
-        // if (this.zoomLevels.SEAT && k <= this.zoomLevels.SEAT.k) {
-        //     this.zoomLevel = ZoomLevel.SEAT;
-        // } else if (this.zoomLevels.BLOCK && k <= this.zoomLevels.BLOCK.k) {
-        //     this.zoomLevel = ZoomLevel.BLOCK;
-        // } else if (this.zoomLevels.VENUE && k <= this.zoomLevels.VENUE.k) {
-        //     this.zoomLevel = ZoomLevel.VENUE;
-        // }
+        let _levels = {
+            seat: this._self.config.max_zoom - 0.2,
+            block: this.zoomLevels.BLOCK.k,
+            venue: this.zoomLevels.VENUE.k
+        };
+
+        let _zoomLevel = null;
+
+        if (k >= _levels.seat) {
+            _zoomLevel = ZoomLevel.SEAT;
+
+        } else if (k >= _levels.block) {
+            _zoomLevel = ZoomLevel.BLOCK;
+
+        } else if (k >= _levels.venue) {
+            _zoomLevel = ZoomLevel.VENUE;
+        }
+        if (_zoomLevel !== this.zoomLevel) {
+            this.zoomLevel = _zoomLevel;
+            this.dispatchZoomEvent();
+        }
     }
 
     canvasScopeHandler() {
@@ -191,10 +206,11 @@ export default class ZoomManager {
         }
     }
 
-    public calculateZoomLevels(blocks: Array<BlockModel>): this {
+    public calculateZoomLevels(blocks: Array<BlockModel> = this._self.data.getBlocks()): this {
 
         let _wm = this._self.windowManager;
         let _stage = _wm.stage;
+        console.log("calculateZoomLevels")
 
 
         blocks.map((block: BlockModel) => {
@@ -234,6 +250,11 @@ export default class ZoomManager {
             y: y,
             k: this.scale.k
         };
+
+
+        if (this._self.data.getBlocks().length === 1 && this.zoomLevels.BLOCK) {
+            this.zoomLevels.VENUE = this.zoomLevels.BLOCK;
+        }
 
         return this;
     }
@@ -295,7 +316,7 @@ export default class ZoomManager {
         let cor = d3.mouse(this._self.svg.stage.blocks.node.node());
         let x = cor[0];
         let y = cor[1];
-        let k = 2;
+        let k = this._self.config.max_zoom;
 
         this.zoomLevels.SEAT = {
             x: x,
@@ -328,7 +349,7 @@ export default class ZoomManager {
                 this._self.svg.node.interrupt().call(this.zoomTypes.normal.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.normal.scaleTo, _block.zoom_bbox.k);
             }
 
-            let gap = 0.2;
+            // let gap = 0.2;
 
             // if (_block.zoom_bbox.k > this._self.config.max_zoom + gap || _block.zoom_bbox.k < this._self.config.max_zoom - gap) {
             if (_block.zoom_bbox.k === this._self.config.max_zoom) {
