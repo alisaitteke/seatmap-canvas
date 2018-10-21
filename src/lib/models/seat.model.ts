@@ -22,6 +22,8 @@ export default class SeatModel extends ModelBase {
     private _tags: Array<string>;
     private _tag_index: any = {};
 
+    private _custom_data: any;
+
 
     constructor(item: any) {
         super();
@@ -35,6 +37,7 @@ export default class SeatModel extends ModelBase {
         this.salable = item.salable || true;
         this.selected = false;
         this.tags = item.tags || [];
+        this.custom_data = item.custom_data || {};
         this._tag_index = {};
     }
 
@@ -145,6 +148,15 @@ export default class SeatModel extends ModelBase {
 
     set tag_index(value: any) {
         this._tag_index = value;
+    }
+
+
+    get custom_data(): any {
+        return this._custom_data;
+    }
+
+    set custom_data(value: any) {
+        this._custom_data = value;
     }
 
     public toJson() {

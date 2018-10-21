@@ -191,7 +191,7 @@ export default class ZoomManager {
     }
 
     canvasScopeHandler() {
-
+        if (this._self.config.canvas_stageout_control === false) return;
         let _blocks_values = this._self.svg.stage.blocks.node.node().getBoundingClientRect();
         let _svg_values = this._self.svg.node.node().getBoundingClientRect();
 

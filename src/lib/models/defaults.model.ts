@@ -16,6 +16,7 @@ export default class DefaultsModel {
     click_enable_sold_seats: boolean = false;
     zoom_out_button: string = null;
     legend_show: boolean = false;
+    canvas_stageout_control: boolean = true;
     seat_style: {
         radius: number,
         color: string,
@@ -69,6 +70,7 @@ export default class DefaultsModel {
         this.resizable = config.resizable ? config.resizable : this.resizable;
         this.zoom_out_button = config.zoom_out_button ? config.zoom_out_button : ".zoom-out-button";
         this.legend_show = config.legend_show == false ? config.legend_show : true;
+        this.canvas_stageout_control = config.canvas_stageout_control == false ? config.canvas_stageout_control : true;
 
 
         this.seat_style = {
@@ -100,8 +102,8 @@ export default class DefaultsModel {
         };
         this.tooltip_style = {
             border_width: config.tooltip_style && config.tooltip_style.border_width || 1,
-            width: config.tooltip_style && config.tooltip_style.width || 120,
-            height: config.tooltip_style && config.tooltip_style.height || 40,
+            width: config.tooltip_style && config.tooltip_style.width || 140,
+            height: config.tooltip_style && config.tooltip_style.height || 58,
             color: config.tooltip_style && config.tooltip_style.color || "#000000",
             bg: config.tooltip_style && config.tooltip_style.bg || "#ffffff"
         };
