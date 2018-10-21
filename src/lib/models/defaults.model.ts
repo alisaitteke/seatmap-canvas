@@ -101,7 +101,7 @@ export default class DefaultsModel {
         this.tooltip_style = {
             border_width: config.tooltip_style && config.tooltip_style.border_width || 1,
             width: config.tooltip_style && config.tooltip_style.width || 120,
-            height: config.tooltip_style && config.tooltip_style.height || 50,
+            height: config.tooltip_style && config.tooltip_style.height || 40,
             color: config.tooltip_style && config.tooltip_style.color || "#000000",
             bg: config.tooltip_style && config.tooltip_style.bg || "#ffffff"
         };

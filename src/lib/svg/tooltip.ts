@@ -74,9 +74,7 @@ export default class Tooltip extends SvgBase {
         let _self = this;
 
         this.parent.node.on("mousemove.seat", function () {
-            // console.log();
             if (_self.global.multi_select) return;
-            //console.log(_self.activeSeat);
             if (_self.global.zoomManager.zoomLevel === ZoomLevel.SEAT && _self.activeSeat !== null) {
                 let cor = d3.mouse(this);
 

@@ -65,7 +65,6 @@ export default class MultiSelect extends SvgBase {
             // console.log("mouse", mouse);
             let mouse = d3.mouse(this.parent.stage.node.node());
             if (this.start) {
-                console.log("finish");
                 this.start = false;
 
                 this.points.end = mouse;
@@ -81,7 +80,6 @@ export default class MultiSelect extends SvgBase {
                 this.points.start = null;
                 this.points.end = null;
             } else {
-                console.log("start");
                 this.start = true;
                 this.points.start = mouse;
 
@@ -92,7 +90,6 @@ export default class MultiSelect extends SvgBase {
             if (this.global.multi_select) {
                 if (this.start) {
                     let mouse = d3.mouse(this.parent.stage.node.node());
-                    console.log(mouse);
                     let width = mouse[0] - this.points.start[0];
                     let height = mouse[1] - this.points.start[1];
 

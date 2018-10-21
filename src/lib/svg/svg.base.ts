@@ -151,7 +151,6 @@ export default class SvgBase {
             let _split = _event.type.toString().split(".");
 
             if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
-                //console.log(this.eventCode.toLowerCase(),_split)
                 this.node.on(_split[1].toLowerCase() + ".globalevent", function (item: EventObject) {
                     let _mouse = d3.mouse(_self.parent.node.node());
                     _event.fn(_self, item, _mouse);

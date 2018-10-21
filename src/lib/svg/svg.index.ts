@@ -49,7 +49,6 @@ export default class Svg extends SvgBase {
         this.zoomOutBg = new ZoomOutBg(this).addToParent();
         if(this.global.config.legend_show){
             this.legend = new Legend(this).addToParent();
-            console.log(123);
         }
 
         this.tooltip = new Tooltip(this).addToParent();

@@ -210,8 +210,6 @@ export default class ZoomManager {
 
         let _wm = this._self.windowManager;
         let _stage = _wm.stage;
-        console.log("calculateZoomLevels")
-
 
         blocks.map((block: BlockModel) => {
 
