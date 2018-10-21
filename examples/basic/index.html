@@ -81,9 +81,9 @@
         seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
             console.log(seat)
             console.log(seat.isSelected())
-            if(!seat.isSelected()){
+            if (!seat.isSelected()) {
                 seat.select()
-            }else{
+            } else {
                 seat.unSelect()
             }
 
@@ -99,7 +99,7 @@
         });
 
 
-        let block_colors = ["#00a5ff", "#ef255f", "#fccf4d", "#ef255f","#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
+        let block_colors = ["#00a5ff", "#ef255f", "#fccf4d", "#ef255f", "#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
         let x_gap = 0;
         let y_gap = 0;
         let block_i = 0;
@@ -152,7 +152,7 @@
                             salable: item.isSold === true ? false : true,
                             note: "note test",
                             tags: tags,
-                            title: item.displayName
+                            title: "Sıra no: " + item.displayName + "\nSütun No: " + item.rowName
                         }
                     });
 

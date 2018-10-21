@@ -11,7 +11,7 @@ import * as d3 from "d3";
 import Tooltip from "../tooltip";
 
 @dom({
-    tag: "path",
+    tag: "rect",
     class: "tooltip-rect",
     autoGenerate: false
 })
@@ -20,12 +20,12 @@ export default class TooltipRect extends SvgBase {
 
     constructor(public parent: Tooltip) {
         super(parent);
-        // this.attr("width", this.global.config.tooltip_style.width);
-        // this.attr("height", this.global.config.tooltip_style.height);
-        // this.attr("x", 0);
-        // this.attr("y", 0);
-        // this.attr("rx", 3);
-        // this.attr("ry", 3);
+        this.attr("width", this.global.config.tooltip_style.width);
+        this.attr("height", this.global.config.tooltip_style.height);
+        this.attr("x", 0);
+        this.attr("y", 0);
+        this.attr("rx", 3);
+        this.attr("ry", 3);
 
         const data:any = [
             {'x': 0, 'y': 0},
@@ -43,15 +43,12 @@ export default class TooltipRect extends SvgBase {
                 return d['y'];
             });
 
-
-        this.attr("fill", this.global.config.seat_style.hover);
-
+        this.attr("fill", this.global.config.tooltip_style.bg);
         this.attr("stroke", "rgba(0,0,0,0.3)");
         this.attr("stroke-width", "1px");
-
         this.attr("opacity", 0.8);
 
-        this.attr('d', line(data));
+        //this.attr('d', line(data));
 
 
         return this;
