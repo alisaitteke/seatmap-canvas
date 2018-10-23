@@ -48,7 +48,7 @@ export default class Block extends SvgBase {
             if (levelObject.level === ZoomLevel.VENUE) {
                 this.mask.blockLevelMask.show();
                 this.mask.seatLevelMask.show();
-                this.seats.resetSeatsColors(true);
+                this.seats.resetSeatsColors(false);
                 this.infosToCenter();
             } else if (levelObject.level === ZoomLevel.BLOCK) {
                 this.mask.blockLevelMask.hide();
@@ -57,7 +57,7 @@ export default class Block extends SvgBase {
             } else if (levelObject.level === ZoomLevel.SEAT) {
                 this.mask.blockLevelMask.hide();
                 this.mask.seatLevelMask.hide();
-                this.seats.resetSeatsColors(true);
+                this.seats.resetSeatsColors(false);
                 this.infosToTop();
             }
         });
@@ -100,7 +100,7 @@ export default class Block extends SvgBase {
         });
 
         this.parent.node.on("mouseleave.seats", () => {
-            this.seats.resetSeatsColors(true);
+            this.seats.resetSeatsColors(false);
         });
 
         return this;
