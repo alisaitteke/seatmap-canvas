@@ -1,26 +1,18 @@
 /*
-  data.ts - seatmap canvas block model
-  Copyright (C) 2018  Ali Sait TEKE
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * $project.fileName
+ * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ */
 
 
-import {SeatClass} from "./seat";
-import {LabelClass} from "./label";
+import SeatModel from "./seat.model";
+import LabelModel from "./label.model";
+import ModelBase from "./model.base";
 
-export class Block {
+
+export default class BlockModel extends ModelBase {
     private _id: string;
-    private _seats: Array<SeatClass>;
-    private _labels: Array<LabelClass>;
+    private _seats: Array<SeatModel>;
+    private _labels: Array<LabelModel>;
     private _title: String;
     private _bounds: any;
     private _width: number;
@@ -28,11 +20,12 @@ export class Block {
     private _x: number;
     private _y: number;
     private _color: string;
-    private _border_color:string;
-    private _bbox:any;
-    private _zoom_bbox:any;
+    private _border_color: string;
+    private _bbox: any;
+    private _zoom_bbox: any;
 
-    constructor(item:any) {
+    constructor(item: any) {
+        super();
         this.id = item.id ? item.id : (Math.random() * 1000).toString();
         this.width = item.width || null;
         this.height = item.height || null;
@@ -45,28 +38,28 @@ export class Block {
 
         this.labels = item.labels.map((item: any) => {
             item.block = this;
-            return new LabelClass(item);
+            return new LabelModel(item);
         }) || [];
 
         this.seats = item.seats.map((item: any) => {
             item.block = this;
-            return new SeatClass(item);
+            return new SeatModel(item);
         }) || [];
     }
 
-    get seats(): Array<SeatClass> {
+    get seats(): Array<SeatModel> {
         return this._seats;
     }
 
-    set seats(value: Array<SeatClass>) {
+    set seats(value: Array<SeatModel>) {
         this._seats = value;
     }
 
-    get labels(): Array<LabelClass> {
+    get labels(): Array<LabelModel> {
         return this._labels;
     }
 
-    set labels(value: Array<LabelClass>) {
+    set labels(value: Array<LabelModel>) {
         this._labels = value;
     }
 

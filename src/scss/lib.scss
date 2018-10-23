@@ -2,7 +2,13 @@
 
 }
 
-
-@mixin stroke-width ($param: 4) {
+@mixin stroke-width($param: 4) {
   stroke-width: #{$param}px;
+}
+
+@mixin trans($duration:0.5s,$delay:0.2s) {
+  transition-property: opacity;
+  transition-duration: $duration;
+  transition-delay: $delay;
+  transition-timing-function: ease-in-out;
 }
