@@ -1,9 +1,12 @@
 var path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//const bourbon = require("bourbon").includePaths;
 
 module.exports = {
     mode: "production",
-    entry: path.resolve(__dirname, '../src', "lib", "index.ts"),
+    entry: {
+        "main": path.resolve(__dirname, '../src', "lib", "canvas.index.ts")
+    },
     output: {
         path: path.resolve(__dirname, '../build'),
         filename: 'seatmap.canvas.js',
@@ -27,7 +30,8 @@ module.exports = {
                     }
                 }, {
                     loader: "sass-loader", options: {
-                        sourceMap: false
+                        sourceMap: false,
+                        //includePaths: bourbon
                     }
                 }]
             }

@@ -1,22 +1,13 @@
 /*
-  index.ts - seatmap canvas seat model
-  Copyright (C) 2018  Ali Sait TEKE
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * $project.fileName
+ * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ */
 
 
-import {Block} from "./block";
+import BlockModel from "./block.model";
+import ModelBase from "./model.base";
 
-export class SeatClass {
+export default class SeatModel extends ModelBase {
     private _id: any;
     private _x: number;
     private _y: number;
@@ -24,16 +15,20 @@ export class SeatClass {
     private _selected: boolean;
 
     private _color: string;
-    private _block: Block;
+    private _block: BlockModel;
     private _salable: boolean;
     private _note: string;
 
     private _tags: Array<string>;
     private _tag_index: any = {};
 
+    private _custom_data: any;
+
+    public item_type: string = "Seat";
+
 
     constructor(item: any) {
-
+        super();
         this.id = item.id;
         this.x = item.x;
         this.y = item.y;
@@ -41,9 +36,10 @@ export class SeatClass {
         this.color = item.color || null;
         this.block = item.block;
         this.note = item.note || null;
-        this.salable = item.salable;
-        this.selected = false;
+        this.salable = item.salable === false ? item.salable : true;
+        this.selected = item.selected || false;
         this.tags = item.tags || [];
+        this.custom_data = item.custom_data || {};
         this._tag_index = {};
     }
 
@@ -96,11 +92,11 @@ export class SeatClass {
         this._color = value;
     }
 
-    get block(): Block {
+    get block(): BlockModel {
         return this._block;
     }
 
-    set block(value: Block) {
+    set block(value: BlockModel) {
         this._block = value;
     }
 
@@ -154,6 +150,15 @@ export class SeatClass {
 
     set tag_index(value: any) {
         this._tag_index = value;
+    }
+
+
+    get custom_data(): any {
+        return this._custom_data;
+    }
+
+    set custom_data(value: any) {
+        this._custom_data = value;
     }
 
     public toJson() {

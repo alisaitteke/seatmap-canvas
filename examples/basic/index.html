@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap.min.css" crossorigin="anonymous">
 
     <title>Hello, world!</title>
 
@@ -27,6 +26,7 @@
             width: 100%;
             left: 0;
             top: 0;
+            z-index: 9;
         }
 
     </style>
@@ -55,16 +55,13 @@
                     <button class="btn btn-default btn-block" id="set-filter-disable">Filter of</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-1">Zoom Block 1</button>
+                    <button class="btn btn-default btn-block zoom-to-block" block-id="1">Zoom Block 1</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-2">Zoom Block 2</button>
+                    <button class="btn btn-default btn-block zoom-to-block" block-id="2">Zoom Block 2</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-3">Zoom Block 3</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-default btn-block" id="zoom-block-4">Zoom Block 4</button>
+                    <button class="btn btn-default btn-block zoom-to-block" block-id="3">Zoom Block 3</button>
                 </div>
             </div>
         </div>
@@ -74,137 +71,55 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first then Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="jquery.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="/build/seatmap.canvas.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
-        let config = {
-            "container": ".seats_container",
-            "max_zoom": 1.2,
-            "resizable": true,
-            "seat_style": {
-                "radius": 12,
-                "color": "#FFFFFF",
-                "hover": "#dce7ff",
-                "not_salable": "#424747",
-                "selected": "#56aa45",
-                "focus": "#c3f7ff",
-                "focus_out": "#56aa45",
-            },
-            "block_style": {
-                "fill": "#e2e2e2",
-                "stroke": "#e2e2e2"
-            },
-            "label_style": {
-                "color": "#000",
-                "radius": 12,
-                "font-size": "12px",
-                "bg": "#ffffff"
-            },
-            "legend_style": {
-                "radius": 12,
-                "font_size": 11,
-                "padding": 100
-            }
-        };
-
-
-        let seatmap = new SeatmapCanvas(config);
-
-        seatmap.addEventListener("seat.click", (seat) => {
-            console.log(seat);
-            if (seat.selected) {
-                seatmap.seatUnselect(seat);
+        let seatmap = new SeatMapCanvas(".seats_container");
+        seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
+            console.log(seat)
+            console.log(seat.isSelected())
+            if (!seat.isSelected()) {
+                seat.select()
             } else {
-                seatmap.seatSelect(seat);
+                seat.unSelect()
             }
-        });
-        seatmap.addEventListener("seat.hover", (seat) => {
-            //console.log(seat);
-        });
-        seatmap.addEventListener("seat.leave", (seat) => {
-            //console.log(seat);
+
         });
 
-        seatmap.addEventListener("seat.context_menu", (seat) => {
-            console.log(seat);
-        });
-
-        seatmap.addEventListener("label.click", (label) => {
-            console.log(label);
-        });
-
-        seatmap.addEventListener("label.hover", (label) => {
-            seatmap.hideSeatsOfTags(["row_" + label.title], label.block.id).showSeatsOfTags(["row_" + label.title], label.block.id);
-        });
-
-        seatmap.addEventListener("label.leave", (label) => {
-            seatmap.showSeatsOfTags(["row_" + label.title], label.block.id);
-        });
-
-        $("#best-find-start").on("click", function () {
-            seatmap.findBestSeat(3);
-        });
         $("#zoomout-button").on("click", function () {
-            seatmap.centerStage(true);
-        });
-        $("#best-find-cancel").on("click", function () {
-            seatmap.cancelBestSeat();
-        });
-        $("#get-data").on("click", function () {
-            var data = seatmap.getSelectedSeats(true);
-            console.log(JSON.stringify(data));
-        });
-        $("#set-filter").on("click", function () {
-            seatmap.hideSeatsOfTags(["a"]);
+            seatmap.zoomManager.zoomToVenue();
         });
 
-        $("#set-filter-disable").on("click", function () {
-            seatmap.showSeatsOfTags(["a"]);
-        });
-
-        $("#zoom-block-1").on("click", function () {
-            seatmap.zoomToBlock(1);
-        });
-
-        $("#zoom-block-2").on("click", function () {
-            seatmap.zoomToBlock(2);
-        });
-        $("#zoom-block-3").on("click", function () {
-            seatmap.zoomToBlock(3);
-        });
-        $("#zoom-block-4").on("click", function () {
-            seatmap.zoomToBlock(4);
+        $(".zoom-to-block").on("click", function (a) {
+            var blockId = parseInt($(this).attr('block-id'));
+            seatmap.zoomManager.zoomToBlock(blockId);
         });
 
 
-        setTimeout(() => {
+        let block_colors = ["#00a5ff", "#ef255f", "#fccf4d", "#ef255f", "#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
+        let x_gap = 0;
+        let y_gap = 0;
+        let block_i = 0;
+
+        let getDummyBlocks = function (count, cb) {
             $.getJSON("/data/small.json", function (result) {
-
-                let data = {
-                    "blocks": []
-                };
-
-                let block_colors = ["#2c2828", "#ff1f5a", "#fccf4d", "#ef255f"];
-
-
-                let x_gap = 0;
-                let y_gap = 0;
-
-
-                for (let i = 0; i < 10; i++) {
+                let blocks = [];
+                console.log("getting", block_i, count);
+                for (let i = 0; i < count; i++) {
 
                     let labels = [];
                     let label_index = {};
 
-                    let color = block_colors[i % block_colors.length];
+                    let color = block_colors[block_i % block_colors.length];
+                    console.log(color)
 
                     //x_gap = 890;
 
                     if (i % 2 === 0) {
-                        y_gap += 500;
+                        y_gap += 300;
                         x_gap = 0;
                     } else {
                         x_gap += 890;
@@ -230,30 +145,38 @@
                         }
                         tags.push("row_" + item.rowName);
                         return {
-                            id: index + 1,
+                            id: i + "-" + (index + 1),
                             x: item.positionLeft + x_gap + 40,
                             y: item.positionTop + y_gap,
-                            color: item.color || null,
+                            color: item.color || color || null,
                             salable: item.isSold === true ? false : true,
                             note: "note test",
                             tags: tags,
-                            title: item.displayName
+                            title: "Sıra no: " + item.displayName + "\nSütun No: " + item.rowName
                         }
                     });
 
-                    data.blocks.push({
-                        "id": i + 1,
-                        "title": "Block " + (i + 1),
+                    let block = {
+                        "id": block_i + 1,
+                        "title": "Block " + (block_i + 1),
                         "labels": labels,
                         "color": color,
                         "seats": seats
-                    });
+                    };
 
+                    //seatmap.data.addBlock(block)
+                    blocks.push(block);
+                    block_i++;
                 }
+                cb(blocks);
 
-                seatmap.setData(data);
             });
-        }, 250);
+        };
+
+        getDummyBlocks(1, (blocks) => {
+            console.log("adding blocks", blocks.length)
+            seatmap.data.addBulkBlock(blocks);
+        });
 
 
     });

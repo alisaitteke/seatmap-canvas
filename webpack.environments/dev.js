@@ -1,10 +1,15 @@
 var path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//const bourbon = require("bourbon").includePaths;
+
+
 
 module.exports = {
     mode: "development",
     devtool: "inline-source-map",
-    entry: path.resolve(__dirname, '../src', "lib", "index.ts"),
+    entry: {
+        "main": path.resolve(__dirname, '../src', "lib", "canvas.index.ts")
+    },
     output: {
         filename: 'seatmap.canvas.js',
         publicPath: "/build/",
@@ -30,7 +35,8 @@ module.exports = {
                         }
                     }, {
                         loader: "sass-loader", options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            //includePaths: bourbon
                         }
                     }
                 ]

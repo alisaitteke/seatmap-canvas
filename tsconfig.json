@@ -6,7 +6,7 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "./dist/out-tsc",
+    "outDir": "./buildc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -21,5 +21,8 @@
       "es2015",
       "dom"
     ]
-  }
+  },
+  "files": [
+    "src/lib/canvas.index.ts"
+  ]
 }
