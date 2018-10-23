@@ -99,10 +99,11 @@ export class SeatMapCanvas {
         });
 
 
-
         d3.select(this.config.zoom_out_button).on("click", () => {
             this.zoomManager.zoomToVenue(true);
         });
+
+
 
         // update block data change trigger
         this.eventManager.addEventListener(EventType.ADD_BLOCK, (addedBlocks: Array<BlockModel>) => {
@@ -113,6 +114,8 @@ export class SeatMapCanvas {
             this.windowManager.resizeHandler();
             this.zoomManager.zoomToVenue(false);
         });
+
+        this.eventManager.dispatch(EventType.READY, this);
     }
 }
 

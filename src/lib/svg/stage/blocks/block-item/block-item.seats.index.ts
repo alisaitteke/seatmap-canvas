@@ -74,10 +74,6 @@ export default class Seats extends SvgBase {
                 color = _seat.getColor(SeatAction.LEAVE);
                 _seat.setColor(color, animation);
             }
-
-
         }
     }
-
-
 }

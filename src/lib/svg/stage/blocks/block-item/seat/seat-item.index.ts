@@ -79,7 +79,6 @@ export class SeatItem extends SvgBase {
 
     public getColor(action: SeatAction = null): string {
 
-
         if (this.isSalable()) {
 
             if (action == SeatAction.FOCUS) {
@@ -137,5 +136,9 @@ export class SeatItem extends SvgBase {
         //this.title.node.text(this.item.title);
 
         return this;
+    }
+
+    afterGenerate(){
+        this.setColor(this.getColor());
     }
 }

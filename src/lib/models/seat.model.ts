@@ -24,6 +24,8 @@ export default class SeatModel extends ModelBase {
 
     private _custom_data: any;
 
+    public item_type: string = "Seat";
+
 
     constructor(item: any) {
         super();
@@ -34,8 +36,8 @@ export default class SeatModel extends ModelBase {
         this.color = item.color || null;
         this.block = item.block;
         this.note = item.note || null;
-        this.salable = item.salable || true;
-        this.selected = false;
+        this.salable = item.salable === false ? item.salable : true;
+        this.selected = item.selected || false;
         this.tags = item.tags || [];
         this.custom_data = item.custom_data || {};
         this._tag_index = {};

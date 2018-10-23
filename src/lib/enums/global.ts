@@ -44,6 +44,8 @@ export enum EventType {
     BEST_AVAILABLE_ENABLE = "BEST_AVAILABLE_ENABLE",
     MBEST_AVAILABLE_DISABLE = "MBEST_AVAILABLE_DISABLE",
 
+    READY = "READY"
+
 }
 
 export enum ZoomLevel {
