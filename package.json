@@ -1,6 +1,6 @@
 {
   "name": "@seatmap/canvas",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
   "homepage": "https://github.com/seatmap/canvas",
@@ -48,17 +48,9 @@
     "doc": "docs",
     "example": "examples"
   },
-  "files": [
-    "dist/index.js",
-    "LICENSE",
-    "README.md",
-    "src/lib/index.ts"
-  ],
   "keywords": [
     "seating",
     "seatmap",
     "seat-selection"
-  ],
-  "types": "./build/index.ts",
-  "typings": "./build/core.d.ts"
+  ]
 }
