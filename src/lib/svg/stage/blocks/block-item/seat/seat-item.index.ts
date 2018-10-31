@@ -12,6 +12,7 @@ import {SeatItemCircle} from "./seat-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
 import {SeatAction} from "../../../../../enums/global";
+import {SeatItemCheck} from "./seat-item.check";
 
 
 @dom({
@@ -24,6 +25,7 @@ export class SeatItem extends SvgBase {
     public circle: SeatItemCircle;
     public title: SeatItemTitle;
     public coordinates: CoordinateModel;
+    public check: SeatItemCheck;
 
     constructor(public parent: Seats, public item: SeatModel) {
         super(parent);
@@ -34,7 +36,7 @@ export class SeatItem extends SvgBase {
 
     public setColor(color: string, animation: boolean = false): this {
         if (animation) {
-            this.circle.node.interrupt().transition().duration(this.global.config.animation_speed).attr("fill", color);
+            this.circle.node.transition().duration(this.global.config.animation_speed).attr("fill", color);
         } else {
             this.circle.node.attr("fill", color);
         }
@@ -51,6 +53,7 @@ export class SeatItem extends SvgBase {
         this.item.selected = true;
         this.node.classed("selected", true);
         this.circle.node.attr("fill", this.global.config.seat_style.selected);
+        this.check.show();
         return this;
     }
 
@@ -58,6 +61,7 @@ export class SeatItem extends SvgBase {
         this.item.selected = false;
         this.node.classed("selected", false);
         this.circle.node.attr("fill", this.global.config.seat_style.color);
+        this.check.hide();
         return this;
     }
 
@@ -125,6 +129,10 @@ export class SeatItem extends SvgBase {
     update(): this {
         this.circle = new SeatItemCircle(this);
         this.addChild(this.circle);
+
+
+        this.check = new SeatItemCheck(this).addTo(this);
+
 
 
         // this.title = new SeatItemTitle(this);
