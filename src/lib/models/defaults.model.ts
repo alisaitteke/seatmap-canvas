@@ -24,7 +24,8 @@ export default class DefaultsModel {
         selected: string,
         hover: string,
         focus: string,
-        focus_out: string
+        focus_out: string,
+        check_color: string
     };
     block_style: {
         fill: string
@@ -80,7 +81,8 @@ export default class DefaultsModel {
             selected: config.seat_style && config.seat_style.selected || "#51ff48",
             hover: config.seat_style && config.seat_style.hover || "#4770ff",
             focus: config.seat_style && config.seat_style.focus || "#6293d2",
-            focus_out: config.seat_style && config.seat_style.focus_out || "#ff001c"
+            focus_out: config.seat_style && config.seat_style.focus_out || "#ff001c",
+            check_color: config.seat_style && config.seat_style.check_color || "#ffffff",
         };
         this.block_style = {
             fill: config.block_style && config.block_style.fill || "#ffffff",

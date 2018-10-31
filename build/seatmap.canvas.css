@@ -24,7 +24,8 @@
     stroke-linejoin: round;
     opacity: 0.5; }
   .seatmap-svg .stage .blocks .block .bounds .block-hull {
-    stroke-linejoin: round; }
+    stroke-linejoin: round;
+    cursor: move; }
   .seatmap-svg .stage .blocks .block .masks .venue-level-mask {
     transition-property: opacity;
     transition-duration: 0.5s;

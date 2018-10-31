@@ -246,7 +246,7 @@ export default class ZoomManager {
         this.zoomLevels.VENUE = {
             x: x,
             y: y,
-            k: this.scale.k - 0.3
+            k: this.scale.k
         };
 
 
