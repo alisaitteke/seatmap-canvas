@@ -148,5 +148,11 @@ export class SeatItem extends SvgBase {
 
     afterGenerate(){
         this.setColor(this.getColor());
+        if(this.item.selected){
+            this.check.show()
+        }else{
+            this.check.hide()
+        }
+
     }
 }
