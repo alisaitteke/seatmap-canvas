@@ -37,6 +37,29 @@ export default class Blocks extends SvgBase {
             let _bounds = d3.polygonHull(bound_items);
             block_item.bounds = _bounds;
 
+            if(_bounds===null && _seats.length===1){
+                _bounds = [];
+                _bounds.push(bound_items[0]);
+                _bounds.push(bound_items[1]);
+                _bounds.push(bound_items[0]);
+                _bounds.push(bound_items[1]);
+                block_item.bounds = _bounds;
+            }else {
+                if (_bounds.length == 1) {
+                    _bounds.push([0,0]);
+                    _bounds.push([0,0])
+                }
+                if (_bounds.length == 2) {
+                    _bounds.push(_bounds[1]);
+                    _bounds.push(_bounds[0]);
+                }
+                if (_bounds.length == 3) {
+                    _bounds.push(_bounds[1]);
+                }
+            }
+
+
+
             this.addChild(_blockItem);
         });
         this.updateChilds();
