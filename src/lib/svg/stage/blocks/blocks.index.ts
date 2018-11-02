@@ -33,32 +33,17 @@ export default class Blocks extends SvgBase {
         this.global.data.getBlocks().map((block_item: BlockModel, i: number) => {
             let _blockItem = new Block(this, block_item);
             let _seats = block_item.seats;
+
+
+            // algoritym problem fixed
+            if (_seats && _seats.length) {
+                _seats[0].y += 0.0001;
+            }
+
             let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
             let _bounds = d3.polygonHull(bound_items);
             block_item.bounds = _bounds;
-
-            if(_bounds===null && _seats.length===1){
-                _bounds = [];
-                _bounds.push(bound_items[0]);
-                _bounds.push(bound_items[1]);
-                _bounds.push(bound_items[0]);
-                _bounds.push(bound_items[1]);
-                block_item.bounds = _bounds;
-            }else {
-                if (_bounds.length == 1) {
-                    _bounds.push([0,0]);
-                    _bounds.push([0,0])
-                }
-                if (_bounds.length == 2) {
-                    _bounds.push(_bounds[1]);
-                    _bounds.push(_bounds[0]);
-                }
-                if (_bounds.length == 3) {
-                    _bounds.push(_bounds[1]);
-                }
-            }
-
-
+            console.log("_bounds", _bounds);
 
             this.addChild(_blockItem);
         });
