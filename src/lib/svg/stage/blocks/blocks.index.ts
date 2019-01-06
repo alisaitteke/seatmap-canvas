@@ -30,20 +30,20 @@ export default class Blocks extends SvgBase {
 
     public update(): this {
         this.clear();
-        this.global.data.getBlocks().map((block_item: BlockModel, i: number) => {
+        this.global.data.getBlocks().map((block_item: BlockModel) => {
             let _blockItem = new Block(this, block_item);
             let _seats = block_item.seats;
 
 
-            // algoritym problem fixed
+            // algorithm problem fixed
             if (_seats && _seats.length) {
                 _seats[0].y += 0.0001;
+                _seats[0].x += 0.0001;
             }
 
             let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
             let _bounds = d3.polygonHull(bound_items);
             block_item.bounds = _bounds;
-            console.log("_bounds", _bounds);
 
             this.addChild(_blockItem);
         });

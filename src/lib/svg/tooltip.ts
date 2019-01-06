@@ -38,7 +38,7 @@ export default class Tooltip extends SvgBase {
         this.activeSeat = null;
 
 
-        this.global.eventManager.addEventListener(EventType.MOUSEMOVE_SEAT, (seat: SeatItem) => {
+        this.global.eventManager.addEventListener([EventType.MOUSEMOVE_SEAT], (seat: SeatItem) => {
             if (this.global.multi_select) return;
             if (this.activeSeat !== seat) {
                 this.activeSeat = seat;
@@ -46,7 +46,13 @@ export default class Tooltip extends SvgBase {
                 this.title.generateTitle();
             }
         });
-        this.global.eventManager.addEventListener(EventType.MOUSEOUT_SEAT, (seat: SeatItem) => {
+        this.global.eventManager.addEventListener([EventType.MOUSEOUT_SEAT], (seat: SeatItem) => {
+            this.node.attr("opacity", 0);
+            this.activeSeat = null;
+            this.title.title = [];
+            this.title.generateTitle();
+        });
+        this.global.eventManager.addEventListener([EventType.TOUCHSTART_BLOCK], (seat: SeatItem) => {
             this.node.attr("opacity", 0);
             this.activeSeat = null;
             this.title.title = [];

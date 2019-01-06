@@ -79,9 +79,9 @@
 
         let seatmap = new SeatMapCanvas(".seats_container");
         seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
-            console.log(seat)
-            console.log(seat.isSelected())
-            if (!seat.isSelected()) {
+            console.log("seat",seat)
+//            console.log(seat.isSelected())
+            if (!seat.isSelected() && seat.item.salable===true) {
                 seat.select()
             } else {
                 seat.unSelect()
@@ -130,7 +130,7 @@
                         if (!label_index[item.rowName]) {
                             var label_data = {
                                 title: item.rowName,
-                                x: item.positionLeft + x_gap,
+                                x:  x_gap,
                                 y: item.positionTop + y_gap
                             };
                             label_index[item.rowName] = label_data;

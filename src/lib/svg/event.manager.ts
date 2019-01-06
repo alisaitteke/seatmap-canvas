@@ -4,6 +4,7 @@
  */
 
 import {SeatMapCanvas} from "../canvas.index";
+import {isArray} from "rxjs/internal/util/isArray";
 
 
 export interface EventObject {
@@ -19,11 +20,21 @@ export default class EventManager {
         this._events = [];
     }
 
-    addEventListener(type: string, fn: any): this {
-        this._events.push({
-            type: type,
-            fn: fn
-        });
+    addEventListener(type: string | any, fn: any): this {
+        if (isArray(type)) {
+            for (let i = 0; i < type.length; i++) {
+                this._events.push({
+                    type: type[i],
+                    fn: fn
+                });
+            }
+        } else {
+            this._events.push({
+                type: type,
+                fn: fn
+            });
+        }
+
         return this;
     }
 
