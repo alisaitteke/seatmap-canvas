@@ -54,9 +54,6 @@ export default class Tooltip extends SvgBase {
         });
         this.global.eventManager.addEventListener([EventType.TOUCHSTART_BLOCK], (seat: SeatItem) => {
             this.node.attr("opacity", 0);
-            this.activeSeat = null;
-            this.title.title = [];
-            this.title.generateTitle();
         });
         return this;
     }
