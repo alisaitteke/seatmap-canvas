@@ -1185,7 +1185,7 @@
       "refChannelGroupId": 25351
     },
     {
-      "isSold": true,
+      "isSold": false,
       "seatClassType": 100,
       "id": 8649695,
       "positionTop": 0,
