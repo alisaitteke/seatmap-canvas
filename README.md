@@ -1,6 +1,6 @@
 ![alt text](https://raw.githubusercontent.com/seatmap/canvas/master/assets/banner_ui.png?raw=true)
 
-
+[LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
 # Seatmap Canvas
 An opensource seat selection
 ---
