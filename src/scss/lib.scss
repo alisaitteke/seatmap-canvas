@@ -1,7 +1,3 @@
-@for $i from 1 through 8 {
-
-}
-
 @mixin stroke-width($param: 4) {
   stroke-width: #{$param}px;
 }

@@ -36,10 +36,10 @@ export default class BlocksSearchCircle extends SvgBase {
         });
 
 
-        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, (e: any) => {
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => {
             this.disable();
         });
-        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, (e: any) => {
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, () => {
             this.enable();
         });
 

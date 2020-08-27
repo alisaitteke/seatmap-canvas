@@ -31,6 +31,7 @@ export class SeatItem extends SvgBase {
         super(parent);
         this.coordinates = new CoordinateModel(item);
         this.attr("transform", "translate(" + this.coordinates.toArray() + ")");
+        this.item.svg = this;
         return this;
     }
 
@@ -148,5 +149,11 @@ export class SeatItem extends SvgBase {
 
     afterGenerate(){
         this.setColor(this.getColor());
+        if(this.item.selected){
+            this.check.show()
+        }else{
+            this.check.hide()
+        }
+
     }
 }

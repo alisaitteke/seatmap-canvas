@@ -37,14 +37,15 @@ export default class BlockModel extends ModelBase {
         this.title = item.title;
 
         this.labels = item.labels.map((item: any) => {
-            item.block = this;
-            return new LabelModel(item);
-        }) || [];
+                item.block = this;
+                return new LabelModel(item);
+            }) || [];
 
         this.seats = item.seats.map((item: any) => {
-            item.block = this;
-            return new SeatModel(item);
-        }) || [];
+                item.block = this;
+                let seat:SeatModel = new SeatModel(item);
+                return seat;
+            }) || [];
     }
 
     get seats(): Array<SeatModel> {
