@@ -46,7 +46,7 @@
                     <button class="btn btn-default btn-block" id="best-find-cancel">Best Available Cancel</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="get-data">Get Selected Seat(s) Json</button>
+                    <button class="btn btn-default btn-block" id="get-selected-seats">Get Selected Seat(s) Json</button>
                 </div>
                 <div class="col">
                     <button class="btn btn-default btn-block" id="set-filter">Filter On</button>
@@ -96,6 +96,11 @@
         $(".zoom-to-block").on("click", function (a) {
             var blockId = parseInt($(this).attr('block-id'));
             seatmap.zoomManager.zoomToBlock(blockId);
+        });
+        $("#get-selected-seats").on("click", function (a) {
+
+            var selectedSeats = seatmap.data.getSelectedSeats();
+            console.log(selectedSeats)
         });
 
 
