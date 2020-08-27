@@ -56,7 +56,7 @@ export default class DataModel {
 
     public getBlocks(blockId?: string): Array<BlockModel> {
         if (blockId)
-            return [this.getBlock(blockId)]
+            return [this.getBlock(blockId)];
         return this.blocks;
     }
 
@@ -67,6 +67,10 @@ export default class DataModel {
         this.eventManager.dispatch(EventType.REMOVE_BLOCK, id);
         this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;
+    }
+
+    public getSeat(seatId: string | number, blockId: string | number): SeatModel {
+        return this.getBlock(blockId).seats.find(seat => seat.id == seatId)
     }
 
     public getSelectedSeats(blockId?: string): Array<SeatModel> {
