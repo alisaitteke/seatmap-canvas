@@ -99,6 +99,11 @@ export default class Block extends SvgBase {
             }
         });
 
+        // grid search
+        // this.global.eventManager.addEventListener(EventType.TOUCHSTART_BLOCK, (block_item: Block) => {
+        //     console.log(block_item);
+        // });
+
         this.parent.node.on("mouseleave.seats", () => {
             this.seats.resetSeatsColors(false);
         });

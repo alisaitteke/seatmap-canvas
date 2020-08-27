@@ -46,10 +46,13 @@
                     <button class="btn btn-default btn-block" id="best-find-cancel">Best Available Cancel</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-default btn-block" id="get-data">Get Selected Seat(s) Json</button>
+                    <button class="btn btn-default btn-block" id="get-selected-seats">Get Selected Seat(s) Json</button>
                 </div>
                 <div class="col">
                     <button class="btn btn-default btn-block" id="set-filter">Filter On</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-default btn-block" id="unselect-seat" seat-id="8649695" block-id="1">Unselect Seat</button>
                 </div>
                 <div class="col">
                     <button class="btn btn-default btn-block" id="set-filter-disable">Filter of</button>
@@ -79,9 +82,9 @@
 
         let seatmap = new SeatMapCanvas(".seats_container");
         seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
-            console.log(seat)
-            console.log(seat.isSelected())
-            if (!seat.isSelected()) {
+            console.log("seat", seat)
+//            console.log(seat.isSelected())
+            if (!seat.isSelected() && seat.item.salable === true) {
                 seat.select()
             } else {
                 seat.unSelect()
@@ -96,6 +99,19 @@
         $(".zoom-to-block").on("click", function (a) {
             var blockId = parseInt($(this).attr('block-id'));
             seatmap.zoomManager.zoomToBlock(blockId);
+        });
+        $("#get-selected-seats").on("click", function (a) {
+
+            var selectedSeats = seatmap.data.getSelectedSeats();
+            console.log(selectedSeats)
+        });
+
+        $("#unselect-seat").on("click", function (a) {
+            var seatid = $(this).attr('seat-id');
+            var blockId = $(this).attr('block-id');
+            var seat = seatmap.data.getSeat(seatid, blockId);
+            //console.log('seat',seat)
+            seat.svg.unSelect()
         });
 
 
@@ -130,7 +146,7 @@
                         if (!label_index[item.rowName]) {
                             var label_data = {
                                 title: item.rowName,
-                                x: item.positionLeft + x_gap,
+                                x: x_gap,
                                 y: item.positionTop + y_gap
                             };
                             label_index[item.rowName] = label_data;
@@ -145,7 +161,7 @@
                         }
                         tags.push("row_" + item.rowName);
                         return {
-                            id: i + "-" + (index + 1),
+                            id: item.id,
                             x: item.positionLeft + x_gap + 40,
                             y: item.positionTop + y_gap,
                             color: item.color || color || null,
@@ -157,7 +173,7 @@
                     });
 
                     let block = {
-                        "id": block_i + 1,
+                        "id": (block_i + 1).toString(),
                         "title": "Block " + (block_i + 1),
                         "labels": labels,
                         "color": color,

@@ -6,6 +6,7 @@
 
 import BlockModel from "./block.model";
 import ModelBase from "./model.base";
+import {SeatItem} from "../svg/stage/blocks/block-item/seat/seat-item.index";
 
 export default class SeatModel extends ModelBase {
     private _id: any;
@@ -23,6 +24,8 @@ export default class SeatModel extends ModelBase {
     private _tag_index: any = {};
 
     private _custom_data: any;
+
+    private _svg: SeatItem;
 
     public item_type: string = "Seat";
 
@@ -131,6 +134,14 @@ export default class SeatModel extends ModelBase {
 
     set tags(value: Array<string>) {
         this._tags = value;
+    }
+
+    get svg(): SeatItem {
+        return this._svg;
+    }
+
+    set svg(value: SeatItem) {
+        this._svg = value;
     }
 
     public addTag(tag: string) {

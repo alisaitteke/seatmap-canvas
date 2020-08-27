@@ -144,7 +144,7 @@ export default class SvgBase {
     public updateEvents(recursive: boolean = false): this {
         let _self = this;
 
-        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseout", "mouseenter", "mousemove", "keydown", "keypress", "mousedown", "mouseup"];
+        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseout", "mouseenter", "mousemove", "keydown", "keypress", "mousedown", "mouseup","touchstart"];
 
         for (let i = 0; i < this.global.eventManager.events.length; i++) {
             let _event = this.global.eventManager.events[i];

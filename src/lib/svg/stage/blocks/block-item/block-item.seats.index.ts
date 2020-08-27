@@ -26,11 +26,11 @@ export default class Seats extends SvgBase {
         this.global.eventManager.addEventListener(EventType.MOUSEENTER_SEAT, (seat: SeatItem) => {
             if (this.global.multi_select) return;
             seat.setColor(seat.getColor(SeatAction.HOVER));
-            this.global.zoomManager.zoomDisable();
+            //this.global.zoomManager.zoomDisable();
         });
         this.global.eventManager.addEventListener(EventType.MOUSELEAVE_SEAT, (seat: SeatItem) => {
             seat.setColor(seat.getColor());
-            this.global.zoomManager.zoomEnable();
+            //this.global.zoomManager.zoomEnable();
         });
 
         return this;
@@ -38,7 +38,7 @@ export default class Seats extends SvgBase {
 
     update(): this {
         // add seat items in blockItem container
-        this.item.seats.map((seat: SeatModel) => {
+        this.item.seats.forEach((seat: SeatModel) => {
             this.addChild(new SeatItem(this, seat), {id: seat.id})
         });
         this.updateChilds();
