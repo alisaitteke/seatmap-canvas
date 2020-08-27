@@ -8,6 +8,8 @@ import BlockModel from "./block.model";
 import {EventType} from "../enums/global";
 import EventManager from "../svg/event.manager";
 import {SeatMapCanvas} from "../canvas.index";
+import {SeatItem} from "../svg/stage/blocks/block-item/seat/seat-item.index";
+import SeatModel from "./seat.model";
 
 interface BlockQuery {
     id?: number | string
@@ -52,7 +54,9 @@ export default class DataModel {
         return this.blocks.find((item: BlockModel) => item.id === id);
     }
 
-    public getBlocks(): Array<BlockModel> {
+    public getBlocks(blockId?: string): Array<BlockModel> {
+        if (blockId)
+            return [this.getBlock(blockId)]
         return this.blocks;
     }
 
@@ -63,6 +67,18 @@ export default class DataModel {
         this.eventManager.dispatch(EventType.REMOVE_BLOCK, id);
         this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;
+    }
+
+    public getSelectedSeats(blockId?: string): Array<SeatModel> {
+        let blocks = this.getBlocks(blockId);
+        let selectedSeats: Array<SeatModel> = [];
+        blocks.forEach((item: BlockModel) => {
+            item.seats.forEach(seatItem => {
+                if (seatItem.selected)
+                    selectedSeats.push(seatItem)
+            })
+        });
+        return selectedSeats;
     }
 
     public filterBlock(query: BlockQuery): Array<BlockModel> {
