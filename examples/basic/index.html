@@ -52,6 +52,9 @@
                     <button class="btn btn-default btn-block" id="set-filter">Filter On</button>
                 </div>
                 <div class="col">
+                    <button class="btn btn-default btn-block" id="unselect-seat" seat-id="12">Unselect Seat</button>
+                </div>
+                <div class="col">
                     <button class="btn btn-default btn-block" id="set-filter-disable">Filter of</button>
                 </div>
                 <div class="col">
@@ -101,6 +104,12 @@
 
             var selectedSeats = seatmap.data.getSelectedSeats();
             console.log(selectedSeats)
+        });
+
+        $("#unselect-seat").on("click", function (a) {
+            var seatid = parseInt($(this).attr('seat-id'));
+            console.log(seatid)
+
         });
 
 
