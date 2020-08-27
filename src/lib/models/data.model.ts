@@ -70,7 +70,14 @@ export default class DataModel {
     }
 
     public getSeat(seatId: string | number, blockId: string | number): SeatModel {
-        return this.getBlock(blockId).seats.find(seat => seat.id == seatId)
+        let block: BlockModel = this.getBlock(blockId);
+        if (block) {
+            return block.seats.find(seat => seat.id == seatId)
+        } else {
+            console.error(new Error('Block not found!'));
+            new Error('Block not found')
+        }
+
     }
 
     public getSelectedSeats(blockId?: string): Array<SeatModel> {

@@ -38,7 +38,7 @@ export default class Seats extends SvgBase {
 
     update(): this {
         // add seat items in blockItem container
-        this.item.seats.map((seat: SeatModel) => {
+        this.item.seats.forEach((seat: SeatModel) => {
             this.addChild(new SeatItem(this, seat), {id: seat.id})
         });
         this.updateChilds();
