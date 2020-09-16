@@ -23,6 +23,12 @@ An opensource seat selection
 npm i <a href="https://www.npmjs.com/package/@seatmap/canvas">@seatmap/canvas</a> --save
 </pre>
 
+### Github registry install
+<pre>
+npm i <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
+</pre>
+
+
 
 
 #### Example Config
