@@ -7,6 +7,9 @@
   "bugs": {
     "url": "https://github.com/seatmap/canvas/issues"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "description": "A Opensource seat selection project",
   "repository": {
     "type": "git",
