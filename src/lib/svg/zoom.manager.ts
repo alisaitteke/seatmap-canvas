@@ -3,8 +3,11 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
+import {mouse as d3Mouse, event as d3Event} from 'd3-selection'
+import {zoom as d3Zoom} from 'd3-zoom'
+
+
 import {SeatMapCanvas} from "../canvas.index";
-import * as d3 from "d3";
 import {EventType, ZoomLevel} from "../enums/global";
 import SeatModel from "../models/seat.model";
 import BlockModel from "../models/block.model";
@@ -69,30 +72,30 @@ export default class ZoomManager {
         this._self.eventManager.addEventListener(EventType.KEYDOWN_SVG, (e: any) => {
             if (e.which == 17 || e.which === 91) {
                 this._self.eventManager.dispatch(EventType.MULTI_SELECT_ENABLE, e);
-                d3.event.preventDefault();
+                d3Event.preventDefault();
                 this.zoomDisable();
             }
         });
         this._self.eventManager.addEventListener(EventType.KEYUP_SVG, (e: any) => {
             this._self.eventManager.dispatch(EventType.MULTI_SELECT_DISABLE, e);
-            d3.event.preventDefault();
+            d3Event.preventDefault();
             this.zoomEnable();
         });
 
     }
 
     zoomInit() {
-        this.zoomTypes.normal = d3.zoom()
+        this.zoomTypes.normal = d3Zoom()
             .scaleExtent([this._self.config.min_zoom, this._self.config.max_zoom])
             .on("end", this.zoomEnd(this))
             .on("zoom", this.zoomHand(this));
 
-        this.zoomTypes.animated = d3.zoom()
+        this.zoomTypes.animated = d3Zoom()
             .scaleExtent([this._self.config.min_zoom, this._self.config.max_zoom])
             .on("end", this.animatedZoomEnd(this))
             .on("zoom", this.zoomHandAnimated(this));
 
-        this.zoomTypes.fastAnimated = d3.zoom()
+        this.zoomTypes.fastAnimated = d3Zoom()
             .scaleExtent([this._self.config.min_zoom, this._self.config.max_zoom])
             .on("end", this.animatedFastZoomEnd(this))
             .on("zoom", this.zoomHandFastAnimated(this));
@@ -102,9 +105,9 @@ export default class ZoomManager {
 
     zoomEnd(_self: this): any {
         return function () {
-            let x = d3.event.transform.x;
-            let y = d3.event.transform.y;
-            let k = d3.event.transform.k;
+            let x = d3Event.transform.x;
+            let y = d3Event.transform.y;
+            let k = d3Event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
@@ -114,9 +117,9 @@ export default class ZoomManager {
 
     animatedZoomEnd(_self: this): any {
         return function () {
-            let x = d3.event.transform.x;
-            let y = d3.event.transform.y;
-            let k = d3.event.transform.k;
+            let x = d3Event.transform.x;
+            let y = d3Event.transform.y;
+            let k = d3Event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
@@ -125,9 +128,9 @@ export default class ZoomManager {
 
     animatedFastZoomEnd(_self: this): any {
         return function () {
-            let x = d3.event.transform.x;
-            let y = d3.event.transform.y;
-            let k = d3.event.transform.k;
+            let x = d3Event.transform.x;
+            let y = d3Event.transform.y;
+            let k = d3Event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
@@ -136,9 +139,9 @@ export default class ZoomManager {
 
     zoomHand(_self: this): any {
         return function () {
-            let x = d3.event.transform.x;
-            let y = d3.event.transform.y;
-            let k = d3.event.transform.k;
+            let x = d3Event.transform.x;
+            let y = d3Event.transform.y;
+            let k = d3Event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateZoomLevel(k);
         }
@@ -146,9 +149,9 @@ export default class ZoomManager {
 
     zoomHandAnimated(_self: this): any {
         return function () {
-            let x = d3.event.transform.x;
-            let y = d3.event.transform.y;
-            let k = d3.event.transform.k;
+            let x = d3Event.transform.x;
+            let y = d3Event.transform.y;
+            let k = d3Event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             //_self.calculateZoomLevel(k);
@@ -157,9 +160,9 @@ export default class ZoomManager {
 
     zoomHandFastAnimated(_self: this): any {
         return function () {
-            let x = d3.event.transform.x;
-            let y = d3.event.transform.y;
-            let k = d3.event.transform.k;
+            let x = d3Event.transform.x;
+            let y = d3Event.transform.y;
+            let k = d3Event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             //_self.calculateZoomLevel(k);
@@ -316,7 +319,7 @@ export default class ZoomManager {
 
     public zoomToSelection(animation: boolean = true) {
 
-        let cor = d3.mouse(this._self.svg.stage.blocks.node.node());
+        let cor = d3Mouse(this._self.svg.stage.blocks.node.node());
         let x = cor[0];
         let y = cor[1];
         let k = this._self.config.max_zoom;

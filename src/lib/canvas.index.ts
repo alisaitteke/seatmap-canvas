@@ -5,7 +5,9 @@
 declare const window: any;
 
 import "../scss/style.scss";
-import * as d3 from 'd3';
+
+import {select as d3Select,event as d3Event} from 'd3-selection'
+
 import Svg from "./svg/svg.index";
 import SeatMapDevTools from "./dev.tools";
 import DataModel from "./models/data.model";
@@ -38,7 +40,7 @@ export class SeatMapCanvas {
         this.config = new DefaultsModel(_config);
         this.eventManager = new EventManager(this);
         this.addEventListener = this.eventManager.addEventListener;
-        this.node = d3.select(container_selector);
+        this.node = d3Select(container_selector);
         this.windowManager = new WindowManager(this);
         this.zoomManager = new ZoomManager(this);
 
@@ -55,11 +57,11 @@ export class SeatMapCanvas {
             multi_select: false,
             best_available: false
         };
-        d3.select(window).on("keydown.dispatch", function (a, b, c) {
-            _self.eventManager.dispatch(EventType.KEYDOWN_SVG, d3.event);
+        d3Select(window).on("keydown.dispatch", function (a, b, c) {
+            _self.eventManager.dispatch(EventType.KEYDOWN_SVG, d3Event);
         });
-        d3.select(window).on("keyup.dispatch", function (a, b, c) {
-            _self.eventManager.dispatch(EventType.KEYUP_SVG, d3.event);
+        d3Select(window).on("keyup.dispatch", function (a, b, c) {
+            _self.eventManager.dispatch(EventType.KEYUP_SVG, d3Event);
         });
 
         this.dev = new SeatMapDevTools(this);
@@ -90,16 +92,16 @@ export class SeatMapCanvas {
         // Zoomout button show/hide for zoom level
         this.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (zoom_level: any) => {
             if (zoom_level.level === ZoomLevel.VENUE) {
-                d3.select(this.config.zoom_out_button).style("display", "none");
+                d3Select(this.config.zoom_out_button).style("display", "none");
             } else if (zoom_level.level === ZoomLevel.BLOCK) {
-                d3.select(this.config.zoom_out_button).style("display", "none");
+                d3Select(this.config.zoom_out_button).style("display", "none");
             } else if (zoom_level.level === ZoomLevel.SEAT) {
-                d3.select(this.config.zoom_out_button).style("display", "block");
+                d3Select(this.config.zoom_out_button).style("display", "block");
             }
         });
 
 
-        d3.select(this.config.zoom_out_button).on("click", () => {
+        d3Select(this.config.zoom_out_button).on("click", () => {
             this.zoomManager.zoomToVenue(true);
         });
 
