@@ -3,13 +3,13 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
-
+import {mouse as d3Mouse} from 'd3-selection'
 
 import SvgBase from "../svg.base";
 import Svg from "../svg.index";
 import MultiSelectRect from "./multi-select/rect";
 import {EventType} from "../../enums/global";
-import * as d3 from "d3";
+
 
 import {dom} from "../../decorators";
 
@@ -63,7 +63,7 @@ export default class MultiSelect extends SvgBase {
             // console.log("e", e);
             // console.log("mouse", mouse);
             // console.log("mouse", mouse);
-            let mouse = d3.mouse(this.parent.stage.node.node());
+            let mouse = d3Mouse(this.parent.stage.node.node());
             if (this.start) {
                 this.start = false;
 
@@ -89,7 +89,7 @@ export default class MultiSelect extends SvgBase {
         this.parent.stage.node.on("mousemove", () => {
             if (this.global.multi_select) {
                 if (this.start) {
-                    let mouse = d3.mouse(this.parent.stage.node.node());
+                    let mouse = d3Mouse(this.parent.stage.node.node());
                     let width = mouse[0] - this.points.start[0];
                     let height = mouse[1] - this.points.start[1];
 

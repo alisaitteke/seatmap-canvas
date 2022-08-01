@@ -7,7 +7,7 @@
 import {dom} from "../../decorators";
 import SvgBase from "../svg.base";
 
-import * as d3 from "d3";
+import {line as d3Line} from "d3-shape";
 import Tooltip from "../tooltip";
 
 @dom({
@@ -35,7 +35,7 @@ export default class TooltipRect extends SvgBase {
             {'x': 0, 'y': 0},
         ];
 
-        const line = d3.line()
+        const line = d3Line()
             .x((d: any) => {
                 return d['x'];
             })

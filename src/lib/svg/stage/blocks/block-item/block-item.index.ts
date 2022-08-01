@@ -3,6 +3,8 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
+import {mouse as d3Mouse} from 'd3-selection'
+
 import BlocksManager from "../blocks.index";
 import SvgBase from "../../../svg.base";
 import {dom} from "../../../../decorators/dom";
@@ -13,7 +15,6 @@ import BlockBounds from "./block-item.bounds";
 import {EventType, SeatAction, ZoomLevel} from "../../../../enums/global";
 import BlockMask from "./block-item.mask";
 import Labels from "./block-item.labels.index";
-import * as d3 from "d3";
 import SeatModel from "../../../../models/seat.model";
 
 
@@ -75,7 +76,7 @@ export default class Block extends SvgBase {
 
             if (!this.parent.parent.searchCircle.is_enable) return;
             if (this.global.multi_select) return;
-            let cor = d3.mouse(this.parent.parent.blocks.node.node());
+            let cor = d3Mouse(this.parent.parent.blocks.node.node());
             let gap = this.global.config.zoom_focus_circle_radius;
 
             if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {

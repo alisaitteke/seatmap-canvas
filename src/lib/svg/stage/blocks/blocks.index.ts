@@ -3,12 +3,13 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
+import {polygonHull} from 'd3-polygon'
+
 import StageManager from "../stage.index";
 import Block from "./block-item/block-item.index";
 import SvgBase from "../../svg.base";
 import {dom} from "../../../decorators/dom";
 import SeatModel from "../../../models/seat.model";
-import * as d3 from "d3";
 import {SeatItem} from "./block-item/seat/seat-item.index";
 import BlockModel from "../../../models/block.model";
 import LabelModel from "../../../models/label.model";
@@ -42,7 +43,7 @@ export default class Blocks extends SvgBase {
             }
 
             let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
-            let _bounds = d3.polygonHull(bound_items);
+            let _bounds = polygonHull(bound_items);
             block_item.bounds = _bounds;
 
             this.addChild(_blockItem);

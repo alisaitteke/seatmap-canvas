@@ -1,10 +1,10 @@
 /*
- * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * Seatmap-canvas
+ * https://github.com/seatmap/canvas Copyright 2022 Ali Sait TEKE
  */
+import {select as d3Select} from 'd3-selection'
 
 import {SeatMapCanvas} from "./canvas.index";
-import * as d3 from "d3";
 import {EventType} from "./enums/global";
 
 declare var window: any;
@@ -21,7 +21,7 @@ export default class WindowManager {
 
 
     constructor(public parent: SeatMapCanvas) {
-        d3.select(window).on("resize.svg", () => {
+        d3Select(window).on("resize.svg", () => {
             this.resizeHandler();
 
         });
@@ -29,7 +29,7 @@ export default class WindowManager {
     }
 
     resizeHandler(): this {
-        let _node = d3.select(this.parent.container_selector).node().getBoundingClientRect();
+        let _node = d3Select(this.parent.container_selector).node().getBoundingClientRect();
         this.width = _node.width;
         this.height = _node.height;
         this.parent.svg.node.attr("width", _node.width);

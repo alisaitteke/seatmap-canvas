@@ -6,7 +6,6 @@
 
 import {dom} from "../../decorators";
 import SvgBase from "../svg.base";
-
 import Tooltip from "../tooltip";
 
 @dom({
