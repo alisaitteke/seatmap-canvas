@@ -72,7 +72,10 @@ var seatmap = new SeatmapCanvas(".seats_container",config);
   "y": 0,
   "salable": true,
   "note": "note test",
-  "color":"#ffffff"
+  "color":"#ffffff",
+  "custom_data": {
+    "any": "things"
+  }
 }
 ```
 
