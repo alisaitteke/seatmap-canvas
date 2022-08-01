@@ -39,3 +39,4 @@ Thumbs.db
 .history
 package-lock.json
 *.iml
+yarn.lock

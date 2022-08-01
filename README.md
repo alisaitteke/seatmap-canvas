@@ -1,11 +1,11 @@
-![alt text](https://raw.githubusercontent.com/seatmap/canvas/master/assets/banner_ui.png?raw=true)
+[![LIVE DEMO](https://raw.githubusercontent.com/seatmap/canvas/master/assets/banner_ui.png?raw=true)](https://alisaitteke.github.io/seatmap-canvas)
 
 [LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
 # Seatmap Canvas
 An opensource seat selection
 ---
 
-![alt text](https://raw.githubusercontent.com/seatmap/canvas/master/assets/bn.jpg?raw=true)
+[![LIVE DEMO](https://raw.githubusercontent.com/seatmap/canvas/master/assets/bn.jpg?raw=true)](https://alisaitteke.github.io/seatmap-canvas)
 
 
 
@@ -22,6 +22,12 @@ An opensource seat selection
 <pre>
 npm i <a href="https://www.npmjs.com/package/@seatmap/canvas">@seatmap/canvas</a> --save
 </pre>
+
+### Github registry install
+<pre>
+npm i <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
+</pre>
+
 
 
 
@@ -66,7 +72,10 @@ var seatmap = new SeatmapCanvas(".seats_container",config);
   "y": 0,
   "salable": true,
   "note": "note test",
-  "color":"#ffffff"
+  "color":"#ffffff",
+  "custom_data": {
+    "any": "things"
+  }
 }
 ```
 
