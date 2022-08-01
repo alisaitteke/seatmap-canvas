@@ -14,7 +14,7 @@ import {EventType, ZoomLevel} from "../enums/global";
 import Svg from "./svg.index";
 import {SeatItem} from "./stage/blocks/block-item/seat/seat-item.index";
 
-import * as d3 from "d3";
+import {mouse as d3Mouse} from 'd3-selection'
 import TooltipTitle from "./tooltip/title";
 
 @dom({
@@ -79,7 +79,7 @@ export default class Tooltip extends SvgBase {
         this.parent.node.on("mousemove.seat", function () {
             if (_self.global.multi_select) return;
             if (_self.global.zoomManager.zoomLevel === ZoomLevel.SEAT && _self.activeSeat !== null) {
-                let cor = d3.mouse(this);
+                let cor = d3Mouse(this);
 
                 let x = cor[0] - (_self.global.config.tooltip_style.width / 2);
                 let y = cor[1] - (_self.global.config.tooltip_style.height + (_self.global.config.seat_style.radius) + 2);

@@ -1,16 +1,19 @@
 {
   "name": "@seatmap/canvas",
-  "version": "0.1.15",
+  "version": "1.0.1",
   "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
-  "homepage": "https://github.com/seatmap/canvas",
+  "homepage": "https://github.com/alisaitteke/seatmap-canvas",
   "bugs": {
-    "url": "https://github.com/seatmap/canvas/issues"
+    "url": "https://github.com/alisaitteke/seatmap-canvas/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "description": "A Opensource seat selection project",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seatmap/canvas.git"
+    "url": "git+https://github.com/alisaitteke/seatmap-canvas.git"
   },
   "sideEffects": false,
   "scripts": {
@@ -28,12 +31,11 @@
     "@types/node": "^10.11.4",
     "css-loader": "^1.0.0",
     "d3": "^5.7.0",
-    "dts-generator-webpack-plugin": "^1.0.0",
     "mini-css-extract-plugin": "^0.4.3",
-    "node-sass": "^4.9.3",
+    "node-sass": "^7.0.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^10",
     "style-loader": "^0.23.0",
     "ts-loader": "^5.2.1",
     "ts-node": "^7.0.1",

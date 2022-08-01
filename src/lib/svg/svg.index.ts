@@ -4,7 +4,7 @@
  */
 
 import Stage from "./stage/stage.index";
-import * as d3 from 'd3';
+import {mouse as d3Mouse} from 'd3-selection'
 import "reflect-metadata";
 
 import {SeatMapCanvas} from "../canvas.index";
@@ -64,7 +64,7 @@ export default class Svg extends SvgBase {
         this.tooltip.node.raise();
 
         this.node.on("mousemove", () => {
-            let cor = d3.mouse(this.stage.node.node());
+            let cor = d3Mouse(this.stage.node.node());
             this.parent.eventManager.dispatch(EventType.MOUSE_MOVE, cor);
         })
 

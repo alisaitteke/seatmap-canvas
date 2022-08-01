@@ -6,7 +6,7 @@
 import Block from "./stage/blocks/block-item/block-item.index";
 import {GlobalModel} from "../models/global.model";
 import {EventObject} from "./event.manager";
-import * as d3 from "d3";
+import {mouse as d3Mouse} from 'd3-selection'
 
 
 export default class SvgBase {
@@ -151,7 +151,7 @@ export default class SvgBase {
             let _split = _event.type.toString().split(".");
             if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
                 this.node.on(_split[1].toLowerCase() + ".globalevent", function (item: EventObject) {
-                    let _mouse = d3.mouse(_self.parent.node.node());
+                    let _mouse = d3Mouse(_self.parent.node.node());
                     _event.fn(_self, item, _mouse);
                 })
             }
