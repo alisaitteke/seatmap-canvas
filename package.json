@@ -10,7 +10,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "description": "A Opensource seat selection project",
+  "description": "An Opensource seat selection project",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alisaitteke/seatmap-canvas.git"
@@ -19,7 +19,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config ./webpack.environments/development.js",
-    "build": "webpack --config ./webpack.environments/production.js"
+    "build": "webpack --progress --config ./webpack.environments/production.js"
   },
   "engines": {
     "node": ">=4.0.0"

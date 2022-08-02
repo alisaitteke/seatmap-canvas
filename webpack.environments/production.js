@@ -1,15 +1,16 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const PACKAGE = require('../package.json');
-const version = PACKAGE.version;
 const context = path.resolve(__dirname, '../src');
+
+const PACKAGE = require(path.resolve(__dirname, '../package.json'));
+const version = PACKAGE.version;
 
 module.exports = {
     mode: "production",
     context: context,
     entry: {
-        "seatmap.canvas": "./lib/canvas.index.ts"
+        "seatmap.canvas": path.resolve(context, 'lib', 'canvas.index.ts')
     },
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
@@ -22,7 +23,11 @@ module.exports = {
     },
     module: {
         rules: [
-            {test: /\.tsx?$/, loader: "ts-loader"},
+            {
+                test: /\.tsx?$/,
+                loader: "ts-loader",
+                exclude: /node_modules/,
+            },
 
             {
                 test: /\.scss$/,
