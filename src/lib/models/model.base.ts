@@ -7,6 +7,7 @@ export default class ModelBase {
     private _child_index: number = null;
     private _item_type: string;
 
+
     constructor() {
 
     }
