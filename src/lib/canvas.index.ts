@@ -2,12 +2,9 @@
  * index.ts
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
-declare const window: any;
-
 import "../scss/style.scss";
 
 import {select as d3Select,event as d3Event} from 'd3-selection'
-
 import Svg from "./svg/svg.index";
 import SeatMapDevTools from "./dev.tools";
 import DataModel from "./models/data.model";
@@ -21,6 +18,8 @@ import EventManager from "./svg/event.manager";
 import {EventType, ZoomLevel} from "./enums/global";
 import WindowManager from "./window.manager";
 
+declare const window: any;
+
 export class SeatMapCanvas {
 
     public node: any = null;
@@ -33,7 +32,6 @@ export class SeatMapCanvas {
     public zoomManager: ZoomManager;
     public eventManager: EventManager;
     public addEventListener: any;
-
 
     constructor(public container_selector: any, _config: any = {}) {
         let _self = this;

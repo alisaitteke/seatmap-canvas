@@ -71,12 +71,11 @@
     </div>
 </div>
 
-
 <!-- Optional JavaScript -->
 <!-- jQuery first then Bootstrap JS -->
 <script src="jquery.min.js" crossorigin="anonymous"></script>
 
-<script type="text/javascript" src="/build/seatmap.canvas.js"></script>
+<script type="text/javascript" src="/seatmap.canvas.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -165,7 +164,7 @@
                             x: item.positionLeft + x_gap + 40,
                             y: item.positionTop + y_gap,
                             color: item.color || color || null,
-                            salable: item.isSold === true ? false : true,
+                            salable: item.isSold !== true,
                             custom_data:{any:"things"},
                             note: "note test",
                             tags: tags,
