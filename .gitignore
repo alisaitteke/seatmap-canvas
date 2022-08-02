@@ -40,3 +40,4 @@ Thumbs.db
 package-lock.json
 *.iml
 yarn.lock
+actions-runner
