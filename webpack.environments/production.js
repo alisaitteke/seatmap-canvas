@@ -3,11 +3,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const PACKAGE = require('../package.json');
 const version = PACKAGE.version;
+const context = path.resolve(__dirname, '../src');
 
 module.exports = {
     mode: "production",
+    context: context,
     entry: {
-        "seatmap.canvas": path.resolve(__dirname, '../src', "lib", "canvas.index.ts")
+        "seatmap.canvas": "./lib/canvas.index.ts"
     },
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
