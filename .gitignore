@@ -41,3 +41,4 @@ package-lock.json
 *.iml
 yarn.lock
 actions-runner
+build/*
