@@ -27,7 +27,7 @@ export default class SeatModel extends ModelBase {
 
     private _svg: SeatItem;
 
-    public item_type: string = "Seat";
+    // public item_type: string = "Seat";
 
 
     constructor(item: any) {
@@ -47,11 +47,7 @@ export default class SeatModel extends ModelBase {
     }
 
     public selectedToggle(): boolean {
-        if (this.selected === true) {
-            this.selected = false;
-        } else {
-            this.selected = true;
-        }
+        this.selected = this.selected !== true;
         return this.selected;
     }
 
