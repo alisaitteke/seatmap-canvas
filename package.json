@@ -1,6 +1,6 @@
 {
   "name": "@seatmap/canvas",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
   "homepage": "https://github.com/alisaitteke/seatmap-canvas",
@@ -25,7 +25,7 @@
     "node": ">=4.0.0"
   },
   "license": "MIT",
-  "main": "build/seatmap.canvas.1.0.1.js",
+  "main": "dist/seatmap.canvas.1.0.1.js",
   "devDependencies": {
     "@types/d3": "^5.0.0",
     "@types/node": "^18.6.3",
