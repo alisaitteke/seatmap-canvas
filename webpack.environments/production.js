@@ -17,7 +17,7 @@ module.exports = {
         extensions: [".ts", ".tsx", ".js"]
     },
     output: {
-        path: path.resolve(__dirname, '../build'),
+        path: path.resolve(__dirname, '../dist'),
         filename: `[name].${version}.js`,
         clean: true
     },
