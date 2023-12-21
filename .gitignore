@@ -39,4 +39,4 @@ Thumbs.db
 *.iml
 actions-runner
 build/*
-dist/*
+/cog.toml
