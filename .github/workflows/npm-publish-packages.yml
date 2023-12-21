@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Node.js Package for NPM
 on:
   workflow_dispatch:
   release:
@@ -29,9 +29,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITH_PACKAGE_TOKEN}}
       - uses: JS-DevTools/npm-publish@v3
         with:
+          registry: "https://registry.npmjs.org/"
           token: ${{ secrets.NPM_TOKEN }}
