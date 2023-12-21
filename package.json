@@ -1,6 +1,6 @@
 {
   "name": "@alisaitteke/seatmap-canvas",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
   "homepage": "https://github.com/alisaitteke/seatmap-canvas",
@@ -33,7 +33,7 @@
     "d3": "^5.7.0",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "2.6.1",
-    "node-sass": "^7.0.1",
+    "node-sass": "9.0.0",
     "postcss-loader": "^7.0.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
