@@ -29,7 +29,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          registry: "https://registry.npmjs.org/"
-          token: ${{ secrets.NPM_TOKEN }}
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
