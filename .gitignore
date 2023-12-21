@@ -35,11 +35,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/package-lock.json
 .history
-package-lock.json
 *.iml
-yarn.lock
 actions-runner
 build/*
 dist/*
