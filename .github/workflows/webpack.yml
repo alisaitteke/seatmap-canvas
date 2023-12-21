@@ -19,5 +19,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cmd:
-          yarn install
-          yarn build
+          install
+          build
