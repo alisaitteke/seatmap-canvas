@@ -1,15 +1,13 @@
 {
   "name": "@alisaitteke/seatmap-canvas",
-  "version": "2.0.0",
+  "version": "2.0.1-0",
   "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
   "homepage": "https://github.com/alisaitteke/seatmap-canvas",
   "bugs": {
     "url": "https://github.com/alisaitteke/seatmap-canvas/issues"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
+  "private": false,
   "description": "An Opensource seat selection project",
   "repository": {
     "type": "git",
