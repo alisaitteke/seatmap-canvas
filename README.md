@@ -152,7 +152,7 @@ let config = {
 #### Get selected seat
 ```javascript
 seatmap.addEventListener("seat_click", (seat) => {
-    var data = torch.getSelectedSeats();
+    var selectedSeats = seatmap.getSelectedSeats();
 });
 ```
 ## Contributors
