@@ -9,20 +9,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
-    
     steps:
     - uses: actions/checkout@v3
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: borales/actions-yarn@v3.0.0
+    - name: Run install
+      uses: borales/actions-yarn@v4
       with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Build
-      run: |
-        yarn install
-        yarn build
+        cmd: install
+    - name: Build production bundle
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: build
