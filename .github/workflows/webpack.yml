@@ -14,10 +14,11 @@ jobs:
         node-version: [16.x]
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Run install
       uses: borales/actions-yarn@v4
       with:
-        node-version: ${{ matrix.node-version }}
-        cmd:
-          install
-          build
+        cmd: install
+    - name: Build production bundle
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: build
