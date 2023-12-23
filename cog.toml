@@ -1,23 +1,19 @@
-from_latest_tag = false
-ignore_merge_commits = false
-disable_changelog = false
-generate_mono_repository_global_tag = true
-branch_whitelist = []
-skip_ci = "[skip ci]"
-skip_untracked = false
-pre_bump_hooks = []
-post_bump_hooks = []
-pre_package_bump_hooks = []
-post_package_bump_hooks = []
+ignore_merge_commits = true
 
-[git_hooks]
-
-[commit_types]
-
+pre_bump_hooks = [
+    "echo {{version}}",
+]
+post_bump_hooks = [
+    "git push",
+    "git push origin {{version}}",
+]
 [changelog]
 path = "CHANGELOG.md"
-authors = []
+template = "remote"
+remote = "github.com"
+repository = "cocogitto_bot_playground"
+owner = "cocogitto"
 
-[bump_profiles]
-
-[packages]
+authors = [
+    { username = "alisaitteke", signature = "Ali Sait Teke"}
+]
