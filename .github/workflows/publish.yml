@@ -21,8 +21,11 @@ jobs:
           node-version: '14'
 
       # Install dependencies (required by Run tests step)
-      #- name: Install dependencies
-      #  run: yarn install
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build with yarn
+        run: yarn build
 
       # Tests
       #- name: Run tests
