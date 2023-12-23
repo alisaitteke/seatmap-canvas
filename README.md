@@ -17,15 +17,13 @@ An opensource seat selection
 - Turnstile and Gate information
 
 
+
 ## Installation
 
 <pre>
-npm i <a href="https://www.npmjs.com/package/@seatmap/canvas">@seatmap/canvas</a> --save
-</pre>
-
-### Github registry install
-<pre>
 npm i <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
+OR
+yarn add <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
 </pre>
 
 
