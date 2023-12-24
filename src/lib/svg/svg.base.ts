@@ -21,9 +21,11 @@ export default class SvgBase {
     public child_items: Array<any> | any;
 
     public dom_attrs: Array<any>;
-    public dom_classeds: Array<any>;
+    public dom_classes: Array<any>;
 
     public child_index: number | null = null;
+
+    public domText: string | null = null;
 
 
     public global: GlobalModel;
@@ -31,7 +33,7 @@ export default class SvgBase {
     constructor(public parent: any) {
         this.child_items = [];
         this.dom_attrs = [];
-        this.dom_classeds = [];
+        this.dom_classes = [];
         this.tags = [];
 
         this.eventCode = null;
@@ -79,14 +81,17 @@ export default class SvgBase {
             let _dom_attr = this.dom_attrs[di];
             this.node.attr(_dom_attr.name, _dom_attr.value)
         }
+        if(this.domText){
+            this.node.text(this.domText)
+        }
 
         if (this.domClass) {
             this.node.classed(this.domClass, true);
         }
 
 
-        for (let ci = 0; ci < this.dom_classeds.length; ci++) {
-            let _dom_class = this.dom_classeds[ci];
+        for (let ci = 0; ci < this.dom_classes.length; ci++) {
+            let _dom_class = this.dom_classes[ci];
             this.node.classed(_dom_class.name, _dom_class.value);
         }
 
@@ -98,6 +103,12 @@ export default class SvgBase {
             name: name,
             value: value
         });
+        return this;
+    }
+
+    public text(value: string): this {
+        // this.text(value)
+        this.domText = value;
         return this;
     }
 
@@ -115,7 +126,7 @@ export default class SvgBase {
     }
 
     public classed(className: string, value: boolean = true): this {
-        this.dom_classeds.push({
+        this.dom_classes.push({
             name: className,
             value: value
         });
@@ -143,9 +154,7 @@ export default class SvgBase {
 
     public updateEvents(recursive: boolean = false): this {
         let _self = this;
-
         let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseout", "mouseenter", "mousemove", "keydown", "keypress", "mousedown", "mouseup", "touchstart"];
-
         if (this.eventCode) {
             for (let i = 0; i < this.global.eventManager.events.length; i++) {
                 let _event = this.global.eventManager.events[i];

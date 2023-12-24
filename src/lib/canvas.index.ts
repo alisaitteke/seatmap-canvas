@@ -2,7 +2,7 @@
  * index.ts
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-
+import "../scss/style.scss";
 import {select as d3Select,event as d3Event} from 'd3-selection'
 import Svg from "./svg/svg.index";
 import SeatMapDevTools from "./dev.tools";
@@ -70,7 +70,7 @@ export class SeatMapCanvas {
         this.windowManager.resizeHandler();
         this.zoomManager.init();
 
-        this.eventManager.addEventListener(EventType.CLICK_ZOOMOUT, () => this.zoomManager.zoomToVenue());
+        this.eventManager.addEventListener(EventType.CLICK_ZOOM_OUT, () => this.zoomManager.zoomToVenue());
         this.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => {
             this.global.multi_select = true;
             this.node.classed("multi-select-enable", true);
