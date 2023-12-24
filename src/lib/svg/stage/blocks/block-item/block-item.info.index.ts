@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 import SvgBase from "../../../svg.base";
@@ -21,6 +21,7 @@ export default class BlockInfo extends SvgBase {
 
     constructor(public parent: Block, public item: BlockModel) {
         super(parent);
+        console.log('item',item)
         this.attr("opacity", 0);
         let x = ((this.item.bounds[1][0] - this.item.bounds[2][0]) / 2) + this.item.bounds[2][0];
         let y = ((this.item.bounds[0][1] - this.item.bounds[1][1]) / 2) + this.item.bounds[1][1];

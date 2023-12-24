@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -15,7 +15,7 @@ import Tooltip from "../tooltip";
 })
 export default class TooltipTitle extends SvgBase {
 
-    private _title: Array<string>;
+    title: Array<string>;
 
     constructor(public parent: Tooltip) {
         super(parent);
@@ -45,13 +45,4 @@ export default class TooltipTitle extends SvgBase {
             .attr("y", (line: any, index: number) => (index * 16) + 16);
     }
 
-
-    get title(): Array<string> {
-        return this._title;
-    }
-
-    set title(value: Array<string>) {
-        this._title = value;
-        //this.generateTitle();
-    }
 }

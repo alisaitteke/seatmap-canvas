@@ -1,6 +1,6 @@
 /*
  * Seatmap-canvas
- * https://github.com/seatmap/canvas Copyright 2022 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2022 Ali Sait TEKE
  */
 import {select as d3Select} from 'd3-selection'
 
@@ -11,8 +11,8 @@ declare var window: any;
 
 export default class WindowManager {
 
-    public width: number = null;
-    public height: number = null;
+    public width: number | null = null;
+    public height: number | null = null;
 
     public stage: any = {
         width: null,

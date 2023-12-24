@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -15,10 +15,10 @@ import LegendItem from "./legend.item";
 })
 export default class LegendTitle extends SvgBase {
 
-
     constructor(public parent: LegendItem) {
         super(parent);
         this.attr("x", this.global.config.legend_style.radius * 1.5);
+        this.attr("fill", this.global.config.legend_style.font_color);
     }
 
     update() {

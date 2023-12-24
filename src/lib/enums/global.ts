@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 enum BLOCK_EVENT {
@@ -35,8 +35,8 @@ export enum EventType {
 
     RESIZE_WINDOW = "WINDOW.RESIZE",
 
-    CLICK_ZOOMOUT = "ZOOM-OUT-BG.CLICK",
-    MOUSEMOVE_ZOOMOUT = "ZOOM-OUT-BG.MOUSEMOVE",
+    CLICK_ZOOM_OUT = "ZOOM-OUT-BG.CLICK",
+    MOUSEMOVE_ZOOM_OUT = "ZOOM-OUT-BG.MOUSEMOVE",
 
     KEYDOWN_SVG = "KEYDOWN.SEATMAP-SVG",
     KEYUP_SVG = "KEYUP.SEATMAP-SVG",
