@@ -6,6 +6,7 @@
     "jsx": "react",
     "module": "ESNext",
     "baseUrl": "./",
+    "removeComments": true,
     "declarationDir": "types",
     "sourceMap": true,
     "outDir": "dist",
