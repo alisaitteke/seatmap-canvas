@@ -86,7 +86,7 @@ export default class DefaultsModel {
             focus: config.seat_style && config.seat_style.focus || "#6293d2",
             focus_out: config.seat_style && config.seat_style.focus_out || "#ff001c",
             check_color: config.seat_style && config.seat_style.check_color || "#ffffff",
-            check_icon: null,
+            check_icon: config.seat_style.check_icon || '\uf005',
             check_icon_color: config.seat_style && config.seat_style.check_icon_color || "#ffffff",
         };
         this.block_style = {

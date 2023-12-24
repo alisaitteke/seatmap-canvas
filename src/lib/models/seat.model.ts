@@ -22,6 +22,7 @@ export default class SeatModel extends ModelBase {
     tag_index: any = {};
     custom_data: any;
     svg: SeatItem | null;
+    icon: string | null;
 
     // public item_type: string = "Seat";
 
@@ -41,6 +42,7 @@ export default class SeatModel extends ModelBase {
         this.custom_data = item.custom_data || {};
         this.tag_index = {};
         this.svg = null
+        this.icon = null
     }
 
     public selectedToggle(): boolean {

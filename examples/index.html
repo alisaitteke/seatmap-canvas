@@ -43,6 +43,11 @@
             <i class="fa-solid fa-magnifying-glass-plus"></i>
             Zoom Block 3
         </button>
+        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100" id="randomize-btn"
+                data-block-id="block-2">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+            Randomize
+        </button>
     </div>
     <div id="seats_container" class="w-full flex-1 h-full bg-gradient-to-r from-slate-900 to-slate-700"></div>
 </div>
@@ -63,7 +68,7 @@
                 not_salable: '#10546b',
                 focus: '#8fe100',
             },
-            legend_style:{
+            legend_style: {
                 font_color: '#fff'
             },
             block_style: {
@@ -79,6 +84,72 @@
             }
 
         });
+
+
+        const generateRandomBlocks = function () {
+            let block_colors = ["#005f73", "#e63946", "#10546b", "#10546b"];
+            let blocks = []
+            let last_x = 0;
+            for (let j = 0; j < 4; j++) { // blocks
+
+                let color = block_colors[j];
+
+                let seats = []
+                let cell_count = 0;
+                let row_count = 0;
+                let block_final_x = 0;
+                let randomSeatCount = Math.round((Math.random() * (Math.abs(400 - 200))) + 200)
+                let randomCell = Math.round((Math.random() * (Math.abs(28 - 12))) + 12)
+
+                for (let k = 0; k < randomSeatCount; k++) { // row
+
+                    if (k % randomCell === 0) {
+                        cell_count = 1;
+                        row_count++;
+                    }
+
+                    let x = (cell_count * 33) + last_x;
+                    let y = row_count * 30;
+
+                    console.log(x)
+
+                    if (block_final_x < x) block_final_x = x;
+
+
+                    let salable = Math.ceil(Math.random() * 10) > 3;
+
+                    let seat = {
+                        id: `s-${k}`,
+                        x: x,
+                        y: y,
+                        color: color, // can use item.color from json data
+                        salable: salable,
+                        custom_data: {any: "things"},
+                        note: "note test",
+                        tags: {},
+                        title: `Title ${cell_count} ${row_count}`
+                    }
+                    cell_count++;
+                    seats.push(seat)
+                }
+
+                last_x = block_final_x + 100;
+
+                let block = {
+                    "id": `block-${j}`,
+                    "title": `Block - ${j + 1}`,
+                    "labels": [],
+                    "color": color,
+                    "seats": seats
+                };
+
+                blocks.push(block);
+            }
+
+            seatmap.data.replaceData(blocks);
+        }
+
+        generateRandomBlocks()
 
         $("#zoomout-button").on("click", function () {
             seatmap.zoomManager.zoomToVenue();
@@ -102,67 +173,9 @@
             seat.svg.unSelect()
         });
 
-
-        let block_colors = ["#10546b", "#10546b", "#10546b", "#10546b"];
-
-
-        let blocks = []
-        let last_x = 0;
-        for (let j = 0; j < 4; j++) { // blocks
-
-            let color = block_colors[j];
-            console.log(color)
-
-            let seats = []
-            let cell_count = 0;
-            let row_count = 0;
-            let block_final_x = 0;
-            let randomSeatCount = Math.round((Math.random() * (Math.abs(200 - 40))) + 40)
-
-            for (let k = 0; k < 96; k++) { // row
-
-                if (k % 12 === 0) {
-                    cell_count = 1;
-                    row_count++;
-                }
-
-                let x = (cell_count * 33) + last_x;
-                let y = row_count * 30;
-
-                console.log(x)
-
-                if (block_final_x < x) block_final_x = x;
-
-
-                let seat = {
-                    id: `s-${k}`,
-                    x: x,
-                    y: y,
-                    color: color, // can use item.color from json data
-                    salable: Math.ceil(Math.random() * 10) > 3,
-                    custom_data: {any: "things"},
-                    note: "note test",
-                    tags: {},
-                    title: `Title ${cell_count} ${row_count}`
-                }
-                cell_count++;
-                seats.push(seat)
-            }
-
-            last_x = block_final_x + 100;
-
-            let block = {
-                "id": `block-${j}`,
-                "title": `Block - ${j + 1}`,
-                "labels": [],
-                "color": color,
-                "seats": seats
-            };
-
-            blocks.push(block);
-        }
-
-        seatmap.data.addBulkBlock(blocks);
+        $("#randomize-btn").on("click", function (a) {
+            generateRandomBlocks()
+        });
 
 
     });
