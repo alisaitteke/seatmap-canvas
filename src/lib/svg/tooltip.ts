@@ -82,8 +82,8 @@ export default class Tooltip extends SvgBase {
                 // @ts-ignore
                 let cor = d3Mouse(this);
 
-                let x = cor[0] - (_self.global.config.tooltip_style.width / 2);
-                let y = cor[1] - (_self.global.config.tooltip_style.height + (_self.global.config.seat_style.radius) + 2);
+                let x = cor[0] - (_self.global.config.style.tooltip.width / 2);
+                let y = cor[1] - (_self.global.config.style.tooltip.height + (_self.global.config.style.seat.radius) + 2);
                 _self.node.attr("transform", "translate(" + [x, y] + ")").attr("opacity", 1);
             } else {
                 _self.node.attr("opacity", 0);
