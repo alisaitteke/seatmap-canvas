@@ -20,8 +20,8 @@ export default class TooltipRect extends SvgBase {
 
     constructor(public parent: Tooltip) {
         super(parent);
-        this.attr("width", this.global.config.tooltip_style.width);
-        this.attr("height", this.global.config.tooltip_style.height);
+        this.attr("width", this.global.config.style.tooltip.width);
+        this.attr("height", this.global.config.style.tooltip.height);
         this.attr("x", 0);
         this.attr("y", 0);
         this.attr("rx", 3);
@@ -43,7 +43,7 @@ export default class TooltipRect extends SvgBase {
                 return d['y'];
             });
 
-        this.attr("fill", this.global.config.tooltip_style.bg);
+        this.attr("fill", this.global.config.style.tooltip.bg);
         this.attr("stroke", "rgba(0,0,0,0.3)");
         this.attr("stroke-width", "1px");
         this.attr("opacity", 0.8);
