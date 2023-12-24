@@ -1,6 +1,6 @@
 {
   "name": "@alisaitteke/seatmap-canvas",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "tags": "seating, seat, seatmap, seat-selection, seat-booking, booking, ticket, reservation",
   "author": "Ali Sait TEKE <alisaitt@gmail.com>",
   "homepage": "https://github.com/alisaitteke/seatmap-canvas",
@@ -34,6 +34,7 @@
     "d3": "^5.7.0",
     "reflect-metadata": "^0.1.12",
     "rollup": "^4.9.1",
+    "rollup-plugin-cleandir": "^2.0.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
