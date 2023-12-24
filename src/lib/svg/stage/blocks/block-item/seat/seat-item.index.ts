@@ -53,7 +53,7 @@ export class SeatItem extends SvgBase {
     public select(color: string | null = null): this {
         this.item.selected = true;
         this.node.classed("selected", true);
-        this.circle.node.attr("fill", this.global.config.seat_style.selected);
+        this.circle.node.attr("fill", this.global.config.style.seat.selected);
         this.check.show();
         return this;
     }
@@ -61,7 +61,7 @@ export class SeatItem extends SvgBase {
     public unSelect(): this {
         this.item.selected = false;
         this.node.classed("selected", false);
-        this.circle.node.attr("fill", this.global.config.seat_style.color);
+        this.circle.node.attr("fill", this.global.config.style.seat.color);
         this.check.hide();
         return this;
     }
@@ -75,7 +75,7 @@ export class SeatItem extends SvgBase {
     }
 
     public hover() {
-        this.setColor(this.global.config.seat_style.hover);
+        this.setColor(this.global.config.style.seat.hover);
     }
 
     public blur() {
@@ -88,41 +88,41 @@ export class SeatItem extends SvgBase {
 
             if (action == SeatAction.FOCUS) {
                 if (this.isSelected()) {
-                    return this.global.config.seat_style.focus_out;
+                    return this.global.config.style.seat.focus_out;
                 } else {
-                    return this.global.config.seat_style.focus;
+                    return this.global.config.style.seat.focus;
                 }
 
             } else if (action == SeatAction.HOVER) {
                 if (this.isSelected()) {
-                    return this.global.config.seat_style.selected;
+                    return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.seat_style.hover;
+                    return this.global.config.style.seat.hover;
                 }
             }
             else if (action == SeatAction.LEAVE) {
                 if (this.isSelected()) {
-                    return this.global.config.seat_style.selected;
+                    return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.seat_style.color;
+                    return this.global.config.style.seat.color;
                 }
             }
             else if (action == SeatAction.SELECT) {
                 if (this.isSelected()) {
-                    return this.global.config.seat_style.selected;
+                    return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.seat_style.selected;
+                    return this.global.config.style.seat.selected;
                 }
             } else {
                 if (this.isSelected()) {
-                    return this.global.config.seat_style.selected;
+                    return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.seat_style.color;
+                    return this.global.config.style.seat.color;
                 }
             }
 
         } else {
-            return this.global.config.seat_style.not_salable;
+            return this.global.config.style.seat.not_salable;
         }
 
     }

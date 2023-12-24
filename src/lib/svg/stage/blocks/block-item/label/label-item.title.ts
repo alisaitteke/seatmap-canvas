@@ -16,8 +16,8 @@ export class LabelItemTitle extends SvgBase {
 
     constructor(public parent: LabelItem) {
         super(parent);
-        this.attr("fill", this.global.config.label_style.color);
-        this.attr("font-size", this.global.config.label_style.font_size);
+        this.attr("fill", this.global.config.style.label.color);
+        this.attr("font-size", this.global.config.style.label.font_size);
         return this;
     }
 

@@ -16,7 +16,7 @@ export class SeatItemTitle extends SvgBase {
 
     constructor(public parent: SeatItem) {
         super(parent);
-        this.attr("fill", this.global.config.label_style.color);
+        this.attr("fill", this.global.config.style.label.color);
         this.attr("font-size", 10);
         return this;
     }

@@ -32,7 +32,7 @@ export class SeatMapCanvas {
     public eventManager: EventManager;
     public addEventListener: any;
 
-    constructor(public container_selector: any, _config: any = {}) {
+    constructor(public container_selector: any, _config: DefaultsModel) {
         let _self = this;
         this.config = new DefaultsModel(_config);
         this.eventManager = new EventManager(this);

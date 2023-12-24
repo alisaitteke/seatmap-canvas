@@ -47,7 +47,7 @@ export default class Svg extends SvgBase {
     update() {
         this.stage = new Stage(this).addToParent();
         this.zoomOutBg = new ZoomOutBg(this).addToParent();
-        if(this.global.config.legend_show){
+        if(this.global.config.legend){
             this.legend = new Legend(this).addToParent();
         }
 
@@ -57,7 +57,7 @@ export default class Svg extends SvgBase {
         this.updateChilds();
 
         this.stage.node.raise();
-        if(this.global.config.legend_show){
+        if(this.global.config.legend){
             this.legend.node.raise();
         }
 

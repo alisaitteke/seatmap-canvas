@@ -16,8 +16,8 @@ export class LabelItemCircle extends SvgBase {
 
     constructor(public parent: LabelItem) {
         super(parent);
-        this.attr("r", this.global.config.label_style.radius);
-        this.attr("fill", this.global.config.label_style.bg);
+        this.attr("r", this.global.config.style.label.radius);
+        this.attr("fill", this.global.config.style.label.bg);
         return this;
     }
 
