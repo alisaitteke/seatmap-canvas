@@ -23,7 +23,6 @@ export default class WindowManager {
     constructor(public parent: SeatMapCanvas) {
         d3Select(window).on("resize.svg", () => {
             this.resizeHandler();
-
         });
 
     }
