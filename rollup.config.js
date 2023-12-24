@@ -11,7 +11,6 @@ import livereload from 'rollup-plugin-livereload'
 const packageJson = require("./package.json");
 
 export default commandLineArgs => {
-    console.log('cmd', commandLineArgs)
     let config = [
         {
             input: "src/lib/canvas.index.ts",
@@ -20,11 +19,13 @@ export default commandLineArgs => {
                     file: packageJson.main,
                     format: "iife",
                     sourcemap: true,
+                    name:'seatmap.cjs'
                 },
                 {
                     file: packageJson.module,
                     format: "esm",
                     sourcemap: true,
+                    name:'seatmap.esm'
                 },
             ],
             plugins: [
