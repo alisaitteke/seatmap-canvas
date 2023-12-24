@@ -31,6 +31,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: yarn install
+      - run: yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Copy scripts
