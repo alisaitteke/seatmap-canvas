@@ -105,7 +105,7 @@ export default class DefaultsModel {
         this.legend_style = {
             radius: config.legend_style && config.legend_style.radius || 12,
             padding: config.legend_style && config.legend_style.padding || 36,
-            font_size: config.legend_style && config.legend_style.font_size || 100,
+            font_size: config.legend_style && config.legend_style.font_size || 12,
             font_color: config.legend_style && config.legend_style.font_color || "#000000",
         };
         this.tooltip_style = {

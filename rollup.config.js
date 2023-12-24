@@ -67,7 +67,7 @@ export default commandLineArgs => {
         config[0].plugins.push(livereload())
         config[0].plugins.push(serve({
             openPage: '/index.html',
-            contentBase: ['dist', 'examples', 'src'],
+            contentBase: ['dist', 'examples', 'src', 'assets'],
             port: 3002,
         }))
     }

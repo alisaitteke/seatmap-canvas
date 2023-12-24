@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="fixed">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,39 +7,87 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer type="text/javascript" src="cjs/seatmap.canvas.js"></script>
     <link href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" rel="stylesheet"/>
+    <style>
+
+
+        #seats_container {
+            position: relative;
+            border-radius: 0 !important;
+            background-color: #0f172a;
+            background-size: 0.5rem 0.5rem;
+            background-position:0.25rem 0.25rem;
+            background-image:
+                    linear-gradient(to right, rgba(50, 100, 150, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 1px, transparent 1px);
+            margin: 0;
+        }
+        #seats_container::before, #seats_container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-size: 2.5rem 2.5rem;
+            background-position:0.25rem 0.25rem;
+            background-image:
+                    linear-gradient(to right, rgba(50, 100, 150, 0.1) 2px, transparent 2px),
+                    linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 2px, transparent 2px);
+            z-index: -1;
+        }
+        #seats_container::after {
+            background-size: 5rem 5rem;
+            background-image:
+                    linear-gradient(to right, rgba(50, 100, 150, 0.1) 3px, transparent 3px),
+                    linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 3px, transparent 3px);
+        }
+    </style>
     <title>Seatmap Demo</title>
 </head>
 <body>
 
 <div class="absolute flex flex-col w-screen h-screen">
-    <div class="flex gap-3 p-1.5 bg-gray-300">
-        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100" id="zoomout-button">
-            <i class="fa-solid fa-magnifying-glass-minus"></i>
-            All Blocks
-        </button>
-        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100" id="get-selected-seats">
-            <i class="fa-solid fa-code"></i>
-            Get Selected Seat(s) Json
-        </button>
-        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100 zoom-to-block" data-block-id="block-0">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
-            Zoom Block 1
-        </button>
-        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100 zoom-to-block" data-block-id="block-1">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
-            Zoom Block 2
-        </button>
-        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100 zoom-to-block" data-block-id="block-2">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
-            Zoom Block 3
-        </button>
-        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100" id="randomize-btn"
-                data-block-id="block-2">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
-            Randomize
-        </button>
+    <div class="bg-[#ab1f34] flex justify-center border-b border-[#d05063]">
+        <img class="h-12" src="logo_small.jpg">
     </div>
-    <div id="seats_container" class="w-full flex-1 h-full bg-gradient-to-r from-slate-900 to-slate-700"></div>
+    <div class="flex flex-row h-full">
+        <div class="w-48 bg-slate-800 hidden md:block">
+            <div class="flex flex-col gap-3 p-1.5 text-sm">
+                <button class="border text-left border-slate-500 bg-slate-700 text-slate-300 py-1 px-3 rounded-md hover:bg-slate-900"
+                        id="zoomout-button">
+                    <i class="fa-solid fa-magnifying-glass-minus mr-2"></i>
+                    All Blocks
+                </button>
+                <button class="border text-left border-slate-500 bg-slate-700 text-slate-300 py-1  px-3 rounded-md hover:bg-slate-900"
+                        id="get-selected-seats">
+                    <i class="fa-solid fa-code mr-2"></i>
+                    Get Json
+                </button>
+                <button class="border text-left border-slate-500 bg-slate-700 text-slate-300 py-1  px-3 rounded-md hover:bg-slate-900 zoom-to-block"
+                        data-block-id="block-0">
+                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                    Zoom Block 1
+                </button>
+                <button class="border text-left border-slate-500 bg-slate-700 text-slate-300 py-1  px-3 rounded-md hover:bg-slate-900 zoom-to-block"
+                        data-block-id="block-1">
+                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                    Zoom Block 2
+                </button>
+                <button class="border text-left border-slate-500 bg-slate-700 text-slate-300 py-1  px-3 rounded-md hover:bg-slate-900 zoom-to-block"
+                        data-block-id="block-2">
+                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                    Zoom Block 3
+                </button>
+                <button class="border text-left border-slate-500 bg-slate-700 text-slate-300 py-1  px-3 rounded-md hover:bg-slate-900"
+                        id="randomize-btn"
+                        data-block-id="block-2">
+                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                    Randomize
+                </button>
+            </div>
+        </div>
+        <div id="seats_container" class="w-full flex-1 h-full bg-gradient-to-r from-slate-900 to-slate-700"></div>
+    </div>
 </div>
 
 
