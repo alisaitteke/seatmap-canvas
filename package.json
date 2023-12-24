@@ -16,7 +16,7 @@
   "sideEffects": false,
   "scripts": {
     "start": "rollup --config --watch --bundleConfigAsCjs",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "rollup -c --prod --bundleConfigAsCjs"
   },
   "engines": {
     "node": ">=18.0.0"
