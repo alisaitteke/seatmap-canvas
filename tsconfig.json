@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "jsx": "react",
     "module": "ESNext",
+    "baseUrl": "./",
     "declarationDir": "types",
     "sourceMap": true,
     "outDir": "dist",
