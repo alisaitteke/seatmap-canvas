@@ -45,6 +45,8 @@ export default class Block extends SvgBase {
         super(parent);
         this.attr("id", item.id);
         this.attr("opacity", 0);
+
+
         this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (levelObject: any) => {
             if (levelObject.level === ZoomLevel.VENUE) {
                 this.mask.blockLevelMask.show();
@@ -63,10 +65,10 @@ export default class Block extends SvgBase {
             }
         });
 
-        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE,()=>{
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => {
             this.seats.resetSeatsColors(false);
         });
-        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE,()=>{
+        this.global.eventManager.addEventListener(EventType.MULTI_SELECT_DISABLE, () => {
             this.seats.resetSeatsColors(false);
         });
 
@@ -83,8 +85,6 @@ export default class Block extends SvgBase {
                 for (let i = 0; i < block_item.seats.getSeatsCount(); i++) {
                     let _seat = block_item.seats.getSeatByIndex(i);
                     let _item: SeatModel = _seat.item;
-
-
                     let color = _seat.getColor();
                     if (_seat.isSelected()) {
                         color = _seat.getColor(SeatAction.SELECT);
@@ -99,6 +99,12 @@ export default class Block extends SvgBase {
                 }
             }
         });
+
+        this.global.eventManager.addEventListener(EventType.MOUSELEAVE_BLOCK, (block_item: Block) => {
+            console.log(block_item)
+            this.seats.resetSeatsColors()
+
+        })
 
         // grid search
         // this.global.eventManager.addEventListener(EventType.TOUCHSTART_BLOCK, (block_item: Block) => {
@@ -152,7 +158,13 @@ export default class Block extends SvgBase {
 
         this.infosToCenter();
 
+
         this.node.interrupt().transition().duration(this.global.config.animation_speed).attr("opacity", 1);
+
+        if (this.item.rotate) {
+            this.node.attr("transform-origin", `${this.center_position.x} ${this.center_position.y}`);
+            this.node.attr("transform", 'rotate(' + this.item.rotate + ')');
+        }
 
 
         return this;

@@ -43,8 +43,7 @@ export default class Blocks extends SvgBase {
             }
 
             let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
-            let _bounds = polygonHull(bound_items);
-            block_item.bounds = _bounds;
+            block_item.bounds = polygonHull(bound_items);
 
             this.addChild(_blockItem);
         });

@@ -25,7 +25,9 @@ export default class DefaultsModel {
         hover: string,
         focus: string,
         focus_out: string,
-        check_color: string
+        check_color: string,
+        check_icon: string | null,
+        check_icon_color: string,
     };
     block_style: {
         fill: string
@@ -38,7 +40,8 @@ export default class DefaultsModel {
     legend_style: {
         radius: number,
         padding: number,
-        font_size: number
+        font_size: number,
+        font_color: string
     };
 
     label_style: {
@@ -83,6 +86,8 @@ export default class DefaultsModel {
             focus: config.seat_style && config.seat_style.focus || "#6293d2",
             focus_out: config.seat_style && config.seat_style.focus_out || "#ff001c",
             check_color: config.seat_style && config.seat_style.check_color || "#ffffff",
+            check_icon: null,
+            check_icon_color: config.seat_style && config.seat_style.check_icon_color || "#ffffff",
         };
         this.block_style = {
             fill: config.block_style && config.block_style.fill || "#ffffff",
@@ -101,6 +106,7 @@ export default class DefaultsModel {
             radius: config.legend_style && config.legend_style.radius || 12,
             padding: config.legend_style && config.legend_style.padding || 36,
             font_size: config.legend_style && config.legend_style.font_size || 100,
+            font_color: config.legend_style && config.legend_style.font_color || "#000000",
         };
         this.tooltip_style = {
             border_width: config.tooltip_style && config.tooltip_style.border_width || 1,
