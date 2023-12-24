@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/cjs/index.css" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer type="text/javascript" src="/cjs/index.js"></script>
+    <link href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                darkMode: 'class',
+            }
+        }
+    </script>
+    <title>Seatmap Demo</title>
+</head>
+<body>
+
+<div class="absolute flex flex-col w-screen h-screen">
+    <div class="flex gap-3 p-1.5 bg-gray-300">
+        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100" id="zoomout-button">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+            All Blocks
+        </button>
+        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100" id="get-selected-seats">
+            <i class="fa-solid fa-code"></i>
+            Get Selected Seat(s) Json
+        </button>
+        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100 zoom-to-block" data-block-id="block-0">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+            Zoom Block 1
+        </button>
+        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100 zoom-to-block" data-block-id="block-1">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+            Zoom Block 2
+        </button>
+        <button class="border bg-white py-1.5 px-3 rounded-lg hover:bg-gray-100 zoom-to-block" data-block-id="block-2">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+            Zoom Block 3
+        </button>
+    </div>
+    <div id="seats_container" class="w-full flex-1 h-full bg-gradient-to-r from-slate-900 to-slate-700"></div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        let seatmap = new SeatMapCanvas("#seats_container", {
+            seat_style: {
+                hover: '#8fe100',
+                color: '#f0f7fa',
+                selected: '#8fe100',
+                check_icon_color: '#fff',
+                not_salable: '#10546b',
+                focus: '#8fe100',
+            },
+            legend_style:{
+                font_color: '#fff'
+            },
+            block_style: {
+                title_color: '#fff'
+            }
+        });
+        seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
+            console.log("seat", seat)
+            if (!seat.isSelected() && seat.item.salable === true) {
+                seat.select()
+            } else {
+                seat.unSelect()
+            }
+
+        });
+
+        $("#zoomout-button").on("click", function () {
+            seatmap.zoomManager.zoomToVenue();
+        });
+
+        $(".zoom-to-block").on("click", function (a) {
+            let blockId = $(this).attr('data-block-id');
+            console.log('blockId', blockId)
+            seatmap.zoomManager.zoomToBlock(blockId);
+        });
+        $("#get-selected-seats").on("click", function (a) {
+
+            let selectedSeats = seatmap.data.getSelectedSeats();
+            console.log(selectedSeats)
+        });
+
+        $("#unselect-seat").on("click", function (a) {
+            let seatId = $(this).attr('seat-id');
+            let blockId = $(this).attr('block-id');
+            let seat = seatmap.data.getSeat(seatId, blockId);
+            seat.svg.unSelect()
+        });
+
+
+        let block_colors = ["#10546b", "#10546b", "#10546b", "#10546b"];
+
+
+        let blocks = []
+        let last_x = 0;
+        for (let j = 0; j < 4; j++) { // blocks
+
+            let color = block_colors[j];
+            console.log(color)
+
+            let seats = []
+            let cell_count = 0;
+            let row_count = 0;
+            let block_final_x = 0;
+            let randomSeatCount = Math.round((Math.random() * (Math.abs(200 - 40))) + 40)
+
+            for (let k = 0; k < 96; k++) { // row
+
+                if (k % 12 === 0) {
+                    cell_count = 1;
+                    row_count++;
+                }
+
+                let x = (cell_count * 33) + last_x;
+                let y = row_count * 30;
+
+                console.log(x)
+
+                if (block_final_x < x) block_final_x = x;
+
+
+                let seat = {
+                    id: `s-${k}`,
+                    x: x,
+                    y: y,
+                    color: color, // can use item.color from json data
+                    salable: Math.ceil(Math.random() * 10) > 3,
+                    custom_data: {any: "things"},
+                    note: "note test",
+                    tags: {},
+                    title: `Title ${cell_count} ${row_count}`
+                }
+                cell_count++;
+                seats.push(seat)
+            }
+
+            last_x = block_final_x + 100;
+
+            let block = {
+                "id": `block-${j}`,
+                "title": `Block - ${j + 1}`,
+                "labels": [],
+                "color": color,
+                "seats": seats
+            };
+
+            blocks.push(block);
+        }
+
+        seatmap.data.addBulkBlock(blocks);
+
+
+    });
+</script>
+</body>
+</html>

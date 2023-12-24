@@ -1,28 +1,32 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "jsx": "react",
+    "module": "ESNext",
     "baseUrl": "./",
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "outDir": "./buildc",
+    "declarationDir": "types",
     "sourceMap": true,
-    "declaration": false,
+    "outDir": "dist",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "emitDeclarationOnly": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    "preserveConstEnums": true,
+    "declaration": true,
+    "noImplicitAny": true,
     "typeRoots": [
       "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "es2015",
-      "dom"
     ]
   },
-  "files": [
-    "src/lib/canvas.index.ts"
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
   ]
 }

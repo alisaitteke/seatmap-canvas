@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 import {mouse as d3Mouse, event as d3Event} from 'd3-selection'
@@ -49,20 +49,19 @@ export default class ZoomManager {
     };
 
     public activeBlocks: Array<any>;
-    public minZoom: number = null;
-    private _zoomLevel: ZoomLevel;
+    public minZoom: number | null = null;
+    public zoomLevel: ZoomLevel;
 
 
     constructor(private _self: SeatMapCanvas) {
-
         this.activeBlocks = [];
         this.zoomLevel = ZoomLevel.VENUE;
-
         this.dispatchZoomEvent();
     }
 
     public init() {
 
+        console.log('zoom init')
         this.calculateZoomLevels();
         this.zoomInit();
         // this._self.eventManager.addEventListener(EventType.UPDATE_BLOCK, (blocks: Array<BlockModel>) => {
@@ -85,6 +84,7 @@ export default class ZoomManager {
     }
 
     zoomInit() {
+        console.info('zoomInit')
         this.zoomTypes.normal = d3Zoom()
             .scaleExtent([this._self.config.min_zoom, this._self.config.max_zoom])
             .on("end", this.zoomEnd(this))
@@ -104,6 +104,7 @@ export default class ZoomManager {
     }
 
     zoomEnd(_self: this): any {
+        console.info('zoomEnd')
         return function () {
             let x = d3Event.transform.x;
             let y = d3Event.transform.y;
@@ -111,11 +112,12 @@ export default class ZoomManager {
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
-            _self.canvasScopeHandler();
+            // _self.canvasScopeHandler();
         }
     }
 
     animatedZoomEnd(_self: this): any {
+        console.info('animatedZoomEnd')
         return function () {
             let x = d3Event.transform.x;
             let y = d3Event.transform.y;
@@ -127,6 +129,7 @@ export default class ZoomManager {
     }
 
     animatedFastZoomEnd(_self: this): any {
+        console.info('animatedFastZoomEnd')
         return function () {
             let x = d3Event.transform.x;
             let y = d3Event.transform.y;
@@ -138,6 +141,7 @@ export default class ZoomManager {
     }
 
     zoomHand(_self: this): any {
+        console.info('zoomHand')
         return function () {
             let x = d3Event.transform.x;
             let y = d3Event.transform.y;
@@ -148,6 +152,7 @@ export default class ZoomManager {
     }
 
     zoomHandAnimated(_self: this): any {
+        console.info('zoomHandAnimated')
         return function () {
             let x = d3Event.transform.x;
             let y = d3Event.transform.y;
@@ -159,6 +164,7 @@ export default class ZoomManager {
     }
 
     zoomHandFastAnimated(_self: this): any {
+        console.info('zoomHandFastAnimated')
         return function () {
             let x = d3Event.transform.x;
             let y = d3Event.transform.y;
@@ -170,13 +176,14 @@ export default class ZoomManager {
     }
 
     calculateZoomLevel(k: number) {
+        console.info('calculateZoomLevel')
         let _levels = {
             seat: this._self.config.max_zoom - 0.2,
             block: this.zoomLevels.BLOCK.k,
             venue: this.zoomLevels.VENUE.k
         };
 
-        let _zoomLevel = null;
+        let _zoomLevel: ZoomLevel | null = null;
 
         let blocks_count = this._self.data.getBlocks().length;
 
@@ -191,7 +198,7 @@ export default class ZoomManager {
         }
 
         if (_zoomLevel !== this.zoomLevel) {
-            this.zoomLevel = _zoomLevel;
+            this.zoomLevel = _zoomLevel as ZoomLevel;
             this.dispatchZoomEvent();
         }
     }
@@ -216,6 +223,7 @@ export default class ZoomManager {
 
     public calculateZoomLevels(blocks: Array<BlockModel> = this._self.data.getBlocks()): this {
 
+        console.info('calculateZoomLevels')
         let _wm = this._self.windowManager;
         let _stage = _wm.stage;
 
@@ -241,8 +249,11 @@ export default class ZoomManager {
 
         });
 
-        this.scale.x = (_wm.width / _stage.width) - ((_wm.width / _stage.width) / 5);
-        this.scale.y = (_wm.height / _stage.height) - ((_wm.height / _stage.height) / 5);
+        if (_wm.width && _wm.height) {
+            this.scale.x = (_wm.width / _stage.width) - ((_wm.width / _stage.width) / 5);
+            this.scale.y = (_wm.height / _stage.height) - ((_wm.height / _stage.height) / 5);
+        }
+
         this.scale.k = (this.scale.x < this.scale.y) ? this.scale.x : this.scale.y;
         this.minZoom = this.scale.k < 1 ? this.scale.k : 1;
 
@@ -272,40 +283,46 @@ export default class ZoomManager {
         blocks.map((block: BlockModel) => {
             let _block_item = this._self.svg.stage.blocks.getBlock(block.id);
 
+            if (_block_item) {
+                let bound = _block_item.node.node().getBoundingClientRect();
+                let bbox = _block_item.node.node().getBBox();
 
-            let bound = _block_item.node.node().getBoundingClientRect();
-            let bbox = _block_item.node.node().getBBox();
+                block.bbox = bbox;
 
-            block.bbox = bbox;
+                if (this._self.windowManager.width && this._self.windowManager.height) {
+                    let x = (this._self.windowManager.width / bbox.width) - ((this._self.windowManager.width / bbox.width) / 3);
+                    let y = (this._self.windowManager.height / bbox.height) - ((this._self.windowManager.height / bbox.height) / 3);
+                    let k = (x < y) ? x : y;
 
-            let x = (this._self.windowManager.width / bbox.width) - ((this._self.windowManager.width / bbox.width) / 3);
-            let y = (this._self.windowManager.height / bbox.height) - ((this._self.windowManager.height / bbox.height) / 3);
-            let k = (x < y) ? x : y;
+                    x += bbox.x + (bbox.width / 2);
+                    y += bbox.y + (bbox.height / 2);
 
-            x += bbox.x + (bbox.width / 2);
-            y += bbox.y + (bbox.height / 2);
+                    k = k > this._self.config.max_zoom ? this._self.config.max_zoom : k;
 
-            k = k > this._self.config.max_zoom ? this._self.config.max_zoom : k;
-
-            block.zoom_bbox = {
-                x: x,
-                y: y,
-                k: k
-            };
+                    block.zoom_bbox = {
+                        x: x,
+                        y: y,
+                        k: k
+                    };
 
 
-            let x_overlap = Math.max(0, Math.min(this._self.windowManager.width, bound.right) - Math.max(0, bound.left));
-            let y_overlap = Math.max(0, Math.min(this._self.windowManager.height, bound.bottom) - Math.max(0, bound.top));
-            let overlapArea = (x_overlap * y_overlap);
-            let allOverlapArea = this._self.windowManager.width * this._self.windowManager.height;
-            let ratio: number = (overlapArea * 100) / allOverlapArea;
+                    let x_overlap = Math.max(0, Math.min(this._self.windowManager.width, bound.right) - Math.max(0, bound.left));
+                    let y_overlap = Math.max(0, Math.min(this._self.windowManager.height, bound.bottom) - Math.max(0, bound.top));
+                    let overlapArea = (x_overlap * y_overlap);
+                    let allOverlapArea = this._self.windowManager.width * this._self.windowManager.height;
+                    let ratio: number = (overlapArea * 100) / allOverlapArea;
 
-            if (overlapArea > 0) {
-                this.activeBlocks.push({
-                    block: _block_item,
-                    ratio: Number(ratio.toFixed(2))
-                });
+                    if (overlapArea > 0) {
+
+                        this.activeBlocks.push({
+                            block: _block_item,
+                            ratio: Number(ratio.toFixed(2))
+                        });
+                    }
+                }
             }
+
+
         });
 
         this.activeBlocks = this.activeBlocks.sort((a, b) => b.ratio - a.ratio);
@@ -341,9 +358,7 @@ export default class ZoomManager {
     }
 
     public zoomToBlock(id: string | number, animation: boolean = true, fastAnimated: boolean = false) {
-        let _block = this._self.data.getBlocks().find((block: BlockModel) => block.id === id);
-
-
+        let _block = this._self.data.getBlocks().find((block) => block.id.toString() === id.toString());
         if (_block) {
             if (animation) {
                 if (fastAnimated) {
@@ -370,6 +385,7 @@ export default class ZoomManager {
 
     public zoomToVenue(animation: boolean = true, fastAnimated: boolean = false) {
 
+        console.info('zoomToVenue')
         let x = this.zoomLevels.VENUE.x;
         let y = this.zoomLevels.VENUE.y;
         let k = this.zoomLevels.VENUE.k;
@@ -404,14 +420,6 @@ export default class ZoomManager {
     }
 
 
-    get zoomLevel(): ZoomLevel {
-        return this._zoomLevel;
-    }
-
-    set zoomLevel(value: ZoomLevel) {
-        this._zoomLevel = value;
-    }
-
     public zoomEnable(): this {
         this._self.svg.node.call(this.zoomTypes.normal);
         //this._self.svg.node.on('.zoom', null);
@@ -428,13 +436,13 @@ export default class ZoomManager {
     }
 
     public getActiveZoom() {
-        return this.zoomLevels[this._zoomLevel];
+        return this.zoomLevels[this.zoomLevel];
     }
 
     private dispatchZoomEvent() {
         this._self.eventManager.dispatch(EventType.ZOOM_LEVEL_CHANGE, {
-            level: this._zoomLevel,
-            values: this.getZoomLevelValues(this._zoomLevel)
+            level: this.zoomLevel,
+            values: this.getZoomLevelValues(this.zoomLevel)
         });
     }
 }

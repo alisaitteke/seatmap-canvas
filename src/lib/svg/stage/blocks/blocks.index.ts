@@ -1,6 +1,6 @@
 /*
  * blocks.ts
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 import {polygonHull} from 'd3-polygon'
@@ -43,8 +43,7 @@ export default class Blocks extends SvgBase {
             }
 
             let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
-            let _bounds = polygonHull(bound_items);
-            block_item.bounds = _bounds;
+            block_item.bounds = polygonHull(bound_items);
 
             this.addChild(_blockItem);
         });
@@ -54,8 +53,12 @@ export default class Blocks extends SvgBase {
         return this;
     }
 
-    public getBlock(id: any): Block {
-        return this.getBlocks().find((block: Block) => block.item.id == id);
+    public getBlock(id: any): Block | null {
+        const block = this.getBlocks().find((block: Block) => block.item.id == id)
+        if (block)
+            return block;
+        else
+            return null;
     }
 
     public getBlocks(): Array<Block> {

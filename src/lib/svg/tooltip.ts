@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -28,7 +28,7 @@ export default class Tooltip extends SvgBase {
     public rect: TooltipRect;
     public title: TooltipTitle;
 
-    public activeSeat: SeatItem;
+    public activeSeat: SeatItem | null;
 
     constructor(public parent: Svg) {
         super(parent);
@@ -40,7 +40,7 @@ export default class Tooltip extends SvgBase {
 
         this.global.eventManager.addEventListener([EventType.MOUSEMOVE_SEAT], (seat: SeatItem) => {
             if (this.global.multi_select) return;
-            if (this.activeSeat !== seat) {
+            if (this.activeSeat !== seat && seat.item.title) {
                 this.activeSeat = seat;
                 this.setTitle(seat.item.title.split("\n"));
                 this.title.generateTitle();
@@ -79,6 +79,7 @@ export default class Tooltip extends SvgBase {
         this.parent.node.on("mousemove.seat", function () {
             if (_self.global.multi_select) return;
             if (_self.global.zoomManager.zoomLevel === ZoomLevel.SEAT && _self.activeSeat !== null) {
+                // @ts-ignore
                 let cor = d3Mouse(this);
 
                 let x = cor[0] - (_self.global.config.tooltip_style.width / 2);

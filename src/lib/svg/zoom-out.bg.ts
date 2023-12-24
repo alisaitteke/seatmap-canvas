@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -24,7 +24,7 @@ export default class ZoomOutBg extends SvgBase {
                 .attr("width", win.width)
                 .attr("height", win.height)
                 .on("click.zoomout", () => {
-                    this.global.eventManager.dispatch(EventType.CLICK_ZOOMOUT, this);
+                    this.global.eventManager.dispatch(EventType.CLICK_ZOOM_OUT, this);
                 });
         })
     }
