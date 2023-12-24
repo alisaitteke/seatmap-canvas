@@ -34,6 +34,7 @@
     "d3": "^5.7.0",
     "reflect-metadata": "^0.1.12",
     "rollup": "^4.9.1",
+    "rollup-plugin-cleandir": "^2.0.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",

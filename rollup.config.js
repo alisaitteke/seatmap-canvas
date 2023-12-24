@@ -7,6 +7,7 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import serve from 'rollup-plugin-serve'
 import scss from 'rollup-plugin-scss'
 import livereload from 'rollup-plugin-livereload'
+import {cleandir} from "rollup-plugin-cleandir";
 
 const packageJson = require("./package.json");
 
@@ -18,18 +19,36 @@ export default commandLineArgs => {
                 {
                     file: packageJson.main,
                     format: "iife",
-                    sourcemap: true,
-                    name:'seatmap.cjs'
-                },
+                    sourcemap: true
+                }
+            ],
+            plugins: [
+                cleandir(),
+                scss({
+                    verbose: true
+                }),
+                peerDepsExternal(),
+                resolve(),
+                commonjs(),
+                typescript({tsconfig: "./tsconfig.json"}),
+                terser()
+            ],
+            external: [],
+        },
+        {
+            input: "src/lib/canvas.index.ts",
+            output: [
                 {
                     file: packageJson.module,
                     format: "esm",
-                    sourcemap: true,
-                    name:'seatmap.esm'
+                    sourcemap: true
                 },
             ],
             plugins: [
-                scss(),
+                cleandir(),
+                scss({
+                    verbose: true
+                }),
                 peerDepsExternal(),
                 resolve(),
                 commonjs(),
@@ -44,7 +63,6 @@ export default commandLineArgs => {
             plugins: [scss(), dts.default()],
         },
     ];
-    console.log('commandLineArgs.prod', commandLineArgs.prod)
     if (!commandLineArgs.prod) {
         config[0].plugins.push(livereload())
         config[0].plugins.push(serve({
