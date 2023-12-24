@@ -18,9 +18,6 @@
     "start": "rollup --config --watch --bundleConfigAsCjs",
     "build": "rollup -c --bundleConfigAsCjs"
   },
-  "engines": {
-    "node": ">=4.0.0"
-  },
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
