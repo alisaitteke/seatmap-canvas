@@ -1,6 +1,6 @@
 /*
  * config.ts
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 export class SeatMapConfig {

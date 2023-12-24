@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 import Block from "./stage/blocks/block-item/block-item.index";
@@ -11,10 +11,10 @@ import {mouse as d3Mouse} from 'd3-selection'
 
 export default class SvgBase {
 
-    public node: any = null;
-    public domClass: string = null;
-    public domTag: string = null;
-    public eventCode: string = null;
+    public node: any | null = null;
+    public domClass: string | null;
+    public domTag: string | null;
+    public eventCode: string | null;
     public autoGenerate: boolean = false;
     public tags: Array<string>;
 
@@ -23,7 +23,7 @@ export default class SvgBase {
     public dom_attrs: Array<any>;
     public dom_classeds: Array<any>;
 
-    public child_index: number = null;
+    public child_index: number | null = null;
 
 
     public global: GlobalModel;
@@ -144,26 +144,29 @@ export default class SvgBase {
     public updateEvents(recursive: boolean = false): this {
         let _self = this;
 
-        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseout", "mouseenter", "mousemove", "keydown", "keypress", "mousedown", "mouseup","touchstart"];
+        let allowed_event_types: Array<string> = ["click", "mousever", "mouseleave", "mouseout", "mouseenter", "mousemove", "keydown", "keypress", "mousedown", "mouseup", "touchstart"];
 
-        for (let i = 0; i < this.global.eventManager.events.length; i++) {
-            let _event = this.global.eventManager.events[i];
-            let _split = _event.type.toString().split(".");
-            if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
-                this.node.on(_split[1].toLowerCase() + ".globalevent", function (item: EventObject) {
-                    let _mouse = d3Mouse(_self.parent.node.node());
-                    _event.fn(_self, item, _mouse);
+        if (this.eventCode) {
+            for (let i = 0; i < this.global.eventManager.events.length; i++) {
+                let _event = this.global.eventManager.events[i];
+                let _split = _event.type.toString().split(".");
+                if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
+                    this.node.on(_split[1].toLowerCase() + ".globalevent", function (item: EventObject) {
+                        let _mouse = d3Mouse(_self.parent.node.node());
+                        _event.fn(_self, item, _mouse);
+                    })
+                }
+            }
+
+            if (recursive && this.child_items.length > 0) {
+                this.child_items.map((child_item: any) => {
+                    if (typeof child_item.updateEvents === "function") {
+                        child_item.updateEvents(true);
+                    }
                 })
             }
         }
 
-        if (recursive && this.child_items.length > 0) {
-            this.child_items.map((child_item: any) => {
-                if (typeof child_item.updateEvents === "function") {
-                    child_item.updateEvents(true);
-                }
-            })
-        }
 
         return this;
     }
@@ -183,7 +186,7 @@ export default class SvgBase {
         return this.tags.indexOf(tag) !== -1
     }
 
-    public getChilds(type: string = null): Array<any> {
+    public getChilds(type: string | null = null): Array<any> {
         if (type === null) {
             return this.child_items.filter((item: any) => item.constructor.name === type);
         } else {

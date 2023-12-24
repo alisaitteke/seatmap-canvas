@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -14,7 +14,7 @@ export default class DefaultsModel {
     container: any = null;
     zoom_focus_circle_radius: number = 60;
     click_enable_sold_seats: boolean = false;
-    zoom_out_button: string = null;
+    zoom_out_button: string;
     legend_show: boolean = false;
     canvas_stageout_control: boolean = true;
     seat_style: {

@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2018 Ali Sait TEKE
  */
 
 
@@ -45,12 +45,12 @@ export class SeatItem extends SvgBase {
         return this;
     }
 
-    public updateColor(color: string = null): this {
+    public updateColor(color: string | null = null): this {
         this.setColor(this.getColor());
         return this;
     }
 
-    public select(color: string = null): this {
+    public select(color: string | null = null): this {
         this.item.selected = true;
         this.node.classed("selected", true);
         this.circle.node.attr("fill", this.global.config.seat_style.selected);
@@ -82,7 +82,7 @@ export class SeatItem extends SvgBase {
         this.setColor(this.getColor());
     }
 
-    public getColor(action: SeatAction = null): string {
+    public getColor(action: SeatAction| null = null): string {
 
         if (this.isSalable()) {
 

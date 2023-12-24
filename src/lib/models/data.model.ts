@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -10,13 +10,14 @@ import EventManager from "../svg/event.manager";
 import {SeatMapCanvas} from "../canvas.index";
 import {SeatItem} from "../svg/stage/blocks/block-item/seat/seat-item.index";
 import SeatModel from "./seat.model";
+import Block from "../svg/stage/blocks/block-item/block-item.index";
 
 interface BlockQuery {
     id?: number | string
 }
 
 export default class DataModel {
-    private blocks: Array<BlockModel>;
+    blocks: Array<BlockModel>;
 
 
     private eventManager: EventManager;
@@ -50,13 +51,25 @@ export default class DataModel {
         return this;
     }
 
-    public getBlock(id: string | number): BlockModel {
-        return this.blocks.find((item: BlockModel) => item.id === id);
+    public getBlock(id: string | number): BlockModel | null {
+        const block = this.blocks.find((item: BlockModel) => item.id === id)
+        if (block) {
+            return block
+        } else {
+            return null
+        }
     }
 
     public getBlocks(blockId?: string): Array<BlockModel> {
-        if (blockId)
-            return [this.getBlock(blockId)];
+        if (blockId) {
+            const block = this.getBlock(blockId)
+            if (block) {
+                return [block];
+            } else {
+                return []
+            }
+
+        }
         return this.blocks;
     }
 
@@ -69,13 +82,19 @@ export default class DataModel {
         return this;
     }
 
-    public getSeat(seatId: string | number, blockId: string | number): SeatModel {
-        let block: BlockModel = this.getBlock(blockId);
+    public getSeat(seatId: string | number, blockId: string | number): SeatModel | null {
+        let block: BlockModel = this.getBlock(blockId) as BlockModel;
         if (block) {
-            return block.seats.find(seat => seat.id == seatId)
+            const seat = block.seats.find(seat => seat.id == seatId)
+            if (seat)
+                return seat
+            else {
+                return null
+            }
         } else {
             console.error(new Error('Block not found!'));
             new Error('Block not found')
+            return null;
         }
 
     }
