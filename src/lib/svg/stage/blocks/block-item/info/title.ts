@@ -19,8 +19,8 @@ export class BlockTitle extends SvgBase {
 
     constructor(public parent: BlockInfo) {
         super(parent);
-        this.attr("fill",this.global.config.block_style.title_color);
-
+        this.attr("fill",this.global.config.style.block.title_color);
+        this.attr("font-size",48);
     }
 
 

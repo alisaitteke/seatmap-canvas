@@ -21,7 +21,7 @@ export default class TooltipTitle extends SvgBase {
         super(parent);
         this.attr("x", 6);
         this.attr("y", 21);
-        this.attr("fill", this.global.config.tooltip_style.color);
+        this.attr("fill", this.global.config.style.tooltip.color);
         return this;
     }
 

@@ -18,7 +18,7 @@ export default class LegendCircle extends SvgBase {
 
     constructor(public parent: LegendItem) {
         super(parent);
-        this.attr("r", this.global.config.legend_style.radius);
+        this.attr("r", this.global.config.style.legend.radius);
         this.attr("fill", this.parent.legend_data.color);
     }
 

@@ -40,7 +40,7 @@ export default class LegendItem extends SvgBase {
 
         if(this.child_index){
             let x = 0;
-            let y = this.child_index * this.global.config.legend_style.padding;
+            let y = this.child_index * this.global.config.style.legend.padding;
 
             this.node.attr("transform", "translate(" + [x, y] + ")")
         }
