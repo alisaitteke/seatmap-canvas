@@ -41,6 +41,7 @@ jobs:
       - name: Copy scripts
         run: |
           cp -r ./dist/cjs ./examples
+          cp -r ./assets ./examples
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
