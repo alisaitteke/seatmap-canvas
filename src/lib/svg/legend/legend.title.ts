@@ -19,6 +19,7 @@ export default class LegendTitle extends SvgBase {
         super(parent);
         this.attr("x", this.global.config.legend_style.radius * 1.5);
         this.attr("fill", this.global.config.legend_style.font_color);
+        this.attr("font-size", this.global.config.legend_style.font_size);
     }
 
     update() {
