@@ -17,7 +17,6 @@ import EventManager from "./svg/event.manager";
 import {EventType, ZoomLevel} from "./enums/global";
 import WindowManager from "./window.manager";
 
-declare const window: any;
 
 export class SeatMapCanvas {
 
@@ -117,5 +116,3 @@ export class SeatMapCanvas {
         this.eventManager.dispatch(EventType.READY, this);
     }
 }
-
-window['SeatMapCanvas'] = SeatMapCanvas;
