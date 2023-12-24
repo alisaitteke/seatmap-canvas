@@ -6,6 +6,21 @@
 
 // @todo legend show hide function
 
+import {SeatStyle} from "./styles/seat.style";
+import {BLockStyle} from "./styles/block.style";
+import {LegendStyle} from "./styles/legend.style";
+import {LabelStyle} from "./styles/label.style";
+import {TooltipStyle} from "./styles/tooltip.style";
+import Block from "../svg/stage/blocks/block-item/block-item.index";
+
+export class StyleConfig {
+    seat: SeatStyle
+    block: BLockStyle
+    legend: LegendStyle
+    label: LabelStyle
+    tooltip: TooltipStyle
+}
+
 export default class DefaultsModel {
     min_zoom: number = 0.1;
     max_zoom: number = 1.9;
@@ -15,49 +30,11 @@ export default class DefaultsModel {
     zoom_focus_circle_radius: number = 60;
     click_enable_sold_seats: boolean = false;
     zoom_out_button: string;
-    legend_show: boolean = false;
+    legend: boolean = false;
     canvas_stageout_control: boolean = true;
-    seat_style: {
-        radius: number,
-        color: string,
-        not_salable: string,
-        selected: string,
-        hover: string,
-        focus: string,
-        focus_out: string,
-        check_color: string,
-        check_icon: string | null,
-        check_icon_color: string,
-    };
-    block_style: {
-        fill: string
-        stroke: string,
-        border_width: number,
-        title_color: string,
-        title_font_size: string
-    };
 
-    legend_style: {
-        radius: number,
-        padding: number,
-        font_size: number,
-        font_color: string
-    };
+    style: StyleConfig
 
-    label_style: {
-        color: string
-        bg: string
-        font_size: number
-        radius: number
-    };
-
-    tooltip_style: {
-        border_width: string,
-        width: number,
-        height: number,
-        color: string,
-        bg: string
-    };
 
     lang: {
         selectable: string,
@@ -73,48 +50,22 @@ export default class DefaultsModel {
 
         this.resizable = config.resizable ? config.resizable : this.resizable;
         this.zoom_out_button = config.zoom_out_button ? config.zoom_out_button : ".zoom-out-button";
-        this.legend_show = config.legend_show == false ? config.legend_show : true;
+        this.legend = config.legend == false ? config.legend : true;
         this.canvas_stageout_control = config.canvas_stageout_control == false ? config.canvas_stageout_control : true;
 
 
-        this.seat_style = {
-            radius: config.seat_style && config.seat_style.radius || 12,
-            color: config.seat_style && config.seat_style.color || "#77b2ff",
-            not_salable: config.seat_style && config.seat_style.not_salable || "#ccc9c9",
-            selected: config.seat_style && config.seat_style.selected || "#51ff48",
-            hover: config.seat_style && config.seat_style.hover || "#4770ff",
-            focus: config.seat_style && config.seat_style.focus || "#6293d2",
-            focus_out: config.seat_style && config.seat_style.focus_out || "#ff001c",
-            check_color: config.seat_style && config.seat_style.check_color || "#ffffff",
-            check_icon: config.seat_style.check_icon || '\uf005',
-            check_icon_color: config.seat_style && config.seat_style.check_icon_color || "#ffffff",
-        };
-        this.block_style = {
-            fill: config.block_style && config.block_style.fill || "#ffffff",
-            stroke: config.block_style && config.block_style.stroke || "#ffffff",
-            border_width: config.block_style && config.block_style.border_width || 4,
-            title_color: config.block_style && config.block_style.title_color || "#000000",
-            title_font_size: config.block_style && config.block_style.title_font_size || 28,
-        };
-        this.label_style = {
-            color: config.label_style && config.label_style.color || "#000000",
-            bg: config.label_style && config.label_style.bg || "#ffffff",
-            font_size: config.label_style && config.label_style.font_size || 12,
-            radius: config.label_style && config.label_style.radius || 12,
-        };
-        this.legend_style = {
-            radius: config.legend_style && config.legend_style.radius || 12,
-            padding: config.legend_style && config.legend_style.padding || 36,
-            font_size: config.legend_style && config.legend_style.font_size || 12,
-            font_color: config.legend_style && config.legend_style.font_color || "#000000",
-        };
-        this.tooltip_style = {
-            border_width: config.tooltip_style && config.tooltip_style.border_width || 1,
-            width: config.tooltip_style && config.tooltip_style.width || 140,
-            height: config.tooltip_style && config.tooltip_style.height || 58,
-            color: config.tooltip_style && config.tooltip_style.color || "#000000",
-            bg: config.tooltip_style && config.tooltip_style.bg || "#ffffff"
-        };
+        this.style = new StyleConfig()
+
+        this.style.seat = Object.assign(new SeatStyle(), config.style.seat)
+        this.style.block = Object.assign(new BLockStyle(), config.style.block)
+        this.style.legend = Object.assign(new LegendStyle(), config.style.legend)
+        this.style.label = Object.assign(new LabelStyle(), config.style.label)
+        this.style.tooltip = Object.assign(new TooltipStyle(), config.style.tooltip)
+
+        if (config.style) {
+
+        }
+
 
         this.lang = {
             selectable: config.lang && config.lang.selectable || "Selectable",
