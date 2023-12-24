@@ -1,6 +1,6 @@
 /*
  * $project.fileName
- * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
+ * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
@@ -38,10 +38,13 @@ export default class LegendItem extends SvgBase {
 
         this.title.node.text(this.legend_data.title);
 
-        let x = 0;
-        let y = this.child_index * this.global.config.legend_style.padding;
+        if(this.child_index){
+            let x = 0;
+            let y = this.child_index * this.global.config.legend_style.padding;
 
-        this.node.attr("transform", "translate(" + [x, y] + ")")
+            this.node.attr("transform", "translate(" + [x, y] + ")")
+        }
+
 
 
     }
