@@ -149,7 +149,7 @@ export default class Block extends SvgBase {
         this.center_position.y = ((this.item.bounds[0][1] - this.item.bounds[1][1]) / 2) + this.item.bounds[1][1];
 
         this.top_position.x = this.center_position.x;
-        this.top_position.y = (this.item.bounds[1][1] - 50);
+        this.top_position.y = (this.item.bounds[1][1] - 60);
 
 
         // update childs
@@ -171,13 +171,37 @@ export default class Block extends SvgBase {
     }
 
     public infosToTop() {
-        if (this.info.node && this.top_position.x)
-            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.top_position.x + "," + this.top_position.y + ")").attr("opacity", 1).attr("font-size", 14).attr("fill", "#ffffff");
+        if (this.info.node && this.top_position.x) {
+            this.info.node
+                .interrupt()
+                .transition()
+                .duration(this.global.config.animation_speed)
+                .attr("transform", "translate(" + this.top_position.x + "," + this.top_position.y + ")")
+                .attr("opacity", 0.8)
+                .attr("font-size", 14)
+            this.info.title.node
+                .transition()
+                .duration(this.global.config.animation_speed)
+                .attr("fill", this.item.color)
+
+        }
+
     }
 
     public infosToCenter() {
-        if (this.info.node && this.center_position.x)
-            this.info.node.interrupt().transition().duration(this.global.config.animation_speed).attr("transform", "translate(" + this.center_position.x + "," + this.center_position.y + ")").attr("opacity", 1).attr("font-size", 28).attr("fill", "#ffffff");
+        if (this.info.node && this.center_position.x) {
+            this.info.node.interrupt()
+                .transition()
+                .duration(this.global.config.animation_speed)
+                .attr("transform", "translate(" + this.center_position.x + "," + this.center_position.y + ")")
+                .attr("opacity", 1)
+                .attr("font-size", 32)
+            this.info.title.node
+                .transition()
+                .duration(this.global.config.animation_speed)
+                .attr("fill", this.global.config.style.block.title_color);
+        }
+
 
     }
 
