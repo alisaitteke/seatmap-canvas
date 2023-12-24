@@ -27,15 +27,15 @@ export default class Legend extends SvgBase {
 
         legend_data.push({
             title: this.global.config.lang.non_selectable,
-            color: this.global.config.seat_style.not_salable
+            color: this.global.config.style.seat.not_salable
         });
         legend_data.push({
             title: this.global.config.lang.selectable,
-            color: this.global.config.seat_style.color
+            color: this.global.config.style.seat.color
         });
         legend_data.push({
             title: this.global.config.lang.your_selection,
-            color: this.global.config.seat_style.selected
+            color: this.global.config.style.seat.selected
         });
 
         for (let i = 0; i < legend_data.length; i++) {
@@ -48,8 +48,8 @@ export default class Legend extends SvgBase {
 
     afterGenerate() {
 
-        let x = this.global.config.legend_style.radius * 2;
-        let y = 150 - (this.global.config.legend_style.padding * this.getChildCount());
+        let x = this.global.config.style.legend.radius * 2;
+        let y = 150 - (this.global.config.style.legend.padding * this.getChildCount());
         this.node.attr("transform", "translate(" + [x, y] + ")");
     }
 }
