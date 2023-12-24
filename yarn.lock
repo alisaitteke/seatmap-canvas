@@ -64,6 +64,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@mstssk/cleandir@^1.2.0":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@mstssk/cleandir/-/cleandir-1.2.1.tgz#b8f7e2eb0c2f6efbc0d2a854471fa4d9c7e699f7"
+  integrity sha512-n/62eVEJOBb3CI1Y4r/IOLzvXoI0/MxGGOryT7UGF2C2WSXV3HozwrowqtHoDDbLmWIw+HJbuHZl9vledmGpoQ==
+
 "@rollup/plugin-commonjs@^25.0.7":
   version "25.0.7"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-25.0.7.tgz#145cec7589ad952171aeb6a585bbeabd0fd3b4cf"
@@ -1025,6 +1030,13 @@ resolve@^1.22.1:
     is-core-module "^2.13.0"
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
+
+rollup-plugin-cleandir@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-cleandir/-/rollup-plugin-cleandir-2.0.0.tgz#c9f8574664fd3ff760dc46a268df9c391b985350"
+  integrity sha512-cTL/WbBJqHQkYBplhtiQ/yc0IqTuRR7EGw/S+XtQdaFhtv6+Xq/j8dxkk5lzTcxd0hCahUebZFYhLBRzSsgynw==
+  dependencies:
+    "@mstssk/cleandir" "^1.2.0"
 
 rollup-plugin-dts@^6.1.0:
   version "6.1.0"
