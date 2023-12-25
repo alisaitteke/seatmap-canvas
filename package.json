@@ -34,7 +34,7 @@
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/d3": "^5.0.0",
     "@types/node": "^16.6.3",
-    "d3": "^5.7.0",
+    "d3": "^5.16.0",
     "reflect-metadata": "^0.1.12",
     "rollup": "^4.9.1",
     "rollup-plugin-cleandir": "^2.0.0",
