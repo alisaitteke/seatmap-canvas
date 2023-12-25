@@ -11,7 +11,7 @@
     "dist"
   ],
   "private": false,
-  "description": "An Opensource seat selection project",
+  "description": "Seatmap Canvas is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Designed with d3.js, this code version is optimized for developers looking for a customizable and efficient solution to handle seat arrangements and user interactions.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alisaitteke/seatmap-canvas.git"
