@@ -134,8 +134,6 @@ export class SeatItem extends SvgBase {
 
         this.check = new SeatItemCheck(this).addTo(this);
 
-
-
         // this.title = new SeatItemTitle(this);
         // this.addChild(this.title);
 

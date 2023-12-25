@@ -92,6 +92,7 @@ export default commandLineArgs => {
         {
             input: "src/lib/canvas.index.ts",
             output: [{file: "dist/types.d.ts", format: "es"}],
+            external: [/\.scss$/],
             plugins: [scss(), dts.default()],
         },
     ];
