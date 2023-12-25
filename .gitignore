@@ -40,3 +40,4 @@ Thumbs.db
 actions-runner
 build/*
 dist/*
+yarn.lock
