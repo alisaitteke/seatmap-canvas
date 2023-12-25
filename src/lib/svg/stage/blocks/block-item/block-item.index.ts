@@ -160,9 +160,9 @@ export default class Block extends SvgBase {
 
 
         this.node.interrupt().transition().duration(this.global.config.animation_speed).attr("opacity", 1);
-
+        this.node.attr("transform-origin", `${this.center_position.x} ${this.center_position.y}`);
         if (this.item.rotate) {
-            this.node.attr("transform-origin", `${this.center_position.x} ${this.center_position.y}`);
+
             this.node.attr("transform", 'rotate(' + this.item.rotate + ')');
         }
 

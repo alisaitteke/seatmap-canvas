@@ -38,7 +38,6 @@ export default class DataModel {
 
     public addBulkBlock(block_data: Array<BlockModel>): this {
         block_data.map((item: any) => {
-            console.log('item',item)
             this.blocks.push(new BlockModel(item));
         });
         this.eventManager.dispatch(EventType.ADD_BLOCK, [block_data]);

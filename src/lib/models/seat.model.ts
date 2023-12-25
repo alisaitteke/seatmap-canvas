@@ -17,12 +17,12 @@ export default class SeatModel extends ModelBase {
     color: string;
     block: BlockModel;
     salable: boolean;
-    note: string;
-    tags: Array<string>;
+    note?: string;
+    tags: Array<string> = [];
     tag_index: any = {};
-    custom_data: any;
+    custom_data?: any;
     svg: SeatItem | null;
-    icon: string | null;
+    icon?: string | null;
 
     // public item_type: string = "Seat";
 
