@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "module": "ESNext",
-    "baseUrl": "./",
+    "module": "esnext",
+    "baseUrl": "./src",
     "removeComments": true,
     "declarationDir": "types",
     "sourceMap": true,
@@ -21,7 +22,8 @@
     "declaration": true,
     "noImplicitAny": true,
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "dist/types.d.ts"
     ]
   },
   "exclude": [

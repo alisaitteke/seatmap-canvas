@@ -1,11 +1,22 @@
 [![LIVE DEMO](https://raw.githubusercontent.com/seatmap/canvas/master/assets/banner_ui.png?raw=true)](https://alisaitteke.github.io/seatmap-canvas)
 
-[LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
 # Seatmap Canvas
-An opensource seat selection
----
+Seatmap Canvas is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Designed with d3.js, this code version is optimized for developers looking for a customizable and efficient solution to handle seat arrangements and user interactions.
 
-[![LIVE DEMO](https://raw.githubusercontent.com/seatmap/canvas/master/assets/bn.jpg?raw=true)](https://alisaitteke.github.io/seatmap-canvas)
+## Features
+* React Integration: Designed specifically for React projects, offering a streamlined development experience.
+* Dynamic Seat Selection: Enables interactive selection, categorization, and location of seats.
+* Customizable Styles: Extensive styling options for seats, blocks, and labels to fit your application's design.
+* Interactive Seat Models: Define properties and behaviors for seats, including salability, notes, and custom data.
+* Block Model Configuration: Organize seats into blocks with customizable titles, colors, and labels.
+* Event Handling: Simplified event listeners for seat interactions, allowing dynamic responses to user actions.
+
+
+## Planned
+- Vue Integration: Designed specifically for Vue or Nuxt projects, offering a streamlined development experience.
+- Angular Integration: Designed specifically for Angular projects, offering a streamlined development experience.
+
+[LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
 
 
 
@@ -154,5 +165,4 @@ seatmap.addEventListener("seat_click", (seat) => {
 });
 ```
 ## Contributors
-
 Ali Sait TEKE <alisaitt@gmail.com>

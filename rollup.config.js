@@ -8,13 +8,16 @@ import serve from 'rollup-plugin-serve'
 import scss from 'rollup-plugin-scss'
 import livereload from 'rollup-plugin-livereload'
 import {cleandir} from "rollup-plugin-cleandir";
+import path from 'path'
+
+const license = require('rollup-plugin-license');
 
 const packageJson = require("./package.json");
 
 export default commandLineArgs => {
     let config = [
         {
-            input: "src/lib/canvas.index.ts",
+            input: "src/lib/canvas.index.browser.ts",
             output: [
                 {
                     file: packageJson.main,
@@ -31,7 +34,36 @@ export default commandLineArgs => {
                 resolve(),
                 commonjs(),
                 typescript({tsconfig: "./tsconfig.json"}),
-                terser()
+                terser(),
+                license({
+                    sourcemap: true,
+                    cwd: process.cwd(), // The default
+
+                    banner: {
+                        commentStyle: 'regular', // The default
+
+                        content: {
+                            file: path.join(__dirname, 'LICENSE'),
+                            encoding: 'utf-8', // Default is utf-8
+                        },
+
+                        // Optional, may be an object or a function returning an object.
+                        data() {
+                            return {
+                                foo: 'foo',
+                            };
+                        },
+                    },
+
+                    thirdParty: {
+                        includePrivate: true, // Default is false.
+                        multipleVersions: true, // Default is false.
+                        output: {
+                            file: path.join(__dirname, 'dist', 'dependencies.txt'),
+                            encoding: 'utf-8', // Default is utf-8.
+                        },
+                    },
+                }),
             ],
             external: [],
         },
@@ -60,6 +92,7 @@ export default commandLineArgs => {
         {
             input: "src/lib/canvas.index.ts",
             output: [{file: "dist/types.d.ts", format: "es"}],
+            external: [/\.scss$/],
             plugins: [scss(), dts.default()],
         },
     ];
