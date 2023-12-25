@@ -101,6 +101,7 @@ export default class ZoomManager {
             .on("zoom", this.zoomHandFastAnimated(this));
 
         this._self.svg.node.call(this.zoomTypes.normal);
+        this._self.svg.node.on("dblclick.zoom", null);
     }
 
     zoomEnd(_self: this): any {
