@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.5](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.4..v2.5.5) - 2024-01-13
+#### Miscellaneous Chores
+- **(cog.toml)** update post_bump_hooks command to exclude git tag versioning to prevent unnecessary version tagging - ([6efdd09](https://github.com/alisaitteke/seatmap-canvas/commit/6efdd09309886ddd455ff1dcdc0866ea22f75652)) - Ali
+
+- - -
+
 ## [v2.5.4](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.3..v2.5.4) - 2024-01-13
 
 - - -
