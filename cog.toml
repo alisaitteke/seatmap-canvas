@@ -1,7 +1,6 @@
 from_latest_tag = false
 ignore_merge_commits = false
 disable_changelog = false
-generate_mono_repository_global_tag = true
 skip_ci = "[skip ci]"
 skip_untracked = false
 tag_prefix = "v"
