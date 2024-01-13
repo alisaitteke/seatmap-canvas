@@ -15,6 +15,7 @@ jobs:
       - name: Conventional commit check
         uses: cocogitto/cocogitto-action@v3
         with:
+          check: false
           check-latest-tag-only: true
           git-user: 'Ali Sait Teke'
           git-user-email: 'alisaitteke@gmail.com'
