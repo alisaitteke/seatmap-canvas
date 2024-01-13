@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.7](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.6..v2.5.7) - 2024-01-13
+#### Miscellaneous Chores
+- **(cog.toml)** update pre_bump_hooks command to exclude commit hooks to prevent unnecessary commits during version bumping - ([aa69963](https://github.com/alisaitteke/seatmap-canvas/commit/aa69963c36895adf093fa1b166339685ec877d7b)) - Ali
+
+- - -
+
 ## [v2.5.6](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.5..v2.5.6) - 2024-01-13
 #### Miscellaneous Chores
 - **(cog.toml)** update pre_bump_hooks in cog.toml to run "yarn version --patch --no-git-tag-version" before bumping the version - ([539d205](https://github.com/alisaitteke/seatmap-canvas/commit/539d20587694475fdff86c415f70c9523b020eae)) - Ali
