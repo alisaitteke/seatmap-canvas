@@ -1,6 +1,17 @@
 # Changelog
 
 - - -
+## [v2.5.15](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.14..v2.5.15) - 2024-01-13
+#### Bug Fixes
+- **(publish.yml)** add fetch-depth: 0 to the checkout step to ensure all commits are fetched - ([605dbb4](https://github.com/alisaitteke/seatmap-canvas/commit/605dbb4d6bb1385e1fce67f5f996104c736376e3)) - Ali
+#### Miscellaneous Chores
+- **(publish.yml)** update GitHub release documentation step to use the latest version of the release changelog builder action - ([170080a](https://github.com/alisaitteke/seatmap-canvas/commit/170080a8d5a01f327686b8cb71fa77420feedc0f)) - Ali
+- **(publish.yml)** comment out changelog update and commit steps - ([467edc5](https://github.com/alisaitteke/seatmap-canvas/commit/467edc5d0dc5a00c354093cd886b80a2ca3553b6)) - Ali
+- **(publish.yml)** remove fetch-depth option from checkout step to improve performance - ([83bc8d0](https://github.com/alisaitteke/seatmap-canvas/commit/83bc8d01b0e0f1b860ca88e251bfc7480e35693c)) - Ali
+- **(publish.yml)** enable update changelog step and remove unused steps - ([b907573](https://github.com/alisaitteke/seatmap-canvas/commit/b9075734dd0332c718dff95f27282268468a49a3)) - Ali
+
+- - -
+
 ## [v2.5.14](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.13..v2.5.14) - 2024-01-13
 #### Miscellaneous Chores
 - **(CHANGELOG.md)** remove unnecessary version entries - ([c0af6d4](https://github.com/alisaitteke/seatmap-canvas/commit/c0af6d4566853daa562c1a9aa346602890a1ea20)) - Ali
