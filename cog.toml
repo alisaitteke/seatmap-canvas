@@ -20,11 +20,11 @@ template = "remote"
 remote = "github.com"
 repository = "seatmap-canvas"
 owner = "alisaitteke"
+authors = [
+    { username = "alisaitteke", signature = "Ali Sait Teke"}
+]
 
 [bump_profiles]
 
 [packages]
 
-authors = [
-    { username = "alisaitteke", signature = "Ali Sait Teke"}
-]
