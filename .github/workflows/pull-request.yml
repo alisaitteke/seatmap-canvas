@@ -12,3 +12,5 @@ jobs:
     steps:
       - name: create pull request
         run: gh pr create -B develop -H master --title 'Merge develop into master' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITH_PACKAGE_TOKEN }}
