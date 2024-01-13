@@ -1,6 +1,10 @@
 # Changelog
 
 - - -
+## [v2.5.12](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.11..v2.5.12) - 2024-01-13
+
+- - -
+
 ## [v2.5.11](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.10..v2.5.11) - 2024-01-13
 #### Bug Fixes
 - **(changelog.yaml)** add fetch-depth: 0 option to the checkout step to ensure full commit history is available for generating changelog - ([ee590c5](https://github.com/alisaitteke/seatmap-canvas/commit/ee590c5c201af6c175e4b8eff642d4a2339afd55)) - Ali
