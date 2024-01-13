@@ -14,9 +14,3 @@
 - **(cog.toml)** reorganize authors section and add newline at the end of file for consistency and readability - ([4c40208](https://github.com/alisaitteke/seatmap-canvas/commit/4c40208813c8d0be11f6bc03ae798f687ec3f602)) - Ali
 
 - - -
-
-#### Features
-
-#### Miscellaneous Chores
-
-- - -
