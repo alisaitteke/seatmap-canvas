@@ -2,15 +2,8 @@ from_latest_tag = false
 ignore_merge_commits = false
 disable_changelog = false
 generate_mono_repository_global_tag = true
-branch_whitelist = []
 skip_ci = "[skip ci]"
 skip_untracked = false
-pre_bump_hooks = []
-post_bump_hooks = [
-
-]
-pre_package_bump_hooks = []
-post_package_bump_hooks = []
 tag_prefix = "v"
 
 [changelog]
