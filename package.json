@@ -18,7 +18,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "start": "rollup --config --watch --bundleConfigAsCjs",
+    "start:dev": "rollup --config --watch --bundleConfigAsCjs",
     "build": "rollup -c --prod --bundleConfigAsCjs"
   },
   "engines": {
