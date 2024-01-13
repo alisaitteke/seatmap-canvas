@@ -1,6 +1,21 @@
 # Changelog
 
 - - -
+## [v2.5.10](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.9..v2.5.10) - 2024-01-13
+#### Bug Fixes
+- **(cog.toml)** set 'from_latest_tag' to true to generate changelog from the latest tag - ([a4573f5](https://github.com/alisaitteke/seatmap-canvas/commit/a4573f5002031838e860b3fadc507ada25046af3)) - Ali
+#### Miscellaneous Chores
+- **(changelog.yaml)** remove changelog workflow file - ([fec4579](https://github.com/alisaitteke/seatmap-canvas/commit/fec4579be643eadc1a62e44984b42195e345722d)) - Ali
+- **(changelog.yaml)** update cocogitto-action configuration to only check the latest tag for generating changelog - ([e257200](https://github.com/alisaitteke/seatmap-canvas/commit/e257200ef3c48c2fad7096a89f26e2bda32dbf2e)) - Ali
+- **(cog.toml)** update cog configuration to enable generation of global tags for mono repository and skip CI for certain commits - ([2b82a3b](https://github.com/alisaitteke/seatmap-canvas/commit/2b82a3b519d094759288ea7923988faa2c57cef7)) - Ali
+- **(cog.toml)** enable generating changelog from latest tag and add tag prefix "v" for consistency - ([4a040b2](https://github.com/alisaitteke/seatmap-canvas/commit/4a040b2c2c125f5ef69eff307c23f4ec870eeacd)) - Ali
+- **(cog.toml)** remove unnecessary configurations and update tag prefix to "v" for changelog generation - ([cff74b0](https://github.com/alisaitteke/seatmap-canvas/commit/cff74b0af97aad0da048fe10f7a0d13903cc06cc)) - Ali
+- **(cog.toml)** remove generate_mono_repository_global_tag option - ([2e31ae3](https://github.com/alisaitteke/seatmap-canvas/commit/2e31ae3600942b5d16b1e9f55e32a415b1ca1dd3)) - Ali
+- **(cog.toml)** remove unnecessary configuration options and empty hooks - ([0555534](https://github.com/alisaitteke/seatmap-canvas/commit/05555349efcbb2a404abb6a4aff2021a7d7c7abb)) - Ali
+- **(cog.toml)** remove pre_bump_hooks to simplify the bump process - ([0431bb4](https://github.com/alisaitteke/seatmap-canvas/commit/0431bb4951233d59bd5f2cafdb3c69c8b2d7b6d1)) - Ali
+
+- - -
+
 ## [v2.5.9](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.8..v2.5.9) - 2024-01-13
 
 - - -
