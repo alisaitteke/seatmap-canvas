@@ -9,8 +9,6 @@
     <link href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" rel="stylesheet"/>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <style>
-
-
         #seats_container {
             position: relative;
             border-radius: 0 !important;
@@ -101,14 +99,12 @@
         <div id="seats_container" class="w-full flex-1 h-full"></div>
     </div>
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
 
+    $(document).ready(function () {
         let seatmap = new SeatMapCanvas("#seats_container", {
             legend: true,
             style: {
@@ -138,7 +134,6 @@
             }
 
         });
-
 
         const generateRandomBlocks = function () {
             let block_colors = ["#01a5ff", "#fccf4e", "#01a5ff", "#01a5ff"];
@@ -230,8 +225,6 @@
         $("#randomize-btn").on("click", function (a) {
             generateRandomBlocks()
         });
-
-
     });
 </script>
 </body>
