@@ -1,4 +1,3 @@
-from_latest_tag = true
 tag_prefix = "v"
 
 [changelog]
