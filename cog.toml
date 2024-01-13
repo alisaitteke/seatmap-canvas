@@ -9,12 +9,13 @@ pre_bump_hooks = []
 post_bump_hooks = []
 pre_package_bump_hooks = []
 post_package_bump_hooks = []
-
+tag_prefix = "v"
 [git_hooks]
 
 [commit_types]
 
 [changelog]
+
 path = "CHANGELOG.md"
 template = "remote"
 remote = "github.com"
