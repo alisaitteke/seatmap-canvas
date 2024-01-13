@@ -1,6 +1,17 @@
 # Changelog
 
 - - -
+## [v2.5.8](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.7..v2.5.8) - 2024-01-13
+#### Features
+- **(changelog.yaml)** add GitHub Actions workflow for releasing package and checking conventional commits - ([2ecf973](https://github.com/alisaitteke/seatmap-canvas/commit/2ecf97394a02a87eec8f52f33eaffd913595a44c)) - Ali
+#### Miscellaneous Chores
+- **(changelog.yaml)** add new file for managing changelog updates - ([eb94010](https://github.com/alisaitteke/seatmap-canvas/commit/eb94010c457d1872ed8ade3cb7744ec855626dab)) - Ali
+- **(publish.yml)** temporarily disable commit and tag creation step for CHANGELOG.md and package.json changes - ([6559e39](https://github.com/alisaitteke/seatmap-canvas/commit/6559e396f489ab80ba110e60c3f9fd419549ab19)) - Ali
+- release v2.4.2 - ([11813c4](https://github.com/alisaitteke/seatmap-canvas/commit/11813c4f5aceb45d453f47a6522213c0eb067851)) - GitHub Actions
+- release v2.4.1 - ([2e13200](https://github.com/alisaitteke/seatmap-canvas/commit/2e132006a21f66bc02dc1873bb852203a3855cf6)) - GitHub Actions
+
+- - -
+
 ## [v2.5.7](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.6..v2.5.7) - 2024-01-13
 #### Miscellaneous Chores
 - **(cog.toml)** update pre_bump_hooks command to exclude commit hooks to prevent unnecessary commits during version bumping - ([aa69963](https://github.com/alisaitteke/seatmap-canvas/commit/aa69963c36895adf093fa1b166339685ec877d7b)) - Ali
