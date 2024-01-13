@@ -6,7 +6,9 @@ branch_whitelist = []
 skip_ci = "[skip ci]"
 skip_untracked = false
 pre_bump_hooks = []
-post_bump_hooks = []
+post_bump_hooks = [
+    "yarn version --patch"
+]
 pre_package_bump_hooks = []
 post_package_bump_hooks = []
 tag_prefix = "v"
