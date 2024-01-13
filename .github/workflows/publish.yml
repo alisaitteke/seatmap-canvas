@@ -12,6 +12,8 @@ jobs:
       # Checkout project repository
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # Setup Node.js environment
       - name: Setup Node.js
@@ -58,12 +60,22 @@ jobs:
           RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 
       # Update changelog unreleased section with new version
-      - name: Update changelog
-        uses: superfaceai/release-changelog-action@v1
+#      - name: Update changelog
+#        uses: superfaceai/release-changelog-action@v1
+#        with:
+#          path-to-changelog: CHANGELOG.md
+#          version: ${{ env.NEW_VERSION }}
+#          operation: release
+      - name: Conventional commits check
+        uses: oknozor/cocogitto-action@v3
         with:
-          path-to-changelog: CHANGELOG.md
-          version: ${{ env.NEW_VERSION }}
-          operation: release
+          release: true
+          check-latest-tag-only: true
+          git-user: 'Ali Sait Teke'
+          git-user-email: 'alisaitteke@gmail.com'
+
+      - name: Print version
+        run: "echo '${{ steps.release.outputs.version }}'"
 
       # Commit changes
       - name: Commit CHANGELOG.md and package.json changes and create tag
