@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.2](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.1..v2.5.2) - 2024-01-13
+#### Miscellaneous Chores
+- **(changelog.md)** remove unnecessary introduction line in v2.5.0 section - ([d62a282](https://github.com/alisaitteke/seatmap-canvas/commit/d62a2820b703307506d2ffe9267091912e18f0e8)) - Ali
+
+- - -
+
 ## [v2.5.0](https://github.com/alisaitteke/seatmap-canvas/compare/v2.4.0..v2.5.0) - 2024-01-13
 #### Documentation
 - **(changelog.md)** remove unnecessary introduction line - ([6b80149](https://github.com/alisaitteke/seatmap-canvas/commit/6b80149bea74e32692dc3756d43e32f396c87512)) - Ali
