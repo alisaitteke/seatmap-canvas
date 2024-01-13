@@ -7,7 +7,7 @@ skip_ci = "[skip ci]"
 skip_untracked = false
 pre_bump_hooks = []
 post_bump_hooks = [
-    "yarn version --patch"
+    "yarn version --patch --no-git-tag-version"
 ]
 pre_package_bump_hooks = []
 post_package_bump_hooks = []
