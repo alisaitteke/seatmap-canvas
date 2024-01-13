@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.14](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.13..v2.5.14) - 2024-01-13
+#### Miscellaneous Chores
+- **(CHANGELOG.md)** remove unnecessary version entries - ([c0af6d4](https://github.com/alisaitteke/seatmap-canvas/commit/c0af6d4566853daa562c1a9aa346602890a1ea20)) - Ali
+
+- - -
+
 
 ## [v2.5.11](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.10..v2.5.11) - 2024-01-13
 #### Bug Fixes
