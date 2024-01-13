@@ -1,6 +1,10 @@
 # Changelog
 
 - - -
+## [v2.5.4](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.3..v2.5.4) - 2024-01-13
+
+- - -
+
 ## [v2.5.3](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.2..v2.5.3) - 2024-01-13
 #### Miscellaneous Chores
 - **(cog.toml)** add post_bump_hooks to run 'yarn version --patch' after bumping version - ([1edf54d](https://github.com/alisaitteke/seatmap-canvas/commit/1edf54d81b6660aa72a60f0ae737d176006bb91b)) - Ali
