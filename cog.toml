@@ -5,21 +5,15 @@ generate_mono_repository_global_tag = true
 branch_whitelist = []
 skip_ci = "[skip ci]"
 skip_untracked = false
-pre_bump_hooks = [
-    "yarn version --patch --no-git-tag-version --no-commit-hooks"
-]
+pre_bump_hooks = []
 post_bump_hooks = [
 
 ]
 pre_package_bump_hooks = []
 post_package_bump_hooks = []
 tag_prefix = "v"
-[git_hooks]
-
-[commit_types]
 
 [changelog]
-
 path = "CHANGELOG.md"
 template = "remote"
 remote = "github.com"
@@ -28,8 +22,3 @@ owner = "alisaitteke"
 authors = [
     { username = "alisaitteke", signature = "Ali Sait Teke"}
 ]
-
-[bump_profiles]
-
-[packages]
-
