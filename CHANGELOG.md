@@ -1,6 +1,10 @@
 # Changelog
 
 - - -
+## [v2.5.9](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.8..v2.5.9) - 2024-01-13
+
+- - -
+
 ## [v2.5.8](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.7..v2.5.8) - 2024-01-13
 #### Features
 - **(changelog.yaml)** add GitHub Actions workflow for releasing package and checking conventional commits - ([2ecf973](https://github.com/alisaitteke/seatmap-canvas/commit/2ecf97394a02a87eec8f52f33eaffd913595a44c)) - Ali
