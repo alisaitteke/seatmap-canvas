@@ -12,7 +12,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Get Version
+        run: |
+          echo "NEW_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+        env:
+          RELEASE_TYPE: ${{ github.event.inputs.release-type }}
       - name: create pull request
-        run: gh pr create -B master -H develop --title 'Merge develop into master' --body 'Created by Github action'
+        run: gh pr create -B master -H develop --title 'Merge develop into master (${{ env.NEW_VERSION }})' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITH_PACKAGE_TOKEN }}
