@@ -101,14 +101,12 @@
         <div id="seats_container" class="w-full flex-1 h-full"></div>
     </div>
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
 
+    $(document).ready(function () {
         let seatmap = new SeatMapCanvas("#seats_container", {
             legend: true,
             style: {
@@ -138,6 +136,7 @@
             }
 
         });
+
 
 
         const generateRandomBlocks = function () {
