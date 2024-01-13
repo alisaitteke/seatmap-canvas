@@ -1,6 +1,10 @@
 # Changelog
 
 - - -
+## [v2.5.1](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.0..v2.5.1) - 2024-01-13
+
+- - -
+
 ## [v2.5.0](https://github.com/alisaitteke/seatmap-canvas/compare/v2.4.0..v2.5.0) - 2024-01-13
 #### Documentation
 - **(changelog.md)** remove unnecessary introduction line - ([6b80149](https://github.com/alisaitteke/seatmap-canvas/commit/6b80149bea74e32692dc3756d43e32f396c87512)) - Ali
