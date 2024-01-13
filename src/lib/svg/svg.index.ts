@@ -39,9 +39,6 @@ export default class Svg extends SvgBase {
             this.node.classed("zoom-level-" + ZoomLevel.VENUE, false);
             this.node.classed("zoom-level-" + zoom_level.level, true);
         });
-
-
-        //this.update();
     }
 
     update() {
