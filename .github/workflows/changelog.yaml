@@ -1,0 +1,20 @@
+name: Release package
+on:
+  workflow_dispatch:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Conventional commit check
+        uses: cocogitto/cocogitto-action@v3
+        with:
+          release: false
+          git-user: 'Ali Sait Teke'
+          git-user-email: 'alisaitteke@gmail.com'
