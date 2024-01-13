@@ -16,5 +16,6 @@ jobs:
         uses: cocogitto/cocogitto-action@v3
         with:
           release: false
+          check-latest-tag-only: true
           git-user: 'Ali Sait Teke'
           git-user-email: 'alisaitteke@gmail.com'
