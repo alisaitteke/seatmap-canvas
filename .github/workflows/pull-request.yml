@@ -1,0 +1,23 @@
+name: Create Pull Request
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["develop"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get Version
+        run: |
+          echo "NEW_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+      - name: create pull request
+        run: gh pr create -B master -H develop --title 'Merge develop into master (${{ env.NEW_VERSION }})' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITH_PACKAGE_TOKEN }}
