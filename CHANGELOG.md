@@ -7,11 +7,6 @@
 
 - - -
 
-## [v2.5.6](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.5..v2.5.6) - 2024-01-13
-#### Miscellaneous Chores
-- **(cog.toml)** update pre_bump_hooks in cog.toml to run "yarn version --patch --no-git-tag-version" before bumping the version - ([539d205](https://github.com/alisaitteke/seatmap-canvas/commit/539d20587694475fdff86c415f70c9523b020eae)) - Ali
-
-- - -
 
 ## [v2.5.5](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.4..v2.5.5) - 2024-01-13
 #### Miscellaneous Chores
