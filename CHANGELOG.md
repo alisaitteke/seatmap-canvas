@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [1.4.0](https://github.com/alisaitteke/seatmap-canvas/compare/1.3.0..1.4.0) - 2024-01-13
+#### Miscellaneous Chores
+- **(changelog.md)** remove unnecessary lines and fix missing newline at end of file - ([e8dc78d](https://github.com/alisaitteke/seatmap-canvas/commit/e8dc78d925953e0f101f5913d931707b8350b699)) - Ali
+
+- - -
+
 ## [1.3.0](https://github.com/alisaitteke/seatmap-canvas/compare/1.2.0..1.3.0) - 2024-01-13
 #### Documentation
 - **(changelog.md)** remove unnecessary introduction line - ([6b80149](https://github.com/alisaitteke/seatmap-canvas/commit/6b80149bea74e32692dc3756d43e32f396c87512)) - Ali
