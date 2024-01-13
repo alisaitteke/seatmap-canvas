@@ -1,5 +1,4 @@
 # Changelog
-All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
 ## [1.2.0](https://github.com/alisaitteke/seatmap-canvas/compare/1.1.0..1.2.0) - 2024-01-13
