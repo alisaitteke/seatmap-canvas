@@ -1,6 +1,10 @@
 # Changelog
 
 - - -
+## [v2.5.13](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.12..v2.5.13) - 2024-01-13
+
+- - -
+
 ## [v2.5.12](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.11..v2.5.12) - 2024-01-13
 
 - - -
