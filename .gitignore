@@ -41,3 +41,4 @@ actions-runner
 build/*
 dist/*
 yarn.lock
+cog.toml
