@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.16](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.15..v2.5.16) - 2024-01-13
+#### Miscellaneous Chores
+- **(package.json)** update version from 2.5.14 to 2.5.15 for the @alisaitteke/seatmap-canvas package - ([c4ef5f2](https://github.com/alisaitteke/seatmap-canvas/commit/c4ef5f26ddb7e0f7ddb0908bcb2ffe5bf82d9823)) - Ali
+
+- - -
+
 ## [v2.5.15](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.14..v2.5.15) - 2024-01-13
 #### Bug Fixes
 - **(publish.yml)** add fetch-depth: 0 to the checkout step to ensure all commits are fetched - ([605dbb4](https://github.com/alisaitteke/seatmap-canvas/commit/605dbb4d6bb1385e1fce67f5f996104c736376e3)) - Ali
