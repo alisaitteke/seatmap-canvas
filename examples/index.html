@@ -135,7 +135,6 @@
 
 
         seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
-            console.log("seat", seat)
             if (!seat.isSelected() && seat.item.salable === true) {
                 seat.select()
             } else {
@@ -235,7 +234,6 @@
 
             for (let i = 0; i < selectedSeats.length; i++) {
                 let selectedSeat = selectedSeats[i];
-                // console.log('selectedSeat',selectedSeat)
 
                 let html = `<div class="flex flex-row w-full hover:bg-blue-100 py-1 px-2 items-center">
                     <div class="w-3 h-3 absolute bg-[#8fe100] rounded-lg"></div>
@@ -267,8 +265,6 @@
             $('#selected-seats').html(seatsTemplateHtml)
 
             $(".unselect-seat").on('click', unselectSeat)
-
-            // console.log('selectedSeats',selectedSeats)
         }
 
         generateRandomBlocks()
@@ -281,11 +277,9 @@
 
         $(".zoom-to-block").on("click", function (a) {
             let blockId = $(this).attr('data-block-id');
-            console.log('blockId', blockId)
             seatmap.zoomManager.zoomToBlock(blockId);
         });
         $("#get-selected-seats").on("click", function (a) {
-
             let selectedSeats = seatmap.data.getSelectedSeats();
             console.log(selectedSeats)
         });
