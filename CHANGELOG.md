@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.18](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.17..v2.5.18) - 2024-02-04
+#### Miscellaneous Chores
+- **(index.html)** refactor selected seats display to use table structure for better readability and semantics - ([a1adcd5](https://github.com/alisaitteke/seatmap-canvas/commit/a1adcd5e2baf15724bca609c1f54d24206d05094)) - Ali
+
+- - -
+
 ## [v2.5.17](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.16..v2.5.17) - 2024-02-04
 #### Bug Fixes
 - **(pull-request.yml)** add 'fetch-depth: 0' option to the checkout step to ensure all commit history is fetched - ([18a7ba0](https://github.com/alisaitteke/seatmap-canvas/commit/18a7ba05bbb0ca6682c4ddbce633e6c6f8d60cb8)) - Ali
