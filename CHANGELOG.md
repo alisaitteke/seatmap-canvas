@@ -1,6 +1,36 @@
 # Changelog
 
 - - -
+## [v2.5.18](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.17..v2.5.18) - 2024-02-04
+#### Miscellaneous Chores
+- **(index.html)** refactor selected seats display to use table structure for better readability and semantics - ([a1adcd5](https://github.com/alisaitteke/seatmap-canvas/commit/a1adcd5e2baf15724bca609c1f54d24206d05094)) - Ali
+
+- - -
+
+## [v2.5.17](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.16..v2.5.17) - 2024-02-04
+#### Bug Fixes
+- **(pull-request.yml)** add 'fetch-depth: 0' option to the checkout step to ensure all commit history is fetched - ([18a7ba0](https://github.com/alisaitteke/seatmap-canvas/commit/18a7ba05bbb0ca6682c4ddbce633e6c6f8d60cb8)) - Ali
+- **(pull-request.yml)** add step to get the latest version tag and pass it as an environment variable to the create pull request step - ([15ae962](https://github.com/alisaitteke/seatmap-canvas/commit/15ae96266ef709d2cb3729ecd67f6dbde7226889)) - Ali
+- **(pull-request.yml)** fix branch names in the 'gh pr create' command to correctly merge develop into master branch - ([91d9126](https://github.com/alisaitteke/seatmap-canvas/commit/91d9126975c59069369eab64f72a4011f41b65a0)) - Ali
+- **(pull-request.yml)** update branch names and pull request title to reflect the correct branches and improve clarity - ([42a66e6](https://github.com/alisaitteke/seatmap-canvas/commit/42a66e6fe06c590831f02f9d6fe92e254a3de9c8)) - Ali
+#### Features
+- **(pull-request.yml)** add GitHub Actions workflow to automatically create a pull request on the develop branch - ([dc16ccf](https://github.com/alisaitteke/seatmap-canvas/commit/dc16ccf0c677501a68f963e19e51b290f5dd04a7)) - Ali
+#### Miscellaneous Chores
+- **(index.html)** remove console.log statements for seat and selectedSeat variables to clean up code - ([05406c6](https://github.com/alisaitteke/seatmap-canvas/commit/05406c65944001b9a79487ed3367089e47a48848)) - Ali
+- **(index.html)** add total price and seat count to selected seats section for better user experience - ([0035002](https://github.com/alisaitteke/seatmap-canvas/commit/0035002716018830164e43f372d0662efe31d0c8)) - Ali
+- **(index.html)** increase width of selected seats container to accommodate longer seat names - ([db6050c](https://github.com/alisaitteke/seatmap-canvas/commit/db6050cfa1dd1a0abb513ef557068d4eedc2fdb4)) - Ali
+- **(index.html)** remove duplicate unselectSeat function to improve code readability and maintainability - ([f7418d1](https://github.com/alisaitteke/seatmap-canvas/commit/f7418d1cfaab9445c3b7839ad047b04778a0ae68)) - Ali
+- **(index.html)** add selected seats section to improve user experience - ([5043e5b](https://github.com/alisaitteke/seatmap-canvas/commit/5043e5bfe77d799a65b993056524dee6425c3485)) - Ali
+- **(publish.yml)** remove unused steps and comments from publish workflow - ([edd2118](https://github.com/alisaitteke/seatmap-canvas/commit/edd2118a50abdf5a25e83097a4751241609ddc73)) - Ali
+- **(pull-request.yml)** remove unused pull request workflow file - ([ad0443f](https://github.com/alisaitteke/seatmap-canvas/commit/ad0443f6410a6564a339614d5ca6aef838fa3c9b)) - Ali
+- **(pull-request.yml)** remove unused RELEASE_TYPE environment variable - ([dd2e3e0](https://github.com/alisaitteke/seatmap-canvas/commit/dd2e3e04e6ca318bb404651c3e61a53046ccc2d3)) - Ali
+- **(pull-request.yml)** remove unnecessary hyphen in the Checkout step name to improve consistency and readability - ([4e63d36](https://github.com/alisaitteke/seatmap-canvas/commit/4e63d3681463ff892d96354526baf0980ee7c17c)) - Ali
+- **(pull-request.yml)** add checkout step to the release job to ensure the correct code is used for the pull request - ([cd31f4d](https://github.com/alisaitteke/seatmap-canvas/commit/cd31f4d91fc13a64474ae30d34b7e5ed4cb22a6f)) - Ali
+- **(pull-request.yml)** add GITHUB_TOKEN environment variable to the create pull request step - ([51970c2](https://github.com/alisaitteke/seatmap-canvas/commit/51970c2937ea3d0f91cd62cb3003f7888256451c)) - Ali
+- **(pull-request.yml)** add pull request workflow file - ([79e066d](https://github.com/alisaitteke/seatmap-canvas/commit/79e066dc6bb9a50a6af0756b555c7e6e5145bb35)) - Ali
+
+- - -
+
 ## [v2.5.16](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.15..v2.5.16) - 2024-01-13
 #### Miscellaneous Chores
 - **(package.json)** update version from 2.5.14 to 2.5.15 for the @alisaitteke/seatmap-canvas package - ([c4ef5f2](https://github.com/alisaitteke/seatmap-canvas/commit/c4ef5f26ddb7e0f7ddb0908bcb2ffe5bf82d9823)) - Ali
