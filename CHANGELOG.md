@@ -1,6 +1,12 @@
 # Changelog
 
 - - -
+## [v2.5.19](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.18..v2.5.19) - 2024-02-04
+#### Miscellaneous Chores
+- **(index.html)** change div elements to td elements for better semantic structure in the table - ([ea5d5f8](https://github.com/alisaitteke/seatmap-canvas/commit/ea5d5f8acb3e742655ff3a9dd60c20996706797d)) - Ali
+
+- - -
+
 ## [v2.5.18](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.17..v2.5.18) - 2024-02-04
 #### Miscellaneous Chores
 - **(index.html)** refactor selected seats display to use table structure for better readability and semantics - ([a1adcd5](https://github.com/alisaitteke/seatmap-canvas/commit/a1adcd5e2baf15724bca609c1f54d24206d05094)) - Ali
