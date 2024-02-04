@@ -259,16 +259,17 @@
             }
 
             if (selectedSeats.length > 0) {
-                let totalPrice = selectedSeats.reduce((accumulator, currentValue) => accumulator + currentValue.custom_data.price,0)
+                let totalPrice = selectedSeats.reduce((accumulator, currentValue) => accumulator + currentValue.custom_data.price, 0)
                 let priceFormatted = totalPrice.toLocaleString('en-US', {
                     style: 'currency',
                     currency: 'USD',
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                 })
+                let seatDesc = selectedSeats.length === 1 ? 'a seat' : `${selectedSeats.length} seats`;
                 seatsTemplateHtml += `
                     <tr class="border-t h-6 text-center bg-gray-200">
-                        <td colspan="4" class="py-1">Total: <strong>${priceFormatted}</strong> for ${selectedSeats.length} seats </td>
+                        <td colspan="4" class="py-1">Total: <strong>${priceFormatted}</strong> for ${seatDesc} </td>
                     </tr>
                 `
             }
