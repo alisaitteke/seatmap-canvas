@@ -111,7 +111,6 @@
 
 <script type="text/javascript">
 
-    let unselectSeat;
     $(document).ready(function () {
         let seatmap = new SeatMapCanvas("#seats_container", {
             legend: true,
@@ -207,6 +206,13 @@
 
             seatmap.data.replaceData(blocks);
         }
+        const unselectSeat = function (){
+            let seatId = $(this).attr('seat-id');
+            let blockId = $(this).attr('block-id');
+            let seat = seatmap.data.getSeat(seatId, blockId);
+            seat.svg.unSelect()
+            updateSelectedSeats()
+        }
 
         const updateSelectedSeats = function () {
             let selectedSeats = seatmap.data.getSelectedSeats();
@@ -248,13 +254,7 @@
         updateSelectedSeats()
 
 
-        const unselectSeat = function (){
-            let seatId = $(this).attr('seat-id');
-            let blockId = $(this).attr('block-id');
-            let seat = seatmap.data.getSeat(seatId, blockId);
-            seat.svg.unSelect()
-            updateSelectedSeats()
-        }
+
 
         $("#zoomout-button").on("click", function () {
             seatmap.zoomManager.zoomToVenue();
