@@ -2,18 +2,17 @@
  * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-
-import Stage from "./stage/stage.index";
-import {mouse as d3Mouse} from 'd3-selection'
 import "reflect-metadata";
+import {mouse as d3Mouse} from 'd3-selection'
 
-import {SeatMapCanvas} from "../canvas.index";
-import SvgBase from "./svg.base";
-import {dom} from "../decorators/dom";
-import {EventType, ZoomLevel} from "../enums/global";
-import ZoomOutBg from "./zoom-out.bg";
-import Legend from "./legend";
-import Tooltip from "./tooltip";
+import Stage from "@svg/stage/stage.index";
+import {SeatMapCanvas} from "@/canvas.index";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
+import {EventType, ZoomLevel} from "@enum/global";
+import ZoomOutBg from "@svg/zoom-out.bg";
+import Legend from "@svg/legend";
+import Tooltip from "@svg/tooltip";
 
 
 

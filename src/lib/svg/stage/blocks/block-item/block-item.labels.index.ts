@@ -4,12 +4,12 @@
  */
 
 
-import SvgBase from "../../../svg.base";
-import {dom} from "../../../../decorators/dom";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
 import Block from "./block-item.index";
-import BlockModel from "../../../../models/block.model";
+import BlockModel from "@model/block.model";
 import {LabelItem} from "./label/label-item.index";
-import LabelModel from "../../../../models/label.model";
+import LabelModel from "@model/label.model";
 
 
 @dom({

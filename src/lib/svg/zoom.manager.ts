@@ -7,11 +7,11 @@ import {mouse as d3Mouse, event as d3Event} from 'd3-selection'
 import {zoom as d3Zoom} from 'd3-zoom'
 
 
-import {SeatMapCanvas} from "../canvas.index";
-import {EventType, ZoomLevel} from "../enums/global";
-import SeatModel from "../models/seat.model";
-import BlockModel from "../models/block.model";
-import LabelModel from "../models/label.model";
+import {SeatMapCanvas} from "@/canvas.index";
+import {EventType, ZoomLevel} from "@enum/global";
+import SeatModel from "@model/seat.model";
+import BlockModel from "@model/block.model";
+import LabelModel from "@model/label.model";
 
 interface ZoomCoordinate {
     x: number,
@@ -177,7 +177,7 @@ export default class ZoomManager {
     }
 
     calculateZoomLevel(k: number) {
-        console.info('calculateZoomLevel')
+        // console.info('calculateZoomLevel')
         let _levels = {
             seat: this._self.config.max_zoom - 0.2,
             block: this.zoomLevels.BLOCK.k,
@@ -224,7 +224,7 @@ export default class ZoomManager {
 
     public calculateZoomLevels(blocks: Array<BlockModel> = this._self.data.getBlocks()): this {
 
-        console.info('calculateZoomLevels')
+        // console.info('calculateZoomLevels')
         let _wm = this._self.windowManager;
         let _stage = _wm.stage;
 

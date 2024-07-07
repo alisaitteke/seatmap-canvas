@@ -4,9 +4,9 @@
  */
 
 import Blocks from "./blocks/blocks.index";
-import Svg from "../svg.index";
-import SvgBase from "../svg.base";
-import {dom} from "../../decorators/dom";
+import Svg from "@svg/svg.index";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
 import BlocksSearchCircle from "./blocks.search-circle";
 
 

@@ -3,8 +3,9 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-import SvgBase from "../../../../svg.base";
-import {dom} from "../../../../../decorators/dom";
+import SvgBase from "@svg/svg.base";
+
+import {dom} from "@decorator/dom";
 import {SeatItem} from "./seat-item.index";
 
 @dom({
