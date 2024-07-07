@@ -1,5 +1,4 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
@@ -17,8 +16,6 @@ import Labels from "./block-item.labels.index";
 
 import BlockModel from "@model/block.model";
 import SeatModel from "@model/seat.model";
-
-
 
 @dom({
     tag: "g",
