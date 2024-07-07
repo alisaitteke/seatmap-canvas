@@ -4,7 +4,7 @@
  */
 
 
-import {dom} from "../decorators";
+import {dom} from "@decorator/dom";
 import SvgBase from "./svg.base";
 import Svg from "./svg.index";
 import LegendItem from "./legend/legend.item";
