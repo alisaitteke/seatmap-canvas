@@ -91,7 +91,6 @@ var seatmap = new SeatmapCanvas(".seats_container",config);
 }
 ```
 
-
 #### Block Model
 ```json
 {
