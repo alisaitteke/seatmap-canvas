@@ -3,9 +3,9 @@
  * https://github.com/seatmap/canvas Copyright 2018 Ali Sait TEKE
  */
 
-import SvgBase from "../../../../svg.base";
-import {dom} from "../../../../../decorators/dom";
-import {SeatItem} from "./seat-item.index";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
+import {SeatItem} from "@svg/stage/blocks/block-item/seat/seat-item.index";
 
 @dom({
     tag: "path",

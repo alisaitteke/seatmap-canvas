@@ -5,13 +5,13 @@
 
 import {mouse as d3Mouse} from 'd3-selection'
 
-import SvgBase from "../svg.base";
-import Svg from "../svg.index";
+import SvgBase from "@svg//svg.base";
+import Svg from "@svg/svg.index";
 import MultiSelectRect from "./multi-select/rect";
-import {EventType} from "../../enums/global";
+import {EventType} from "@enum/global";
 
 
-import {dom} from "../../decorators";
+import {dom} from "@decorator/dom";
 
 @dom({
     tag: "g",

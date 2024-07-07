@@ -4,10 +4,10 @@
  */
 
 
-import SvgBase from "../../../../svg.base";
-import {dom} from "../../../../../decorators/dom";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
 import BlockBounds from "../block-item.bounds";
-import BlockModel from "../../../../../models/block.model";
+import BlockModel from "@model/block.model";
 import BlockMask from "../block-item.mask";
 
 

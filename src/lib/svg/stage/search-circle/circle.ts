@@ -1,11 +1,10 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
-import {dom} from "../../../decorators";
-import SvgBase from "../../svg.base";
+import {dom} from "@decorator/dom";
+import SvgBase from "@svg/svg.base";
 import BlocksSearchCircle from "../blocks.search-circle";
 
 @dom({

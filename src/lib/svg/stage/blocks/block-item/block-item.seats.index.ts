@@ -1,16 +1,14 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-
-import SvgBase from "../../../svg.base";
-import {dom} from "../../../../decorators/dom";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
+import BlockModel from "@model/block.model";
+import SeatModel from "@model/seat.model";
 import Block from "./block-item.index";
-import SeatModel from "../../../../models/seat.model";
 import {SeatItem} from "./seat/seat-item.index";
-import BlockModel from "../../../../models/block.model";
-import {EventType, SeatAction} from "../../../../enums/global";
+import {EventType, SeatAction} from "@enum/global";
 
 
 @dom({

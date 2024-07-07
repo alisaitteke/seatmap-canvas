@@ -1,14 +1,11 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-
-
-import {dom} from "../../decorators";
-import SvgBase from "../svg.base";
-
 import {line as d3Line} from "d3-shape";
-import Tooltip from "../tooltip";
+
+import {dom} from "@decorator/dom";
+import SvgBase from "@svg/svg.base";
+import Tooltip from "@svg/tooltip";
 
 @dom({
     tag: "rect",
