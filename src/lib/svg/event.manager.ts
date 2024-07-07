@@ -1,11 +1,10 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-import {SeatMapCanvas} from "../canvas.index";
 import {isArray} from "rxjs/internal/util/isArray";
 
+import {SeatMapCanvas} from "@/canvas.index";
 
 export interface EventObject {
     type: string,

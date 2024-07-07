@@ -4,12 +4,12 @@
  */
 
 
-import {dom} from "../../decorators";
-import SvgBase from "./../svg.base";
-import Legend from "../legend";
-import LegendCircle from "./legend.circle";
-import LegendTitle from "./legend.title";
-import LegendModel from "../../models/legend.model";
+import {dom} from "@decorator/dom";
+import SvgBase from "@svg/svg.base";
+import Legend from "@svg/legend";
+import LegendCircle from "@svg/legend/legend.circle";
+import LegendTitle from "@svg/legend/legend.title";
+import LegendModel from "@model/legend.model";
 
 @dom({
     tag: "g",

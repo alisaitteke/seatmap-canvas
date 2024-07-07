@@ -2,20 +2,20 @@
  * index.ts
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-import "../scss/style.scss";
+import "@style/style.scss";
 import {select as d3Select,event as d3Event} from 'd3-selection'
-import Svg from "./svg/svg.index";
-import SeatMapDevTools from "./dev.tools";
-import DataModel from "./models/data.model";
+import Svg from "@svg/svg.index";
+import SeatMapDevTools from "@/dev.tools";
+import DataModel from "@model/data.model";
 
-import BlockModel from "./models/block.model";
-import DefaultsModel from "./models/defaults.model";
-import {GlobalModel} from "./models/global.model";
+import BlockModel from "@model/block.model";
+import DefaultsModel from "@model/defaults.model";
+import {GlobalModel} from "@model/global.model";
 
-import ZoomManager from "./svg/zoom.manager";
-import EventManager from "./svg/event.manager";
-import {EventType, ZoomLevel} from "./enums/global";
-import WindowManager from "./window.manager";
+import ZoomManager from "@svg/zoom.manager";
+import EventManager from "@svg/event.manager";
+import {EventType, ZoomLevel} from "@enum/global";
+import WindowManager from "@/window.manager";
 
 
 export class SeatMapCanvas {
