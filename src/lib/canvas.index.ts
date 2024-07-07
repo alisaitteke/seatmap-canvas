@@ -1,8 +1,8 @@
 /*
- * index.ts
+ * canvas.index.ts
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-import "@style/style.scss";
+import "../scss/style.scss";
 import {select as d3Select,event as d3Event} from 'd3-selection'
 import Svg from "@svg/svg.index";
 import SeatMapDevTools from "@/dev.tools";
