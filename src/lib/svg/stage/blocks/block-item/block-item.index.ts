@@ -6,16 +6,18 @@
 import {mouse as d3Mouse} from 'd3-selection'
 
 import BlocksManager from "../blocks.index";
-import SvgBase from "../../../svg.base";
-import {dom} from "../../../../decorators/dom";
-import BlockModel from "../../../../models/block.model";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
 import Seats from "./block-item.seats.index";
 import BlockInfo from "./block-item.info.index";
 import BlockBounds from "./block-item.bounds";
-import {EventType, SeatAction, ZoomLevel} from "../../../../enums/global";
+import {EventType, SeatAction, ZoomLevel} from "@enum/global";
 import BlockMask from "./block-item.mask";
 import Labels from "./block-item.labels.index";
-import SeatModel from "../../../../models/seat.model";
+
+import BlockModel from "@model/block.model";
+import SeatModel from "@model/seat.model";
+
 
 
 @dom({

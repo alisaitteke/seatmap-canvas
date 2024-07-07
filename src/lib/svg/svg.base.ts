@@ -1,12 +1,11 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-
-import Block from "./stage/blocks/block-item/block-item.index";
-import {GlobalModel} from "../models/global.model";
-import {EventObject} from "./event.manager";
 import {mouse as d3Mouse} from 'd3-selection'
+
+import Block from "@svg/stage/blocks/block-item/block-item.index";
+import {GlobalModel} from "@model/global.model";
+import {EventObject} from "@svg/event.manager";
 
 
 export default class SvgBase {

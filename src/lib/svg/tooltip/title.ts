@@ -4,9 +4,9 @@
  */
 
 
-import {dom} from "../../decorators";
-import SvgBase from "../svg.base";
-import Tooltip from "../tooltip";
+import {dom} from "@decorator//dom";
+import SvgBase from "@svg/svg.base";
+import Tooltip from "@svg/tooltip";
 
 @dom({
     tag: "text",

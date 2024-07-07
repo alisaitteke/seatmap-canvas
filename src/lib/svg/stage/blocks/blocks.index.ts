@@ -1,5 +1,4 @@
 /*
- * blocks.ts
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
@@ -7,12 +6,12 @@ import {polygonHull} from 'd3-polygon'
 
 import StageManager from "../stage.index";
 import Block from "./block-item/block-item.index";
-import SvgBase from "../../svg.base";
-import {dom} from "../../../decorators/dom";
-import SeatModel from "../../../models/seat.model";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
+import SeatModel from "@model/seat.model";
 import {SeatItem} from "./block-item/seat/seat-item.index";
-import BlockModel from "../../../models/block.model";
-import LabelModel from "../../../models/label.model";
+import BlockModel from "@model/block.model";
+import LabelModel from "@model/label.model";
 
 @dom({
     tag: "g",
