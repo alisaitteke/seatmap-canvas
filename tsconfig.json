@@ -23,7 +23,16 @@
     "typeRoots": [
       "node_modules/@types",
       "dist/types.d.ts"
-    ]
+    ],
+    "paths": {
+      "@/*": ["lib/*"],
+      "@model/*": ["lib/models/*"],
+      "@enum/*": ["lib/enums/*"],
+      "@svg/*": ["lib/svg/*"],
+      "@decorator/*": ["lib/decorators/*"],
+      "@style/*": ["scss/*"],
+
+    }
   },
   "exclude": [
     "dist",
