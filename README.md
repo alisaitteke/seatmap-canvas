@@ -11,6 +11,7 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 * Block Model Configuration: Organize seats into blocks with customizable titles, colors, and labels.
 * Event Handling: Simplified event listeners for seat interactions, allowing dynamic responses to user actions.
 
+## Screenshot
 [![LIVE DEMO](assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
 
 ## Planned
