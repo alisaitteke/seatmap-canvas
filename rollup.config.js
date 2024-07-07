@@ -11,7 +11,6 @@ import {cleandir} from "rollup-plugin-cleandir";
 import path from 'path'
 
 const license = require('rollup-plugin-license');
-
 const packageJson = require("./package.json");
 
 export default commandLineArgs => {
@@ -22,7 +21,8 @@ export default commandLineArgs => {
                 {
                     file: packageJson.main,
                     format: "iife",
-                    sourcemap: true
+                    sourcemap: true,
+                    name: 'seatmap'
                 }
             ],
             plugins: [
@@ -60,6 +60,7 @@ export default commandLineArgs => {
                         multipleVersions: true, // Default is false.
                         output: {
                             file: path.join(__dirname, 'dist', 'dependencies.txt'),
+                            name: 'dependencies',
                             encoding: 'utf-8', // Default is utf-8.
                         },
                     },
@@ -73,7 +74,8 @@ export default commandLineArgs => {
                 {
                     file: packageJson.module,
                     format: "esm",
-                    sourcemap: true
+                    sourcemap: true,
+                    name: 'seatmap',
                 },
             ],
             plugins: [
@@ -91,7 +93,11 @@ export default commandLineArgs => {
         },
         {
             input: "src/lib/canvas.index.ts",
-            output: [{file: "dist/types.d.ts", format: "es"}],
+            output: [{
+                file: "dist/types.d.ts",
+                format: "es",
+                name: 'seatmap',
+            }],
             external: [/\.scss$/],
             plugins: [scss(), dts.default()],
         },
@@ -100,7 +106,7 @@ export default commandLineArgs => {
         config[0].plugins.push(livereload())
         config[0].plugins.push(serve({
             openPage: '/index.html',
-            contentBase: ['dist', 'examples', 'src', 'assets'],
+            contentBase: ['examples', 'dist', 'src', 'assets'],
             port: 3002,
         }))
     }
