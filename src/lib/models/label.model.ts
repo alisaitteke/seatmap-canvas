@@ -5,8 +5,8 @@
 
 
 
-import BlockModel from "./block.model";
-import ModelBase from "./model.base";
+import BlockModel from "@model/block.model";
+import ModelBase from "@model/model.base";
 
 export default class LabelModel extends ModelBase {
     x: number;
