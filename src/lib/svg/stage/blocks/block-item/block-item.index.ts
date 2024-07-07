@@ -13,7 +13,6 @@ import BlockBounds from "./block-item.bounds";
 import {EventType, SeatAction, ZoomLevel} from "@enum/global";
 import BlockMask from "./block-item.mask";
 import Labels from "./block-item.labels.index";
-
 import BlockModel from "@model/block.model";
 import SeatModel from "@model/seat.model";
 

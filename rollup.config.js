@@ -21,7 +21,8 @@ export default commandLineArgs => {
                 {
                     file: packageJson.main,
                     format: "iife",
-                    sourcemap: true
+                    sourcemap: true,
+                    name: 'seatmap'
                 }
             ],
             plugins: [
@@ -59,6 +60,7 @@ export default commandLineArgs => {
                         multipleVersions: true, // Default is false.
                         output: {
                             file: path.join(__dirname, 'dist', 'dependencies.txt'),
+                            name: 'dependencies',
                             encoding: 'utf-8', // Default is utf-8.
                         },
                     },
