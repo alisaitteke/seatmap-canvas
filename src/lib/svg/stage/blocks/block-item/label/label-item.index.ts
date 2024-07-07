@@ -4,8 +4,8 @@
  */
 
 
-import SvgBase from "../../../../svg.base";
-import {dom} from "../../../../../decorators/dom";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
 import {LabelItemCircle} from "./label-item.circle";
 import {CoordinateModel} from "../../../../../models/coordinate.model";
 import Labels from "../block-item.labels.index";

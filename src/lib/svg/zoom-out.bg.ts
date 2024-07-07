@@ -4,10 +4,10 @@
  */
 
 
-import {dom} from "../decorators";
+import {dom} from "@decorator/dom";
 import SvgBase from "./svg.base";
 import Svg from "./svg.index";
-import {EventType} from "../enums/global";
+import {EventType} from "@enum/global";
 
 @dom({
     tag: "rect",

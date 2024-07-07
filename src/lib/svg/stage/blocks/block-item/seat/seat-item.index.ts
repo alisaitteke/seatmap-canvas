@@ -4,14 +4,14 @@
  */
 
 
-import SvgBase from "../../../../svg.base";
-import {dom} from "../../../../../decorators/dom";
-import SeatModel from "../../../../../models/seat.model";
+import SvgBase from "@svg/svg.base";
+import {dom} from "@decorator/dom";
+import SeatModel from "@model/seat.model";
 import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
-import {CoordinateModel} from "../../../../../models/coordinate.model";
+import {CoordinateModel} from "@model/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
-import {SeatAction} from "../../../../../enums/global";
+import {SeatAction} from "@enum/global";
 import {SeatItemCheck} from "./seat-item.check";
 
 

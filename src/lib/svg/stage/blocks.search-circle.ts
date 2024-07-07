@@ -1,14 +1,13 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
-import {dom} from "../../decorators";
-import SvgBase from "../svg.base";
-import Circle from "./search-circle/circle";
-import {EventType, ZoomLevel} from "../../enums/global";
-import Stage from "./stage.index";
+import {dom} from "@decorator/dom";
+import SvgBase from "@svg/svg.base";
+import Circle from "@svg/stage/search-circle/circle";
+import {EventType, ZoomLevel} from "@enum/global";
+import Stage from "@svg/stage/stage.index";
 
 @dom({
     tag: "g",
