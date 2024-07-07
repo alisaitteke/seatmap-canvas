@@ -4,9 +4,9 @@
  */
 
 
-import {dom} from "../../decorators";
-import SvgBase from "./../svg.base";
-import LegendItem from "./legend.item";
+import {dom} from "@decorator/dom";
+import SvgBase from "@svg/svg.base";
+import LegendItem from "@svg/legend/legend.item";
 
 @dom({
     tag: "circle",
