@@ -6,12 +6,11 @@
 
 // @todo legend show hide function
 
-import {SeatStyle} from "./styles/seat.style";
-import {BLockStyle} from "./styles/block.style";
-import {LegendStyle} from "./styles/legend.style";
-import {LabelStyle} from "./styles/label.style";
-import {TooltipStyle} from "./styles/tooltip.style";
-import Block from "../svg/stage/blocks/block-item/block-item.index";
+import {SeatStyle} from "@model/styles/seat.style";
+import {BLockStyle} from "@model/styles/block.style";
+import {LegendStyle} from "@model/styles/legend.style";
+import {LabelStyle} from "@model/styles/label.style";
+import {TooltipStyle} from "@model/styles/tooltip.style";
 
 export class StyleConfig {
     seat: SeatStyle

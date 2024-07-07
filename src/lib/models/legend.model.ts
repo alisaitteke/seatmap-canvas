@@ -1,10 +1,9 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
 
-import ModelBase from "./model.base";
+import ModelBase from "@model/model.base";
 
 export default class LegendModel extends ModelBase {
     x: number;

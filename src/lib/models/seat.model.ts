@@ -4,9 +4,9 @@
  */
 
 
-import BlockModel from "./block.model";
-import ModelBase from "./model.base";
-import {SeatItem} from "../svg/stage/blocks/block-item/seat/seat-item.index";
+import BlockModel from "@model/block.model";
+import ModelBase from "@model/model.base";
+import {SeatItem} from "@svg/stage/blocks/block-item/seat/seat-item.index";
 
 export default class SeatModel extends ModelBase {
     id: any;
