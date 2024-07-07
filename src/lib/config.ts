@@ -7,5 +7,4 @@ export class SeatMapConfig {
     constructor() {
 
     }
-
 }
