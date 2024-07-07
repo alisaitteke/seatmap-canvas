@@ -168,4 +168,4 @@ seatmap.addEventListener("seat_click", (seat) => {
 });
 ```
 ## Contributors
-Ali Sait TEKE <alisaitt@gmail.com>
+Ali Sait Teke <alisaitt@gmail.com>
