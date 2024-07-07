@@ -1,16 +1,12 @@
 /*
- * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-
-import BlockModel from "./block.model";
-import {EventType} from "../enums/global";
-import EventManager from "../svg/event.manager";
-import {SeatMapCanvas} from "../canvas.index";
-import {SeatItem} from "../svg/stage/blocks/block-item/seat/seat-item.index";
-import SeatModel from "./seat.model";
-import Block from "../svg/stage/blocks/block-item/block-item.index";
+import BlockModel from "@model/block.model";
+import {EventType} from "@enum/global";
+import EventManager from "@svg/event.manager";
+import {SeatMapCanvas} from "@/canvas.index";
+import SeatModel from "@model/seat.model";
 
 interface BlockQuery {
     id?: number | string

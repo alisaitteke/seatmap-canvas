@@ -3,9 +3,9 @@
  */
 
 
-import SeatModel from "./seat.model";
-import LabelModel from "./label.model";
-import ModelBase from "./model.base";
+import SeatModel from "@model/seat.model";
+import LabelModel from "@model/label.model";
+import ModelBase from "@model/model.base";
 
 
 export default class BlockModel extends ModelBase {
