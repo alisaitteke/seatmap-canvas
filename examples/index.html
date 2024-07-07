@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="fixed">
+<html lang="en" class="fixed dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,15 +8,18 @@
     <script defer type="text/javascript" src="cjs/seatmap.canvas.js"></script>
     <link href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" rel="stylesheet"/>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <style>
         #seats_container {
             position: relative;
             border-radius: 0 !important;
-            background-color: #ffffff;
             background-size: 0.5rem 0.5rem;
             background-position: 0.25rem 0.25rem;
-            background-image: linear-gradient(to right, rgba(50, 100, 150, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 1px, transparent 1px);
+            background-image: linear-gradient(to right, rgba(50, 100, 150, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 1px, transparent 1px);
             margin: 0;
         }
 
@@ -29,66 +32,65 @@
             right: 0;
             background-size: 2.5rem 2.5rem;
             background-position: 0.25rem 0.25rem;
-            background-image: linear-gradient(to right, rgba(50, 100, 150, 0.1) 2px, transparent 2px),
-            linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 2px, transparent 2px);
+            background-image: linear-gradient(to right, rgba(50, 100, 150, 0.1) 2px, transparent 2px), linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 2px, transparent 2px);
             z-index: -1;
         }
 
         #seats_container::after {
             background-size: 5rem 5rem;
-            background-image: linear-gradient(to right, rgba(50, 100, 150, 0.1) 3px, transparent 3px),
-            linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 3px, transparent 3px);
+            background-image: linear-gradient(to right, rgba(50, 100, 150, 0.1) 3px, transparent 3px), linear-gradient(to bottom, rgba(50, 100, 150, 0.1) 3px, transparent 3px);
         }
     </style>
     <title>Seatmap Demo</title>
 </head>
 <body>
 
-<div class="absolute flex flex-col w-screen h-screen">
-    <div class="bg-[#ab1f34] flex justify-center border-b border-[#d05063]">
-        <img class="h-11 py-1" src="logo_small.jpg">
-        <div class="absolute h-12 right-3 flex flex-row gap-3 items-center content-center">
-            <a class="github-button" href="https://github.com/alisaitteke/seatmap-canvas/subscription"
-               data-icon="octicon-eye" aria-label="Watch alisaitteke/seatmap-canvas on GitHub">Watch</a>
-            <a class="github-button" href="https://github.com/alisaitteke" aria-label="Follow @alisaitteke on GitHub">Follow
-                @alisaitteke</a>
-            <a class="github-button" href="https://github.com/alisaitteke/seatmap-canvas/fork"
-               data-icon="octicon-repo-forked" aria-label="Fork alisaitteke/seatmap-canvas on GitHub">Fork</a></div>
+<div class="absolute dark:bg-gray-900 flex flex-col w-screen h-screen select-none">
+
+    <div class="bg-[#ab1f34] flex flex-row justify-center px-6 border-b border-[#d05063]">
+        <div class="flex-1 flex gap-3 justify-center justify-center">
+            <img class="h-11 py-1" src="logo_small.jpg">
+        </div>
+        <div class="w-4 flex items-center cursor-pointer" id="dark-mode-btn">
+            <svg class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                <path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+            </svg>
+        </div>
     </div>
     <div class="flex flex-row h-full">
-        <div class="w-48 bg-gray-100 hidden md:block border-r border-r-gray-300 shadow-lg">
-            <div class="flex flex-col gap-3 p-1.5 text-xs">
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+        <div class="w-48 bg-gray-100 dark:bg-gray-800 hidden md:block border-r border-r-gray-300 dark:border-r-gray-600">
+            <div class="flex flex-col gap-3 px-3 py-4 text-xs">
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
                         id="zoomout-button">
                     <i class="fa-solid fa-magnifying-glass-minus mr-2"></i>
                     All Blocks
                 </button>
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
                         id="get-selected-seats">
                     <i class="fa-solid fa-code mr-2"></i>
                     Get Json
                 </button>
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200 zoom-to-block"
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200 zoom-to-block"
                         data-block-id="block-0">
                     <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
                     Zoom Block 1
                 </button>
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
                         data-block-id="block-1">
                     <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
                     Zoom Block 2
                 </button>
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
                         data-block-id="block-2">
                     <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
                     Zoom Block 3
                 </button>
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
                         data-block-id="block-3">
                     <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
                     Zoom Block 4
                 </button>
-                <button class="border text-left border-slate-500 bg-slate-100 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200"
+                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200"
                         id="randomize-btn"
                         data-block-id="block-2">
                     <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
@@ -96,10 +98,12 @@
                 </button>
             </div>
         </div>
-        <div id="seats_container" class="w-full flex-1 h-full"></div>
+        <div id="seats_container" class="w-full flex-1 h-full bg-white dark:bg-gray-700"></div>
 
-        <div class="flex flex-col w-52 flex-0 border-l">
-            <div class="text-center w-full text-sm p-2 bg-gray-100 border-b">Selected Seats</div>
+        <div class="hidden md:flex flex-col dark:bg-gray-800 w-52 flex-0 border-l dark:border-l-gray-600">
+            <div class="text-center w-full text-sm p-2 bg-gray-100 dark:bg-gray-950 dark:text-white border-b">Selected
+                Seats
+            </div>
             <table class="table-auto text-sm">
                 <tbody id="selected-seats">
 
@@ -107,203 +111,26 @@
             </table>
         </div>
     </div>
+    <div class="border-t dark:border-t-gray-700 w-full h-12 right-3 px-6 flex flex-row gap-6 items-center justify-between content-center">
+        <div class="h-5">
+            <a class="github-button" href="https://github.com/alisaitteke/seatmap-canvas/subscription"
+               data-icon="octicon-eye" aria-label="Watch alisaitteke/seatmap-canvas on GitHub">Watch</a>
+            <a class="github-button" href="https://github.com/alisaitteke" aria-label="Follow @alisaitteke on GitHub">Follow
+                @alisaitteke</a>
+            <a class="github-button" href="https://github.com/alisaitteke/seatmap-canvas/fork"
+               data-icon="octicon-repo-forked" aria-label="Fork alisaitteke/seatmap-canvas on GitHub">Fork</a>
+        </div>
+        <div>
+            <a href="https://d3js.org/" target="_blank">
+                <img class="h-8 " src="https://raw.githubusercontent.com/d3/d3-logo/master/d3.svg">
+            </a>
+
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        let seatmap = new SeatMapCanvas("#seats_container", {
-            legend: true,
-            style: {
-                seat: {
-                    hover: '#8fe100',
-                    color: '#f0f7fa',
-                    selected: '#8fe100',
-                    check_icon_color: '#fff',
-                    not_salable: '#0088d3',
-                    focus: '#8fe100',
-                },
-                legend: {
-                    font_color: '#3b3b3b',
-                    show: false
-                },
-                block: {
-                    title_color: '#fff'
-                }
-            }
-        });
-
-
-        seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
-            if (!seat.isSelected() && seat.item.salable === true) {
-                seat.select()
-            } else {
-                seat.unSelect()
-            }
-
-            updateSelectedSeats()
-        });
-
-
-        // FOR DEMO
-
-        const generateRandomBlocks = function () {
-            let block_colors = ["#01a5ff", "#fccf4e", "#01a5ff", "#01a5ff"];
-            let blocks = []
-            let last_x = 0;
-            for (let j = 0; j < 4; j++) { // blocks
-
-                let color = block_colors[j];
-
-                let seats = []
-                let cell_count = 0;
-                let row_count = 0;
-                let block_final_x = 0;
-                let randomSeatCount = Math.round((Math.random() * (Math.abs(400 - 200))) + 200)
-                let randomCell = Math.round((Math.random() * (Math.abs(28 - 12))) + 12)
-                let blockTitle = `Block ${j + 1}`;
-
-                for (let k = 0; k < randomSeatCount; k++) { // row
-                    if (k % randomCell === 0) {
-                        cell_count = 1;
-                        row_count++;
-                    }
-
-                    let x = (cell_count * 33) + last_x;
-                    let y = row_count * 30;
-
-                    if (block_final_x < x) block_final_x = x;
-                    let salable = Math.ceil(Math.random() * 10) > 3;
-                    let randomPrice = (Math.floor(Math.random() * (10 - 1 + 1)) + 1) * 10
-
-                    let seat = {
-                        id: `s-${k}`,
-                        x: x,
-                        y: y,
-                        color: color, // can use item.color from json data
-                        salable: salable,
-                        custom_data: {
-                            any: "things",
-                            price: randomPrice,
-                            basket_name: `${blockTitle} - ${cell_count} ${row_count}`
-                        },
-                        note: "note test",
-                        tags: {},
-                        title: `${blockTitle}\n${cell_count} ${row_count}`
-                    }
-                    cell_count++;
-                    seats.push(seat)
-                }
-
-                last_x = block_final_x + 100;
-
-                let block = {
-                    "id": `block-${j}`,
-                    "title": blockTitle,
-                    "labels": [],
-                    "color": color,
-                    "seats": seats
-                };
-
-                blocks.push(block);
-            }
-
-            seatmap.data.replaceData(blocks);
-        }
-        const unselectSeat = function () {
-            let seatId = $(this).attr('seat-id');
-            let blockId = $(this).attr('block-id');
-            let seat = seatmap.data.getSeat(seatId, blockId);
-            seat.svg.unSelect()
-            updateSelectedSeats()
-        }
-
-        const updateSelectedSeats = function () {
-            let selectedSeats = seatmap.data.getSelectedSeats();
-
-            let seatsTemplateHtml = ``
-
-            if (selectedSeats.length === 0) {
-                seatsTemplateHtml = `
-                    <tr class="text-center py-2 px-2 flex flex-col">
-                        <td class="text-lg text-gray-400"><i class="fa-regular fa-face-rolling-eyes"></i></td>
-                        <td class="text-gray-400">No selected seat</td>
-                    </tr>
-                `
-            }
-
-            for (let i = 0; i < selectedSeats.length; i++) {
-                let selectedSeat = selectedSeats[i];
-
-                let priceFormatted = selectedSeat.custom_data.price.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                })
-
-                let html = `<tr class="w-full h-8 hover:bg-blue-100 py-1 px-2 items-center">
-                    <td class="w-6">
-                        <div class="inline-block w-3 h-3 bg-[#8fe100] rounded-lg ml-1"></div>
-                    </td>
-                    <td class="flex-0">${selectedSeat.custom_data.basket_name}</td>
-                    <td class="text-right font-bold">${priceFormatted}</td>
-                    <td class="w-6 unselect-seat text-center cursor-pointer text-red-200 hover:text-red-500" seat-id="${selectedSeat.id}" block-id="${selectedSeat.block.id}">
-                        <i class="fa-solid fa-xmark text-md "></i>
-                    </td>
-                </tr>`
-
-                seatsTemplateHtml += html;
-            }
-
-            if (selectedSeats.length > 0) {
-                let totalPrice = selectedSeats.reduce((accumulator, currentValue) => accumulator + currentValue.custom_data.price, 0)
-                let priceFormatted = totalPrice.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                })
-                let seatDesc = selectedSeats.length === 1 ? 'a seat' : `${selectedSeats.length} seats`;
-                seatsTemplateHtml += `
-                    <tr class="border-t h-6 text-center bg-gray-200">
-                        <td colspan="4" class="py-1">Total: <strong>${priceFormatted}</strong> for ${seatDesc} </td>
-                    </tr>
-                `
-            }
-
-            $('#selected-seats').html(seatsTemplateHtml)
-
-            $(".unselect-seat").on('click', unselectSeat)
-        }
-
-        generateRandomBlocks()
-        updateSelectedSeats()
-
-
-        $("#zoomout-button").on("click", function () {
-            seatmap.zoomManager.zoomToVenue();
-        });
-
-        $(".zoom-to-block").on("click", function (a) {
-            let blockId = $(this).attr('data-block-id');
-            seatmap.zoomManager.zoomToBlock(blockId);
-        });
-        $("#get-selected-seats").on("click", function (a) {
-            let selectedSeats = seatmap.data.getSelectedSeats();
-            console.log(selectedSeats)
-        });
-
-        // $(".unselect-seat").on("click", function (a) {
-        //
-        // });
-
-        $("#randomize-btn").on("click", function (a) {
-            generateRandomBlocks()
-        });
-    });
-</script>
+<script type="text/javascript" src="/example.js"></script>
 </body>
 </html>
