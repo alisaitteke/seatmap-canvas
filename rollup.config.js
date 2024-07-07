@@ -21,8 +21,7 @@ export default commandLineArgs => {
                 {
                     file: packageJson.main,
                     format: "iife",
-                    sourcemap: true,
-                    name: 'seatmap'
+                    sourcemap: true
                 }
             ],
             plugins: [
@@ -60,7 +59,6 @@ export default commandLineArgs => {
                         multipleVersions: true, // Default is false.
                         output: {
                             file: path.join(__dirname, 'dist', 'dependencies.txt'),
-                            name: 'dependencies',
                             encoding: 'utf-8', // Default is utf-8.
                         },
                     },
@@ -75,7 +73,6 @@ export default commandLineArgs => {
                     file: packageJson.module,
                     format: "esm",
                     sourcemap: true,
-                    name: 'seatmap',
                 },
             ],
             plugins: [
@@ -95,8 +92,7 @@ export default commandLineArgs => {
             input: "src/lib/canvas.index.ts",
             output: [{
                 file: "dist/types.d.ts",
-                format: "es",
-                name: 'seatmap',
+                format: "es"
             }],
             external: [/\.scss$/],
             plugins: [scss(), dts.default()],
