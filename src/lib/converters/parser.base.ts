@@ -1,8 +1,13 @@
 import {PretixModel} from "@/converters/pretix/pretix.model";
+import BlockModel from "@model/block.model";
 
-export class ConverterBase {
+export abstract class ParserBase {
+    code: string
+
     constructor() {
     }
 
-    parse(jsonModel: PretixModel){}
+    parse(jsonModel: PretixModel): BlockModel[] {
+        return []
+    }
 }
