@@ -7,6 +7,8 @@ import {EventType} from "@enum/global";
 import EventManager from "@svg/event.manager";
 import {SeatMapCanvas} from "@/canvas.index";
 import SeatModel from "@model/seat.model";
+import {ParserEnum} from "@enum/parser.enum";
+import {PretixModel} from "@/converters/pretix/pretix.model";
 
 interface BlockQuery {
     id?: number | string
@@ -25,6 +27,7 @@ export default class DataModel {
         this.addEventListener = _self.eventManager.addEventListener;
     }
 
+
     public addBlock(block_data: any): this {
         this.blocks.push(new BlockModel(block_data));
         this.eventManager.dispatch(EventType.ADD_BLOCK, [block_data]);
@@ -32,16 +35,26 @@ export default class DataModel {
         return this;
     }
 
-    public addBulkBlock(block_data: Array<BlockModel>): this {
-        block_data.map((item: any) => {
+    public addBulkBlock(block_data: BlockModel[] | PretixModel): this {
+        if (this._self.config.json_model !== ParserEnum.SEATMAP) {
+            const parserName = this._self.config.json_model;
+            const parserClass = this._self.parsers[parserName];
+            // console.log('parserClass',parserClass)
+            block_data = parserClass.parse(block_data as PretixModel)
+        }
+
+        (block_data as BlockModel[]).map((item: any) => {
             this.blocks.push(new BlockModel(item));
         });
+
+        // this.addBlock()
+        // console.log('block_data', block_data);
         this.eventManager.dispatch(EventType.ADD_BLOCK, [block_data]);
         this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;
     }
 
-    public replaceData(block_data: Array<any>): this {
+    public replaceData(block_data: BlockModel[] | PretixModel): this {
         this.blocks = [];
         this.addBulkBlock(block_data);
         return this;

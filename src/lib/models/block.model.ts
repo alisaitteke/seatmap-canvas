@@ -42,12 +42,14 @@ export default class BlockModel extends ModelBase {
             return new LabelModel(item);
         }) || [];
 
+
         this.seats = item.seats.map((item: any) => {
             item.block = this;
             let seat: SeatModel = new SeatModel(item);
             return seat;
         }) || [];
     }
+
 
 
     toJson() {

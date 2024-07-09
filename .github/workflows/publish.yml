@@ -63,7 +63,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITH_PACKAGE_TOKEN }}
         run: |
-          git push origin && git push --tags
+          git tag "${{ env.NEW_VERSION }}"
+          git push --tags
 
       # Read version changelog
       - name: "Build Changelog"

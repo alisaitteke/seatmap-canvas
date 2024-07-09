@@ -178,6 +178,10 @@ export default class ZoomManager {
 
     calculateZoomLevel(k: number) {
         // console.info('calculateZoomLevel')
+        if(!this.zoomLevels.BLOCK?.k || !this.zoomLevels.VENUE?.k){
+            console.log('asdf')
+            return;
+        }
         let _levels = {
             seat: this._self.config.max_zoom - 0.2,
             block: this.zoomLevels.BLOCK.k,

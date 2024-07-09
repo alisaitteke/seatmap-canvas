@@ -11,6 +11,7 @@ import {BLockStyle} from "@model/styles/block.style";
 import {LegendStyle} from "@model/styles/legend.style";
 import {LabelStyle} from "@model/styles/label.style";
 import {TooltipStyle} from "@model/styles/tooltip.style";
+import {ParserEnum} from "@enum/parser.enum";
 
 export class StyleConfig {
     seat: SeatStyle
@@ -32,7 +33,9 @@ export default class DefaultsModel {
     legend: boolean = false;
     canvas_stageout_control: boolean = true;
 
-    style: StyleConfig
+    style: StyleConfig;
+
+    json_model: ParserEnum = ParserEnum.SEATMAP;
 
 
     lang: {
@@ -42,6 +45,8 @@ export default class DefaultsModel {
     };
 
     constructor(config: any) {
+
+        this.json_model = config.json_model ? config.json_model : ParserEnum.SEATMAP;
 
         this.zoom_focus_circle_radius = config.zoom_focus_circle_radius ? config.zoom_focus_circle_radius : this.zoom_focus_circle_radius;
         this.click_enable_sold_seats = config.click_enable_sold_seats ? config.click_enable_sold_seats : this.click_enable_sold_seats;
