@@ -44,7 +44,6 @@ export default class Block extends SvgBase {
         this.attr("id", item.id);
         this.attr("opacity", 0);
 
-
         this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (levelObject: any) => {
             if (levelObject.level === ZoomLevel.VENUE) {
                 this.mask.blockLevelMask.show();
@@ -99,7 +98,6 @@ export default class Block extends SvgBase {
         });
 
         this.global.eventManager.addEventListener(EventType.MOUSELEAVE_BLOCK, (block_item: Block) => {
-            console.log(block_item)
             this.seats.resetSeatsColors()
 
         })

@@ -3,7 +3,7 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 import "../scss/style.scss";
-import {select as d3Select,event as d3Event} from 'd3-selection'
+import {event as d3Event, select as d3Select} from 'd3-selection'
 import Svg from "@svg/svg.index";
 import SeatMapDevTools from "@/dev.tools";
 import DataModel from "@model/data.model";
@@ -16,6 +16,9 @@ import ZoomManager from "@svg/zoom.manager";
 import EventManager from "@svg/event.manager";
 import {EventType, ZoomLevel} from "@enum/global";
 import WindowManager from "@/window.manager";
+import {ParserBase} from "@/converters/parser.base";
+import {ParserEnum} from "@enum/parser.enum";
+import {PretixParser} from "@/converters/pretix/pretix.parser";
 
 
 export class SeatMapCanvas {
@@ -30,6 +33,7 @@ export class SeatMapCanvas {
     public zoomManager: ZoomManager;
     public eventManager: EventManager;
     public addEventListener: any;
+    public parsers: { [name: string]: ParserBase } = {};
 
     constructor(public container_selector: any, _config: DefaultsModel) {
         let _self = this;
@@ -41,6 +45,8 @@ export class SeatMapCanvas {
         this.zoomManager = new ZoomManager(this);
 
         this.data = new DataModel(this);
+
+        this.registerConverters()
 
         this.global = {
             eventManager: this.eventManager,
@@ -102,7 +108,6 @@ export class SeatMapCanvas {
         });
 
 
-
         // update block data change trigger
         this.eventManager.addEventListener(EventType.ADD_BLOCK, (addedBlocks: Array<BlockModel>) => {
             this.svg.stage.blocks.update();
@@ -113,6 +118,11 @@ export class SeatMapCanvas {
             this.zoomManager.zoomToVenue(false);
         });
 
+        // Ready
         this.eventManager.dispatch(EventType.READY, this);
+    }
+
+    registerConverters() {
+        this.parsers['pretix'] = new PretixParser();
     }
 }
