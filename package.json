@@ -27,7 +27,7 @@
   "license": "MIT",
   "main": "dist/cjs/seatmap.canvas.js",
   "module": "dist/esm/seatmap.canvas.js",
-  "types": "dist/type.d.ts",
+  "types": "dist/types.d.ts",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
