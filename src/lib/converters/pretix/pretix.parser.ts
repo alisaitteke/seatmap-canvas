@@ -52,6 +52,7 @@ export class PretixParser extends ParserBase {
                         }
                         blocks.push(newBlock)
                         currentBlock = newBlock;
+
                     }
 
                     const newSeat = {

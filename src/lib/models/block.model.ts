@@ -53,6 +53,7 @@ export default class BlockModel extends ModelBase {
     }
 
 
+
     toJson() {
         return {
             id: this.id,
