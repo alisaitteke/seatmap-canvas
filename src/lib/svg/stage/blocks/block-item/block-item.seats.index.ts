@@ -4,11 +4,13 @@
 
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
+import {xml as XmlLoad} from "d3-fetch";
 import BlockModel from "@model/block.model";
 import SeatModel from "@model/seat.model";
 import Block from "./block-item.index";
 import {SeatItem} from "./seat/seat-item.index";
 import {EventType, SeatAction} from "@enum/global";
+import {SeatItemCircle} from "@svg/stage/blocks/block-item/seat/seat-item.circle";
 
 
 @dom({
@@ -34,12 +36,17 @@ export default class Seats extends SvgBase {
         return this;
     }
 
-    update(): this {
+
+    async update(): Promise<this> {
         // add seat items in blockItem container
-        this.item.seats.forEach((seat: SeatModel) => {
-            this.addChild(new SeatItem(this, seat), {id: seat.id})
-        });
-        this.updateChilds();
+        let SeatItemSvg: any;
+        if (this.global.config.style.seat.svg) {
+            SeatItemSvg = await XmlLoad(this.global.config.style.seat.svg)
+        }
+        for (const seat of this.item.seats) {
+            await this.addChild(new SeatItem(this, seat, SeatItemSvg), {id: seat.id})
+        }
+        await this.updateChilds();
         return this;
     }
 

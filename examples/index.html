@@ -48,7 +48,7 @@
 <div class="absolute dark:bg-gray-900 flex flex-col w-screen h-screen select-none">
 
     <div class="bg-[#ab1f34] flex flex-row justify-center px-6 border-b border-[#d05063]">
-        <div class="flex-1 flex gap-3 justify-center justify-center">
+        <div class="flex-1 flex gap-1.5 justify-center justify-center">
             <img class="h-11 py-1" src="logo_small.jpg">
         </div>
         <div class="w-4 flex items-center cursor-pointer" id="dark-mode-btn">
@@ -60,42 +60,29 @@
     <div class="flex flex-row h-full">
         <div class="w-48 bg-gray-100 dark:bg-gray-800 hidden md:block border-r border-r-gray-300 dark:border-r-gray-600">
             <div class="flex flex-col gap-3 px-3 py-4 text-xs">
-                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
-                        id="zoomout-button">
-                    <i class="fa-solid fa-magnifying-glass-minus mr-2"></i>
-                    All Blocks
-                </button>
+                <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
+                    <div class="text-center dark:text-white">Example Data</div>
+                    <div class="w-full flex flex-col">
+                        <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200"
+                                id="randomize-btn"
+                                data-block-id="block-2">
+                            <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                            Randomize
+                        </button>
+                    </div>
+                    <div id="profiles" class="w-full flex flex-col gap-1.5">
+
+                    </div>
+                </div>
+
+                <div id="zoom-blocks-buttons" class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-600 rounded-md text-center"></div>
+
                 <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
                         id="get-selected-seats">
                     <i class="fa-solid fa-code mr-2"></i>
                     Get Json
                 </button>
-                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200 zoom-to-block"
-                        data-block-id="block-0">
-                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
-                    Zoom Block 1
-                </button>
-                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
-                        data-block-id="block-1">
-                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
-                    Zoom Block 2
-                </button>
-                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
-                        data-block-id="block-2">
-                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
-                    Zoom Block 3
-                </button>
-                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200 zoom-to-block"
-                        data-block-id="block-3">
-                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
-                    Zoom Block 4
-                </button>
-                <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1  px-3 rounded-md hover:bg-slate-200"
-                        id="randomize-btn"
-                        data-block-id="block-2">
-                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
-                    Randomize
-                </button>
+
             </div>
         </div>
         <div id="seats_container" class="w-full flex-1 h-full bg-white dark:bg-gray-700"></div>

@@ -13,6 +13,8 @@ import {CoordinateModel} from "@model/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
 import {SeatAction} from "@enum/global";
 import {SeatItemCheck} from "./seat-item.check";
+import {SeatItemCustomSvg} from "@svg/stage/blocks/block-item/seat/seat-item.custom";
+import {SeatItemCustomSvgCheck} from "@svg/stage/blocks/block-item/seat/seat-item.custom-check";
 
 
 @dom({
@@ -23,24 +25,36 @@ import {SeatItemCheck} from "./seat-item.check";
 export class SeatItem extends SvgBase {
 
     public circle: SeatItemCircle;
+    public seatCustomSvg: SeatItemCustomSvg;
     public title: SeatItemTitle;
     public coordinates: CoordinateModel;
     public check: SeatItemCheck;
 
-    constructor(public parent: Seats, public item: SeatModel) {
+    constructor(public parent: Seats, public item: SeatModel, seatCustomSvg: any) {
         super(parent);
         this.coordinates = new CoordinateModel(item);
+        this.seatCustomSvg = seatCustomSvg;
         this.attr("transform", "translate(" + this.coordinates.toArray() + ")");
         this.item.svg = this;
         return this;
     }
 
     public setColor(color: string, animation: boolean = false): this {
-        if (animation) {
-            this.circle.node.transition().duration(this.global.config.animation_speed).attr("fill", color);
-        } else {
+        if (this.seatCustomSvg) {
             this.circle.node.attr("fill", color);
+        } else {
+            if (animation) {
+                this.circle.node.transition().duration(this.global.config.animation_speed).attr("fill", color);
+            } else {
+                try {
+                    this.circle.node.attr("fill", color);
+                } catch (e) {
+                    console.log('err', e)
+                }
+
+            }
         }
+
 
         return this;
     }
@@ -51,9 +65,18 @@ export class SeatItem extends SvgBase {
     }
 
     public select(color: string | null = null): this {
+        if (!this.isSalable()) {
+            return this;
+        }
+
         this.item.selected = true;
         this.node.classed("selected", true);
-        this.circle.node.attr("fill", this.global.config.style.seat.selected);
+        if (this.seatCustomSvg) {
+            this.circle.node.attr("fill", this.global.config.style.seat.selected);
+        } else {
+            this.circle.node.attr("fill", this.global.config.style.seat.selected);
+        }
+
         this.check.show();
         return this;
     }
@@ -61,7 +84,12 @@ export class SeatItem extends SvgBase {
     public unSelect(): this {
         this.item.selected = false;
         this.node.classed("selected", false);
-        this.circle.node.attr("fill", this.global.config.style.seat.color);
+        if (this.seatCustomSvg) {
+            this.circle.node.attr("fill", this.global.config.style.seat.color);
+        } else {
+            this.circle.node.attr("fill", this.global.config.style.seat.color);
+        }
+
         this.check.hide();
         return this;
     }
@@ -82,7 +110,7 @@ export class SeatItem extends SvgBase {
         this.setColor(this.getColor());
     }
 
-    public getColor(action: SeatAction| null = null): string {
+    public getColor(action: SeatAction | null = null): string {
 
         if (this.isSalable()) {
 
@@ -99,15 +127,13 @@ export class SeatItem extends SvgBase {
                 } else {
                     return this.global.config.style.seat.hover;
                 }
-            }
-            else if (action == SeatAction.LEAVE) {
+            } else if (action == SeatAction.LEAVE) {
                 if (this.isSelected()) {
                     return this.global.config.style.seat.selected;
                 } else {
                     return this.global.config.style.seat.color;
                 }
-            }
-            else if (action == SeatAction.SELECT) {
+            } else if (action == SeatAction.SELECT) {
                 if (this.isSelected()) {
                     return this.global.config.style.seat.selected;
                 } else {
@@ -128,11 +154,18 @@ export class SeatItem extends SvgBase {
     }
 
     update(): this {
-        this.circle = new SeatItemCircle(this);
-        this.addChild(this.circle);
 
+        if (this.seatCustomSvg) {
+            this.check = new SeatItemCustomSvgCheck(this).addTo(this);
+            this.circle = new SeatItemCustomSvg(this, this.seatCustomSvg)
+            this.addChild(this.circle);
 
-        this.check = new SeatItemCheck(this).addTo(this);
+        } else {
+            this.circle = new SeatItemCircle(this);
+            this.addChild(this.circle);
+            this.check = new SeatItemCheck(this).addTo(this);
+        }
+
 
         // this.title = new SeatItemTitle(this);
         // this.addChild(this.title);
@@ -145,11 +178,11 @@ export class SeatItem extends SvgBase {
         return this;
     }
 
-    afterGenerate(){
+    afterGenerate() {
         this.setColor(this.getColor());
-        if(this.item.selected){
+        if (this.item.selected) {
             this.check.show()
-        }else{
+        } else {
             this.check.hide()
         }
 

@@ -111,7 +111,7 @@ export default class SvgBase {
         return this;
     }
 
-    public addChild(item: any, attrs?: any, replace: boolean = true): this {
+    public async addChild(item: any, attrs?: any, replace: boolean = true): Promise<this> {
         for (let key in attrs) {
             let value = attrs[key];
             item.dom_attrs.push({
@@ -141,7 +141,7 @@ export default class SvgBase {
         return this;
     }
 
-    public updateChilds(): this {
+    public async updateChilds(): Promise<this> {
         this.child_items.map((item: Block, index: number) => {
             item.domGenerate(this.node, index);
             item.update();

@@ -39,7 +39,7 @@ export default class DataModel {
         if (this._self.config.json_model !== ParserEnum.SEATMAP) {
             const parserName = this._self.config.json_model;
             const parserClass = this._self.parsers[parserName];
-            // console.log('parserClass',parserClass)
+
             block_data = parserClass.parse(block_data as PretixModel)
         }
 
@@ -48,7 +48,7 @@ export default class DataModel {
         });
 
         // this.addBlock()
-        // console.log('block_data', block_data);
+
         this.eventManager.dispatch(EventType.ADD_BLOCK, [block_data]);
         this.eventManager.dispatch(EventType.UPDATE_BLOCK, this.blocks);
         return this;

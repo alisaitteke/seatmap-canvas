@@ -23,6 +23,7 @@ export default class BlockModel extends ModelBase {
     bbox: any;
     zoom_bbox: any;
     rotate: number;
+    gap: number;
 
     constructor(item: any) {
         super();
@@ -36,6 +37,7 @@ export default class BlockModel extends ModelBase {
         this.border_color = item.border_color || "#f1f1f1";
         this.title = item.title;
         this.rotate = item.rotate || 0;
+        this.gap = item.gap || 12;
 
         this.labels = item.labels.map((item: any) => {
             item.block = this;
