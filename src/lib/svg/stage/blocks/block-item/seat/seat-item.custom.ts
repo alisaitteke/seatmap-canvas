@@ -33,6 +33,7 @@ export class SeatItemCustomSvg extends SvgBase {
         super.domGenerate(to, index);
         const importedSVG = select(this.customSvg.documentElement.cloneNode(true));
         importedSVG.attr('width', this.global.config.style.seat.radius)
+        importedSVG.attr('viewBox',`0 0 ${this.global.config.style.seat.radius} ${this.global.config.style.seat.radius}`)
         this.node.node().append(importedSVG.node())
         this.addChild(new SeatItemCustomSvgArea(this))
         return this
