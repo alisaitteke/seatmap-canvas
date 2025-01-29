@@ -178,8 +178,7 @@ export default class ZoomManager {
 
     calculateZoomLevel(k: number) {
         // console.info('calculateZoomLevel')
-        if(!this.zoomLevels.BLOCK?.k || !this.zoomLevels.VENUE?.k){
-            console.log('asdf')
+        if (!this.zoomLevels.BLOCK?.k || !this.zoomLevels.VENUE?.k) {
             return;
         }
         let _levels = {
@@ -363,6 +362,7 @@ export default class ZoomManager {
     }
 
     public zoomToBlock(id: string | number, animation: boolean = true, fastAnimated: boolean = false) {
+        // console.log('id', id)
         let _block = this._self.data.getBlocks().find((block) => block.id.toString() === id.toString());
         if (_block) {
             if (animation) {

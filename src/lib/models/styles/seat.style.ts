@@ -9,4 +9,5 @@ export class SeatStyle {
     check_color: string = '#ffffff'
     check_icon: string = '\uf005'
     check_icon_color: string = "#ffffff";
+    svg: string | null = null;
 }

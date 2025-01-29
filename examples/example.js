@@ -1,4 +1,106 @@
 $(document).ready(function () {
+    function getRandomItem(array) {
+        if (array.length === 0) return undefined;
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array[randomIndex];
+    }
+
+    const profiles = [
+        {
+            title: 'Default',
+            blockSize: 4,
+            gapX: 40,
+            gapY: 40,
+            minItem: 200,
+            maxItem: 400,
+            customSeatSvg: null,
+            seatRadius: 15,
+            cellMin: 12,
+            cellMax: 24,
+            blockGap: 12
+        },
+        {
+            title: 'Table',
+            blockSize: 1,
+            gapX: 120,
+            gapY: 120,
+            minItem: 12,
+            maxItem: 12,
+            customSeatSvg: 'assets/table.svg',
+            seatRadius: 80,
+            cellMin: 2,
+            cellMax: 4,
+            blockGap: 100
+        },
+        {
+            title: 'Seat',
+            blockSize: 4,
+            gapX: 80,
+            gapY: 80,
+            minItem: 100,
+            maxItem: 200,
+            customSeatSvg: 'assets/seat-1.svg',
+            seatRadius: 50,
+            cellMin: 8,
+            cellMax: 12,
+            blockGap: 100
+        },
+        {
+            title: 'Chair',
+            blockSize: 4,
+            gapX: 80,
+            gapY: 80,
+            minItem: 100,
+            maxItem: 200,
+            customSeatSvg: 'assets/seat-1.svg',
+            seatRadius: 50,
+            cellMin: 8,
+            cellMax: 12,
+            blockGap: 100
+        },
+        {
+            title: 'Basic Rectangle',
+            blockSize: 4,
+            gapX: 80,
+            gapY: 80,
+            minItem: 100,
+            maxItem: 200,
+            customSeatSvg: 'assets/rect.svg',
+            seatRadius: 50,
+            cellMin: 8,
+            cellMax: 12,
+            blockGap: 100
+        },
+        {
+            title: 'Basketball',
+            blockSize: 4,
+            gapX: 80,
+            gapY: 80,
+            minItem: 100,
+            maxItem: 200,
+            customSeatSvg: 'assets/basketball.svg',
+            seatRadius: 50,
+            cellMin: 8,
+            cellMax: 12,
+            blockGap: 100
+        },
+        {
+            title: 'Custom Svg',
+            blockSize: 4,
+            gapX: 80,
+            gapY: 80,
+            minItem: 100,
+            maxItem: 200,
+            customSeatSvg: 'assets/user.svg',
+            seatRadius: 50,
+            cellMin: 8,
+            cellMax: 12,
+            blockGap: 100
+        }
+    ]
+
+    const defaultProfile = profiles[0]
+
     let seatmap = new SeatMapCanvas("#seats_container", {
         legend: true,
         style: {
@@ -9,6 +111,8 @@ $(document).ready(function () {
                 check_icon_color: '#fff',
                 not_salable: '#0088d3',
                 focus: '#8fe100',
+                // svg: 'assets/table.svg',
+                // radius: 30
             },
             legend: {
                 font_color: '#3b3b3b',
@@ -34,11 +138,24 @@ $(document).ready(function () {
 
     // FOR DEMO
 
-    const generateRandomBlocks = function () {
+    const generateRandomBlocks = function (titlePrefix = 'Block',
+                                           blockSize = defaultProfile.blockSize,
+                                           gapX = defaultProfile.gapX,
+                                           gapY = defaultProfile.gapY,
+                                           minItem = defaultProfile.minItem,
+                                           maxItem = defaultProfile.maxItem,
+                                           customSeatSvg = defaultProfile.customSeatSvg,
+                                           seatRadius = defaultProfile.seatRadius,
+                                           cellMin = defaultProfile.cellMin,
+                                           cellMax = defaultProfile.cellMax,
+                                           blockGap = defaultProfile.blockGap
+    ) {
         let block_colors = ["#01a5ff", "#fccf4e", "#01a5ff", "#01a5ff"];
         let blocks = []
         let last_x = 0;
-        for (let j = 0; j < 4; j++) { // blocks
+        seatmap.config.style.seat.svg = customSeatSvg
+        seatmap.config.style.seat.radius = seatRadius
+        for (let j = 0; j < blockSize; j++) { // blocks
 
             let color = block_colors[j];
 
@@ -46,9 +163,9 @@ $(document).ready(function () {
             let cell_count = 0;
             let row_count = 0;
             let block_final_x = 0;
-            let randomSeatCount = Math.round((Math.random() * (Math.abs(400 - 200))) + 200)
-            let randomCell = Math.round((Math.random() * (Math.abs(28 - 12))) + 12)
-            let blockTitle = `Block ${j + 1}`;
+            let randomSeatCount = Math.round((Math.random() * (Math.abs(maxItem - minItem))) + minItem)
+            let randomCell = Math.round((Math.random() * (Math.abs(cellMax - cellMin))) + cellMin)
+            let blockTitle = `${titlePrefix} ${j + 1}`;
 
             for (let k = 0; k < randomSeatCount; k++) { // row
                 if (k % randomCell === 0) {
@@ -56,8 +173,8 @@ $(document).ready(function () {
                     row_count++;
                 }
 
-                let x = (cell_count * 33) + last_x;
-                let y = row_count * 30;
+                let x = (cell_count * gapX) + last_x;
+                let y = row_count * gapY;
 
                 if (block_final_x < x) block_final_x = x;
                 let salable = Math.ceil(Math.random() * 10) > 3;
@@ -82,14 +199,15 @@ $(document).ready(function () {
                 seats.push(seat)
             }
 
-            last_x = block_final_x + 100;
+            last_x = block_final_x + 320;
 
             let block = {
                 "id": `block-${j}`,
                 "title": blockTitle,
                 "labels": [],
                 "color": color,
-                "seats": seats
+                "seats": seats,
+                "gap": blockGap,
             };
 
             blocks.push(block);
@@ -103,6 +221,64 @@ $(document).ready(function () {
         let seat = seatmap.data.getSeat(seatId, blockId);
         seat.svg.unSelect()
         updateSelectedSeats()
+    }
+
+    window.zoomToBlock2 = (blockId) => {
+        console.log('blockId', blockId)
+        seatmap.zoomManager.zoomToBlock('block-' + blockId);
+    }
+    window.selectProfile = (profileIndex) => {
+        console.log('profileIndex', profileIndex)
+        const selectedProfile = profiles[profileIndex]
+
+
+        generateRandomBlocks(selectedProfile.title, selectedProfile.blockSize, selectedProfile.gapX, selectedProfile.gapY, selectedProfile.minItem, selectedProfile.maxItem, selectedProfile.customSeatSvg, selectedProfile.seatRadius, selectedProfile.cellMin, selectedProfile.cellMax, selectedProfile.blockGap)
+        updateSelectedSeats()
+        updateBlocks()
+        const blockCount = seatmap.data.getBlocks()
+        let randomBlockIndex = Math.round((Math.random() * (Math.abs(blockCount.length))))
+        setTimeout(() => {
+            seatmap.zoomManager.zoomToBlock('block-' + randomBlockIndex);
+        }, 250)
+        document.getElementById('profile-'+profileIndex).classList.add('bg-red-200')
+    }
+
+    const generateProfiles = () => {
+        let profilesHtml = ``
+        for (let i = 0; i < profiles.length; i++) {
+            const profile = profiles[i]
+            profilesHtml += `
+                <button onclick="selectProfile(${i})" id="profile-${i}" class="border w-full text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200 "
+                        >
+                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                    ${profile.title}
+                </button>
+            `
+        }
+        $('#profiles').html(profilesHtml)
+    }
+
+    const updateBlocks = function () {
+        let selectedSeats = seatmap.data.getBlocks();
+        let blockButtonsHtml = `
+            <div class="w-full text-primary dark:text-white">Zoom to Block</div>
+            <button class="border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                        id="zoomout-button">
+                    <i class="fa-solid fa-magnifying-glass-minus mr-2"></i>
+                    All Blocks
+                </button>
+        `
+        for (let i = 0; i < selectedSeats.length; i++) {
+            blockButtonsHtml += `
+                <button onclick="zoomToBlock2(${i})" class="border w-full text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200 "
+                        >
+                    <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                    Zoom Block ${i + 1}
+                </button>
+            `
+        }
+
+        $('#zoom-blocks-buttons').html(blockButtonsHtml)
     }
 
     const updateSelectedSeats = function () {
@@ -166,6 +342,8 @@ $(document).ready(function () {
 
     generateRandomBlocks()
     updateSelectedSeats()
+    updateBlocks()
+    generateProfiles()
 
 
     $("#zoomout-button").on("click", function () {
@@ -186,7 +364,10 @@ $(document).ready(function () {
     // });
 
     $("#randomize-btn").on("click", function (a) {
-        generateRandomBlocks()
+
+        generateRandomBlocks('Home', 1, 50, 50, 68, 68, [12, 24])
+        updateSelectedSeats()
+        updateBlocks()
     });
     $("#dark-mode-btn").on("click", function (a) {
         $('html').toggleClass('dark')
