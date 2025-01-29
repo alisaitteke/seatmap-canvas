@@ -345,7 +345,6 @@ $(document).ready(function () {
     updateBlocks()
     generateProfiles()
 
-
     $("#zoomout-button").on("click", function () {
         seatmap.zoomManager.zoomToVenue();
     });
