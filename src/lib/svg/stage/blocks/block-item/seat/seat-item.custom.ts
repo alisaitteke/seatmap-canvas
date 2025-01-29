@@ -19,7 +19,7 @@ export class SeatItemCustomSvg extends SvgBase {
 
     constructor(public parent: SeatItem, public customSvg: any) {
         super(parent);
-        this.attr("transform", `translate(${(this.global.config.style.seat.radius / 2) * -1},-500)`);
+        this.attr("transform", `translate(${(this.global.config.style.seat.radius / 2) * -1},-560)`);
         return this;
     }
 
