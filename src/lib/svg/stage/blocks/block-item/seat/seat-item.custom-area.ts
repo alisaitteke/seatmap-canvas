@@ -20,7 +20,7 @@ export class SeatItemCustomSvgArea extends SvgBase {
         this.attr("fill", this.global.config.style.label.color);
         this.attr("opacity", 0);
         this.attr("r", this.global.config.style.seat.radius / 1.5);
-        this.attr("transform", `translate(${(this.global.config.style.seat.radius / 2)},560)`);
+        this.attr("transform", `translate(${(this.global.config.style.seat.radius / 2) },630)`);
 
         return this;
     }
