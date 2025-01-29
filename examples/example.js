@@ -365,7 +365,9 @@ $(document).ready(function () {
 
     $("#randomize-btn").on("click", function (a) {
 
-        generateRandomBlocks('Home', 1, 50, 50, 68, 68, [12, 24])
+        // generateRandomBlocks('Home', 1, 50, 50, 68, 68,)
+        const randomProfile =  Math.floor(Math.random() * profiles.length)
+        selectProfile(randomProfile)
         updateSelectedSeats()
         updateBlocks()
     });
