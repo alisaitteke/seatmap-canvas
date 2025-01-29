@@ -6,26 +6,36 @@
 import SvgBase from "@svg/svg.base";
 
 import {dom} from "@decorator/dom";
+import {select} from "d3-selection";
 import {SeatItem} from "./seat-item.index";
+import {SeatItemCustomSvgArea} from "@svg/stage/blocks/block-item/seat/seat-item.custom-area";
 
 @dom({
-    tag: "circle",
+    tag: "g",
     class: "seat-circle",
     autoGenerate: false
 })
-export class SeatItemCircle extends SvgBase {
+export class SeatItemCustomSvg extends SvgBase {
 
-    constructor(public parent: SeatItem) {
+    constructor(public parent: SeatItem, public customSvg: any) {
         super(parent);
-        this.attr("block-id", parent.item.block.id);
-        this.attr("r", this.global.config.style.seat.radius);
-        this.attr("fill", this.global.config.style.seat.color);
-        this.attr("stroke", "rgba(0,0,0,0.3)");
-        this.attr("stroke-width", 1);
+        this.attr("transform", `translate(${(this.global.config.style.seat.radius / 2) * -1},-630)`);
         return this;
     }
 
     update(): this {
+        this.updateChilds();
         return this;
+    }
+
+    domGenerate(to: any, index: number = 0): this {
+
+        super.domGenerate(to, index);
+        const importedSVG = select(this.customSvg.documentElement.cloneNode(true));
+        importedSVG.attr('width', this.global.config.style.seat.radius)
+        this.node.node().append(importedSVG.node())
+        this.addChild(new SeatItemCustomSvgArea(this))
+        return this
+
     }
 }
