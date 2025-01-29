@@ -19,71 +19,71 @@ $(document).ready(function () {
             cellMax: 24,
             blockGap: 12
         },
-        {
-            title: 'Table',
-            blockSize: 1,
-            gapX: 120,
-            gapY: 120,
-            minItem: 12,
-            maxItem: 12,
-            customSeatSvg: 'assets/table.svg',
-            seatRadius: 80,
-            cellMin: 2,
-            cellMax: 4,
-            blockGap: 100
-        },
-        {
-            title: 'Seat',
-            blockSize: 4,
-            gapX: 80,
-            gapY: 80,
-            minItem: 100,
-            maxItem: 200,
-            customSeatSvg: 'assets/seat-2.svg',
-            seatRadius: 50,
-            cellMin: 8,
-            cellMax: 12,
-            blockGap: 100
-        },
-        {
-            title: 'Basic Rectangle',
-            blockSize: 4,
-            gapX: 80,
-            gapY: 80,
-            minItem: 100,
-            maxItem: 200,
-            customSeatSvg: 'assets/rect.svg',
-            seatRadius: 50,
-            cellMin: 8,
-            cellMax: 12,
-            blockGap: 100
-        },
-        {
-            title: 'Basketball',
-            blockSize: 4,
-            gapX: 80,
-            gapY: 80,
-            minItem: 100,
-            maxItem: 200,
-            customSeatSvg: 'assets/basketball.svg',
-            seatRadius: 50,
-            cellMin: 8,
-            cellMax: 12,
-            blockGap: 100
-        },
-        {
-            title: 'Custom Svg',
-            blockSize: 4,
-            gapX: 80,
-            gapY: 80,
-            minItem: 100,
-            maxItem: 200,
-            customSeatSvg: 'assets/user.svg',
-            seatRadius: 50,
-            cellMin: 8,
-            cellMax: 12,
-            blockGap: 100
-        }
+        // {
+        //     title: 'Table',
+        //     blockSize: 1,
+        //     gapX: 120,
+        //     gapY: 120,
+        //     minItem: 12,
+        //     maxItem: 12,
+        //     customSeatSvg: 'assets/table.svg',
+        //     seatRadius: 80,
+        //     cellMin: 2,
+        //     cellMax: 4,
+        //     blockGap: 100
+        // },
+        // {
+        //     title: 'Seat',
+        //     blockSize: 4,
+        //     gapX: 80,
+        //     gapY: 80,
+        //     minItem: 100,
+        //     maxItem: 200,
+        //     customSeatSvg: 'assets/seat-2.svg',
+        //     seatRadius: 50,
+        //     cellMin: 8,
+        //     cellMax: 12,
+        //     blockGap: 100
+        // },
+        // {
+        //     title: 'Basic Rectangle',
+        //     blockSize: 4,
+        //     gapX: 80,
+        //     gapY: 80,
+        //     minItem: 100,
+        //     maxItem: 200,
+        //     customSeatSvg: 'assets/rect.svg',
+        //     seatRadius: 50,
+        //     cellMin: 8,
+        //     cellMax: 12,
+        //     blockGap: 100
+        // },
+        // {
+        //     title: 'Basketball',
+        //     blockSize: 4,
+        //     gapX: 80,
+        //     gapY: 80,
+        //     minItem: 100,
+        //     maxItem: 200,
+        //     customSeatSvg: 'assets/basketball.svg',
+        //     seatRadius: 50,
+        //     cellMin: 8,
+        //     cellMax: 12,
+        //     blockGap: 100
+        // },
+        // {
+        //     title: 'Custom Svg',
+        //     blockSize: 4,
+        //     gapX: 80,
+        //     gapY: 80,
+        //     minItem: 100,
+        //     maxItem: 200,
+        //     customSeatSvg: 'assets/user.svg',
+        //     seatRadius: 50,
+        //     cellMin: 8,
+        //     cellMax: 12,
+        //     blockGap: 100
+        // }
     ]
 
     const defaultProfile = profiles[0]
@@ -242,7 +242,7 @@ $(document).ready(function () {
                 </button>
             `
         }
-        $('#profiles').html(profilesHtml)
+        // $('#profiles').html(profilesHtml)
     }
 
     const updateBlocks = function () {
