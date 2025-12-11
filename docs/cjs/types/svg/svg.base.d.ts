@@ -1,0 +1,35 @@
+import { GlobalModel } from "@model/global.model";
+export default class SvgBase {
+    parent: any;
+    node: any | null;
+    domClass: string | null;
+    domTag: string | null;
+    eventCode: string | null;
+    autoGenerate: boolean;
+    tags: Array<string>;
+    child_items: Array<any> | any;
+    dom_attrs: Array<any>;
+    dom_classes: Array<any>;
+    child_index: number | null;
+    domText: string | null;
+    global: GlobalModel;
+    constructor(parent: any);
+    generateThisDom(): this;
+    domGenerate(to: any, index?: number): this;
+    attr(name: string, value: string | number): this;
+    text(value: string): this;
+    addChild(item: any, attrs?: any, replace?: boolean): Promise<this>;
+    classed(className: string, value?: boolean): this;
+    clear(): this;
+    updateChilds(): Promise<this>;
+    updateEvents(recursive?: boolean): this;
+    addEventListener(eventType: string, cb: any): this;
+    addTag(tag: string): this;
+    hasTag(tag: string): boolean;
+    getChilds(type?: string | null): Array<any>;
+    getChildCount(): number;
+    beforeGenerate(): void;
+    afterGenerate(): void;
+    addToParent(): this;
+    addTo(container: any): this;
+}
