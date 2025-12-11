@@ -21,7 +21,9 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
     <img src="https://img.shields.io/badge/Vue.js_3-✓_Available-42b883?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
   </a>
   &nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/React-Coming_Soon-61dafb?style=for-the-badge&logo=react&logoColor=white&color=gray" alt="React"/>
+  <a href="src/react/README.md">
+    <img src="https://img.shields.io/badge/React-✓_Available-61dafb?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
+  </a>
   &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Angular-Coming_Soon-dd0031?style=for-the-badge&logo=angular&logoColor=white&color=gray" alt="Angular"/>
   &nbsp;&nbsp;
@@ -33,7 +35,7 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 | Framework | Status | Package | Documentation | Example |
 |:---------:|:------:|:-------:|:-------------:|:-------:|
 | **Vue.js 3** | ✅ Available | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
-| **React** | 🔜 Coming Soon | - | - | - |
+| **React** | ✅ Available | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
 | **Angular** | 🔜 Coming Soon | - | - | - |
 | **Nuxt** | 🔜 Coming Soon | - | - | - |
 
@@ -108,6 +110,44 @@ const onSeatClick = (seat) => {
 ```
 
 **[📖 Full Vue.js Documentation](src/vue/README.md)** | **[🎯 Vue.js Examples](examples/vue/)**
+
+### React
+
+```bash
+npm install @alisaitteke/seatmap-canvas react react-dom
+```
+
+```tsx
+import React from 'react';
+import { SeatmapCanvas } from '@alisaitteke/seatmap-canvas/react';
+import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
+
+function App() {
+  const handleSeatClick = (seat) => {
+    seat.isSelected() ? seat.unSelect() : seat.select();
+  };
+
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <SeatmapCanvas
+        options={{
+          legend: true,
+          style: {
+            seat: {
+              hover: '#8fe100',
+              selected: '#8fe100',
+            }
+          }
+        }}
+        data={blocks}
+        onSeatClick={handleSeatClick}
+      />
+    </div>
+  );
+}
+```
+
+**[📖 Full React Documentation](src/react/README.md)** | **[🎯 React Examples](examples/react/)**
 
 ### Vanilla JavaScript
 

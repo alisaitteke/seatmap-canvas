@@ -38,6 +38,10 @@
       "types": "./src/vue/index.ts",
       "import": "./src/vue/index.ts"
     },
+    "./react": {
+      "types": "./src/react/index.ts",
+      "import": "./src/react/index.ts"
+    },
     "./dist/*": "./dist/*"
   },
   "devDependencies": {
@@ -63,10 +67,18 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "vue": "^3.3.0"
+    "vue": "^3.3.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "peerDependenciesMeta": {
     "vue": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
       "optional": true
     }
   },
@@ -81,8 +93,12 @@
     "vue",
     "vue3",
     "vuejs",
+    "react",
+    "reactjs",
+    "react-component",
     "seat-booking",
     "theater-seating",
-    "event-seating"
+    "event-seating",
+    "ticket-booking"
   ]
 }
