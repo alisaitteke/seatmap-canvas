@@ -64,6 +64,7 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 | Framework | Status | Package | Documentation | Example |
 |:----------|:------:|:--------|:-------------:|:-------:|
+| **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Documentation](#vanilla-javascript) | [🎯 Example](examples/) |
 | **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Documentation](src/vue/README.md) | [🎯 Example](examples/vue/) |
 | **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Documentation](src/react/README.md) | [🎯 Example](examples/react/) |
 | **Next.js** | 🔜 Coming Soon | - | - | - |
