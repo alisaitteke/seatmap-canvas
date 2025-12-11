@@ -18,11 +18,11 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 <p align="center">
   <a href="src/vue/README.md">
-    <img src="https://img.shields.io/badge/Vue.js_3-✓_Available-42b883?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
+    <img src="https://img.shields.io/badge/Vue.js_3-⚠️_Testing-orange?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
   </a>
   &nbsp;&nbsp;
   <a href="src/react/README.md">
-    <img src="https://img.shields.io/badge/React-✓_Available-61dafb?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
+    <img src="https://img.shields.io/badge/React-⚠️_Testing-orange?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
   </a>
   &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Angular-Coming_Soon-dd0031?style=for-the-badge&logo=angular&logoColor=white&color=gray" alt="Angular"/>
@@ -34,8 +34,8 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 | Framework | Status | Package | Documentation | Example |
 |:---------:|:------:|:-------:|:-------------:|:-------:|
-| **Vue.js 3** | ✅ Available | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
-| **React** | ✅ Available | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
+| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
+| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
 | **Angular** | 🔜 Coming Soon | - | - | - |
 | **Nuxt** | 🔜 Coming Soon | - | - | - |
 
