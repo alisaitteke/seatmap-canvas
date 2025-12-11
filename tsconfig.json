@@ -20,6 +20,8 @@
     "preserveConstEnums": true,
     "declaration": true,
     "noImplicitAny": true,
+    "jsx": "preserve",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "typeRoots": [
       "node_modules/@types",
       "dist/types.d.ts"

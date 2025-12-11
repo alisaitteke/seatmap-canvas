@@ -14,9 +14,10 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 ## Screenshot
 [![LIVE DEMO](assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
 
-## Planned
+## Framework Support
 - [x]  React & React Native Integration
-- [ ]  Vue & Nuxt Integration
+- [x]  Vue.js 3 Integration
+- [ ]  Nuxt Integration
 - [ ]  Angular Integration
 
 [LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
@@ -39,6 +40,57 @@ npm i <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitte
 OR
 yarn add <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
 </pre>
+
+## Quick Start
+
+### Vue.js 3
+
+```bash
+npm install @alisaitteke/seatmap-canvas
+```
+
+```typescript
+// main.ts
+import { createApp } from 'vue';
+import App from './App.vue';
+import SeatmapCanvasPlugin from '@alisaitteke/seatmap-canvas/vue';
+import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
+
+const app = createApp(App);
+app.use(SeatmapCanvasPlugin);
+app.mount('#app');
+```
+
+```vue
+<!-- Component.vue -->
+<template>
+  <SeatmapCanvas
+    :options="seatmapOptions"
+    :data="blocks"
+    @seat-click="onSeatClick"
+  />
+</template>
+
+<script setup lang="ts">
+const seatmapOptions = {
+  legend: true,
+  style: {
+    seat: {
+      hover: '#8fe100',
+      selected: '#8fe100',
+    }
+  }
+};
+
+const onSeatClick = (seat) => {
+  seat.isSelected() ? seat.unSelect() : seat.select();
+};
+</script>
+```
+
+**[📖 Full Vue.js Documentation](src/vue/README.md)** | **[🎯 Vue.js Examples](examples/vue/)**
+
+### Vanilla JavaScript
 
 
 
