@@ -25,9 +25,17 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
     <img src="https://img.shields.io/badge/React-⚠️_Testing-orange?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
   </a>
   &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Next.js-Coming_Soon-000000?style=for-the-badge&logo=next.js&logoColor=white&color=gray" alt="Next.js"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Svelte-Coming_Soon-FF3E00?style=for-the-badge&logo=svelte&logoColor=white&color=gray" alt="Svelte"/>
+  &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Angular-Coming_Soon-dd0031?style=for-the-badge&logo=angular&logoColor=white&color=gray" alt="Angular"/>
   &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Nuxt-Coming_Soon-00dc82?style=for-the-badge&logo=nuxt.js&logoColor=white&color=gray" alt="Nuxt"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Solid.js-Coming_Soon-2c4f7c?style=for-the-badge&logo=solid&logoColor=white&color=gray" alt="Solid.js"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Astro-Coming_Soon-FF5D01?style=for-the-badge&logo=astro&logoColor=white&color=gray" alt="Astro"/>
 </p>
 
 <div align="center">
@@ -36,8 +44,12 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 |:---------:|:------:|:-------:|:-------------:|:-------:|
 | **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
 | **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
+| **Next.js** | 🔜 Coming Soon | - | - | - |
+| **Svelte** | 🔜 Coming Soon | - | - | - |
 | **Angular** | 🔜 Coming Soon | - | - | - |
 | **Nuxt** | 🔜 Coming Soon | - | - | - |
+| **Solid.js** | 🔜 Coming Soon | - | - | - |
+| **Astro** | 🔜 Coming Soon | - | - | - |
 
 </div>
 
