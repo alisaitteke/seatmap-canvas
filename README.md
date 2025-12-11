@@ -56,26 +56,41 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
   <img src="https://img.shields.io/badge/.NET_MAUI-Coming_Soon-512BD4?style=for-the-badge&logo=.net&logoColor=white&color=gray" alt=".NET MAUI"/>
 </p>
 
+---
+
+### 🌐 Web Framework Integrations
+
 <div align="center">
 
-| Framework | Type | Status | Package | Documentation | Example |
-|:---------:|:----:|:------:|:-------:|:-------------:|:-------:|
-| **Vue.js 3** | Web | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
-| **React** | Web | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
-| **Next.js** | Web | 🔜 Coming Soon | - | - | - |
-| **Svelte** | Web | 🔜 Coming Soon | - | - | - |
-| **Angular** | Web | 🔜 Coming Soon | - | - | - |
-| **Nuxt** | Web | 🔜 Coming Soon | - | - | - |
-| **Solid.js** | Web | 🔜 Coming Soon | - | - | - |
-| **Astro** | Web | 🔜 Coming Soon | - | - | - |
-| **React Native** | Mobile | 🔜 Coming Soon | - | - | - |
-| **Flutter** | Mobile | 🔜 Coming Soon | - | - | - |
-| **Expo** | Mobile | 🔜 Coming Soon | - | - | - |
-| **Ionic** | Mobile | 🔜 Coming Soon | - | - | - |
-| **Capacitor** | Mobile | 🔜 Coming Soon | - | - | - |
-| **.NET MAUI** | Mobile | 🔜 Coming Soon | - | - | - |
+| Framework | Status | Package | Documentation | Example |
+|:----------|:------:|:--------|:-------------:|:-------:|
+| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Documentation](src/vue/README.md) | [🎯 Example](examples/vue/) |
+| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Documentation](src/react/README.md) | [🎯 Example](examples/react/) |
+| **Next.js** | 🔜 Coming Soon | - | - | - |
+| **Svelte** | 🔜 Coming Soon | - | - | - |
+| **Angular** | 🔜 Coming Soon | - | - | - |
+| **Nuxt** | 🔜 Coming Soon | - | - | - |
+| **Solid.js** | 🔜 Coming Soon | - | - | - |
+| **Astro** | 🔜 Coming Soon | - | - | - |
 
 </div>
+
+### 📱 Mobile Framework Integrations
+
+<div align="center">
+
+| Framework | Platform | Status | Package | Documentation | Example |
+|:----------|:--------:|:------:|:--------|:-------------:|:-------:|
+| **React Native** | iOS • Android | 🔜 Coming Soon | - | - | - |
+| **Flutter** | iOS • Android | 🔜 Coming Soon | - | - | - |
+| **Expo** | iOS • Android | 🔜 Coming Soon | - | - | - |
+| **Ionic** | iOS • Android • Web | 🔜 Coming Soon | - | - | - |
+| **Capacitor** | iOS • Android • Web | 🔜 Coming Soon | - | - | - |
+| **.NET MAUI** | iOS • Android • Windows • macOS | 🔜 Coming Soon | - | - | - |
+
+</div>
+
+---
 
 [LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
 
