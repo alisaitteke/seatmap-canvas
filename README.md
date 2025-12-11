@@ -14,11 +14,30 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 ## Screenshot
 [![LIVE DEMO](assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
 
-## Framework Support
-- [x]  React & React Native Integration
-- [x]  Vue.js 3 Integration
-- [ ]  Nuxt Integration
-- [ ]  Angular Integration
+## 🚀 Framework Plugins & Integrations
+
+<p align="center">
+  <a href="src/vue/README.md">
+    <img src="https://img.shields.io/badge/Vue.js_3-✓_Available-42b883?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
+  </a>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/React-Coming_Soon-61dafb?style=for-the-badge&logo=react&logoColor=white&color=gray" alt="React"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Angular-Coming_Soon-dd0031?style=for-the-badge&logo=angular&logoColor=white&color=gray" alt="Angular"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Nuxt-Coming_Soon-00dc82?style=for-the-badge&logo=nuxt.js&logoColor=white&color=gray" alt="Nuxt"/>
+</p>
+
+<div align="center">
+
+| Framework | Status | Package | Documentation | Example |
+|:---------:|:------:|:-------:|:-------------:|:-------:|
+| **Vue.js 3** | ✅ Available | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
+| **React** | 🔜 Coming Soon | - | - | - |
+| **Angular** | 🔜 Coming Soon | - | - | - |
+| **Nuxt** | 🔜 Coming Soon | - | - | - |
+
+</div>
 
 [LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
 
