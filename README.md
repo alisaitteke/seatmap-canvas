@@ -16,6 +16,8 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 ## 🚀 Framework Plugins & Integrations
 
+### 🌐 Web Frameworks
+
 <p align="center">
   <a href="src/vue/README.md">
     <img src="https://img.shields.io/badge/Vue.js_3-⚠️_Testing-orange?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
@@ -38,18 +40,40 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
   <img src="https://img.shields.io/badge/Astro-Coming_Soon-FF5D01?style=for-the-badge&logo=astro&logoColor=white&color=gray" alt="Astro"/>
 </p>
 
+### 📱 Mobile Frameworks
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-Coming_Soon-61dafb?style=for-the-badge&logo=react&logoColor=white&color=gray" alt="React Native"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Flutter-Coming_Soon-02569B?style=for-the-badge&logo=flutter&logoColor=white&color=gray" alt="Flutter"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Expo-Coming_Soon-000020?style=for-the-badge&logo=expo&logoColor=white&color=gray" alt="Expo"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Ionic-Coming_Soon-3880FF?style=for-the-badge&logo=ionic&logoColor=white&color=gray" alt="Ionic"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Capacitor-Coming_Soon-119EFF?style=for-the-badge&logo=capacitor&logoColor=white&color=gray" alt="Capacitor"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/.NET_MAUI-Coming_Soon-512BD4?style=for-the-badge&logo=.net&logoColor=white&color=gray" alt=".NET MAUI"/>
+</p>
+
 <div align="center">
 
-| Framework | Status | Package | Documentation | Example |
-|:---------:|:------:|:-------:|:-------------:|:-------:|
-| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
-| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
-| **Next.js** | 🔜 Coming Soon | - | - | - |
-| **Svelte** | 🔜 Coming Soon | - | - | - |
-| **Angular** | 🔜 Coming Soon | - | - | - |
-| **Nuxt** | 🔜 Coming Soon | - | - | - |
-| **Solid.js** | 🔜 Coming Soon | - | - | - |
-| **Astro** | 🔜 Coming Soon | - | - | - |
+| Framework | Type | Status | Package | Documentation | Example |
+|:---------:|:----:|:------:|:-------:|:-------------:|:-------:|
+| **Vue.js 3** | Web | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](src/vue/README.md) | [🎯 Demo](examples/vue/) |
+| **React** | Web | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](src/react/README.md) | [🎯 Demo](examples/react/) |
+| **Next.js** | Web | 🔜 Coming Soon | - | - | - |
+| **Svelte** | Web | 🔜 Coming Soon | - | - | - |
+| **Angular** | Web | 🔜 Coming Soon | - | - | - |
+| **Nuxt** | Web | 🔜 Coming Soon | - | - | - |
+| **Solid.js** | Web | 🔜 Coming Soon | - | - | - |
+| **Astro** | Web | 🔜 Coming Soon | - | - | - |
+| **React Native** | Mobile | 🔜 Coming Soon | - | - | - |
+| **Flutter** | Mobile | 🔜 Coming Soon | - | - | - |
+| **Expo** | Mobile | 🔜 Coming Soon | - | - | - |
+| **Ionic** | Mobile | 🔜 Coming Soon | - | - | - |
+| **Capacitor** | Mobile | 🔜 Coming Soon | - | - | - |
+| **.NET MAUI** | Mobile | 🔜 Coming Soon | - | - | - |
 
 </div>
 
