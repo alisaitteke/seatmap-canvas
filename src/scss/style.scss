@@ -1,4 +1,4 @@
-@import "lib";
+@use "lib";
 
 .multi-select-enable {
   .seatmap-svg {
@@ -125,23 +125,23 @@
         }
         .masks {
           .venue-level-mask {
-            @include trans();
+            @include lib.trans();
             stroke-linejoin: round;
             opacity: 1;
 
           }
           .block-level-mask {
-            @include trans();
+            @include lib.trans();
             stroke-linejoin: round;
             opacity: 0.7;
           }
           .seat-level-mask {
-            @include trans();
+            @include lib.trans();
             stroke-linejoin: round;
             opacity: 0;
           }
           .bound-hide {
-            @include trans();
+            @include lib.trans();
             pointer-events: none;
             opacity: 0;
           }
@@ -196,20 +196,20 @@
     }
     .search-circle {
       opacity: 0;
-      @include trans(0.2s, 0);
+      @include lib.trans(0.2s, 0);
       .circle {
         fill: rgba(0, 0, 0, 0);
         pointer-events: none;
         stroke: rgba(0, 0, 0, 0.4);
-        @include stroke-width(4)
+        @include lib.stroke-width(4)
       }
       &.hide {
-        @include trans(0.2s, 0);
+        @include lib.trans(0.2s, 0);
         opacity: 0;
 
       }
       &.show {
-        @include trans(0.2s, 0);
+        @include lib.trans(0.2s, 0);
         opacity: 1;
       }
 
@@ -223,7 +223,7 @@
     .legend-item {
       circle {
         stroke: #adadad;
-        @include stroke-width(1);
+        @include lib.stroke-width(1);
       }
       text {
         text-anchor: start;
