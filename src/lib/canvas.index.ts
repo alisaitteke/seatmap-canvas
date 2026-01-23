@@ -3,7 +3,7 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 import "../scss/style.scss";
-import {event as d3Event, select as d3Select} from 'd3-selection'
+import {select as d3Select} from 'd3-selection'
 import Svg from "@svg/svg.index";
 import SeatMapDevTools from "@/dev.tools";
 import DataModel from "@model/data.model";
@@ -59,11 +59,11 @@ export class SeatMapCanvas {
             multi_select: false,
             best_available: false
         };
-        d3Select(window).on("keydown.dispatch", function (a, b, c) {
-            _self.eventManager.dispatch(EventType.KEYDOWN_SVG, d3Event);
+        d3Select(window).on("keydown.dispatch", function (event: any) {
+            _self.eventManager.dispatch(EventType.KEYDOWN_SVG, event);
         });
-        d3Select(window).on("keyup.dispatch", function (a, b, c) {
-            _self.eventManager.dispatch(EventType.KEYUP_SVG, d3Event);
+        d3Select(window).on("keyup.dispatch", function (event: any) {
+            _self.eventManager.dispatch(EventType.KEYUP_SVG, event);
         });
 
         this.dev = new SeatMapDevTools(this);

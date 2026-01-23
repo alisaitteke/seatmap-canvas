@@ -28,6 +28,7 @@
 /connect.lock
 /coverage
 /libpeerconnection.log
+.claude
 npm-debug.log
 yarn-error.log
 testem.log
@@ -40,5 +41,7 @@ Thumbs.db
 actions-runner
 build/*
 dist/*
+!docs/cjs/*
 yarn.lock
 cog.toml
+.yarn

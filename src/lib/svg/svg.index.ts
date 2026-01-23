@@ -3,7 +3,7 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 import "reflect-metadata";
-import {mouse as d3Mouse} from 'd3-selection'
+import {pointer as d3Pointer} from 'd3-selection'
 
 import Stage from "@svg/stage/stage.index";
 import {SeatMapCanvas} from "@/canvas.index";
@@ -59,8 +59,8 @@ export default class Svg extends SvgBase {
 
         this.tooltip.node.raise();
 
-        this.node.on("mousemove", () => {
-            let cor = d3Mouse(this.stage.node.node());
+        this.node.on("mousemove", (event: any) => {
+            let cor = d3Pointer(event, this.stage.node.node());
             this.parent.eventManager.dispatch(EventType.MOUSE_MOVE, cor);
         })
 
