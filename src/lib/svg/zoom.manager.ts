@@ -3,7 +3,6 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-import {mouse as d3Mouse, event as d3Event} from 'd3-selection'
 import {zoom as d3Zoom} from 'd3-zoom'
 
 
@@ -51,6 +50,7 @@ export default class ZoomManager {
     public activeBlocks: Array<any>;
     public minZoom: number | null = null;
     public zoomLevel: ZoomLevel;
+    private lastPointer: [number, number] | null = null;
 
 
     constructor(private _self: SeatMapCanvas) {
@@ -68,16 +68,20 @@ export default class ZoomManager {
         //     this.calculateZoomLevels(blocks);
         // })
 
+        this._self.eventManager.addEventListener(EventType.MOUSE_MOVE, (cor: [number, number]) => {
+            this.lastPointer = cor;
+        });
+
         this._self.eventManager.addEventListener(EventType.KEYDOWN_SVG, (e: any) => {
             if (e.which == 17 || e.which === 91) {
                 this._self.eventManager.dispatch(EventType.MULTI_SELECT_ENABLE, e);
-                d3Event.preventDefault();
+                e?.preventDefault?.();
                 this.zoomDisable();
             }
         });
         this._self.eventManager.addEventListener(EventType.KEYUP_SVG, (e: any) => {
             this._self.eventManager.dispatch(EventType.MULTI_SELECT_DISABLE, e);
-            d3Event.preventDefault();
+            e?.preventDefault?.();
             this.zoomEnable();
         });
 
@@ -106,10 +110,10 @@ export default class ZoomManager {
 
     zoomEnd(_self: this): any {
         console.info('zoomEnd')
-        return function () {
-            let x = d3Event.transform.x;
-            let y = d3Event.transform.y;
-            let k = d3Event.transform.k;
+        return function (event: any) {
+            let x = event.transform.x;
+            let y = event.transform.y;
+            let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
@@ -119,10 +123,10 @@ export default class ZoomManager {
 
     animatedZoomEnd(_self: this): any {
         console.info('animatedZoomEnd')
-        return function () {
-            let x = d3Event.transform.x;
-            let y = d3Event.transform.y;
-            let k = d3Event.transform.k;
+        return function (event: any) {
+            let x = event.transform.x;
+            let y = event.transform.y;
+            let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
@@ -131,10 +135,10 @@ export default class ZoomManager {
 
     animatedFastZoomEnd(_self: this): any {
         console.info('animatedFastZoomEnd')
-        return function () {
-            let x = d3Event.transform.x;
-            let y = d3Event.transform.y;
-            let k = d3Event.transform.k;
+        return function (event: any) {
+            let x = event.transform.x;
+            let y = event.transform.y;
+            let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
@@ -143,10 +147,10 @@ export default class ZoomManager {
 
     zoomHand(_self: this): any {
         console.info('zoomHand')
-        return function () {
-            let x = d3Event.transform.x;
-            let y = d3Event.transform.y;
-            let k = d3Event.transform.k;
+        return function (event: any) {
+            let x = event.transform.x;
+            let y = event.transform.y;
+            let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             _self.calculateZoomLevel(k);
         }
@@ -154,10 +158,10 @@ export default class ZoomManager {
 
     zoomHandAnimated(_self: this): any {
         console.info('zoomHandAnimated')
-        return function () {
-            let x = d3Event.transform.x;
-            let y = d3Event.transform.y;
-            let k = d3Event.transform.k;
+        return function (event: any) {
+            let x = event.transform.x;
+            let y = event.transform.y;
+            let k = event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             //_self.calculateZoomLevel(k);
@@ -166,10 +170,10 @@ export default class ZoomManager {
 
     zoomHandFastAnimated(_self: this): any {
         console.info('zoomHandFastAnimated')
-        return function () {
-            let x = d3Event.transform.x;
-            let y = d3Event.transform.y;
-            let k = d3Event.transform.k;
+        return function (event: any) {
+            let x = event.transform.x;
+            let y = event.transform.y;
+            let k = event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
             //_self.calculateZoomLevel(k);
@@ -340,7 +344,8 @@ export default class ZoomManager {
 
     public zoomToSelection(animation: boolean = true) {
 
-        let cor = d3Mouse(this._self.svg.stage.blocks.node.node());
+        let cor = this.lastPointer;
+        if (!cor) return;
         let x = cor[0];
         let y = cor[1];
         let k = this._self.config.max_zoom;

@@ -96,6 +96,11 @@ const seatmapOptions = {
       check_icon_color: '#fff',
       not_salable: '#0088d3',
       focus: '#8fe100',
+      radius: number,
+      focus_out: string,
+      check_color: string,
+      check_icon: string,
+      svg: string
     },
     legend: {
       font_color: '#3b3b3b',
