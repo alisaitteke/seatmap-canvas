@@ -19,7 +19,6 @@ export class SeatItemCustomSvg extends SvgBase {
 
     constructor(public parent: SeatItem, public customSvg: any) {
         super(parent);
-        this.attr("transform", `translate(${(this.global.config.style.seat.radius / 2) * -1},-560)`);
         return this;
     }
 
@@ -32,8 +31,39 @@ export class SeatItemCustomSvg extends SvgBase {
 
         super.domGenerate(to, index);
         const importedSVG = select(this.customSvg.documentElement.cloneNode(true));
-        importedSVG.attr('width', this.global.config.style.seat.radius)
-        importedSVG.attr('viewBox',`0 0 ${this.global.config.style.seat.radius} ${this.global.config.style.seat.radius}`)
+        
+        // Get original viewBox or calculate from width/height
+        const originalViewBox = importedSVG.attr('viewBox');
+        let viewBoxParts = [0, 0, 24, 24]; // fallback
+        
+        if (originalViewBox) {
+            viewBoxParts = originalViewBox.split(/\s+/).map(Number);
+        } else {
+            const width = parseFloat(importedSVG.attr('width')) || 24;
+            const height = parseFloat(importedSVG.attr('height')) || 24;
+            viewBoxParts = [0, 0, width, height];
+        }
+        
+        const [vbX, vbY, vbWidth, vbHeight] = viewBoxParts;
+        const size = this.global.config.style.seat.size || (this.global.config.style.seat.radius * 2);
+        
+        // Calculate scale to fit in the seat size
+        const maxDimension = Math.max(vbWidth, vbHeight);
+        const scale = size / maxDimension;
+        
+        // Center the SVG
+        const centerX = vbX + vbWidth / 2;
+        const centerY = vbY + vbHeight / 2;
+        const translateX = -centerX * scale;
+        const translateY = -centerY * scale;
+        
+        // Apply proper sizing and preserve original viewBox
+        importedSVG.attr('width', size)
+        importedSVG.attr('height', size)
+        importedSVG.attr('viewBox', `${vbX} ${vbY} ${vbWidth} ${vbHeight}`)
+        importedSVG.attr('x', translateX)
+        importedSVG.attr('y', translateY)
+        
         this.node.node().append(importedSVG.node())
         this.addChild(new SeatItemCustomSvgArea(this))
         return this

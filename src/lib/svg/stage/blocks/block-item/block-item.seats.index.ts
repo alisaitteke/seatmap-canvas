@@ -4,12 +4,13 @@
 
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
-import {xml as XmlLoad} from "d3-fetch";
+import {text as TextLoad} from "d3-fetch";
 import BlockModel from "@model/block.model";
 import SeatModel from "@model/seat.model";
 import Block from "./block-item.index";
 import {SeatItem} from "./seat/seat-item.index";
 import {EventType, SeatAction} from "@enum/global";
+import {extractSvgPath} from "@/utils/svg-parser";
 
 
 @dom({
@@ -39,16 +40,49 @@ export default class Seats extends SvgBase {
 
     async update(): Promise<this> {
         // add seat items in blockItem container
-        let SeatItemSvg: any;
         const seatShape = this.global.config.style.seat.shape || "auto";
         const svgUrl = this.global.config.style.seat.svg;
         const useSvg = !!svgUrl && (seatShape === "auto" || seatShape === "svg");
+        
+        // If SVG file path is provided, extract path and use path-based rendering
         if (useSvg && svgUrl) {
-            SeatItemSvg = await XmlLoad(svgUrl)
+            try {
+                const svgContent = await TextLoad(svgUrl);
+                const extracted = extractSvgPath(svgContent);
+                
+                if (extracted) {
+                    // Convert SVG file to path-based shape for consistent rendering
+                    this.global.config.style.seat.path = extracted.path;
+                    this.global.config.style.seat.path_box = extracted.viewBox;
+                    // Permanently set to path shape (don't restore)
+                    this.global.config.style.seat.shape = "path";
+                    // Clear SVG url to prevent re-extraction
+                    this.global.config.style.seat.svg = null;
+                    
+                    for (const seat of this.item.seats) {
+                        await this.addChild(new SeatItem(this, seat, null), {id: seat.id})
+                    }
+                } else {
+                    // Fallback to circle if extraction fails
+                    console.warn("Could not extract path from SVG, using circle");
+                    for (const seat of this.item.seats) {
+                        await this.addChild(new SeatItem(this, seat, null), {id: seat.id})
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading SVG file:", error);
+                // Fallback to circle
+                for (const seat of this.item.seats) {
+                    await this.addChild(new SeatItem(this, seat, null), {id: seat.id})
+                }
+            }
+        } else {
+            // Normal rendering (no SVG file)
+            for (const seat of this.item.seats) {
+                await this.addChild(new SeatItem(this, seat, null), {id: seat.id})
+            }
         }
-        for (const seat of this.item.seats) {
-            await this.addChild(new SeatItem(this, seat, SeatItemSvg), {id: seat.id})
-        }
+        
         await this.updateChilds();
         return this;
     }
