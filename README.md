@@ -4,12 +4,13 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 [![LIVE DEMO](assets/banner_ui.png)](https://alisaitteke.github.io/seatmap-canvas)
 
 ## Features
-* React Integration: Designed specifically for React projects, offering a streamlined development experience.
-* Dynamic Seat Selection: Enables interactive selection, categorization, and location of seats.
-* Customizable Styles: Extensive styling options for seats, blocks, and labels to fit your application's design.
-* Interactive Seat Models: Define properties and behaviors for seats, including salability, notes, and custom data.
-* Block Model Configuration: Organize seats into blocks with customizable titles, colors, and labels.
-* Event Handling: Simplified event listeners for seat interactions, allowing dynamic responses to user actions.
+
+- **Framework Agnostic** - Core library works with vanilla JS, plus official React and Vue 3 wrappers
+- **Dynamic Seat Selection** - Interactive selection, categorization, and location of seats
+- **Customizable Styles** - Extensive styling options for seats, blocks, and labels
+- **Interactive Seat Models** - Define properties like salability, notes, colors, and custom data
+- **Block Organization** - Organize seats into blocks with titles, colors, and labels
+- **Event System** - Simplified event listeners for seat interactions
 
 ## Screenshot
 [![LIVE DEMO](assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
@@ -108,22 +109,32 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 ## Installation
 
-<pre>
-npm i <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
-OR
-yarn add <a href="https://npm.pkg.github.com/alisaitteke/seatmap-canvas">@alisaitteke/seatmap-canvas</a> --save
-</pre>
+```bash
+npm install @alisaitteke/seatmap-canvas
+```
 
 ## Quick Start
 
-### Vue.js 3
+---
+
+<h3>
+  <img src="https://api.iconify.design/logos:vue.svg" width="28" height="28" alt="Vue.js" style="vertical-align: middle;" />
+  &nbsp;Vue.js 3
+</h3>
+
+<table>
+<tr>
+<td width="50%">
+
+**Installation**
 
 ```bash
 npm install @alisaitteke/seatmap-canvas
 ```
 
+**Setup** (`main.ts`)
+
 ```typescript
-// main.ts
 import { createApp } from 'vue';
 import App from './App.vue';
 import SeatmapCanvasPlugin from '@alisaitteke/seatmap-canvas/vue';
@@ -134,8 +145,12 @@ app.use(SeatmapCanvasPlugin);
 app.mount('#app');
 ```
 
+</td>
+<td width="50%">
+
+**Component Usage**
+
 ```vue
-<!-- Component.vue -->
 <template>
   <SeatmapCanvas
     :options="seatmapOptions"
@@ -161,16 +176,39 @@ const onSeatClick = (seat) => {
 </script>
 ```
 
-**[📖 Full Vue.js Documentation](src/vue/README.md)** | **[🎯 Vue.js Examples](examples/vue/)**
+</td>
+</tr>
+</table>
 
-### React
+<p align="center">
+  <a href="src/vue/README.md"><img src="https://img.shields.io/badge/📖_Full_Documentation-4FC08D?style=for-the-badge&logoColor=white" alt="Documentation"/></a>
+  &nbsp;
+  <a href="examples/vue/"><img src="https://img.shields.io/badge/🎯_Examples-35495E?style=for-the-badge&logoColor=white" alt="Examples"/></a>
+</p>
+
+---
+
+<h3>
+  <img src="https://api.iconify.design/logos:react.svg" width="28" height="28" alt="React" style="vertical-align: middle;" />
+  &nbsp;React
+</h3>
+
+<table>
+<tr>
+<td width="50%">
+
+**Installation**
 
 ```bash
-npm install @alisaitteke/seatmap-canvas react react-dom
+npm install @alisaitteke/seatmap-canvas
 ```
 
+</td>
+<td width="50%">
+
+**Component Usage**
+
 ```tsx
-import React from 'react';
 import { SeatmapCanvas } from '@alisaitteke/seatmap-canvas/react';
 import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
 
@@ -180,63 +218,82 @@ function App() {
   };
 
   return (
-    <div style={{ width: '100%', height: '600px' }}>
-      <SeatmapCanvas
-        options={{
-          legend: true,
-          style: {
-            seat: {
-              hover: '#8fe100',
-              selected: '#8fe100',
-            }
-          }
-        }}
-        data={blocks}
-        onSeatClick={handleSeatClick}
-      />
-    </div>
+    <SeatmapCanvas
+      options={{
+        legend: true,
+        style: {
+          seat: { hover: '#8fe100', selected: '#8fe100' }
+        }
+      }}
+      data={blocks}
+      onSeatClick={handleSeatClick}
+    />
   );
 }
 ```
 
-**[📖 Full React Documentation](src/react/README.md)** | **[🎯 React Examples](examples/react/)**
+</td>
+</tr>
+</table>
 
-### Vanilla JavaScript
+<p align="center">
+  <a href="src/react/README.md"><img src="https://img.shields.io/badge/📖_Full_Documentation-61DAFB?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  &nbsp;
+  <a href="examples/react/"><img src="https://img.shields.io/badge/🎯_Examples-20232A?style=for-the-badge&logoColor=white" alt="Examples"/></a>
+</p>
 
+---
 
+<h3>
+  <img src="https://api.iconify.design/logos:javascript.svg" width="24" height="24" alt="JavaScript" style="vertical-align: middle;" />
+  &nbsp;Vanilla JavaScript
+</h3>
 
+<table>
+<tr>
+<td width="50%">
 
-#### Example Config
-```json
-{
-    "resizable": true,
-    "seat_style": {
-        "radius": 12,
-        "color": "#6796ff",
-        "hover": "#5671ff",
-        "not_salable": "#424747",
-        "selected": "#56aa45",
-        "focus": "#435fa4",
-        "focus_out": "#56aa45"
-    },
-    "block_style": {
-        "fill": "#e2e2e2",
-        "stroke": "#e2e2e2"
-    },
-    "label_style": {
-        "color": "#000",
-        "radius": 12,
-        "font-size": "12px",
-        "bg": "#ffffff"
-    }
-}
+**Quick Setup**
 
-```
-
-#### Usage
 ```js
-var seatmap = new SeatmapCanvas(".seats_container",config);
+const config = {
+  resizable: true,
+  seat_style: {
+    radius: 12,
+    color: "#6796ff",
+    hover: "#5671ff",
+    selected: "#56aa45"
+  }
+};
+
+const seatmap = new SeatmapCanvas(".container", config);
+seatmap.setData(data);
 ```
+
+</td>
+<td width="50%">
+
+**Event Handling**
+
+```js
+seatmap.addEventListener("seat_click", (seat) => {
+  if (seat.selected) {
+    seatmap.seatUnselect(seat);
+  } else {
+    seatmap.seatSelect(seat);
+  }
+});
+
+// Get selected seats
+const selected = seatmap.getSelectedSeats();
+```
+
+</td>
+</tr>
+</table>
+
+<details>
+<summary><strong>📋 Data Models Reference</strong></summary>
 
 #### Seat Model
 ```json
@@ -257,81 +314,30 @@ var seatmap = new SeatmapCanvas(".seats_container",config);
 #### Block Model
 ```json
 {
-  "blocks": [
-    {
-      "id": 1,
-      "title": "Test Block 1",
-      "color": "#2c2828",
-      "labels": [
-        {
-          "title": "A",
-          "x": -30,
-          "y": 0
-        },
-        {
-          "title": "B",
-          "x": 120,
-          "y": 30
-        }
-      ],
-      "seats": [
-        {
-          "id": 1,
-          "x": 0,
-          "y": 0,
-          "salable": true,
-          "note": "note test",
-          "title": "49"
-        },
-        {
-          "id": 2,
-          "x": 30,
-          "y": 0,
-          "salable": true,
-          "note": "note test",
-          "title": "47"
-        }
-      ]
-    }
-  ]
-}
-
-```
-
-#### Set Block Data
-```js
-seatmap.setData(data);
-```
-
-#### Seat Click Trigger
-```js
-seatmap.addEventListener("seat_click", (seat) => {
-    console.log(seat);
-    if (seat.selected) {
-        seatmap.seatUnselect(seat);
-    } else {
-        seatmap.seatSelect(seat);
-    }
-});
-```
-
-#### Activated unsalable seat click 
-##### click_enable_sold_seats param add to config object 
-```javascript
-let config = {
-    click_enable_sold_seats: true // default false
+  "blocks": [{
+    "id": 1,
+    "title": "Test Block 1",
+    "color": "#2c2828",
+    "labels": [{ "title": "A", "x": -30, "y": 0 }],
+    "seats": [
+      { "id": 1, "x": 0, "y": 0, "salable": true, "title": "49" },
+      { "id": 2, "x": 30, "y": 0, "salable": true, "title": "47" }
+    ]
+  }]
 }
 ```
 
-#### Get selected seat
-```javascript
-seatmap.addEventListener("seat_click", (seat) => {
-    var selectedSeats = seatmap.getSelectedSeats();
-});
+#### Configuration Options
+```js
+{
+  click_enable_sold_seats: true  // Enable clicking on unavailable seats (default: false)
+}
 ```
 
+</details>
 
-#### Complete Example Code
+<details>
+<summary><strong>📝 Complete Example</strong></summary>
 ```javascript
 
 var config = {
@@ -408,8 +414,20 @@ var data = {
 
 // SET SEATS DATA
 seatmap.setData(data);
-
 ```
 
+</details>
+
+<p align="center">
+  <a href="examples/"><img src="https://img.shields.io/badge/📖_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  &nbsp;
+  <a href="examples/"><img src="https://img.shields.io/badge/🎯_Examples-333333?style=for-the-badge&logoColor=white" alt="Examples"/></a>
+</p>
+
+---
+
 ## Contributors
-Ali Sait Teke <alisaitt@gmail.com>
+
+<a href="https://github.com/alisaitteke">
+  <img src="https://img.shields.io/badge/Ali_Sait_Teke-Maintainer-blue?style=flat-square&logo=github" alt="Ali Sait Teke"/>
+</a>
