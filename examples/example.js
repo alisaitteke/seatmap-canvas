@@ -8,7 +8,7 @@ $(document).ready(function () {
     const profiles = [
         {
             title: 'Default',
-            blockSize: 4,
+            blockSize: 2,
             gapX: 40,
             gapY: 40,
             minItem: 200,
@@ -129,7 +129,7 @@ $(document).ready(function () {
     seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
         // Only allow interaction with salable seats
         if (!seat.item.salable) return;
-        
+
         if (!seat.isSelected()) {
             seat.select()
         } else {
@@ -310,7 +310,7 @@ $(document).ready(function () {
         // Hide empty state, show footer
         $('#empty-basket').addClass('hidden');
         $('#basket-footer').removeClass('hidden');
-        
+
         let seatsTemplateHtml = ``
 
         for (let i = 0; i < selectedSeats.length; i++) {
@@ -370,7 +370,7 @@ $(document).ready(function () {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
         })
-        
+
         $('#selected-seats').html(seatsTemplateHtml)
         $('#subtotal').text(priceFormatted)
 
@@ -441,7 +441,7 @@ $(document).ready(function () {
     $("#proceed-checkout-btn").on("click", function() {
         const selectedSeats = seatmap.data.getSelectedSeats();
         if (selectedSeats.length === 0) return;
-        
+
         // Populate checkout modal
         let seatsHtml = '';
         selectedSeats.forEach((seat, index) => {
@@ -453,16 +453,16 @@ $(document).ready(function () {
                 </div>
             `;
         });
-        
+
         const subtotal = selectedSeats.reduce((sum, seat) => sum + seat.custom_data.price, 0);
         const fee = 5.00;
         const total = subtotal + fee;
-        
+
         $('#checkout-seats').html(seatsHtml);
         $('#checkout-subtotal').text(subtotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
         $('#checkout-fee').text(fee.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
         $('#checkout-total').text(total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-        
+
         // Show modal
         $("#checkout-modal").removeClass("hidden");
         $("body").addClass("overflow-hidden");
@@ -478,7 +478,7 @@ $(document).ready(function () {
         alert("🎉 Booking confirmed! This is a demo - no actual payment was processed.");
         $("#checkout-modal").addClass("hidden");
         $("body").removeClass("overflow-hidden");
-        
+
         // Optional: Clear selection
         // seatmap.data.getSelectedSeats().forEach(seat => seat.svg.unSelect());
         // updateSelectedSeats();
@@ -488,28 +488,28 @@ $(document).ready(function () {
     $("#svg-upload").on("change", function(e) {
         const file = e.target.files[0];
         if (!file) return;
-        
+
         const reader = new FileReader();
         reader.onload = function(event) {
             try {
                 const svgContent = event.target.result;
                 const parser = new DOMParser();
                 const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
-                
+
                 // Check for parse errors
                 const parseError = svgDoc.querySelector("parsererror");
                 if (parseError) {
                     alert("Invalid SVG file!");
                     return;
                 }
-                
+
                 // Extract SVG element
                 const svgElement = svgDoc.querySelector("svg");
                 if (!svgElement) {
                     alert("No SVG element found!");
                     return;
                 }
-                
+
                 // Extract viewBox
                 let viewBox = svgElement.getAttribute("viewBox");
                 if (!viewBox) {
@@ -518,16 +518,16 @@ $(document).ready(function () {
                     const height = svgElement.getAttribute("height") || "24";
                     viewBox = `0 0 ${parseFloat(width)} ${parseFloat(height)}`;
                 }
-                
+
                 // Extract path data - try multiple strategies
                 let pathData = "";
-                
+
                 // Strategy 1: Find first <path> element
                 const pathElement = svgElement.querySelector("path");
                 if (pathElement) {
                     pathData = pathElement.getAttribute("d");
                 }
-                
+
                 // Strategy 2: If multiple paths, combine them
                 if (!pathData) {
                     const allPaths = svgElement.querySelectorAll("path");
@@ -538,14 +538,14 @@ $(document).ready(function () {
                             .join(" ");
                     }
                 }
-                
+
                 // Strategy 3: Look for polygon/polyline/rect/circle and convert
                 if (!pathData) {
                     const polygon = svgElement.querySelector("polygon");
                     const polyline = svgElement.querySelector("polyline");
                     const rect = svgElement.querySelector("rect");
                     const circle = svgElement.querySelector("circle");
-                    
+
                     if (polygon) {
                         const points = polygon.getAttribute("points");
                         pathData = `M${points}Z`;
@@ -566,16 +566,16 @@ $(document).ready(function () {
                         pathData = `M${cx-r},${cy}a${r},${r} 0 1,0 ${r*2},0a${r},${r} 0 1,0 ${-r*2},0`;
                     }
                 }
-                
+
                 if (!pathData) {
                     alert("Could not extract path data from SVG!");
                     return;
                 }
-                
+
                 // Apply custom SVG
                 const currentRadius = seatmap.config.style.seat.radius || 15;
                 const shapeSize = currentRadius * 2;
-                
+
                 const shapeConfig = {
                     shape: "path",
                     size: shapeSize,
@@ -583,14 +583,14 @@ $(document).ready(function () {
                     path: pathData,
                     path_box: viewBox
                 };
-                
+
                 // Update button styles
                 $(".shape-btn").removeClass("bg-blue-200 dark:bg-blue-800").addClass("bg-gray-100 dark:bg-gray-900");
-                
+
                 // Show custom SVG info
                 $("#custom-svg-name").text(file.name);
                 $("#custom-svg-info").removeClass("hidden");
-                
+
                 // Update seatmap configuration
                 seatmap.config.style.seat.shape = shapeConfig.shape;
                 seatmap.config.style.seat.size = shapeConfig.size;
@@ -598,41 +598,41 @@ $(document).ready(function () {
                 seatmap.config.style.seat.path = shapeConfig.path;
                 seatmap.config.style.seat.path_box = shapeConfig.path_box;
                 seatmap.config.style.seat.svg = null;
-                
+
                 // Regenerate entire stage with new shape
                 seatmap.svg.stage.blocks.clear();
                 seatmap.svg.stage.blocks.update();
-                
+
                 // Recalculate zoom levels and reset to venue view
                 seatmap.zoomManager.calculateZoomLevels(seatmap.data.getBlocks());
                 seatmap.zoomManager.calculateActiveBlocks(seatmap.data.getBlocks());
                 seatmap.zoomManager.zoomToVenue(false);
-                
+
             } catch (error) {
                 console.error("Error parsing SVG:", error);
                 alert("Error processing SVG file: " + error.message);
             }
         };
-        
+
         reader.readAsText(file);
     });
 
     // Shape selection handlers
     $(".shape-btn").on("click", function() {
         const selectedShape = $(this).data("shape");
-        
+
         // Hide custom SVG info
         $("#custom-svg-info").addClass("hidden");
-        
+
         // Update button styles
         $(".shape-btn").removeClass("bg-blue-200 dark:bg-blue-800").addClass("bg-gray-100 dark:bg-gray-900");
         $(this).removeClass("bg-gray-100 dark:bg-gray-900").addClass("bg-blue-200 dark:bg-blue-800");
-        
+
         // Apply shape configuration
         // Get current radius from seatmap config
         const currentRadius = seatmap.config.style.seat.radius || 15;
         const shapeSize = currentRadius * 2;  // Match circle diameter
-        
+
         let shapeConfig = {
             shape: "circle",
             size: shapeSize,
@@ -641,7 +641,7 @@ $(document).ready(function () {
             path_box: "0 0 24 24",
             svg: null
         };
-        
+
         switch(selectedShape) {
             case "circle":
                 shapeConfig.shape = "circle";
@@ -659,7 +659,7 @@ $(document).ready(function () {
                 shapeConfig.svg = "assets/custom_seat.svg";
                 break;
         }
-        
+
         // Update seatmap configuration
         seatmap.config.style.seat.shape = shapeConfig.shape;
         seatmap.config.style.seat.size = shapeConfig.size;
@@ -667,11 +667,11 @@ $(document).ready(function () {
         seatmap.config.style.seat.path = shapeConfig.path;
         seatmap.config.style.seat.path_box = shapeConfig.path_box;
         seatmap.config.style.seat.svg = shapeConfig.svg;
-        
+
         // Regenerate entire stage with new shape
         seatmap.svg.stage.blocks.clear();
         seatmap.svg.stage.blocks.update();
-        
+
         // Recalculate zoom levels and reset to venue view
         seatmap.zoomManager.calculateZoomLevels(seatmap.data.getBlocks());
         seatmap.zoomManager.calculateActiveBlocks(seatmap.data.getBlocks());
