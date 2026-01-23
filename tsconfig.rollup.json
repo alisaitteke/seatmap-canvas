@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/lib/*"],
+      "@model/*": ["src/lib/models/*"],
+      "@enum/*": ["src/lib/enums/*"],
+      "@svg/*": ["src/lib/svg/*"],
+      "@decorator/*": ["src/lib/decorators/*"],
+      "@style/*": ["src/scss/*"]
+    }
+  },
+  "include": ["src/lib/**/*", "src/scss/**/*"],
+  "exclude": ["dist", "examples", "node_modules", "src/react", "src/vue"]
+}

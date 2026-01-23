@@ -2,8 +2,6 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-import {mouse as d3Mouse} from 'd3-selection'
-
 import BlocksManager from "../blocks.index";
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
@@ -71,11 +69,10 @@ export default class Block extends SvgBase {
 
 
         // grid search
-        this.global.eventManager.addEventListener(EventType.MOUSEMOVE_BLOCK, (block_item: Block) => {
+        this.global.eventManager.addEventListener(EventType.MOUSEMOVE_BLOCK, (block_item: Block, _datum: any, cor: [number, number]) => {
 
             if (!this.parent.parent.searchCircle.is_enable) return;
             if (this.global.multi_select) return;
-            let cor = d3Mouse(this.parent.parent.blocks.node.node());
             let gap = this.global.config.zoom_focus_circle_radius;
 
             if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {

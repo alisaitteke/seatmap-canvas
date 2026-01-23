@@ -1,7 +1,7 @@
 /*
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-import {mouse as d3Mouse} from 'd3-selection'
+import {pointer as d3Pointer} from 'd3-selection'
 
 import Block from "@svg/stage/blocks/block-item/block-item.index";
 import {GlobalModel} from "@model/global.model";
@@ -159,8 +159,8 @@ export default class SvgBase {
                 let _event = this.global.eventManager.events[i];
                 let _split = _event.type.toString().split(".");
                 if (_split[0].toLowerCase() === this.eventCode.toLowerCase() && allowed_event_types.indexOf(_split[1].toLowerCase()) !== -1 && typeof _split[1] !== "undefined") {
-                    this.node.on(_split[1].toLowerCase() + ".globalevent", function (item: EventObject) {
-                        let _mouse = d3Mouse(_self.parent.node.node());
+                    this.node.on(_split[1].toLowerCase() + ".globalevent", function (event: any, item: any) {
+                        let _mouse = d3Pointer(event, _self.parent.node.node());
                         _event.fn(_self, item, _mouse);
                     })
                 }
