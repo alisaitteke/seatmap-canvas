@@ -2,7 +2,7 @@
  * $project.fileName
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
-import {mouse as d3Mouse} from 'd3-selection'
+import {pointer as d3Pointer} from 'd3-selection'
 
 import {dom} from "@/decorators";
 import SvgBase from "@svg/svg.base";
@@ -73,11 +73,11 @@ export default class Tooltip extends SvgBase {
 
         let _self = this;
 
-        this.parent.node.on("mousemove.seat", function () {
+        this.parent.node.on("mousemove.seat", function (event: any) {
             if (_self.global.multi_select) return;
             if (_self.global.zoomManager.zoomLevel === ZoomLevel.SEAT && _self.activeSeat !== null) {
                 // @ts-ignore
-                let cor = d3Mouse(this);
+                let cor = d3Pointer(event, this as any);
 
                 let x = cor[0] - (_self.global.config.style.tooltip.width / 2);
                 let y = cor[1] - (_self.global.config.style.tooltip.height + (_self.global.config.style.seat.radius) + 2);
