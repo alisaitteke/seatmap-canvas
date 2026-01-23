@@ -36,14 +36,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Build
-        run: yarn build
+        run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Copy scripts

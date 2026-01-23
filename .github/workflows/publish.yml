@@ -20,16 +20,12 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: '18'
 
-      # Enable Corepack to use Yarn 4.5.0 defined in packageManager
-      - name: Enable Corepack
-        run: corepack enable
-
-      # Install dependencies (required by Run tests step)
+      # Install dependencies
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
-      - name: Build with yarn
-        run: yarn build
+      - name: Build
+        run: npm run build
 
       # Configure Git
       - name: Git configuration
@@ -59,7 +55,7 @@ jobs:
 
       # Publish version to public repository
       - name: Publish
-        run: yarn publish --verbose --access public --tag ${{ env.RELEASE_TAG }}
+        run: npm publish --access public --tag ${{ env.RELEASE_TAG }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
