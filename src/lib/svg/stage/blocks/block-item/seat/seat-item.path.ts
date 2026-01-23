@@ -5,31 +5,53 @@
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
 import {SeatItem} from "./seat-item.index";
+import {SeatItemPathArea} from "./seat-item.path-area";
 
 type ViewBox = { x: number; y: number; width: number; height: number };
 
 @dom({
-    tag: "path",
-    class: "seat-path",
+    tag: "g",
+    class: "seat-path-wrapper",
     autoGenerate: false
 })
 export class SeatItemPath extends SvgBase {
 
+    private pathElement: any;
+    private hitArea: SeatItemPathArea;
+
     constructor(public parent: SeatItem) {
         super(parent);
+        this.attr("block-id", parent.item.block.id);
+        return this;
+    }
+
+    domGenerate(to: any, index: number = 0): this {
+        super.domGenerate(to, index);
+        
         const path = this.global.config.style.seat.path || "M12 2L22 22H2Z";
         const size = this.getSize();
         const viewBox = this.parseViewBox(this.global.config.style.seat.path_box);
         const scale = this.getScale(size, viewBox);
-        const translateX = -(viewBox.x + viewBox.width / 2);
-        const translateY = -(viewBox.y + viewBox.height / 2);
+        
+        // Calculate the center of the viewBox
+        const centerX = viewBox.x + viewBox.width / 2;
+        const centerY = viewBox.y + viewBox.height / 2;
 
-        this.attr("block-id", parent.item.block.id);
-        this.attr("d", path);
-        this.attr("transform", `translate(${translateX},${translateY}) scale(${scale})`);
-        this.attr("fill", this.global.config.style.seat.color);
-        this.attr("stroke", "rgba(0,0,0,0.3)");
-        this.attr("stroke-width", 1);
+        // Create hit area (invisible circle for better UX)
+        this.hitArea = new SeatItemPathArea(this);
+        this.addChild(this.hitArea);
+        
+        // Create the actual path element
+        this.pathElement = this.node.append("path")
+            .attr("class", "seat-path")
+            .attr("d", path)
+            .attr("transform", `scale(${scale}) translate(${-centerX},${-centerY})`)
+            .attr("fill", this.global.config.style.seat.color)
+            .attr("stroke", "rgba(0,0,0,0.3)")
+            .attr("stroke-width", 1 / scale)
+            .attr("pointer-events", "none");
+        
+        this.updateChilds();
         return this;
     }
 

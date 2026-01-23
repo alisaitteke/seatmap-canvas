@@ -46,14 +46,24 @@ export class SeatItem extends SvgBase {
             return this;
         }
         
+        // Get the actual SVG element to color
+        let targetElement = this.circle.node;
+        
+        // For path and rect wrappers, find the actual shape element
+        if ((this.circle as any).pathElement) {
+            targetElement = (this.circle as any).pathElement;
+        } else if ((this.circle as any).rectElement) {
+            targetElement = (this.circle as any).rectElement;
+        }
+        
         if (this.seatCustomSvg) {
             this.circle.node.attr("fill", color);
         } else {
             if (animation) {
-                this.circle.node.transition().duration(this.global.config.animation_speed).attr("fill", color);
+                targetElement.transition().duration(this.global.config.animation_speed).attr("fill", color);
             } else {
                 try {
-                    this.circle.node.attr("fill", color);
+                    targetElement.attr("fill", color);
                 } catch (e) {
                     console.log('err', e)
                 }
@@ -77,10 +87,19 @@ export class SeatItem extends SvgBase {
 
         this.item.selected = true;
         this.node.classed("selected", true);
+        
+        // Get the actual SVG element to color
+        let targetElement = this.circle.node;
+        if ((this.circle as any).pathElement) {
+            targetElement = (this.circle as any).pathElement;
+        } else if ((this.circle as any).rectElement) {
+            targetElement = (this.circle as any).rectElement;
+        }
+        
         if (this.seatCustomSvg) {
             this.circle.node.attr("fill", this.global.config.style.seat.selected);
         } else {
-            this.circle.node.attr("fill", this.global.config.style.seat.selected);
+            targetElement.attr("fill", this.global.config.style.seat.selected);
         }
 
         if (this.check) {
@@ -96,10 +115,19 @@ export class SeatItem extends SvgBase {
         
         this.item.selected = false;
         this.node.classed("selected", false);
+        
+        // Get the actual SVG element to color
+        let targetElement = this.circle.node;
+        if ((this.circle as any).pathElement) {
+            targetElement = (this.circle as any).pathElement;
+        } else if ((this.circle as any).rectElement) {
+            targetElement = (this.circle as any).rectElement;
+        }
+        
         if (this.seatCustomSvg) {
             this.circle.node.attr("fill", this.global.config.style.seat.color);
         } else {
-            this.circle.node.attr("fill", this.global.config.style.seat.color);
+            targetElement.attr("fill", this.global.config.style.seat.color);
         }
 
         if (this.check) {
