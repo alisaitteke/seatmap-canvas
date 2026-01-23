@@ -19,6 +19,11 @@ jobs:
         with:
           registry-url: https://registry.npmjs.org/
           node-version: '18'
+
+      # Enable Corepack to use Yarn 4.5.0 defined in packageManager
+      - name: Enable Corepack
+        run: corepack enable
+
       # Install dependencies (required by Run tests step)
       - name: Install dependencies
         run: yarn install
@@ -47,7 +52,7 @@ jobs:
       - name: Bump pre-release version
         if: startsWith(github.event.inputs.release-type, 'pre')
         run: |
-          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE
+          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)" >> $GITHUB_ENV
           echo "RELEASE_TAG=beta" >> $GITHUB_ENV
         env:
           RELEASE_TYPE: ${{ github.event.inputs.release-type }}
