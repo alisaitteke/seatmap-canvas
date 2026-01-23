@@ -12,9 +12,7 @@
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer"/>
-    <script async defer src="https://buttons.github.io/buttons.js"
-            integrity="sha384-+HL0a1NDUUnLW2qp9HfX/+k+VcyWDUOPsApJl3H7nMEYAjcSBpkE6xECv1HQ3B6G"
-            crossorigin="anonymous"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -84,6 +82,41 @@
 
                 <div id="zoom-blocks-buttons" class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-600 rounded-md text-center"></div>
 
+                <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
+                    <div class="text-center dark:text-white font-semibold">Seat Shapes</div>
+                    <div class="w-full flex flex-col gap-1.5">
+                        <button class="shape-btn border text-left border-slate-500 bg-blue-200 dark:bg-blue-800 dark:text-white dark:hover:bg-blue-700 text-slate-800 py-1 px-3 rounded-md hover:bg-blue-300"
+                                data-shape="circle">
+                            <i class="fa-solid fa-circle mr-2"></i>
+                            Circle
+                        </button>
+                        <button class="shape-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                                data-shape="rect">
+                            <i class="fa-solid fa-square mr-2"></i>
+                            Rectangle
+                        </button>
+                        <button class="shape-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                                data-shape="rect-rounded">
+                            <i class="fa-regular fa-square mr-2"></i>
+                            Rounded Rect
+                        </button>
+                        <button class="shape-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                                data-shape="path-triangle">
+                            <i class="fa-solid fa-play mr-2"></i>
+                            Triangle
+                        </button>
+                        <button class="shape-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                                data-shape="path-diamond">
+                            <i class="fa-solid fa-diamond mr-2"></i>
+                            Diamond
+                        </button>
+                        <button class="shape-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                                data-shape="path-star">
+                            <i class="fa-solid fa-star mr-2"></i>
+                            Star
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </div>

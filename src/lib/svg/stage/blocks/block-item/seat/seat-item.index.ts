@@ -9,6 +9,8 @@ import {dom} from "@decorator/dom";
 import SeatModel from "@model/seat.model";
 import Seats from "../block-item.seats.index";
 import {SeatItemCircle} from "./seat-item.circle";
+import {SeatItemRect} from "./seat-item.rect";
+import {SeatItemPath} from "./seat-item.path";
 import {CoordinateModel} from "@model/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
 import {SeatAction} from "@enum/global";
@@ -24,22 +26,26 @@ import {SeatItemCustomSvgCheck} from "@svg/stage/blocks/block-item/seat/seat-ite
 })
 export class SeatItem extends SvgBase {
 
-    public circle: SeatItemCircle;
-    public seatCustomSvg: SeatItemCustomSvg;
+    public circle: SeatItemCircle | SeatItemRect | SeatItemPath | SeatItemCustomSvg;
+    public seatCustomSvg: SeatItemCustomSvg | null;
     public title: SeatItemTitle;
     public coordinates: CoordinateModel;
-    public check: SeatItemCheck;
+    public check: SeatItemCheck | SeatItemCustomSvgCheck;
 
     constructor(public parent: Seats, public item: SeatModel, seatCustomSvg: any) {
         super(parent);
         this.coordinates = new CoordinateModel(item);
-        this.seatCustomSvg = seatCustomSvg;
+        this.seatCustomSvg = seatCustomSvg || null;
         this.attr("transform", "translate(" + this.coordinates.toArray() + ")");
         this.item.svg = this;
         return this;
     }
 
     public setColor(color: string, animation: boolean = false): this {
+        if (!this.circle || !this.circle.node) {
+            return this;
+        }
+        
         if (this.seatCustomSvg) {
             this.circle.node.attr("fill", color);
         } else {
@@ -65,7 +71,7 @@ export class SeatItem extends SvgBase {
     }
 
     public select(color: string | null = null): this {
-        if (!this.isSalable()) {
+        if (!this.isSalable() || !this.circle || !this.circle.node) {
             return this;
         }
 
@@ -77,11 +83,17 @@ export class SeatItem extends SvgBase {
             this.circle.node.attr("fill", this.global.config.style.seat.selected);
         }
 
-        this.check.show();
+        if (this.check) {
+            this.check.show();
+        }
         return this;
     }
 
     public unSelect(): this {
+        if (!this.circle || !this.circle.node) {
+            return this;
+        }
+        
         this.item.selected = false;
         this.node.classed("selected", false);
         if (this.seatCustomSvg) {
@@ -90,7 +102,9 @@ export class SeatItem extends SvgBase {
             this.circle.node.attr("fill", this.global.config.style.seat.color);
         }
 
-        this.check.hide();
+        if (this.check) {
+            this.check.hide();
+        }
         return this;
     }
 
@@ -154,13 +168,22 @@ export class SeatItem extends SvgBase {
     }
 
     update(): this {
+        const shape = this.getShapeType();
 
-        if (this.seatCustomSvg) {
+        if (shape === "svg" && this.seatCustomSvg) {
             this.check = new SeatItemCustomSvgCheck(this).addTo(this);
             this.circle = new SeatItemCustomSvg(this, this.seatCustomSvg)
             this.addChild(this.circle);
-
+        } else if (shape === "rect") {
+            this.circle = new SeatItemRect(this);
+            this.addChild(this.circle);
+            this.check = new SeatItemCheck(this).addTo(this);
+        } else if (shape === "path") {
+            this.circle = new SeatItemPath(this);
+            this.addChild(this.circle);
+            this.check = new SeatItemCheck(this).addTo(this);
         } else {
+            // Default to circle for any other case
             this.circle = new SeatItemCircle(this);
             this.addChild(this.circle);
             this.check = new SeatItemCheck(this).addTo(this);
@@ -176,6 +199,17 @@ export class SeatItem extends SvgBase {
         //this.title.node.text(this.item.title);
 
         return this;
+    }
+
+    private getShapeType(): string {
+        const configuredShape = this.global.config.style.seat.shape || "auto";
+        if (configuredShape === "auto") {
+            return this.seatCustomSvg ? "svg" : "circle";
+        }
+        if (configuredShape === "svg" && !this.seatCustomSvg) {
+            return "circle";
+        }
+        return configuredShape;
     }
 
     afterGenerate() {

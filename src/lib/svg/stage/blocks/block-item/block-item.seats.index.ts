@@ -10,7 +10,6 @@ import SeatModel from "@model/seat.model";
 import Block from "./block-item.index";
 import {SeatItem} from "./seat/seat-item.index";
 import {EventType, SeatAction} from "@enum/global";
-import {SeatItemCircle} from "@svg/stage/blocks/block-item/seat/seat-item.circle";
 
 
 @dom({
@@ -40,8 +39,11 @@ export default class Seats extends SvgBase {
     async update(): Promise<this> {
         // add seat items in blockItem container
         let SeatItemSvg: any;
-        if (this.global.config.style.seat.svg) {
-            SeatItemSvg = await XmlLoad(this.global.config.style.seat.svg)
+        const seatShape = this.global.config.style.seat.shape || "auto";
+        const svgUrl = this.global.config.style.seat.svg;
+        const useSvg = !!svgUrl && (seatShape === "auto" || seatShape === "svg");
+        if (useSvg && svgUrl) {
+            SeatItemSvg = await XmlLoad(svgUrl)
         }
         for (const seat of this.item.seats) {
             await this.addChild(new SeatItem(this, seat, SeatItemSvg), {id: seat.id})
