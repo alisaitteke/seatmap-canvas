@@ -361,9 +361,136 @@ $(document).ready(function () {
         $('html').toggleClass('dark')
     });
 
+    // SVG Upload Handler
+    $("#svg-upload").on("change", function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            try {
+                const svgContent = event.target.result;
+                const parser = new DOMParser();
+                const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
+                
+                // Check for parse errors
+                const parseError = svgDoc.querySelector("parsererror");
+                if (parseError) {
+                    alert("Invalid SVG file!");
+                    return;
+                }
+                
+                // Extract SVG element
+                const svgElement = svgDoc.querySelector("svg");
+                if (!svgElement) {
+                    alert("No SVG element found!");
+                    return;
+                }
+                
+                // Extract viewBox
+                let viewBox = svgElement.getAttribute("viewBox");
+                if (!viewBox) {
+                    // Try to get from width/height
+                    const width = svgElement.getAttribute("width") || "24";
+                    const height = svgElement.getAttribute("height") || "24";
+                    viewBox = `0 0 ${parseFloat(width)} ${parseFloat(height)}`;
+                }
+                
+                // Extract path data - try multiple strategies
+                let pathData = "";
+                
+                // Strategy 1: Find first <path> element
+                const pathElement = svgElement.querySelector("path");
+                if (pathElement) {
+                    pathData = pathElement.getAttribute("d");
+                }
+                
+                // Strategy 2: If multiple paths, combine them
+                if (!pathData) {
+                    const allPaths = svgElement.querySelectorAll("path");
+                    if (allPaths.length > 0) {
+                        pathData = Array.from(allPaths)
+                            .map(p => p.getAttribute("d"))
+                            .filter(d => d)
+                            .join(" ");
+                    }
+                }
+                
+                // Strategy 3: Look for polygon/polyline/rect/circle and convert
+                if (!pathData) {
+                    const polygon = svgElement.querySelector("polygon");
+                    const polyline = svgElement.querySelector("polyline");
+                    const rect = svgElement.querySelector("rect");
+                    const circle = svgElement.querySelector("circle");
+                    
+                    if (polygon) {
+                        const points = polygon.getAttribute("points");
+                        pathData = `M${points}Z`;
+                    } else if (polyline) {
+                        const points = polyline.getAttribute("points");
+                        pathData = `M${points}`;
+                    } else if (rect) {
+                        const x = parseFloat(rect.getAttribute("x") || 0);
+                        const y = parseFloat(rect.getAttribute("y") || 0);
+                        const w = parseFloat(rect.getAttribute("width"));
+                        const h = parseFloat(rect.getAttribute("height"));
+                        pathData = `M${x},${y}h${w}v${h}h${-w}Z`;
+                    } else if (circle) {
+                        const cx = parseFloat(circle.getAttribute("cx") || 0);
+                        const cy = parseFloat(circle.getAttribute("cy") || 0);
+                        const r = parseFloat(circle.getAttribute("r"));
+                        // Approximate circle with path
+                        pathData = `M${cx-r},${cy}a${r},${r} 0 1,0 ${r*2},0a${r},${r} 0 1,0 ${-r*2},0`;
+                    }
+                }
+                
+                if (!pathData) {
+                    alert("Could not extract path data from SVG!");
+                    return;
+                }
+                
+                // Apply custom SVG
+                const shapeConfig = {
+                    shape: "path",
+                    size: 24,
+                    corner_radius: 0,
+                    path: pathData,
+                    path_box: viewBox
+                };
+                
+                // Update button styles
+                $(".shape-btn").removeClass("bg-blue-200 dark:bg-blue-800").addClass("bg-gray-100 dark:bg-gray-900");
+                
+                // Show custom SVG info
+                $("#custom-svg-name").text(file.name);
+                $("#custom-svg-info").removeClass("hidden");
+                
+                // Update seatmap configuration
+                seatmap.config.style.seat.shape = shapeConfig.shape;
+                seatmap.config.style.seat.size = shapeConfig.size;
+                seatmap.config.style.seat.corner_radius = shapeConfig.corner_radius;
+                seatmap.config.style.seat.path = shapeConfig.path;
+                seatmap.config.style.seat.path_box = shapeConfig.path_box;
+                
+                // Regenerate entire stage with new shape
+                seatmap.svg.stage.blocks.clear();
+                seatmap.svg.stage.blocks.update();
+                
+            } catch (error) {
+                console.error("Error parsing SVG:", error);
+                alert("Error processing SVG file: " + error.message);
+            }
+        };
+        
+        reader.readAsText(file);
+    });
+
     // Shape selection handlers
     $(".shape-btn").on("click", function() {
         const selectedShape = $(this).data("shape");
+        
+        // Hide custom SVG info
+        $("#custom-svg-info").addClass("hidden");
         
         // Update button styles
         $(".shape-btn").removeClass("bg-blue-200 dark:bg-blue-800").addClass("bg-gray-100 dark:bg-gray-900");
