@@ -20,7 +20,7 @@
     "preserveConstEnums": true,
     "declaration": true,
     "noImplicitAny": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "typeRoots": [
       "node_modules/@types",
@@ -36,8 +36,10 @@
 
     }
   },
+  "include": ["src/**/*"],
   "exclude": [
     "dist",
+    "examples",
     "node_modules",
     "src/**/*.test.tsx",
     "src/**/*.stories.tsx"
