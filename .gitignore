@@ -43,3 +43,4 @@ dist/*
 !docs/cjs/*
 yarn.lock
 cog.toml
+.yarn
