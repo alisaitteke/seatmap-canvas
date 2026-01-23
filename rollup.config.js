@@ -2,7 +2,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
-import {terser} from "rollup-plugin-terser";
+import terser from '@rollup/plugin-terser';
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import serve from 'rollup-plugin-serve'
 import scss from 'rollup-plugin-scss'
@@ -22,6 +22,7 @@ export default commandLineArgs => {
                     file: packageJson.main,
                     format: "iife",
                     sourcemap: true,
+                    name: 'SeatmapCanvas'
                 }
             ],
             plugins: [
@@ -32,7 +33,7 @@ export default commandLineArgs => {
                 peerDepsExternal(),
                 resolve(),
                 commonjs(),
-                typescript({tsconfig: "./tsconfig.json"}),
+                typescript({tsconfig: "./tsconfig.rollup.json"}),
                 terser(),
                 license({
                     sourcemap: true,
@@ -83,7 +84,7 @@ export default commandLineArgs => {
                 peerDepsExternal(),
                 resolve(),
                 commonjs(),
-                typescript({tsconfig: "./tsconfig.json"}),
+                typescript({tsconfig: "./tsconfig.rollup.json"}),
                 terser()
             ],
             external: [],
