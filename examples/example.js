@@ -203,7 +203,7 @@ $(document).ready(function () {
                 seats.push(seat)
             }
 
-            last_x = block_final_x + 100;
+            last_x = block_final_x + 320;
 
             let block = {
                 "id": `block-${j}`,
