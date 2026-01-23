@@ -28,6 +28,7 @@
 /connect.lock
 /coverage
 /libpeerconnection.log
+.claude
 npm-debug.log
 yarn-error.log
 testem.log
