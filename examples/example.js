@@ -288,16 +288,30 @@ $(document).ready(function () {
     const updateSelectedSeats = function () {
         let selectedSeats = seatmap.data.getSelectedSeats();
 
-        let seatsTemplateHtml = ``
+        // Update seat count badges
+        $('#seat-count').text(selectedSeats.length);
+        $('#mobile-seat-badge').text(selectedSeats.length);
+
+        // Show/hide mobile basket button
+        if (selectedSeats.length > 0) {
+            $('#mobile-basket-btn').removeClass('hidden');
+        } else {
+            $('#mobile-basket-btn').addClass('hidden');
+        }
 
         if (selectedSeats.length === 0) {
-            seatsTemplateHtml = `
-                    <tr class="text-center py-2 px-2 flex flex-col">
-                        <td class="text-lg text-gray-400"><i class="fa-regular fa-face-rolling-eyes"></i></td>
-                        <td class="text-gray-400">No selected seat</td>
-                    </tr>
-                `
+            // Show empty state
+            $('#empty-basket').removeClass('hidden');
+            $('#basket-footer').addClass('hidden');
+            $('#selected-seats').html('');
+            return;
         }
+
+        // Hide empty state, show footer
+        $('#empty-basket').addClass('hidden');
+        $('#basket-footer').removeClass('hidden');
+        
+        let seatsTemplateHtml = ``
 
         for (let i = 0; i < selectedSeats.length; i++) {
             let selectedSeat = selectedSeats[i];
@@ -309,37 +323,56 @@ $(document).ready(function () {
                 maximumFractionDigits: 2,
             })
 
-            let html = `<tr class="w-full cursor-default border-b dark:bg-gray-950 h-8 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 py-1 px-2 items-center">
-                    <td class="w-6">
-                        <div class="inline-block w-3 h-3 bg-[#8fe100] rounded-lg ml-1"></div>
-                    </td>
-                    <td class="flex-0">${selectedSeat.custom_data.basket_name}</td>
-                    <td class="text-right font-bold">${priceFormatted}</td>
-                    <td class="w-6 unselect-seat text-center cursor-pointer text-red-200 hover:text-red-500" seat-id="${selectedSeat.id}" block-id="${selectedSeat.block.id}">
-                        <i class="fa-solid fa-xmark text-md "></i>
-                    </td>
-                </tr>`
+            let html = `
+                <div class="group hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 p-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
+                    <div class="flex items-start gap-3">
+                        <!-- Seat Icon -->
+                        <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 rounded-lg flex items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-chair text-white text-sm"></i>
+                        </div>
+                        
+                        <!-- Seat Info -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-2">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                                        ${selectedSeat.custom_data.basket_name}
+                                    </p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                                        ${selectedSeat.block.title || 'Block ' + selectedSeat.block.id}
+                                    </p>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <p class="text-sm font-bold text-gray-900 dark:text-white">
+                                        ${priceFormatted}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Remove Button -->
+                        <button class="unselect-seat flex-shrink-0 w-7 h-7 rounded-full hover:bg-red-50 dark:hover:bg-red-900/30 text-gray-400 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-all duration-150 flex items-center justify-center opacity-0 md:opacity-0 md:group-hover:opacity-100 sm:opacity-100" 
+                                seat-id="${selectedSeat.id}" 
+                                block-id="${selectedSeat.block.id}">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+                </div>`
 
             seatsTemplateHtml += html;
         }
 
-        if (selectedSeats.length > 0) {
-            let totalPrice = selectedSeats.reduce((accumulator, currentValue) => accumulator + currentValue.custom_data.price, 0)
-            let priceFormatted = totalPrice.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            })
-            let seatDesc = selectedSeats.length === 1 ? 'a seat' : `${selectedSeats.length} seats`;
-            seatsTemplateHtml += `
-                    <tr class="border-t cursor-default h-6 text-center bg-gray-200 dark:bg-gray-900 dark:text-white">
-                        <td colspan="4" class="py-1">Total: <strong>${priceFormatted}</strong> for ${seatDesc} </td>
-                    </tr>
-                `
-        }
-
+        // Calculate totals
+        let totalPrice = selectedSeats.reduce((accumulator, currentValue) => accumulator + currentValue.custom_data.price, 0)
+        let priceFormatted = totalPrice.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })
+        
         $('#selected-seats').html(seatsTemplateHtml)
+        $('#subtotal').text(priceFormatted)
 
         $(".unselect-seat").on('click', unselectSeat)
     }
@@ -376,6 +409,32 @@ $(document).ready(function () {
     });
     $("#dark-mode-btn").on("click", function (a) {
         $('html').toggleClass('dark')
+    });
+
+    // Mobile menu handlers
+    $("#mobile-menu-btn").on("click", function() {
+        $("#left-sidebar").removeClass("-translate-x-full");
+        $("#mobile-overlay").removeClass("hidden");
+        $("body").addClass("overflow-hidden");
+    });
+
+    $("#mobile-overlay").on("click", function() {
+        $("#left-sidebar").addClass("-translate-x-full");
+        $("#right-sidebar").addClass("translate-x-full");
+        $("#mobile-overlay").addClass("hidden");
+        $("body").removeClass("overflow-hidden");
+    });
+
+    $("#close-basket-btn").on("click", function() {
+        $("#right-sidebar").addClass("translate-x-full");
+        $("#mobile-overlay").addClass("hidden");
+        $("body").removeClass("overflow-hidden");
+    });
+
+    $("#mobile-basket-btn").on("click", function() {
+        $("#right-sidebar").removeClass("translate-x-full");
+        $("#mobile-overlay").removeClass("hidden");
+        $("body").addClass("overflow-hidden");
     });
 
     // SVG Upload Handler
@@ -488,6 +547,7 @@ $(document).ready(function () {
                 seatmap.config.style.seat.corner_radius = shapeConfig.corner_radius;
                 seatmap.config.style.seat.path = shapeConfig.path;
                 seatmap.config.style.seat.path_box = shapeConfig.path_box;
+                seatmap.config.style.seat.svg = null;
                 
                 // Regenerate entire stage with new shape
                 seatmap.svg.stage.blocks.clear();
@@ -519,7 +579,8 @@ $(document).ready(function () {
             size: 24,
             corner_radius: 0,
             path: null,
-            path_box: "0 0 24 24"
+            path_box: "0 0 24 24",
+            svg: null
         };
         
         switch(selectedShape) {
@@ -534,6 +595,10 @@ $(document).ready(function () {
                 shapeConfig.shape = "rect";
                 shapeConfig.corner_radius = 6;
                 break;
+            case "custom-svg":
+                shapeConfig.shape = "auto";  // Let library decide (will use path extraction)
+                shapeConfig.svg = "assets/custom_seat.svg";
+                break;
         }
         
         // Update seatmap configuration
@@ -542,6 +607,7 @@ $(document).ready(function () {
         seatmap.config.style.seat.corner_radius = shapeConfig.corner_radius;
         seatmap.config.style.seat.path = shapeConfig.path;
         seatmap.config.style.seat.path_box = shapeConfig.path_box;
+        seatmap.config.style.seat.svg = shapeConfig.svg;
         
         // Regenerate entire stage with new shape
         seatmap.svg.stage.blocks.clear();

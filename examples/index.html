@@ -52,18 +52,30 @@
 
 <div class="absolute dark:bg-gray-900 flex flex-col w-screen h-screen select-none">
 
-    <div class="bg-[#ab1f34] flex flex-row justify-center px-6 border-b border-[#d05063]">
-        <div class="flex-1 flex gap-1.5 justify-center justify-center">
-            <img class="h-11 py-1" src="logo_small.jpg">
+    <div class="bg-[#ab1f34] dark:bg-[#8b1424] flex flex-row justify-between items-center px-4 md:px-6 border-b border-[#d05063] dark:border-[#6b0f1e]">
+        <!-- Mobile Menu Button (Left) -->
+        <button id="mobile-menu-btn" class="md:hidden w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+            <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        
+        <!-- Logo (Center on mobile, left on desktop) -->
+        <div class="flex-1 md:flex-initial flex justify-center md:justify-start">
+            <img class="h-11 py-1" src="logo_small.jpg" alt="Logo">
         </div>
-        <div class="w-4 flex items-center cursor-pointer" id="dark-mode-btn">
+        
+        <!-- Dark Mode Button (Right) -->
+        <button id="dark-mode-btn" class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
             <svg class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                 <path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
             </svg>
-        </div>
+        </button>
     </div>
-    <div class="flex flex-row h-full">
-        <div class="w-48 bg-gray-100 dark:bg-gray-800 hidden md:block border-r border-r-gray-300 dark:border-r-gray-600">
+    <!-- Mobile Overlay Backdrop -->
+    <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden transition-opacity"></div>
+    
+    <div class="flex flex-row h-full relative">
+        <!-- Left Sidebar -->
+        <div id="left-sidebar" class="fixed md:relative w-64 md:w-48 bg-gray-100 dark:bg-gray-800 border-r border-r-gray-300 dark:border-r-gray-600 h-full z-50 transition-transform duration-300 -translate-x-full md:translate-x-0">
             <div class="flex flex-col gap-3 px-3 py-4 text-xs">
                 <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
                     <div class="text-center dark:text-white">Example Data</div>
@@ -101,6 +113,11 @@
                             Rounded Rect
                         </button>
                         <div class="border-t border-slate-400 dark:border-slate-600 my-1"></div>
+                        <button class="shape-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200"
+                                data-shape="custom-svg">
+                            <i class="fa-solid fa-chair mr-2"></i>
+                            Custom Seat
+                        </button>
                         <label class="border text-left border-slate-500 bg-green-100 dark:bg-green-900 dark:text-white dark:hover:bg-green-700 text-slate-800 py-1 px-3 rounded-md hover:bg-green-200 cursor-pointer">
                             <i class="fa-solid fa-upload mr-2"></i>
                             Upload SVG
@@ -115,17 +132,63 @@
 
             </div>
         </div>
-        <div id="seats_container" class="w-full flex-1 h-full bg-white dark:bg-gray-700"></div>
+        <div id="seats_container" class="w-full flex-1 h-full bg-white dark:bg-gray-700 relative">
+            <!-- Mobile Basket Button (Floating) -->
+            <button id="mobile-basket-btn" class="md:hidden hidden fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-30 flex items-center justify-center">
+                <i class="fa-solid fa-shopping-cart text-xl"></i>
+                <span id="mobile-seat-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
 
-        <div class="hidden md:flex flex-col dark:bg-gray-800 w-52 flex-0 border-l dark:border-l-gray-600">
-            <div class="text-center w-full text-sm p-2 bg-gray-100 dark:bg-gray-950 dark:text-white border-b">Selected
-                Seats
+        <!-- Right Sidebar (Basket) -->
+        <div id="right-sidebar" class="fixed md:relative right-0 flex flex-col bg-white dark:bg-gray-800 w-80 md:w-80 border-l border-l-gray-300 dark:border-l-gray-600 h-full z-50 transition-transform duration-300 translate-x-full md:translate-x-0">
+            <!-- Header (Fixed) -->
+            <div class="flex-shrink-0 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900 p-4 border-b border-blue-800 dark:border-blue-900">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-shopping-cart text-white text-lg"></i>
+                        <h3 class="text-white font-semibold text-base">Your Selection</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div id="seat-count" class="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                            0
+                        </div>
+                        <button class="md:hidden text-white hover:bg-white/10 w-7 h-7 rounded flex items-center justify-center" id="close-basket-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <table class="table-auto text-sm">
-                <tbody id="selected-seats">
-
-                </tbody>
-            </table>
+            
+            <!-- Seats List (Scrollable, fills space) -->
+            <div class="flex-1 overflow-y-auto">
+                <div id="selected-seats">
+                    <!-- Seats will be inserted here -->
+                </div>
+                
+                <!-- Empty State -->
+                <div id="empty-basket" class="flex flex-col items-center justify-center py-12 px-6 text-center">
+                    <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-chair text-gray-400 dark:text-gray-500 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm font-medium mb-1">No seats selected</p>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs">Click on a seat to add it</p>
+                </div>
+            </div>
+            
+            <!-- Footer/Summary (Sticky to bottom) -->
+            <div id="basket-footer" class="hidden flex-shrink-0 border-t border-t-gray-200 dark:border-t-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
+                <div class="space-y-2 mb-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600 dark:text-gray-400">Subtotal</span>
+                        <span id="subtotal" class="font-semibold text-gray-900 dark:text-white">$0.00</span>
+                    </div>
+                </div>
+                <button class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
+                    <i class="fa-solid fa-check mr-2"></i>
+                    Proceed to Checkout
+                </button>
+            </div>
         </div>
     </div>
     <div class="border-t dark:border-t-gray-700 w-full h-12 right-3 px-6 flex flex-row gap-6 items-center justify-between content-center">
