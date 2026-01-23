@@ -242,6 +242,12 @@ export class SeatItem extends SvgBase {
 
     afterGenerate() {
         this.setColor(this.getColor());
+        
+        // Add class for non-salable seats (for UX styling)
+        if (!this.isSalable()) {
+            this.node.classed("not-salable", true);
+        }
+        
         if (this.item.selected) {
             this.check.show()
         } else {

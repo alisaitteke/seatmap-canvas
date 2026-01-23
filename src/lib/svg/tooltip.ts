@@ -39,7 +39,14 @@ export default class Tooltip extends SvgBase {
             if (this.global.multi_select) return;
             if (this.activeSeat !== seat && seat.item.title) {
                 this.activeSeat = seat;
-                this.setTitle(seat.item.title.split("\n"));
+                let titleLines = seat.item.title.split("\n");
+                
+                // Add visual indicator for non-salable seats
+                if (!seat.isSalable()) {
+                    titleLines = ["🚫 " + titleLines[0], ...titleLines.slice(1)];
+                }
+                
+                this.setTitle(titleLines);
                 this.title.generateTitle();
             }
         });
@@ -57,6 +64,24 @@ export default class Tooltip extends SvgBase {
 
     public setTitle(title: Array<string>): this {
         this.title.title = title;
+        
+        // Dynamically calculate tooltip height based on content
+        const lineHeight = this.global.config.style.tooltip.line_height || 18;
+        const padding = this.global.config.style.tooltip.padding || 12;
+        const calculatedHeight = (title.length * lineHeight) + (padding * 2);
+        
+        // Update rect height and border color based on seat salability
+        if (this.rect && this.rect.node) {
+            this.rect.node.attr("height", calculatedHeight);
+            
+            // Change border color for non-salable seats (subtle red)
+            if (this.activeSeat && !this.activeSeat.isSalable()) {
+                this.rect.node.attr("stroke", "#ef4444");  // Soft red
+            } else {
+                this.rect.node.attr("stroke", this.global.config.style.tooltip.border_color || "rgba(0,0,0,0.15)");
+            }
+        }
+        
         return this;
     }
 
@@ -79,9 +104,16 @@ export default class Tooltip extends SvgBase {
                 // @ts-ignore
                 let cor = d3Pointer(event, this as any);
 
+                // Get current tooltip height (may be dynamic)
+                const currentHeight = _self.rect.node ? parseFloat(_self.rect.node.attr("height")) : _self.global.config.style.tooltip.height;
+                
                 let x = cor[0] - (_self.global.config.style.tooltip.width / 2);
-                let y = cor[1] - (_self.global.config.style.tooltip.height + (_self.global.config.style.seat.radius) + 2);
-                _self.node.attr("transform", "translate(" + [x, y] + ")").attr("opacity", 1);
+                let y = cor[1] - (currentHeight + (_self.global.config.style.seat.radius) + 8);
+                
+                // Lower opacity for non-salable seats (better UX)
+                const opacity = _self.activeSeat.isSalable() ? 1 : 0.5;
+                
+                _self.node.attr("transform", "translate(" + [x, y] + ")").attr("opacity", opacity);
             } else {
                 _self.node.attr("opacity", 0);
             }

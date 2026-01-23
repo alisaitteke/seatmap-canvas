@@ -1,6 +1,26 @@
 # Changelog
 
 - - -
+## [Unreleased]
+#### Features
+- **(seat shapes)** Add custom seat shape support with circle, rectangle, path, and SVG file options
+- **(seat shapes)** Add interactive hit areas for path and rect shapes to improve click/hover UX
+- **(seat shapes)** Create `SeatItemRect`, `SeatItemPath`, `SeatItemRectArea`, and `SeatItemPathArea` classes
+- **(tooltip)** Modernize tooltip design with auto-sizing height, centered text, and shadow effects
+- **(tooltip)** Add configurable padding, border radius, font weight, and line height
+- **(demo)** Add interactive shape selector UI with 6 preset shapes
+- **(demo)** Add SVG file upload feature with automatic path extraction
+- **(demo)** Fix GitHub buttons integrity error in demo page
+
+#### Breaking Changes
+- None - All changes are backward compatible with existing configurations
+
+#### Migration Guide
+- Existing configurations continue to work without changes
+- To use new shapes, add `shape` property to `style.seat` configuration
+- Default behavior unchanged: `shape: "auto"` uses SVG if provided, otherwise circle
+
+- - -
 ## [v2.5.19](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.18..v2.5.19) - 2024-02-04
 #### Miscellaneous Chores
 - **(index.html)** change div elements to td elements for better semantic structure in the table - ([ea5d5f8](https://github.com/alisaitteke/seatmap-canvas/commit/ea5d5f8acb3e742655ff3a9dd60c20996706797d)) - Ali

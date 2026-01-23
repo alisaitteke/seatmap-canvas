@@ -58,7 +58,10 @@ $(document).ready(async function () {
 
 
     seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
-        if (!seat.isSelected() && seat.item.salable === true) {
+        // Only allow interaction with salable seats
+        if (!seat.item.salable) return;
+        
+        if (!seat.isSelected()) {
             seat.select()
         } else {
             seat.unSelect()

@@ -24,6 +24,7 @@ export default class Seats extends SvgBase {
 
         this.global.eventManager.addEventListener(EventType.MOUSEENTER_SEAT, (seat: SeatItem) => {
             if (this.global.multi_select) return;
+            if (!seat.isSalable()) return;  // Don't change color for non-salable seats
             seat.setColor(seat.getColor(SeatAction.HOVER));
             //this.global.zoomManager.zoomDisable();
         });

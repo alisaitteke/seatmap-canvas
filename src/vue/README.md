@@ -296,6 +296,175 @@ Check the `/examples/vue` directory for complete examples:
 - Event handling
 - Zoom controls
 
+## Custom Seat Shapes
+
+### Using Custom Shapes
+
+```vue
+<template>
+  <SeatmapCanvas :options="options" :data="blocks" />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const options = ref({
+  style: {
+    seat: {
+      shape: "rect",        // circle | rect | path | svg
+      size: 24,
+      corner_radius: 6,
+      color: "#6796ff",
+      hover: "#5671ff",
+      selected: "#56aa45"
+    }
+  }
+});
+</script>
+```
+
+### Available Shapes
+
+**Circle** (Default)
+```typescript
+options: {
+  style: { seat: { shape: "circle", radius: 12 } }
+}
+```
+
+**Rectangle**
+```typescript
+options: {
+  style: { seat: { shape: "rect", size: 24, corner_radius: 4 } }
+}
+```
+
+**Custom Path**
+```typescript
+options: {
+  style: {
+    seat: {
+      shape: "path",
+      path: "M12 0L24 12L12 24L0 12Z",  // Diamond
+      path_box: "0 0 24 24",
+      size: 24
+    }
+  }
+}
+```
+
+**External SVG**
+```typescript
+options: {
+  style: {
+    seat: {
+      shape: "svg",
+      svg: "/assets/custom-seat.svg",
+      radius: 12
+    }
+  }
+}
+```
+
+### Preparing Your SVG Files
+
+**Option 1: Extract Path from SVG**
+
+1. Open your SVG in a text editor
+2. Find the `<path d="...">` element
+3. Copy the path data and viewBox:
+
+```vue
+<script setup lang="ts">
+const options = ref({
+  style: {
+    seat: {
+      shape: "path",
+      path: "M12 21.35l-1.45-1.32C5.4 15.36...",  // from d attribute
+      path_box: "0 0 24 24",  // from viewBox attribute
+      size: 24
+    }
+  }
+});
+</script>
+```
+
+**Option 2: Use SVG File Directly**
+
+Place SVG in your `public` folder and reference it:
+
+```vue
+<script setup lang="ts">
+const options = ref({
+  style: {
+    seat: {
+      shape: "svg",
+      svg: "/icons/custom-seat.svg",
+      radius: 12
+    }
+  }
+});
+</script>
+```
+
+**Supported SVG Elements:**
+- `<path>` - Used directly
+- `<polygon>`, `<polyline>` - Auto-converted to path
+- `<rect>`, `<circle>` - Auto-converted to path
+- Multiple paths - Automatically combined
+
+**Best Practices:**
+- Use square viewBox (e.g., "0 0 24 24") for consistent sizing
+- Keep SVG simple (< 10KB) for better performance
+- Use monochrome SVGs (fill color controlled by library)
+- Export from design tools with "Outline Stroke" option
+
+### Predefined Shapes
+
+```typescript
+// Triangle
+{ shape: "path", path: "M12 0L24 24H0Z", path_box: "0 0 24 24" }
+
+// Diamond
+{ shape: "path", path: "M12 0L24 12L12 24L0 12Z", path_box: "0 0 24 24" }
+
+// Star
+{ shape: "path", path: "M12 0L15 9L24 9L17 15L20 24L12 18L4 24L7 15L0 9L9 9Z", path_box: "0 0 24 24" }
+```
+
+## Modern Tooltips
+
+### Customizing Tooltips
+
+```vue
+<script setup lang="ts">
+const options = ref({
+  style: {
+    tooltip: {
+      bg: "#ffffff",
+      color: "#1f2937",
+      border_radius: 10,
+      padding: 14,
+      font_size: "14px",
+      font_weight: "600",
+      line_height: 20,
+      shadow: "0 8px 24px rgba(0,0,0,0.2)",
+      text_align: "center",
+      width: 160
+      // Height auto-adjusts to content
+    }
+  }
+});
+</script>
+```
+
+**Features:**
+- Auto-sizing height based on content
+- Centered text alignment
+- Modern shadow effects
+- Configurable padding and spacing
+- Custom fonts and colors
+
 ## License
 
 MIT - Copyright (c) 2024 Ali Sait TEKE
