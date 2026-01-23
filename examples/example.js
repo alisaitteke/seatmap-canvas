@@ -360,4 +360,62 @@ $(document).ready(function () {
     $("#dark-mode-btn").on("click", function (a) {
         $('html').toggleClass('dark')
     });
+
+    // Shape selection handlers
+    $(".shape-btn").on("click", function() {
+        const selectedShape = $(this).data("shape");
+        
+        // Update button styles
+        $(".shape-btn").removeClass("bg-blue-200 dark:bg-blue-800").addClass("bg-gray-100 dark:bg-gray-900");
+        $(this).removeClass("bg-gray-100 dark:bg-gray-900").addClass("bg-blue-200 dark:bg-blue-800");
+        
+        // Apply shape configuration
+        let shapeConfig = {
+            shape: "circle",
+            size: 24,
+            corner_radius: 0,
+            path: null,
+            path_box: "0 0 24 24"
+        };
+        
+        switch(selectedShape) {
+            case "circle":
+                shapeConfig.shape = "circle";
+                break;
+            case "rect":
+                shapeConfig.shape = "rect";
+                shapeConfig.corner_radius = 0;
+                break;
+            case "rect-rounded":
+                shapeConfig.shape = "rect";
+                shapeConfig.corner_radius = 6;
+                break;
+            case "path-triangle":
+                shapeConfig.shape = "path";
+                shapeConfig.path = "M12 0L24 24H0Z";
+                shapeConfig.path_box = "0 0 24 24";
+                break;
+            case "path-diamond":
+                shapeConfig.shape = "path";
+                shapeConfig.path = "M12 0L24 12L12 24L0 12Z";
+                shapeConfig.path_box = "0 0 24 24";
+                break;
+            case "path-star":
+                shapeConfig.shape = "path";
+                shapeConfig.path = "M12 0L15 9L24 9L17 15L20 24L12 18L4 24L7 15L0 9L9 9Z";
+                shapeConfig.path_box = "0 0 24 24";
+                break;
+        }
+        
+        // Update seatmap configuration
+        seatmap.config.style.seat.shape = shapeConfig.shape;
+        seatmap.config.style.seat.size = shapeConfig.size;
+        seatmap.config.style.seat.corner_radius = shapeConfig.corner_radius;
+        seatmap.config.style.seat.path = shapeConfig.path;
+        seatmap.config.style.seat.path_box = shapeConfig.path_box;
+        
+        // Regenerate entire stage with new shape
+        seatmap.svg.stage.blocks.clear();
+        seatmap.svg.stage.blocks.update();
+    });
 });
