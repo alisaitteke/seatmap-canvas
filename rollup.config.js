@@ -99,7 +99,7 @@ export default commandLineArgs => {
             plugins: [scss(), dts.default()],
         },
     ];
-    if (!commandLineArgs.prod) {
+    if (!process.env.PRODUCTION) {
         config[0].plugins.push(livereload())
         config[0].plugins.push(serve({
             openPage: '/index.html',
