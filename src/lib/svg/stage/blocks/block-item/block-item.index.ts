@@ -79,6 +79,10 @@ export default class Block extends SvgBase {
                 for (let i = 0; i < block_item.seats.getSeatsCount(); i++) {
                     let _seat = block_item.seats.getSeatByIndex(i);
                     let _item: SeatModel = _seat.item;
+                    
+                    // Skip color changes for non-salable seats
+                    if (!_seat.isSalable()) continue;
+                    
                     let color = _seat.getColor();
                     if (_seat.isSelected()) {
                         color = _seat.getColor(SeatAction.SELECT);

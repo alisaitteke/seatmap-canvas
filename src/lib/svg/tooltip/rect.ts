@@ -17,36 +17,17 @@ export default class TooltipRect extends SvgBase {
 
     constructor(public parent: Tooltip) {
         super(parent);
+        const borderRadius = this.global.config.style.tooltip.border_radius || 8;
+        
         this.attr("width", this.global.config.style.tooltip.width);
         this.attr("height", this.global.config.style.tooltip.height);
         this.attr("x", 0);
         this.attr("y", 0);
-        this.attr("rx", 3);
-        this.attr("ry", 3);
-
-        const data:any = [
-            {'x': 0, 'y': 0},
-            {'x': 0, 'y': 30},
-            {'x': 30, 'y': 30},
-            {'x': 30, 'y': 0},
-            {'x': 0, 'y': 0},
-        ];
-
-        const line = d3Line()
-            .x((d: any) => {
-                return d['x'];
-            })
-            .y((d: any) => {
-                return d['y'];
-            });
-
+        this.attr("rx", borderRadius);
+        this.attr("ry", borderRadius);
         this.attr("fill", this.global.config.style.tooltip.bg);
-        this.attr("stroke", "rgba(0,0,0,0.3)");
-        this.attr("stroke-width", "1px");
-        this.attr("opacity", 0.8);
-
-        //this.attr('d', line(data));
-
+        this.attr("stroke", this.global.config.style.tooltip.border_color || "rgba(0,0,0,0.15)");
+        this.attr("stroke-width", this.global.config.style.tooltip.border_width || 1);
 
         return this;
     }
@@ -57,7 +38,12 @@ export default class TooltipRect extends SvgBase {
     }
 
     afterGenerate() {
-
         this.node.style("pointer-events", "none");
+        
+        // Add modern shadow
+        const shadow = this.global.config.style.tooltip.shadow;
+        if (shadow) {
+            this.node.style("filter", `drop-shadow(${shadow})`);
+        }
     }
 }

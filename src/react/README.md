@@ -285,6 +285,154 @@ Check the `/examples/react` directory for complete examples:
 - Zoom controls
 - Selected seats management
 
+## Custom Seat Shapes
+
+### Using Custom Shapes
+
+```tsx
+import { SeatmapCanvas } from '@alisaitteke/seatmap-canvas/react';
+
+function App() {
+  const options = {
+    style: {
+      seat: {
+        shape: "rect",        // circle | rect | path | svg
+        size: 24,
+        corner_radius: 6,
+        color: "#6796ff",
+        hover: "#5671ff",
+        selected: "#56aa45"
+      }
+    }
+  };
+
+  return <SeatmapCanvas options={options} data={blocks} />;
+}
+```
+
+### Available Shapes
+
+**Circle** (Default)
+```tsx
+options: {
+  style: { seat: { shape: "circle", radius: 12 } }
+}
+```
+
+**Rectangle**
+```tsx
+options: {
+  style: { seat: { shape: "rect", size: 24, corner_radius: 4 } }
+}
+```
+
+**Custom Path**
+```tsx
+options: {
+  style: {
+    seat: {
+      shape: "path",
+      path: "M12 0L24 12L12 24L0 12Z",  // Diamond
+      path_box: "0 0 24 24",
+      size: 24
+    }
+  }
+}
+```
+
+**External SVG**
+```tsx
+options: {
+  style: {
+    seat: {
+      shape: "svg",
+      svg: "/assets/custom-seat.svg",
+      radius: 12
+    }
+  }
+}
+```
+
+### Preparing Your SVG Files
+
+**Option 1: Extract Path from SVG**
+
+1. Open your SVG in a text editor
+2. Find the `<path d="...">` element
+3. Copy the path data and viewBox:
+
+```tsx
+const options = {
+  style: {
+    seat: {
+      shape: "path",
+      path: "M12 21.35l-1.45-1.32C5.4 15.36...",  // from d attribute
+      path_box: "0 0 24 24",  // from viewBox attribute
+      size: 24
+    }
+  }
+};
+```
+
+**Option 2: Use SVG File Directly**
+
+Place SVG in your `public` folder and reference it:
+
+```tsx
+const options = {
+  style: {
+    seat: {
+      shape: "svg",
+      svg: "/icons/custom-seat.svg",
+      radius: 12
+    }
+  }
+};
+```
+
+**Supported SVG Elements:**
+- `<path>` - Used directly
+- `<polygon>`, `<polyline>` - Auto-converted to path
+- `<rect>`, `<circle>` - Auto-converted to path
+- Multiple paths - Automatically combined
+
+**Best Practices:**
+- Use square viewBox (e.g., "0 0 24 24") for consistent sizing
+- Keep SVG simple (< 10KB) for better performance
+- Use monochrome SVGs (fill color controlled by library)
+- Export from design tools with "Outline Stroke" option
+
+## Modern Tooltips
+
+### Customizing Tooltips
+
+```tsx
+const options = {
+  style: {
+    tooltip: {
+      bg: "#ffffff",
+      color: "#1f2937",
+      border_radius: 10,
+      padding: 14,
+      font_size: "14px",
+      font_weight: "600",
+      line_height: 20,
+      shadow: "0 8px 24px rgba(0,0,0,0.2)",
+      text_align: "center",
+      width: 160
+      // Height auto-adjusts to content
+    }
+  }
+};
+```
+
+**Features:**
+- Auto-sizing height based on content
+- Centered text alignment
+- Modern shadow effects
+- Configurable padding and spacing
+- Custom fonts and colors
+
 ## Next.js Support
 
 For Next.js, you may need to import the component dynamically to avoid SSR issues:

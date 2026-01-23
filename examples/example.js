@@ -107,13 +107,30 @@ $(document).ready(function () {
             },
             block: {
                 title_color: '#fff'
+            },
+            tooltip: {
+                bg: '#ffffff',
+                color: '#1f2937',
+                border_color: 'rgba(0,0,0,0.08)',
+                border_width: 1,
+                border_radius: 10,
+                padding: 14,
+                font_size: '14px',
+                font_weight: '600',
+                line_height: 20,
+                shadow: '0 8px 24px rgba(0,0,0,0.2)',
+                text_align: 'center',
+                width: 160
             }
         }
     });
 
 
     seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
-        if (!seat.isSelected() && seat.item.salable === true) {
+        // Only allow interaction with salable seats
+        if (!seat.item.salable) return;
+        
+        if (!seat.isSelected()) {
             seat.select()
         } else {
             seat.unSelect()
@@ -516,21 +533,6 @@ $(document).ready(function () {
             case "rect-rounded":
                 shapeConfig.shape = "rect";
                 shapeConfig.corner_radius = 6;
-                break;
-            case "path-triangle":
-                shapeConfig.shape = "path";
-                shapeConfig.path = "M12 0L24 24H0Z";
-                shapeConfig.path_box = "0 0 24 24";
-                break;
-            case "path-diamond":
-                shapeConfig.shape = "path";
-                shapeConfig.path = "M12 0L24 12L12 24L0 12Z";
-                shapeConfig.path_box = "0 0 24 24";
-                break;
-            case "path-star":
-                shapeConfig.shape = "path";
-                shapeConfig.path = "M12 0L15 9L24 9L17 15L20 24L12 18L4 24L7 15L0 9L9 9Z";
-                shapeConfig.path_box = "0 0 24 24";
                 break;
         }
         
