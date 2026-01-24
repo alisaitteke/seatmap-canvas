@@ -1,6 +1,6 @@
 # Installation
 
-Learn how to install Seatmap Canvas in your project.
+Install Seatmap Canvas in your project.
 
 ## Prerequisites
 

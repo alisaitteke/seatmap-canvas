@@ -1,6 +1,6 @@
 # Quick Start
 
-Get up and running with Seatmap Canvas in just a few minutes!
+Create your first seatmap in minutes.
 
 ## Basic Example
 

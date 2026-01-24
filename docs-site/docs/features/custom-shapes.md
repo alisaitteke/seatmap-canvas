@@ -1,6 +1,6 @@
 # Custom Shapes
 
-Use custom shapes for seats including circles, rectangles, paths, and SVG files.
+Use circles, rectangles, paths, and SVGs.
 
 ## Available Shapes
 

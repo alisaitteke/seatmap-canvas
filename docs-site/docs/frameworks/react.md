@@ -1,6 +1,6 @@
 # React
 
-Learn how to use Seatmap Canvas with React.
+Use Seatmap Canvas with React.
 
 ## Installation
 

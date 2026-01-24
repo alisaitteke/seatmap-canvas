@@ -1,6 +1,6 @@
 # Data Structure
 
-Understanding the data structure is crucial for working with Seatmap Canvas. This guide explains the models and their properties.
+Learn the data models and their properties.
 
 ## Overview
 

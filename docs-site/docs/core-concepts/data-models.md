@@ -1,6 +1,6 @@
 # Data Models
 
-Understanding the data model hierarchy and structure.
+Explore the model hierarchy.
 
 ## Model Hierarchy
 

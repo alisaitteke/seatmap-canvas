@@ -169,7 +169,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Seatmap Canvas. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Ali Sait Teke. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

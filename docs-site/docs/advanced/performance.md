@@ -1,6 +1,6 @@
-# Performance Optimization
+# Performance
 
-Tips and best practices for optimal performance.
+Optimize for best performance.
 
 ## Best Practices
 

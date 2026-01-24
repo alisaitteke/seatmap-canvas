@@ -1,6 +1,6 @@
-# Basic Usage Examples
+# Basic Examples
 
-Simple examples to get you started.
+Simple examples to get started.
 
 ## Minimal Example
 

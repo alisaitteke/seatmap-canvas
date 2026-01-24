@@ -1,6 +1,6 @@
 # Styling
 
-Customize the appearance of seats, blocks, and labels.
+Customize seats, blocks, and labels.
 
 ## Seat Styling
 

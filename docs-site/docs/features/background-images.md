@@ -1,6 +1,6 @@
 # Background Images
 
-Add background images to enhance visualization.
+Enhance with background images.
 
 ## Global Background
 

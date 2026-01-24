@@ -1,6 +1,6 @@
 # Custom Data
 
-Attach custom data to seats for business logic.
+Attach custom data to seats.
 
 ## Usage
 
