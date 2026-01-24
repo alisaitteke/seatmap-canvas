@@ -54,19 +54,22 @@ export default class BlocksSearchCircle extends SvgBase {
         this.updateChilds();
 
 
-        this.parent.blocks.node.on("mouseleave.search", () => {
-            this.node.classed("show", false);
-        });
+        // Only bind events if blocks node exists
+        if (this.parent.blocks && this.parent.blocks.node) {
+            this.parent.blocks.node.on("mouseleave.search", () => {
+                this.node.classed("show", false);
+            });
 
-        this.parent.blocks.node.on("mousemove.search", () => {
-            if (this.global.zoomManager.zoomLevel === ZoomLevel.VENUE) {
-                this.node.classed("show", false);
-            } else if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {
-                this.node.classed("show", true);
-            } else if (this.global.zoomManager.zoomLevel === ZoomLevel.SEAT) {
-                this.node.classed("show", false);
-            }
-        });
+            this.parent.blocks.node.on("mousemove.search", () => {
+                if (this.global.zoomManager.zoomLevel === ZoomLevel.VENUE) {
+                    this.node.classed("show", false);
+                } else if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {
+                    this.node.classed("show", true);
+                } else if (this.global.zoomManager.zoomLevel === ZoomLevel.SEAT) {
+                    this.node.classed("show", false);
+                }
+            });
+        }
 
         return this;
     }
