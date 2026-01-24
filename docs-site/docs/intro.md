@@ -1,4 +1,4 @@
-# Welcome to Seatmap Canvas 🎫
+# Welcome to Seatmap Canvas
 
 :::tip 🎉 What is Seatmap Canvas?
 **Seatmap Canvas** is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Built with **D3.js** and **TypeScript**, it provides a powerful and customizable solution for handling seat arrangements and user interactions.
