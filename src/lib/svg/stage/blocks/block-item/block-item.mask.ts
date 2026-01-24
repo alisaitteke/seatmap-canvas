@@ -39,6 +39,9 @@ export default class BlockMask extends SvgBase {
 
     update(): this {
 
+        // Check if block has custom background image
+        const hasBackground = !!this.item.background_image;
+
         // add Border Bounds container
         this.seatLevelMask = new BoundItem(this, this.item);
         this.seatLevelMask.attr("fill", this.item.color);
@@ -46,6 +49,10 @@ export default class BlockMask extends SvgBase {
         this.seatLevelMask.attr("stroke", this.item.color);
         this.seatLevelMask.tags.push("seat-level");
         this.seatLevelMask.classed("seat-level-mask");
+        // Hide mask if background image exists
+        if (hasBackground) {
+            this.seatLevelMask.attr("opacity", 0);
+        }
 
 
         // add Border Bounds container
@@ -55,6 +62,10 @@ export default class BlockMask extends SvgBase {
         this.blockLevelMask.attr("stroke", this.item.color);
         this.blockLevelMask.tags.push("block-level");
         this.blockLevelMask.classed("block-level-mask");
+        // Hide mask if background image exists
+        if (hasBackground) {
+            this.blockLevelMask.attr("opacity", 0);
+        }
 
         this.addChild(this.seatLevelMask);
         this.addChild(this.blockLevelMask);

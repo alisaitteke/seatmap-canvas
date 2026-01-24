@@ -8,6 +8,7 @@ import Svg from "@svg/svg.index";
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
 import BlocksSearchCircle from "./blocks.search-circle";
+import StageBackground from "./stage.background";
 
 
 
@@ -20,6 +21,7 @@ export default class Stage extends SvgBase {
 
     public blocks: Blocks;
     public searchCircle:BlocksSearchCircle;
+    public background: StageBackground;
 
     constructor(public parent: Svg) {
         super(parent);
@@ -27,6 +29,12 @@ export default class Stage extends SvgBase {
 
 
     update() {
+        // Add global background image (first, at the bottom) - only if configured
+        if (this.global.config.background_image) {
+            this.background = new StageBackground(this);
+            this.addChild(this.background);
+        }
+
         this.blocks = new Blocks(this);
         this.addChild(this.blocks);
 
