@@ -187,6 +187,20 @@
                 <div id="zoom-blocks-buttons" class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-600 rounded-md text-center"></div>
 
                 <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
+                    <div class="text-center dark:text-white font-semibold">Backgrounds</div>
+                    <div class="w-full flex flex-col gap-1.5">
+                        <button id="toggle-global-bg" class="bg-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200">
+                            <i class="fa-solid fa-image mr-2"></i>
+                            <span id="global-bg-text">Global BG: Off</span>
+                        </button>
+                        <button id="toggle-block-bg" class="bg-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200">
+                            <i class="fa-solid fa-images mr-2"></i>
+                            <span id="block-bg-text">Block BG: Off</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
                     <div class="text-center dark:text-white font-semibold">Seat Shapes</div>
                     <div class="w-full flex flex-col gap-1.5">
                         <button class="shape-btn border text-left border-slate-500 bg-blue-200 dark:bg-blue-800 dark:text-white dark:hover:bg-blue-700 text-slate-800 py-1 px-3 rounded-md hover:bg-blue-300"
@@ -294,7 +308,11 @@
             <a class="github-button" href="https://github.com/alisaitteke/seatmap-canvas/fork"
                data-icon="octicon-repo-forked" aria-label="Fork alisaitteke/seatmap-canvas on GitHub">Fork</a>
         </div>
-        <div class="flex-1 xl:flex-initial flex justify-center xl:justify-end">
+        <div class="flex gap-4 items-center">
+            <a href="docs/" class="hidden xl:flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#ab1f34] dark:hover:text-[#d05063] transition-colors">
+                <i class="fa-solid fa-book"></i>
+                <span>Documentation</span>
+            </a>
             <a href="https://d3js.org/" target="_blank" class="flex items-center">
                 <img class="h-6" src="https://raw.githubusercontent.com/d3/d3-logo/master/d3.svg" alt="D3.js">
             </a>
