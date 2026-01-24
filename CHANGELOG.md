@@ -8,8 +8,16 @@
 - **(seat shapes)** Create `SeatItemRect`, `SeatItemPath`, `SeatItemRectArea`, and `SeatItemPathArea` classes
 - **(tooltip)** Modernize tooltip design with auto-sizing height, centered text, and shadow effects
 - **(tooltip)** Add configurable padding, border radius, font weight, and line height
-- **(demo)** Add interactive shape selector UI with 6 preset shapes
+- **(tooltip)** Add unsalable seat indicators (opacity, red border, icon)
+- **(background)** Add global background image support with positioning control
+- **(background)** Add per-block background image support with clip-path masking
+- **(background)** Create `BlockBackground` and `StageBackground` renderer classes
+- **(background)** Add manual positioning (x, y, width, height) or auto-detect from bounds
+- **(background)** Auto-hide block bounds/masks when background image assigned
+- **(demo)** Add interactive shape selector UI with preset shapes
 - **(demo)** Add SVG file upload feature with automatic path extraction
+- **(demo)** Add background image toggle buttons (global + block level)
+- **(demo)** Add modern booking UI with basket, checkout modal, and responsive design
 - **(demo)** Fix GitHub buttons integrity error in demo page
 
 #### Breaking Changes
@@ -17,8 +25,9 @@
 
 #### Migration Guide
 - Existing configurations continue to work without changes
-- To use new shapes, add `shape` property to `style.seat` configuration
-- Default behavior unchanged: `shape: "auto"` uses SVG if provided, otherwise circle
+- To use custom shapes, add `shape` property to `style.seat` configuration
+- To use background images, add `background_image` to config or block data
+- Default behavior unchanged: no backgrounds, circle seats
 
 - - -
 ## [v2.5.19](https://github.com/alisaitteke/seatmap-canvas/compare/v2.5.18..v2.5.19) - 2024-02-04
