@@ -3,10 +3,13 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 [![LIVE DEMO](assets/banner_ui.png)](https://alisaitteke.github.io/seatmap-canvas)
 
+**[📖 Documentation](https://alisaitteke.github.io/seatmap-canvas/docs)** | **[🎯 Live Demo](https://alisaitteke.github.io/seatmap-canvas)**
+
 ## Features
 
 - **Framework Agnostic** - Core library works with vanilla JS, plus official React and Vue 3 wrappers
 - **Dynamic Seat Selection** - Interactive selection, categorization, and location of seats
+- **Custom Background Images** - Global and per-block background images with positioning control
 - **Customizable Styles** - Extensive styling options for seats, blocks, and labels
 - **Interactive Seat Models** - Define properties like salability, notes, colors, and custom data
 - **Block Organization** - Organize seats into blocks with titles, colors, and labels
@@ -330,9 +333,144 @@ const selected = seatmap.getSelectedSeats();
 #### Configuration Options
 ```js
 {
-  click_enable_sold_seats: true  // Enable clicking on unavailable seats (default: false)
+  click_enable_sold_seats: true,  // Enable clicking on unavailable seats (default: false)
+  
+  // Global Background Image
+  background_image: "assets/stadium.jpg",      // Image URL (PNG, JPG, SVG, WebP, GIF)
+  background_opacity: 0.3,                     // 0-1 (default: 0.3)
+  background_fit: "cover",                     // "cover" | "contain" | "fill" | "none"
+  background_x: 0,                            // Manual X position (optional, auto-detect if null)
+  background_y: 0,                            // Manual Y position (optional)
+  background_width: 1500,                     // Manual width (optional)
+  background_height: 1000                     // Manual height (optional)
 }
 ```
+
+</details>
+
+<details>
+<summary><strong>🖼️ Custom Background Images</strong></summary>
+
+#### Global Background
+
+Add a background image to the entire stage:
+
+```javascript
+const seatmap = new SeatmapCanvas(".container", {
+  background_image: "assets/concert-hall.jpg",
+  background_opacity: 0.3,
+  background_fit: "cover"
+});
+```
+
+**With Manual Positioning:**
+```javascript
+const seatmap = new SeatmapCanvas(".container", {
+  background_image: "assets/stadium.jpg",
+  background_x: -500,        // Position X
+  background_y: -500,        // Position Y
+  background_width: 3000,    // Width
+  background_height: 2500,   // Height
+  background_opacity: 0.4,
+  background_fit: "contain"  // Preserve aspect ratio
+});
+```
+
+#### Block-Level Background
+
+Add custom backgrounds to individual blocks:
+
+```javascript
+{
+  blocks: [{
+    id: "vip-section",
+    title: "VIP Area",
+    background_image: "assets/vip-lounge.jpg",
+    background_opacity: 0.6,
+    background_fit: "cover",
+    seats: [...]
+  }, {
+    id: "general",
+    title: "General Admission",
+    background_image: "assets/general-area.jpg",
+    background_opacity: 0.5,
+    seats: [...]
+  }]
+}
+```
+
+**With Manual Positioning:**
+```javascript
+{
+  blocks: [{
+    id: "block-a",
+    background_image: "section-a.jpg",
+    background_x: 100,         // Exact X coordinate
+    background_y: 200,         // Exact Y coordinate
+    background_width: 500,     // Exact width
+    background_height: 400,    // Exact height
+    background_opacity: 0.7,
+    background_fit: "cover",
+    seats: [...]
+  }]
+}
+```
+
+#### Fit Modes
+
+- **`cover`** (default) - Image covers entire area, may crop
+- **`contain`** - Image fits inside area, preserves aspect ratio
+- **`fill`** - Image stretches to fill area
+- **`none`** - Image keeps original size, centered
+
+#### Features
+
+- ✅ **Auto-Detection:** X, Y, Width, Height auto-calculated from bounds if not specified
+- ✅ **Clip-Path Masking:** Block backgrounds clipped to exact block shape
+- ✅ **Opacity Control:** Adjustable transparency (0-1)
+- ✅ **Auto-Hide Bounds:** Block borders/fills hidden when background exists
+- ✅ **Zoom Preserved:** Bounds calculations still work for zoom levels
+- ✅ **Format Support:** PNG, JPG, SVG, WebP, GIF, all web-compatible formats
+- ✅ **Performance:** Browser-native image loading and caching
+
+#### Use Cases
+
+**Stadium/Arena:**
+```javascript
+// Stadium overview as background
+background_image: "stadium-aerial.jpg"
+```
+
+**Theater:**
+```javascript
+// Stage photo per seating section
+blocks: [
+  { id: "orchestra", background_image: "orchestra-view.jpg" },
+  { id: "balcony", background_image: "balcony-view.jpg" }
+]
+```
+
+**Restaurant:**
+```javascript
+// Floor plan as background
+background_image: "floor-plan.png",
+background_opacity: 0.5,
+background_fit: "contain"
+```
+
+**Event Space:**
+```javascript
+// Custom venue layout
+background_image: "venue-layout.svg",
+background_fit: "contain"
+```
+
+#### Important Notes
+
+- Background images don't affect zoom calculations (bounds preserved)
+- Block borders/fills automatically hidden when background assigned
+- CORS: Images must be same-origin or CORS-enabled
+- Performance: Use optimized images (< 500KB recommended)
 
 </details>
 
@@ -425,6 +563,13 @@ seatmap.setData(data);
 </p>
 
 ---
+
+## Links
+
+- 📖 [Documentation](https://alisaitteke.github.io/seatmap-canvas/docs)
+- 🎯 [Live Demo](https://alisaitteke.github.io/seatmap-canvas)
+- 📦 [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
+- 🐛 [Report Issues](https://github.com/alisaitteke/seatmap-canvas/issues)
 
 ## Contributors
 

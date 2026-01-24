@@ -18,7 +18,10 @@
   "sideEffects": false,
   "scripts": {
     "start:dev": "rollup --config --watch --bundleConfigAsCjs",
-    "build": "rollup -c --environment PRODUCTION --bundleConfigAsCjs"
+    "build": "rollup -c --environment PRODUCTION --bundleConfigAsCjs",
+    "docs:dev": "cd docs-site && npm run start",
+    "docs:build": "cd docs-site && npm run build",
+    "docs:serve": "cd docs-site && npm run serve"
   },
   "engines": {
     "node": ">=18.0.0"
