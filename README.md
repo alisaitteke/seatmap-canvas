@@ -184,7 +184,7 @@ const onSeatClick = (seat) => {
 </table>
 
 <p align="center">
-  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/frameworks/vue"><img src="https://img.shields.io/badge/📖_Full_Documentation-4FC08D?style=for-the-badge&logoColor=white" alt="Documentation"/></a>
+  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/docs/frameworks/vue"><img src="https://img.shields.io/badge/📖_Full_Documentation-4FC08D?style=for-the-badge&logoColor=white" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/vue/"><img src="https://img.shields.io/badge/🎯_Examples-35495E?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
@@ -240,7 +240,7 @@ function App() {
 </table>
 
 <p align="center">
-  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/frameworks/react"><img src="https://img.shields.io/badge/📖_Full_Documentation-61DAFB?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/docs/frameworks/react"><img src="https://img.shields.io/badge/📖_Full_Documentation-61DAFB?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/react/"><img src="https://img.shields.io/badge/🎯_Examples-20232A?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
@@ -475,7 +475,7 @@ background_fit: "contain"
 </details>
 
 <p align="center">
-  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/frameworks/vanilla-js"><img src="https://img.shields.io/badge/📖_Full_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/docs/frameworks/vanilla-js"><img src="https://img.shields.io/badge/📖_Full_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/"><img src="https://img.shields.io/badge/🎯_Examples-333333?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
