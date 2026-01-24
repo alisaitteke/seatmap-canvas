@@ -24,6 +24,13 @@ export default class BlockModel extends ModelBase {
     zoom_bbox: any;
     rotate: number;
     gap: number;
+    background_image?: string | null;
+    background_opacity?: number;
+    background_fit?: 'cover' | 'contain' | 'fill' | 'none';
+    background_x?: number | null;
+    background_y?: number | null;
+    background_width?: number | null;
+    background_height?: number | null;
 
     constructor(item: any) {
         super();
@@ -38,6 +45,13 @@ export default class BlockModel extends ModelBase {
         this.title = item.title;
         this.rotate = item.rotate || 0;
         this.gap = item.gap || 12;
+        this.background_image = item.background_image || null;
+        this.background_opacity = item.background_opacity !== undefined ? item.background_opacity : 1;
+        this.background_fit = item.background_fit || 'cover';
+        this.background_x = item.background_x !== undefined ? item.background_x : null;
+        this.background_y = item.background_y !== undefined ? item.background_y : null;
+        this.background_width = item.background_width || null;
+        this.background_height = item.background_height || null;
 
         this.labels = item.labels.map((item: any) => {
             item.block = this;

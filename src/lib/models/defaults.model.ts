@@ -32,6 +32,13 @@ export default class DefaultsModel {
     zoom_out_button: string;
     legend: boolean = false;
     canvas_stageout_control: boolean = true;
+    background_image: string | null = null;
+    background_opacity: number = 0.3;
+    background_fit: 'cover' | 'contain' | 'fill' | 'none' = 'cover';
+    background_x: number | null = null;
+    background_y: number | null = null;
+    background_width: number | null = null;
+    background_height: number | null = null;
 
     style: StyleConfig;
 
@@ -57,6 +64,13 @@ export default class DefaultsModel {
         this.legend = config.legend == false ? config.legend : true;
         this.canvas_stageout_control = config.canvas_stageout_control == false ? config.canvas_stageout_control : true;
 
+        this.background_image = config.background_image || null;
+        this.background_opacity = config.background_opacity !== undefined ? config.background_opacity : 0.3;
+        this.background_fit = config.background_fit || 'cover';
+        this.background_x = config.background_x !== undefined ? config.background_x : null;
+        this.background_y = config.background_y !== undefined ? config.background_y : null;
+        this.background_width = config.background_width || null;
+        this.background_height = config.background_height || null;
 
         this.style = new StyleConfig()
 
