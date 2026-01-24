@@ -1,25 +1,58 @@
-# Welcome to Seatmap Canvas
+# Build **interactive** seatmaps **quickly**, focus on your **content** 🎫
 
-:::tip 🎉 What is Seatmap Canvas?
-**Seatmap Canvas** is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Built with **D3.js** and **TypeScript**, it provides a powerful and customizable solution for handling seat arrangements and user interactions.
-:::
+**Seatmap Canvas** helps you create beautiful, performant seat selection experiences for stadiums, theaters, and event spaces. Built with **D3.js** and **TypeScript**.
 
-[![LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
-
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <a href="https://alisaitteke.github.io/seatmap-canvas" target="_blank" style={{
+<div style={{textAlign: 'center', margin: '3rem 0 2rem'}}>
+  <a href="/docs/getting-started/installation" style={{
     display: 'inline-block',
-    padding: '12px 24px',
+    padding: '14px 32px',
+    marginRight: '1rem',
+    marginBottom: '1rem',
     backgroundColor: 'var(--ifm-color-primary)',
     color: 'white',
     borderRadius: '8px',
     textDecoration: 'none',
     fontWeight: 'bold',
+    fontSize: '1.1rem',
+    boxShadow: '0 4px 14px rgba(37, 99, 235, 0.3)'
+  }}>
+    Get Started
+  </a>
+  <a href="https://alisaitteke.github.io/seatmap-canvas" target="_blank" style={{
+    display: 'inline-block',
+    padding: '14px 32px',
+    marginBottom: '1rem',
+    backgroundColor: 'transparent',
+    color: 'var(--ifm-color-primary)',
+    border: '2px solid var(--ifm-color-primary)',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontWeight: 'bold',
     fontSize: '1.1rem'
   }}>
-    🚀 Try Live Demo
+    Try a Demo
   </a>
+  <div style={{marginTop: '1.5rem'}}>
+    <a href="https://github.com/alisaitteke/seatmap-canvas" target="_blank" style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      color: 'var(--ifm-color-emphasis-700)',
+      textDecoration: 'none'
+    }}>
+      ⭐ Star
+      <span style={{
+        backgroundColor: 'var(--ifm-color-emphasis-200)',
+        padding: '2px 8px',
+        borderRadius: '12px',
+        fontSize: '0.85rem',
+        fontWeight: '600'
+      }}>1.2k</span>
+    </a>
+  </div>
 </div>
+
+[![LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
 
 ## ✨ Features
 
