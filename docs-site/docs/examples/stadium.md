@@ -1,6 +1,6 @@
-# Stadium Example
+# Stadium
 
-Example seatmap configuration for a stadium venue.
+Stadium seatmap example.
 
 ## Complete Example
 

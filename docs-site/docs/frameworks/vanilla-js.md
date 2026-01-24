@@ -1,6 +1,6 @@
 # Vanilla JavaScript
 
-Learn how to use Seatmap Canvas with vanilla JavaScript.
+Use Seatmap Canvas with vanilla JavaScript.
 
 ## Installation
 

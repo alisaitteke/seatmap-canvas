@@ -1,6 +1,6 @@
 # Vue 3
 
-Learn how to use Seatmap Canvas with Vue 3.
+Use Seatmap Canvas with Vue 3.
 
 ## Installation
 

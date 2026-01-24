@@ -1,6 +1,6 @@
 # Architecture
 
-Understanding the architecture of Seatmap Canvas will help you build better applications.
+Understand the modular architecture.
 
 ## Overview
 

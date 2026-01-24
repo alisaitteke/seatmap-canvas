@@ -1,6 +1,6 @@
-# Event Space Example
+# Event Space
 
-Example seatmap configuration for event spaces and conferences.
+Event space seatmap example.
 
 ## Coming Soon
 

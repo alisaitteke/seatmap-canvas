@@ -1,6 +1,6 @@
 # Event System
 
-Learn about the event-driven architecture and how to handle user interactions.
+Handle user interactions with events.
 
 ## Overview
 

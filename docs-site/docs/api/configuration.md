@@ -1,6 +1,6 @@
-# Configuration Options
+# Configuration
 
-Complete reference for Seatmap Canvas configuration options.
+Complete configuration reference.
 
 ## Basic Configuration
 

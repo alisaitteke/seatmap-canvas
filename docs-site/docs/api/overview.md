@@ -1,6 +1,6 @@
-# API Overview
+# API Reference
 
-Welcome to the Seatmap Canvas API reference. This section provides detailed documentation for all configuration options, methods, events, and models.
+Complete API documentation.
 
 ## Quick Navigation
 

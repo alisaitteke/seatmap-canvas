@@ -1,6 +1,6 @@
-# Theater Example
+# Theater
 
-Example seatmap configuration for a theater venue.
+Theater seatmap example.
 
 ## Coming Soon
 
