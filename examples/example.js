@@ -437,6 +437,115 @@ $(document).ready(function () {
         $("body").addClass("overflow-hidden");
     });
 
+    // Background Image Handlers
+    let globalBgEnabled = false;
+    let blockBgEnabled = false;
+
+    // Sample background images (using placeholder service)
+    const globalBgUrl = "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?q=80&w=1352"; // Concert hall
+    const blockBgUrl = "https://images.unsplash.com/photo-1598387181032-a3103a2db5b1?w=400&q=80"; // Theater seats
+
+    $("#toggle-global-bg").on("click", function() {
+        globalBgEnabled = !globalBgEnabled;
+
+        if (globalBgEnabled) {
+            // Calculate overall bounds from all blocks to position background
+            const blocks = seatmap.data.getBlocks();
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+            blocks.forEach(block => {
+                if (block.bounds && block.bounds.length > 0) {
+                    block.bounds.forEach(point => {
+                        minX = Math.min(minX, point[0]);
+                        minY = Math.min(minY, point[1]);
+                        maxX = Math.max(maxX, point[0]);
+                        maxY = Math.max(maxY, point[1]);
+                    });
+                }
+            });
+
+            // Add some padding around blocks
+            const padding = 100;
+
+            seatmap.config.background_image = globalBgUrl;
+            seatmap.config.background_x = -500 - padding;
+            seatmap.config.background_y = -500 - padding;
+            seatmap.config.background_width = 1352*3;
+            seatmap.config.background_height = 1161*3;
+            seatmap.config.background_opacity = 0.9;
+            seatmap.config.background_fit = 'contain';
+            $("#global-bg-text").text("Global BG: On");
+            $(this).removeClass("bg-gray-100 dark:bg-gray-900").addClass("bg-purple-200 dark:bg-purple-800");
+        } else {
+            seatmap.config.background_image = null;
+            seatmap.config.background_x = null;
+            seatmap.config.background_y = null;
+            seatmap.config.background_width = null;
+            seatmap.config.background_height = null;
+            $("#global-bg-text").text("Global BG: Off");
+            $(this).removeClass("bg-purple-200 dark:bg-purple-800").addClass("bg-gray-100 dark:bg-gray-900");
+        }
+
+        // Regenerate stage
+        seatmap.svg.stage.child_items.forEach(child => {
+            if (child.node) child.node.remove();
+        });
+        seatmap.svg.stage.child_items = [];
+        seatmap.svg.stage.update();
+    });
+
+    $("#toggle-block-bg").on("click", function() {
+        blockBgEnabled = !blockBgEnabled;
+
+        const blocks = seatmap.data.getBlocks();
+        blocks.forEach((block, index) => {
+            if (blockBgEnabled) {
+                // Calculate bounds for this block
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                if (block.bounds && block.bounds.length > 0) {
+                    block.bounds.forEach(point => {
+                        minX = Math.min(minX, point[0]);
+                        minY = Math.min(minY, point[1]);
+                        maxX = Math.max(maxX, point[0]);
+                        maxY = Math.max(maxY, point[1]);
+                    });
+                }
+
+                // Add different background to each block for demo
+                const bgImages = [
+                    "https://images.unsplash.com/photo-1563299796-b729d0af54a5?q=80&w=1450&auto=format",
+                    "https://plus.unsplash.com/premium_photo-1664304684344-1e86b07afcf6?q=80&w=1502&auto=format",
+                ];
+                block.background_image = bgImages[index % bgImages.length];
+                block.background_x = minX;
+                block.background_y = minY;
+                block.background_width = maxX - minX;
+                block.background_height = maxY - minY;
+                block.background_opacity = 0.5;
+                block.background_fit = 'cover';
+                $("#block-bg-text").text("Block BG: On");
+                $(this).removeClass("bg-gray-100 dark:bg-gray-900").addClass("bg-indigo-200 dark:bg-indigo-800");
+            } else {
+                block.background_image = null;
+                block.background_x = null;
+                block.background_y = null;
+                block.background_width = null;
+                block.background_height = null;
+                $("#block-bg-text").text("Block BG: Off");
+                $(this).removeClass("bg-indigo-200 dark:bg-indigo-800").addClass("bg-gray-100 dark:bg-gray-900");
+            }
+        });
+
+        // Regenerate blocks
+        seatmap.svg.stage.blocks.clear();
+        seatmap.svg.stage.blocks.update();
+
+        // Recalculate zoom
+        seatmap.zoomManager.calculateZoomLevels(seatmap.data.getBlocks());
+        seatmap.zoomManager.calculateActiveBlocks(seatmap.data.getBlocks());
+        seatmap.zoomManager.zoomToVenue(false);
+    });
+
     // Checkout Modal Handlers
     $("#proceed-checkout-btn").on("click", function() {
         const selectedSeats = seatmap.data.getSelectedSeats();

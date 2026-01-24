@@ -13,6 +13,7 @@ import BlockMask from "./block-item.mask";
 import Labels from "./block-item.labels.index";
 import BlockModel from "@model/block.model";
 import SeatModel from "@model/seat.model";
+import BlockBackground from "./block-item.background";
 
 @dom({
     tag: "g",
@@ -27,6 +28,7 @@ export default class Block extends SvgBase {
     public info: BlockInfo;
     public mask: BlockMask;
     public bounds: BlockBounds;
+    public background: BlockBackground;
 
     public center_position: any = {
         x: null,
@@ -118,7 +120,13 @@ export default class Block extends SvgBase {
 
     public update() {
 
-        // add Block Bounds container
+        // add Background Image (first, at the bottom of z-index) - only if configured
+        if (this.item.background_image) {
+            this.background = new BlockBackground(this, this.item);
+            this.addChild(this.background);
+        }
+
+        // add Block Bounds container (for zoom calculations)
         this.bounds = new BlockBounds(this, this.item);
         this.addChild(this.bounds);
 
