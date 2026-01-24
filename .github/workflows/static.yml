@@ -1,5 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Deploy both Demo and Documentation to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,7 +22,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -31,27 +30,56 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
-      - name: Install dependencies
+      # Build library
+      - name: Install library dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build library
         run: npm run build
+      
+      # Build Docusaurus
+      - name: Install docs dependencies
+        working-directory: docs-site
+        run: npm ci
+
+      - name: Build Docusaurus
+        working-directory: docs-site
+        run: npm run build
+      
+      # Prepare deployment folder
+      - name: Prepare deployment structure
+        run: |
+          # Create deployment directory
+          mkdir -p deploy
+          
+          # Copy demo to root
+          cp -r ./examples/* ./deploy/
+          cp -r ./dist/cjs ./deploy/
+          cp ./assets/logo_small.jpg ./deploy/
+          
+          # Copy docs to /docs path
+          cp -r ./docs-site/build ./deploy/docs
+          
+          # Create redirect index for /docs path (optional)
+          echo "Deployment structure ready"
+          ls -la ./deploy
+          ls -la ./deploy/docs
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: Copy scripts
-        run: |
-          cp -r ./dist/cjs ./examples
-          cp ./assets/logo_small.jpg ./examples
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './examples'
+          path: './deploy'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
