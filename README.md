@@ -571,8 +571,30 @@ seatmap.setData(data);
 - 📦 [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
 - 🐛 [Report Issues](https://github.com/alisaitteke/seatmap-canvas/issues)
 
+## Author
+
+<div align="center">
+  <a href="https://github.com/alisaitteke">
+    <img src="https://github.com/alisaitteke.png" width="100" height="100" style="border-radius: 50%;" alt="Ali Sait Teke"/>
+  </a>
+  
+  <h3>Ali Sait Teke</h3>
+  
+  <p>
+    <a href="https://github.com/alisaitteke">
+      <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+    </a>
+    &nbsp;
+    <a href="https://www.linkedin.com/in/alisaitteke">
+      <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+    </a>
+    &nbsp;
+    <a href="https://twitter.com/alisaitteke">
+      <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter"/>
+    </a>
+  </p>
+</div>
+
 ## Contributors
 
-<a href="https://github.com/alisaitteke">
-  <img src="https://img.shields.io/badge/Ali_Sait_Teke-Maintainer-blue?style=flat-square&logo=github" alt="Ali Sait Teke"/>
-</a>
+Contributions are welcome! Feel free to submit issues and pull requests.
