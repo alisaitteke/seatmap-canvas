@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Seatmap Canvas',
   tagline: 'Interactive Seat Selection Library for Stadiums, Theaters, and Event Spaces',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -92,7 +92,11 @@ const config: Config = {
       title: 'Seatmap Canvas',
       logo: {
         alt: 'Seatmap Canvas Logo',
-        src: 'img/logo.svg',
+        src: 'img/seatmap-logo-small.jpg',
+        srcDark: 'img/seatmap-logo-small.jpg',
+        width: 32,
+        height: 32,
+        style: { borderRadius: '4px' },
       },
       items: [
         {

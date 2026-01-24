@@ -5,14 +5,14 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  icon: string;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Framework Agnostic',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    icon: '⚙️',
     description: (
       <>
         Works with vanilla JavaScript, React, and Vue 3. Official wrappers included 
@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Highly Customizable',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    icon: '🎨',
     description: (
       <>
         Extensive styling options for seats, blocks, and labels. Support for custom 
@@ -32,7 +32,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Built with D3.js',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    icon: '⚡',
     description: (
       <>
         Powered by D3.js for smooth rendering and interactions. Built-in zoom and pan 
@@ -42,11 +42,11 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, icon, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <div className={styles.featureIcon}>{icon}</div>
       </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
