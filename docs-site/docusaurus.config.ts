@@ -78,10 +78,10 @@ const config: Config = {
       title: 'Seatmap Canvas',
       logo: {
         alt: 'Seatmap Canvas Logo',
-        src: 'img/seatmap-logo-small.jpg',
-        srcDark: 'img/seatmap-logo-small.jpg',
-        width: 32,
-        height: 32,
+        src: 'img/seatmap-logo-small.png',
+        srcDark: 'img/seatmap-logo-small.png',
+        "width": 62,
+        "height": 32,
         style: { borderRadius: '4px' },
       },
       items: [
