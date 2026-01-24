@@ -11,23 +11,50 @@ import styles from './index.module.css';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero', styles.heroBanner)}>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={styles.heroVideo}
+      >
+        <source src="https://videos.pexels.com/video-files/7989640/7989640-uhd_2732_1440_25fps.mp4" type="video/mp4" />
+      </video>
       <div className="container">
+        <div className={styles.heroLogo}>
+          <img
+            src="/seatmap-canvas/docs/img/seatmap-logo-small.png"
+            alt="Seatmap Canvas Logo"
+            className={styles.logoImage}
+          />
+        </div>
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--primary button--lg"
             to="/docs/intro">
-            Get Started - 5min ⏱️
+            Get Started 🚀
           </Link>
           <Link
             className="button button--outline button--lg margin-left--md"
             to="https://alisaitteke.github.io/seatmap-canvas">
-            Live Demo 🎯
+            Try Live Demo ✨
           </Link>
+        </div>
+        <div className={styles.heroFeatures}>
+          <div className={styles.featureBadge}>
+            <span>⚡</span> Lightning Fast
+          </div>
+          <div className={styles.featureBadge}>
+            <span>🎨</span> Fully Customizable
+          </div>
+          <div className={styles.featureBadge}>
+            <span>📱</span> Framework Agnostic
+          </div>
         </div>
       </div>
     </header>
