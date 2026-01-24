@@ -1,21 +1,65 @@
-# Welcome to Seatmap Canvas
+# Welcome to Seatmap Canvas 🎫
 
-**Seatmap Canvas** is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Built with D3.js and TypeScript, it provides a powerful and customizable solution for handling seat arrangements and user interactions.
+:::tip 🎉 What is Seatmap Canvas?
+**Seatmap Canvas** is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Built with **D3.js** and **TypeScript**, it provides a powerful and customizable solution for handling seat arrangements and user interactions.
+:::
 
 [![LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
 
-## Features
+<div style={{textAlign: 'center', margin: '2rem 0'}}>
+  <a href="https://alisaitteke.github.io/seatmap-canvas" target="_blank" style={{
+    display: 'inline-block',
+    padding: '12px 24px',
+    backgroundColor: 'var(--ifm-color-primary)',
+    color: 'white',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    fontSize: '1.1rem'
+  }}>
+    🚀 Try Live Demo
+  </a>
+</div>
 
-- **Framework Agnostic** - Core library works with vanilla JS, plus official React and Vue 3 wrappers
-- **Dynamic Seat Selection** - Interactive selection, categorization, and location of seats
-- **Custom Background Images** - Global and per-block background images with positioning control
-- **Customizable Styles** - Extensive styling options for seats, blocks, and labels
-- **Interactive Seat Models** - Define properties like salability, notes, colors, and custom data
-- **Block Organization** - Organize seats into blocks with titles, colors, and labels
-- **Event System** - Simplified event listeners for seat interactions
-- **Custom Shapes** - Support for circles, rectangles, paths, and SVG files
-- **Zoom & Pan** - Built-in zoom management with three levels (VENUE, BLOCK, SEAT)
-- **TypeScript** - Full TypeScript support with type definitions
+## ✨ Features
+
+<div className="row">
+  <div className="col col--6">
+    <h3>🎨 Highly Customizable</h3>
+    <ul>
+      <li><strong>Custom Shapes</strong> - Circles, rectangles, paths, and SVG files</li>
+      <li><strong>Styling Options</strong> - Full control over colors, sizes, and appearance</li>
+      <li><strong>Background Images</strong> - Global and per-block backgrounds</li>
+    </ul>
+  </div>
+  <div className="col col--6">
+    <h3>⚡ Developer Friendly</h3>
+    <ul>
+      <li><strong>Framework Agnostic</strong> - Works with vanilla JS, React, Vue 3</li>
+      <li><strong>TypeScript</strong> - Full type definitions included</li>
+      <li><strong>Event System</strong> - Simple and powerful event handling</li>
+    </ul>
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--6">
+    <h3>🚀 Performance</h3>
+    <ul>
+      <li><strong>Built with D3.js</strong> - Smooth rendering and interactions</li>
+      <li><strong>Zoom & Pan</strong> - Three-level zoom (VENUE, BLOCK, SEAT)</li>
+      <li><strong>Optimized</strong> - Handles thousands of seats efficiently</li>
+    </ul>
+  </div>
+  <div className="col col--6">
+    <h3>📦 Easy to Use</h3>
+    <ul>
+      <li><strong>Simple API</strong> - Get started in minutes</li>
+      <li><strong>Custom Data</strong> - Attach any data to seats</li>
+      <li><strong>Block Organization</strong> - Organize seats logically</li>
+    </ul>
+  </div>
+</div>
 
 ## Quick Links
 
@@ -45,22 +89,52 @@
 | **Flutter** | iOS • Android | 🔜 Coming Soon |
 | **Expo** | iOS • Android | 🔜 Coming Soon |
 
-## What Can You Build?
+## 🎯 What Can You Build?
 
-- **Stadium Seating** - Interactive seat maps for sports venues
-- **Theater Booking** - Seat selection for concerts and shows
-- **Event Spaces** - Flexible seating arrangements for conferences
-- **Restaurant Reservations** - Table and seat management
-- **Transportation** - Bus, train, and airplane seat selection
-- **Classroom Management** - Student seating arrangements
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', margin: '2rem 0'}}>
+  <div style={{padding: '1.5rem', border: '2px solid var(--ifm-color-primary-lighter)', borderRadius: '12px', textAlign: 'center'}}>
+    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>🏟️</div>
+    <h4>Stadium Seating</h4>
+    <p>Interactive seat maps for sports venues</p>
+  </div>
+  <div style={{padding: '1.5rem', border: '2px solid var(--ifm-color-primary-lighter)', borderRadius: '12px', textAlign: 'center'}}>
+    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>🎭</div>
+    <h4>Theater Booking</h4>
+    <p>Seat selection for concerts and shows</p>
+  </div>
+  <div style={{padding: '1.5rem', border: '2px solid var(--ifm-color-primary-lighter)', borderRadius: '12px', textAlign: 'center'}}>
+    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>📍</div>
+    <h4>Event Spaces</h4>
+    <p>Flexible seating for conferences</p>
+  </div>
+  <div style={{padding: '1.5rem', border: '2px solid var(--ifm-color-primary-lighter)', borderRadius: '12px', textAlign: 'center'}}>
+    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>🍽️</div>
+    <h4>Restaurants</h4>
+    <p>Table and seat management</p>
+  </div>
+  <div style={{padding: '1.5rem', border: '2px solid var(--ifm-color-primary-lighter)', borderRadius: '12px', textAlign: 'center'}}>
+    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>✈️</div>
+    <h4>Transportation</h4>
+    <p>Bus, train, airplane seating</p>
+  </div>
+  <div style={{padding: '1.5rem', border: '2px solid var(--ifm-color-primary-lighter)', borderRadius: '12px', textAlign: 'center'}}>
+    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>🎓</div>
+    <h4>Classrooms</h4>
+    <p>Student seating arrangements</p>
+  </div>
+</div>
 
-## Getting Started
+## 🚀 Getting Started
 
 Ready to dive in? Head over to the [Installation Guide](/docs/getting-started/installation) to get started!
 
 ```bash
 npm install @alisaitteke/seatmap-canvas
 ```
+
+:::info Quick Start
+Check out our [Quick Start Guide](/docs/getting-started/quick-start) to create your first seatmap in less than 5 minutes! ⚡
+:::
 
 ## Community & Support
 
