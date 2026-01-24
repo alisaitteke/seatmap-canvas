@@ -556,8 +556,10 @@ seatmap.setData(data);
 
 </details>
 
+---
+
 <p align="center">
-  <a href="examples/"><img src="https://img.shields.io/badge/📖_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  <a href="examples/"><img src="https://img.shields.io/badge/📖_Full_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/"><img src="https://img.shields.io/badge/🎯_Examples-333333?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
