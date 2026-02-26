@@ -45,17 +45,13 @@ function HomepageHeader() {
             Try Live Demo ✨
           </Link>
         </div>
-        <div className={styles.heroFeatures}>
-          <div className={styles.featureBadge}>
-            <span>⚡</span> Lightning Fast
-          </div>
-          <div className={styles.featureBadge}>
-            <span>🎨</span> Fully Customizable
-          </div>
-          <div className={styles.featureBadge}>
-            <span>📱</span> Framework Agnostic
-          </div>
-        </div>
+        <p className={styles.heroFeatures}>
+          <span className={styles.featureBadge}><span>⚡</span> Lightning Fast</span>
+          <span className={styles.heroFeatureSep}>·</span>
+          <span className={styles.featureBadge}><span>🎨</span> Fully Customizable</span>
+          <span className={styles.heroFeatureSep}>·</span>
+          <span className={styles.featureBadge}><span>📱</span> Framework Agnostic</span>
+        </p>
       </div>
     </header>
   );
