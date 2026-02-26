@@ -23,4 +23,4 @@ const selectedSeats = seatmap.getSelectedSeats();
 console.log(`Selected ${selectedSeats.length} seats`);
 ```
 
-See [Seat Methods](/docs/api/methods/seat-methods) for complete API.
+See [Seat Methods](/api/methods/seat-methods) for complete API.

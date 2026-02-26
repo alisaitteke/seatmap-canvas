@@ -32,4 +32,4 @@ seatmap.addEventListener("seat_click", (seat) => {
 });
 ```
 
-See [Data Structure](/docs/getting-started/data-structure) for more information.
+See [Data Structure](/getting-started/data-structure) for more information.

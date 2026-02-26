@@ -292,6 +292,6 @@ interface SeatmapOptions {
 
 ## Next Steps
 
-- Learn about [Event System](/docs/core-concepts/event-system)
-- Explore [Zoom Manager](/docs/core-concepts/zoom-manager)
-- Understand [Data Models](/docs/core-concepts/data-models)
+- Learn about [Event System](/core-concepts/event-system)
+- Explore [Zoom Manager](/core-concepts/zoom-manager)
+- Understand [Data Models](/core-concepts/data-models)

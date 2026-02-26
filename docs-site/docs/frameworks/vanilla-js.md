@@ -470,6 +470,6 @@ const data = {
 
 ## Next Steps
 
-- Explore [API Reference](/docs/api/configuration)
-- Check out [Examples](/docs/examples/basic-usage)
-- Learn about [Events](/docs/api/events/seat-events)
+- Explore [API Reference](/api/configuration)
+- Check out [Examples](/examples/basic-usage)
+- Learn about [Events](/api/events/seat-events)

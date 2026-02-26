@@ -220,10 +220,10 @@ const config = {
 
 Now that you have a basic setup running, explore more features:
 
-- **Data Structure**: Learn about [seat and block models](/docs/getting-started/data-structure)
-- **Styling**: Customize [colors, shapes, and styles](/docs/features/styling)
-- **Events**: Handle [user interactions](/docs/core-concepts/event-system)
-- **Advanced Features**: Add [background images](/docs/features/background-images) and [custom shapes](/docs/features/custom-shapes)
+- **Data Structure**: Learn about [seat and block models](/getting-started/data-structure)
+- **Styling**: Customize [colors, shapes, and styles](/features/styling)
+- **Events**: Handle [user interactions](/core-concepts/event-system)
+- **Advanced Features**: Add [background images](/features/background-images) and [custom shapes](/features/custom-shapes)
 
 ## Live Examples
 
@@ -231,6 +231,6 @@ Check out our [live demo](https://alisaitteke.github.io/seatmap-canvas) to see S
 
 ## Need Help?
 
-- Browse our [examples](/docs/examples/basic-usage)
-- Check the [API reference](/docs/api/configuration)
+- Browse our [examples](/examples/basic-usage)
+- Check the [API reference](/api/configuration)
 - Visit [GitHub Issues](https://github.com/alisaitteke/seatmap-canvas/issues)

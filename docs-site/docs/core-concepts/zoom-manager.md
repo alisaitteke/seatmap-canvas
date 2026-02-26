@@ -21,4 +21,4 @@ seatmap.zoomManager.zoomToBlock(blockId);
 seatmap.zoomManager.zoomToSeat(seatId, blockId);
 ```
 
-For complete API, see [Zoom Events](/docs/api/events/zoom-events).
+For complete API, see [Zoom Events](/api/events/zoom-events).

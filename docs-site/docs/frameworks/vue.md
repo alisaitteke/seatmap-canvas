@@ -540,5 +540,5 @@ const options = ref({
 ## Next Steps
 
 - Check out [complete examples](https://github.com/alisaitteke/seatmap-canvas/tree/master/examples/vue)
-- Explore [API Reference](/docs/api/configuration)
-- Learn about [Event Handling](/docs/core-concepts/event-system)
+- Explore [API Reference](/api/configuration)
+- Learn about [Event Handling](/core-concepts/event-system)

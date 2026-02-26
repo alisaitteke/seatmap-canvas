@@ -6,4 +6,4 @@ Extend Seatmap Canvas with custom plugins.
 
 Documentation for creating custom plugins and extensions.
 
-For now, see the [architecture documentation](/docs/core-concepts/architecture) for extension points.
+For now, see the [architecture documentation](/core-concepts/architecture) for extension points.

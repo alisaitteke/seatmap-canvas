@@ -82,7 +82,7 @@ The `style` object contains styling options for different components.
 
 ### Seat Style
 
-See [Seat Style Reference](/docs/api/seat-style) for complete options.
+See [Seat Style Reference](/api/seat-style) for complete options.
 
 ```javascript
 style: {
@@ -110,7 +110,7 @@ style: {
 
 ### Block Style
 
-See [Block Style Reference](/docs/api/block-style) for complete options.
+See [Block Style Reference](/api/block-style) for complete options.
 
 ```javascript
 style: {
@@ -126,7 +126,7 @@ style: {
 
 ### Label Style
 
-See [Label Style Reference](/docs/api/label-style) for complete options.
+See [Label Style Reference](/api/label-style) for complete options.
 
 ```javascript
 style: {
@@ -248,7 +248,7 @@ const config: SeatmapOptions = {
 
 ## Next Steps
 
-- [Seat Style Options](/docs/api/seat-style)
-- [Block Style Options](/docs/api/block-style)
-- [Label Style Options](/docs/api/label-style)
-- [Complete Examples](/docs/examples/basic-usage)
+- [Seat Style Options](/api/seat-style)
+- [Block Style Options](/api/block-style)
+- [Label Style Options](/api/label-style)
+- [Complete Examples](/examples/basic-usage)

@@ -52,4 +52,4 @@ style: {
 }
 ```
 
-See [Seat Style](/docs/api/seat-style) for complete options.
+See [Seat Style](/api/seat-style) for complete options.

@@ -53,24 +53,19 @@ jobs:
         working-directory: docs-site
         run: npm run build
       
-      # Prepare deployment folder
+      # Prepare deployment folder (docs at /, demo at /demo)
       - name: Prepare deployment structure
         run: |
-          # Create deployment directory
-          mkdir -p deploy
-          
-          # Copy demo to root
-          cp -r ./examples/* ./deploy/
-          cp -r ./dist/cjs ./deploy/
-          cp ./assets/logo_small.jpg ./deploy/
-          
-          # Copy docs to /docs path
-          cp -r ./docs-site/build ./deploy/docs
-          
-          # Create redirect index for /docs path (optional)
+          mkdir -p deploy deploy/demo
+          # Docs at site root (index = documentation)
+          cp -r ./docs-site/build/* ./deploy/
+          # Demo under /demo
+          cp -r ./examples/* ./deploy/demo/
+          cp -r ./dist/cjs ./deploy/demo/
+          cp ./assets/logo_small.jpg ./deploy/demo/
           echo "Deployment structure ready"
           ls -la ./deploy
-          ls -la ./deploy/docs
+          ls -la ./deploy/demo
       
       - name: Setup Pages
         uses: actions/configure-pages@v4

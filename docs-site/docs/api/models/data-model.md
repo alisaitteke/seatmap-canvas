@@ -50,4 +50,4 @@ seatmap.setData(data);
 
 ## Complete Example
 
-See [Data Structure Guide](/docs/getting-started/data-structure) for detailed examples.
+See [Data Structure Guide](/getting-started/data-structure) for detailed examples.

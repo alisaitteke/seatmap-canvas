@@ -3,7 +3,7 @@
 Build performant seatmaps for stadiums, theaters, and event spaces. Built with **D3.js** and **TypeScript**.
 
 <div style={{textAlign: 'center', margin: '2rem 0 1.5rem'}}>
-  <a href="/docs/getting-started/installation" style={{
+  <a href="/getting-started/installation" style={{
     display: 'inline-block',
     padding: '10px 28px',
     marginRight: '0.75rem',
@@ -101,7 +101,7 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
 - [Live Demo](https://alisaitteke.github.io/seatmap-canvas)
 - [GitHub Repository](https://github.com/alisaitteke/seatmap-canvas)
 - [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
-- [Getting Started](/docs/getting-started/installation)
+- [Getting Started](/getting-started/installation)
 
 ## Framework Support
 
@@ -109,9 +109,9 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
 
 | Framework | Status | Package | Documentation |
 |:----------|:------:|:--------|:-------------:|
-| **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Docs](/docs/frameworks/vanilla-js) |
-| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](/docs/frameworks/vue) |
-| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](/docs/frameworks/react) |
+| **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Docs](/frameworks/vanilla-js) |
+| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](/frameworks/vue) |
+| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](/frameworks/react) |
 | **Next.js** | 🔜 Coming Soon | - | - |
 | **Svelte** | 🔜 Coming Soon | - | - |
 | **Angular** | 🔜 Coming Soon | - | - |
@@ -161,14 +161,14 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
 
 ## 🚀 Getting Started
 
-Ready to dive in? Head over to the [Installation Guide](/docs/getting-started/installation) to get started!
+Ready to dive in? Head over to the [Installation Guide](/getting-started/installation) to get started!
 
 ```bash
 npm install @alisaitteke/seatmap-canvas
 ```
 
 :::info Quick Start
-Check out our [Quick Start Guide](/docs/getting-started/quick-start) to create your first seatmap in less than 5 minutes! ⚡
+Check out our [Quick Start Guide](/getting-started/quick-start) to create your first seatmap in less than 5 minutes! ⚡
 :::
 
 ## Community & Support

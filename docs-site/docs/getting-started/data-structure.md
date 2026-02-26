@@ -277,7 +277,7 @@ const seat = {
 
 ## Next Steps
 
-- Learn how to use data in [Vanilla JavaScript](/docs/frameworks/vanilla-js)
-- Explore [React integration](/docs/frameworks/react)
-- See [Vue 3 examples](/docs/frameworks/vue)
-- Check out [real-world examples](/docs/examples/basic-usage)
+- Learn how to use data in [Vanilla JavaScript](/frameworks/vanilla-js)
+- Explore [React integration](/frameworks/react)
+- See [Vue 3 examples](/frameworks/vue)
+- Check out [real-world examples](/examples/basic-usage)
