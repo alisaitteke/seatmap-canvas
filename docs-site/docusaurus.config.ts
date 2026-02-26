@@ -14,16 +14,14 @@ const config: Config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  // Set the production url of your site here
-  url: 'https://alisaitteke.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/seatmap-canvas/docs/',
+  // Set the production url of your site here (custom domain)
+  url: 'https://seatmap.io',
+  // Docs are deployed under /docs (static.yml copies build to deploy/docs)
+  baseUrl: '/docs/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'alisaitteke', // Usually your GitHub org/user name.
-  projectName: 'seatmap-canvas', // Usually your repo name.
+  // GitHub pages deployment config (deploy branch may differ in GH Actions)
+  organizationName: 'alisaitteke',
+  projectName: 'seatmap-canvas',
 
   onBrokenLinks: 'throw',
 
@@ -47,8 +45,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          routeBasePath: '/', // docs at /docs/ (e.g. /docs/intro/) not /docs/docs/
           editUrl:
             'https://github.com/alisaitteke/seatmap-canvas/tree/master/docs-site/',
         },
@@ -94,7 +91,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://alisaitteke.github.io/seatmap-canvas',
+          href: 'https://seatmap.io',
           label: 'Live Demo',
           position: 'right',
         },
@@ -160,7 +157,7 @@ const config: Config = {
           items: [
             {
               label: 'Live Demo',
-              href: 'https://alisaitteke.github.io/seatmap-canvas',
+              href: 'https://seatmap.io',
             },
             {
               label: 'GitHub',
