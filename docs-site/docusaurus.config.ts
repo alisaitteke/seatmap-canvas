@@ -89,10 +89,6 @@ const config: Config = {
           label: 'API Reference',
         },
         {
-          type: 'localeDropdown',
-          position: 'right',
-        },
-        {
           href: 'https://seatmap.io/demo',
           label: 'Live Demo',
           position: 'right',
