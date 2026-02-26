@@ -26,4 +26,4 @@ const config = {
 }
 ```
 
-See [Configuration](/docs/api/configuration) for all background options.
+See [Configuration](/api/configuration) for all background options.

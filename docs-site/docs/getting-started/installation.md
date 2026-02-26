@@ -88,9 +88,9 @@ The package includes multiple build formats:
 
 Now that you have Seatmap Canvas installed, you can:
 
-- Follow the [Quick Start Guide](/docs/getting-started/quick-start)
-- Learn about [Data Structure](/docs/getting-started/data-structure)
-- Choose your framework: [Vanilla JS](/docs/frameworks/vanilla-js) | [React](/docs/frameworks/react) | [Vue](/docs/frameworks/vue)
+- Follow the [Quick Start Guide](/getting-started/quick-start)
+- Learn about [Data Structure](/getting-started/data-structure)
+- Choose your framework: [Vanilla JS](/frameworks/vanilla-js) | [React](/frameworks/react) | [Vue](/frameworks/vue)
 
 ## Troubleshooting
 

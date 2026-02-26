@@ -39,4 +39,4 @@ seatmap.addEventListener("seat_click", (seat) => {
 });
 ```
 
-For more details, see [Seat Events](/docs/api/events/seat-events) and [Block Events](/docs/api/events/block-events).
+For more details, see [Seat Events](/api/events/seat-events) and [Block Events](/api/events/block-events).

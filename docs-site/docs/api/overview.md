@@ -5,25 +5,25 @@ Complete API documentation.
 ## Quick Navigation
 
 ### Configuration
-- [Configuration Options](/docs/api/configuration) - Main configuration object
-- [Seat Styling](/docs/api/seat-style) - Seat appearance options
-- [Block Styling](/docs/api/block-style) - Block appearance options
-- [Label Styling](/docs/api/label-style) - Label appearance options
+- [Configuration Options](/api/configuration) - Main configuration object
+- [Seat Styling](/api/seat-style) - Seat appearance options
+- [Block Styling](/api/block-style) - Block appearance options
+- [Label Styling](/api/label-style) - Label appearance options
 
 ### Methods
-- [Seatmap Methods](/docs/api/methods/seatmap-methods) - Instance methods
-- [Seat Methods](/docs/api/methods/seat-methods) - Seat manipulation
-- [Block Methods](/docs/api/methods/block-methods) - Block operations
+- [Seatmap Methods](/api/methods/seatmap-methods) - Instance methods
+- [Seat Methods](/api/methods/seat-methods) - Seat manipulation
+- [Block Methods](/api/methods/block-methods) - Block operations
 
 ### Events
-- [Seat Events](/docs/api/events/seat-events) - Seat interaction events
-- [Block Events](/docs/api/events/block-events) - Block interaction events
-- [Zoom Events](/docs/api/events/zoom-events) - Zoom level changes
+- [Seat Events](/api/events/seat-events) - Seat interaction events
+- [Block Events](/api/events/block-events) - Block interaction events
+- [Zoom Events](/api/events/zoom-events) - Zoom level changes
 
 ### Models
-- [Seat Model](/docs/api/models/seat-model) - Seat data structure
-- [Block Model](/docs/api/models/block-model) - Block data structure
-- [Data Model](/docs/api/models/data-model) - Root data structure
+- [Seat Model](/api/models/seat-model) - Seat data structure
+- [Block Model](/api/models/block-model) - Block data structure
+- [Data Model](/api/models/data-model) - Root data structure
 
 ## Core Concepts
 
@@ -164,6 +164,6 @@ seatmap.refresh();
 
 ## Next Steps
 
-- Explore [Configuration Options](/docs/api/configuration)
-- Learn about [Event System](/docs/core-concepts/event-system)
-- Check [Examples](/docs/examples/basic-usage)
+- Explore [Configuration Options](/api/configuration)
+- Learn about [Event System](/core-concepts/event-system)
+- Check [Examples](/examples/basic-usage)

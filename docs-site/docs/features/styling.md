@@ -4,15 +4,15 @@ Customize seats, blocks, and labels.
 
 ## Seat Styling
 
-See [Seat Style](/docs/api/seat-style) for complete options.
+See [Seat Style](/api/seat-style) for complete options.
 
 ## Block Styling
 
-See [Block Style](/docs/api/block-style) for complete options.
+See [Block Style](/api/block-style) for complete options.
 
 ## Label Styling
 
-See [Label Style](/docs/api/label-style) for complete options.
+See [Label Style](/api/label-style) for complete options.
 
 ## Complete Example
 

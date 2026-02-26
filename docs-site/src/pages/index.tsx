@@ -24,7 +24,7 @@ function HomepageHeader() {
       <div className="container">
         <div className={styles.heroLogo}>
           <img
-            src="/seatmap-canvas/docs/img/seatmap-logo-small.png"
+            src="/img/seatmap-logo-small.png"
             alt="Seatmap Canvas Logo"
             className={styles.logoImage}
           />
@@ -36,12 +36,12 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--primary button--lg"
-            to="/docs/getting-started/installation">
+            to="/getting-started/installation">
             Get Started 🚀
           </Link>
           <Link
             className="button button--outline button--lg margin-left--md"
-            to="https://alisaitteke.github.io/seatmap-canvas">
+            to="https://seatmap.io/demo">
             Try Live Demo ✨
           </Link>
         </div>

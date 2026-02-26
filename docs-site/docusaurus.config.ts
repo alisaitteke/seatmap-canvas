@@ -16,8 +16,8 @@ const config: Config = {
 
   // Set the production url of your site here (custom domain)
   url: 'https://seatmap.io',
-  // Docs are deployed under /docs (static.yml copies build to deploy/docs)
-  baseUrl: '/docs/',
+  // Docs at site root; demo is under /demo (static.yml)
+  baseUrl: '/',
 
   // GitHub pages deployment config (deploy branch may differ in GH Actions)
   organizationName: 'alisaitteke',
@@ -45,7 +45,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/', // docs at /docs/ (e.g. /docs/intro/) not /docs/docs/
+          routeBasePath: '/', // docs at site root (e.g. /intro/, /getting-started/...)
           editUrl:
             'https://github.com/alisaitteke/seatmap-canvas/tree/master/docs-site/',
         },
@@ -91,7 +91,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://seatmap.io',
+          href: 'https://seatmap.io/demo',
           label: 'Live Demo',
           position: 'right',
         },
@@ -110,15 +110,15 @@ const config: Config = {
           items: [
             {
               label: 'Getting Started',
-              to: '/docs/getting-started/installation',
+              to: '/getting-started/installation',
             },
             {
               label: 'API Reference',
-              to: '/docs/api/configuration',
+              to: '/api/configuration',
             },
             {
               label: 'Examples',
-              to: '/docs/examples/basic-usage',
+              to: '/examples/basic-usage',
             },
           ],
         },
@@ -127,15 +127,15 @@ const config: Config = {
           items: [
             {
               label: 'Vanilla JavaScript',
-              to: '/docs/frameworks/vanilla-js',
+              to: '/frameworks/vanilla-js',
             },
             {
               label: 'React',
-              to: '/docs/frameworks/react',
+              to: '/frameworks/react',
             },
             {
               label: 'Vue 3',
-              to: '/docs/frameworks/vue',
+              to: '/frameworks/vue',
             },
           ],
         },
@@ -157,7 +157,7 @@ const config: Config = {
           items: [
             {
               label: 'Live Demo',
-              href: 'https://seatmap.io',
+              href: 'https://seatmap.io/demo',
             },
             {
               label: 'GitHub',
