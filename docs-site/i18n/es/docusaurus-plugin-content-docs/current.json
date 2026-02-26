@@ -1,0 +1,50 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docsSidebar.category.Getting Started": {
+    "message": "Getting Started",
+    "description": "The label for category 'Getting Started' in sidebar 'docsSidebar'"
+  },
+  "sidebar.docsSidebar.category.Frameworks": {
+    "message": "Frameworks",
+    "description": "The label for category 'Frameworks' in sidebar 'docsSidebar'"
+  },
+  "sidebar.docsSidebar.category.Core Concepts": {
+    "message": "Core Concepts",
+    "description": "The label for category 'Core Concepts' in sidebar 'docsSidebar'"
+  },
+  "sidebar.docsSidebar.category.Features": {
+    "message": "Features",
+    "description": "The label for category 'Features' in sidebar 'docsSidebar'"
+  },
+  "sidebar.docsSidebar.category.Examples": {
+    "message": "Examples",
+    "description": "The label for category 'Examples' in sidebar 'docsSidebar'"
+  },
+  "sidebar.docsSidebar.category.Advanced": {
+    "message": "Advanced",
+    "description": "The label for category 'Advanced' in sidebar 'docsSidebar'"
+  },
+  "sidebar.docsSidebar.category.Migration": {
+    "message": "Migration",
+    "description": "The label for category 'Migration' in sidebar 'docsSidebar'"
+  },
+  "sidebar.apiSidebar.category.Configuration": {
+    "message": "Configuration",
+    "description": "The label for category 'Configuration' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Methods": {
+    "message": "Methods",
+    "description": "The label for category 'Methods' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Events": {
+    "message": "Events",
+    "description": "The label for category 'Events' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Models": {
+    "message": "Models",
+    "description": "The label for category 'Models' in sidebar 'apiSidebar'"
+  }
+}
