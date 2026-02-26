@@ -227,7 +227,7 @@ Now that you have a basic setup running, explore more features:
 
 ## Live Examples
 
-Check out our [live demo](https://alisaitteke.github.io/seatmap-canvas) to see Seatmap Canvas in action!
+Check out our [live demo](https://seatmap.io/demo) to see Seatmap Canvas in action!
 
 ## Need Help?
 

@@ -5,15 +5,15 @@ This project uses a single GitHub Pages deployment that serves both the live dem
 ## Structure
 
 ```
-https://alisaitteke.github.io/seatmap-canvas/
-├── /                    → Live Demo (examples/)
-└── /docs/               → Documentation (Docusaurus)
+https://seatmap.io/
+├── /                    → Documentation (Docusaurus)
+└── /demo                → Live Demo
 ```
 
 ## URLs
 
-- **Live Demo**: https://alisaitteke.github.io/seatmap-canvas/
-- **Documentation**: https://alisaitteke.github.io/seatmap-canvas/docs/
+- **Live Demo**: https://seatmap.io/demo
+- **Documentation**: https://seatmap.io/docs
 
 ## Deployment Workflow
 
@@ -82,10 +82,10 @@ The workflow runs automatically, but you can trigger it manually:
 ### Docusaurus BaseURL
 
 The documentation is configured with:
-- `url`: `https://alisaitteke.github.io`
-- `baseUrl`: `/seatmap-canvas/docs/`
+- `url`: `https://seatmap.io`
+- `baseUrl`: `/`
 
-This ensures all links work correctly when served under the `/docs/` path.
+This ensures all links work correctly when served at the root.
 
 ### GitHub Pages Settings
 

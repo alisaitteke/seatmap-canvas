@@ -1,9 +1,9 @@
 # Seatmap Canvas
 Seatmap Canvas is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Designed with d3.js, this code version is optimized for developers looking for a customizable and efficient solution to handle seat arrangements and user interactions.
 
-[![LIVE DEMO](assets/banner_ui.png)](https://alisaitteke.github.io/seatmap-canvas)
+[![LIVE DEMO](assets/banner_ui.png)](https://seatmap.io/demo)
 
-**[📖 Documentation](https://alisaitteke.github.io/seatmap-canvas/docs)** | **[🎯 Live Demo](https://alisaitteke.github.io/seatmap-canvas)**
+**[📖 Documentation](https://seatmap.io/docs)** | **[🎯 Live Demo](https://seatmap.io/demo)**
 
 ## Features
 
@@ -16,7 +16,7 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 - **Event System** - Simplified event listeners for seat interactions
 
 ## Screenshot
-[![LIVE DEMO](assets/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
+[![LIVE DEMO](assets/screenshot_1.png)](https://seatmap.io/demo)
 
 ## 🚀 Framework Plugins & Integrations
 
@@ -97,7 +97,7 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 ---
 
-[LIVE DEMO](https://alisaitteke.github.io/seatmap-canvas/)
+[LIVE DEMO](https://seatmap.io/demo)
 
 
 
@@ -184,7 +184,7 @@ const onSeatClick = (seat) => {
 </table>
 
 <p align="center">
-  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/docs/frameworks/vue"><img src="https://img.shields.io/badge/📖_Full_Documentation-4FC08D?style=for-the-badge&logoColor=white" alt="Documentation"/></a>
+  <a href="https://seatmap.io/docs/frameworks/vue"><img src="https://img.shields.io/badge/📖_Full_Documentation-4FC08D?style=for-the-badge&logoColor=white" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/vue/"><img src="https://img.shields.io/badge/🎯_Examples-35495E?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
@@ -240,7 +240,7 @@ function App() {
 </table>
 
 <p align="center">
-  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/docs/frameworks/react"><img src="https://img.shields.io/badge/📖_Full_Documentation-61DAFB?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  <a href="https://seatmap.io/docs/frameworks/react"><img src="https://img.shields.io/badge/📖_Full_Documentation-61DAFB?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/react/"><img src="https://img.shields.io/badge/🎯_Examples-20232A?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
@@ -475,7 +475,7 @@ background_fit: "contain"
 </details>
 
 <p align="center">
-  <a href="https://alisaitteke.github.io/seatmap-canvas/docs/docs/frameworks/vanilla-js"><img src="https://img.shields.io/badge/📖_Full_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
+  <a href="https://seatmap.io/docs/frameworks/vanilla-js"><img src="https://img.shields.io/badge/📖_Full_Documentation-F7DF1E?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/"><img src="https://img.shields.io/badge/🎯_Examples-333333?style=for-the-badge&logoColor=white" alt="Examples"/></a>
 </p>
@@ -484,8 +484,8 @@ background_fit: "contain"
 
 ## Links
 
-- 📖 [Full Documentation](https://alisaitteke.github.io/seatmap-canvas/docs)
-- 🎯 [Live Demo](https://alisaitteke.github.io/seatmap-canvas)
+- 📖 [Full Documentation](https://seatmap.io/docs)
+- 🎯 [Live Demo](https://seatmap.io/demo)
 - 📦 [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
 - 🐛 [Report Issues](https://github.com/alisaitteke/seatmap-canvas/issues)
 
