@@ -60,7 +60,7 @@ function DemoModal({
         <iframe
           className={styles.modalIframe}
           src={DEMO_URL}
-          title="Seatmap Canvas Live Demo"
+          title="Seatmap Live Demo"
         />
       </div>
     </div>
@@ -88,11 +88,13 @@ function HomepageHeader() {
       </video>
       <div className="container">
         <div className={styles.heroLogo}>
-          <img
-            src="/img/seatmap-logo-small.png"
-            alt="Seatmap Canvas Logo"
-            className={styles.logoImage}
-          />
+          <Link to="/" className={styles.logoLink} aria-label="Go to homepage">
+            <img
+              src="/img/seatmap-logo-small.png"
+              alt="Seatmap Logo"
+              className={styles.logoImage}
+            />
+          </Link>
         </div>
         <Heading as="h1" className="hero__title">
           {siteConfig.title}

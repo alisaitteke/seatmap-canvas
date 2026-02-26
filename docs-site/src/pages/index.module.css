@@ -88,6 +88,16 @@
   margin-bottom: 1.25rem;
 }
 
+.logoLink {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logoLink:hover {
+  opacity: 0.9;
+}
+
 .logoImage {
   height: 48px;
   width: auto;

@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Seatmap Canvas',
+  title: 'Seatmap',
   tagline: 'Interactive Seat Selection Library for Stadiums, Theaters, and Event Spaces',
   favicon: 'img/favicon.png',
 
@@ -66,9 +66,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Seatmap Canvas',
+      title: 'Seatmap',
       logo: {
-        alt: 'Seatmap Canvas Logo',
+        alt: 'Seatmap Logo',
         src: 'img/seatmap-logo-small.png',
         srcDark: 'img/seatmap-logo-small.png',
         "width": 62,

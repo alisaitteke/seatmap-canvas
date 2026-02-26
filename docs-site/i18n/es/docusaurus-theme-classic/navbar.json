@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Seatmap Canvas",
+    "message": "Seatmap",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Seatmap Canvas Logo",
+    "message": "Seatmap Logo",
     "description": "The alt text of navbar logo"
   },
   "item.label.Documentation": {
