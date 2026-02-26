@@ -19,7 +19,7 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
   }}>
     Get Started
   </a>
-  <a href="https://alisaitteke.github.io/seatmap-canvas" target="_blank" style={{
+  <a href="https://seatmap.io/demo" target="_blank" style={{
     display: 'inline-block',
     padding: '10px 28px',
     marginBottom: '0.5rem',
@@ -54,7 +54,7 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
   </div>
 </div>
 
-[![LIVE DEMO](/img/screenshot_1.png)](https://alisaitteke.github.io/seatmap-canvas)
+[![LIVE DEMO](/img/screenshot_1.png)](https://seatmap.io/demo)
 
 ## ✨ Features
 
@@ -98,7 +98,7 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
 
 ## Quick Links
 
-- [Live Demo](https://alisaitteke.github.io/seatmap-canvas)
+- [Live Demo](https://seatmap.io/demo)
 - [GitHub Repository](https://github.com/alisaitteke/seatmap-canvas)
 - [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
 - [Getting Started](/getting-started/installation)
