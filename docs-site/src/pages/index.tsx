@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -8,10 +9,74 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
+const DEMO_URL = 'https://seatmap.io/demo';
+
+function DemoModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const handleBackdropClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.target === e.currentTarget) onClose();
+    },
+    [onClose],
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      };
+      document.addEventListener('keydown', handleEscape);
+      return () => {
+        document.body.style.overflow = prev;
+        document.removeEventListener('keydown', handleEscape);
+      };
+    }
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className={styles.modalBackdrop}
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Live Demo">
+      <div className={styles.modalContent}>
+        <button
+          type="button"
+          className={styles.modalClose}
+          onClick={onClose}
+          aria-label="Close demo">
+          ×
+        </button>
+        <iframe
+          className={styles.modalIframe}
+          src={DEMO_URL}
+          title="Seatmap Canvas Live Demo"
+        />
+      </div>
+    </div>
+  );
+}
+
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
+
   return (
     <header className={clsx('hero', styles.heroBanner)}>
+      <DemoModal
+        isOpen={demoModalOpen}
+        onClose={() => setDemoModalOpen(false)}
+      />
       <video
         autoPlay
         loop
@@ -39,11 +104,12 @@ function HomepageHeader() {
             to="/getting-started/installation">
             Get Started 🚀
           </Link>
-          <Link
+          <button
+            type="button"
             className="button button--outline button--lg margin-left--md"
-            to="https://seatmap.io/demo">
+            onClick={() => setDemoModalOpen(true)}>
             Try Live Demo ✨
-          </Link>
+          </button>
         </div>
         <p className={styles.heroFeatures}>
           <span className={styles.featureBadge}><span>⚡</span> Lightning Fast</span>
