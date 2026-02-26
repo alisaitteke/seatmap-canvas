@@ -123,7 +123,7 @@ const config: Config = {
           ],
         },
         {
-          title: 'Frameworks',
+          title: 'Integration',
           items: [
             {
               label: 'Vanilla JavaScript',
