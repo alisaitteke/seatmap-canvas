@@ -118,6 +118,18 @@ function HomepageHeader() {
           <span className={styles.heroFeatureSep}>·</span>
           <span className={styles.featureBadge}><span>📱</span> Framework Agnostic</span>
         </p>
+        <div className={styles.heroAnnouncement}>
+          <span className={styles.heroAnnouncementLabel}>Seatmap editor is coming</span>
+          <span className={styles.heroAnnouncementProduct}>Seatmap Studio</span>
+          <span className={styles.heroAnnouncementText}>
+            Soon you’ll design seat layouts, buses, planes, and event spaces using ready-made templates — no code required.
+          </span>
+          <img
+            src="/img/editor-ss.png"
+            alt="Seatmap Studio — seat selection editor preview"
+            className={styles.heroAnnouncementImage}
+          />
+        </div>
       </div>
     </header>
   );

@@ -225,6 +225,83 @@
   display: inline-block;
 }
 
+/* Hero announcement – Seatmap Studio coming soon */
+.heroAnnouncement {
+  margin-top: 2rem;
+  padding: 0.875rem 1.25rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  border-radius: 10px;
+  text-align: center;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+[data-theme='dark'] .heroAnnouncement {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(129, 140, 248, 0.08) 100%);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+.heroAnnouncementLabel {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.heroAnnouncementProduct {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.heroAnnouncementText {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ifm-font-color-base);
+  opacity: 0.95;
+}
+
+.heroAnnouncementImage {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  margin: 1.25rem auto 0;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] .heroAnnouncementImage {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+@media screen and (max-width: 996px) {
+  .heroAnnouncement {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    max-width: 100%;
+  }
+
+  .heroAnnouncementText {
+    font-size: 0.85rem;
+  }
+
+  .heroAnnouncementImage {
+    margin-top: 1rem;
+    border-radius: 8px;
+  }
+}
+
 /* Demo modal */
 .modalBackdrop {
   position: fixed;
