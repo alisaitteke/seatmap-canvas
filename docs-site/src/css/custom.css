@@ -15,6 +15,34 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Dense theme: smaller typography and spacing */
+  --ifm-font-size-base: 90%;
+  --ifm-line-height-base: 1.5;
+  --ifm-heading-font-weight: 600;
+  --ifm-heading-h1-font-size: 1.6rem;
+  --ifm-heading-h2-font-size: 1.35rem;
+  --ifm-heading-h3-font-size: 1.15rem;
+  --ifm-heading-h4-font-size: 1rem;
+  --ifm-heading-h5-font-size: 0.9rem;
+  --ifm-heading-h6-font-size: 0.8rem;
+  --ifm-heading-line-height: 1.25;
+  --ifm-heading-margin-bottom: 0.6rem;
+  --ifm-paragraph-margin-bottom: 0.875rem;
+  --ifm-global-spacing: 0.75rem;
+  --ifm-navbar-padding-vertical: 0.35rem;
+  --ifm-navbar-item-padding-vertical: 0.2rem;
+  --ifm-navbar-item-padding-horizontal: 0.5rem;
+  --ifm-button-padding-vertical: 0.3rem;
+  --ifm-button-padding-horizontal: 1rem;
+  --ifm-button-font-weight: 600;
+  --ifm-menu-link-padding-vertical: 0.3rem;
+  --ifm-menu-link-padding-horizontal: 0.5rem;
+  --ifm-toc-padding-vertical: 0.35rem;
+  --ifm-toc-padding-horizontal: 0.35rem;
+  --ifm-footer-padding-vertical: 1.25rem;
+  --ifm-pre-padding: 0.75rem;
+  --ifm-table-cell-padding: 0.5rem 0.65rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,6 +55,29 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Dense: navbar and buttons */
+.navbar .navbar__inner {
+  min-height: 3rem;
+}
+.navbar .navbar__link {
+  font-size: 0.9rem;
+}
+.button--lg {
+  font-size: 0.95rem;
+  padding: 0.45rem 1.25rem;
+}
+.button--sm {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+}
+/* Doc content area – slightly smaller body text */
+.theme-doc-markdown {
+  font-size: 0.9375rem;
+}
+.theme-doc-markdown h1:first-child {
+  font-size: 1.75rem;
 }
 
 /* Fix button/link padding in markdown */
