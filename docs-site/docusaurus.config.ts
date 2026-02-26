@@ -57,6 +57,8 @@ const config: Config = {
     ],
   ],
 
+  plugins: ['./plugins/posthog.js'],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/seatmap-social-card.png',
