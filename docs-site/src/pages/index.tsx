@@ -110,7 +110,7 @@ function HomepageHeader() {
             type="button"
             className="button button--outline button--lg margin-left--md"
             onClick={() => setDemoModalOpen(true)}>
-            Try Live Demo ✨
+            Try Live Demo
           </button>
         </div>
         <p className={styles.heroFeatures}>

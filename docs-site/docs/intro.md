@@ -14,7 +14,8 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
     textDecoration: 'none',
     fontWeight: 'bold',
     fontSize: '1rem',
-    lineHeight: '1.5',
+    lineHeight: '1',
+    verticalAlign: 'top',
     boxShadow: '0 4px 14px rgba(37, 99, 235, 0.3)'
   }}>
     Get Started
@@ -30,33 +31,16 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
     textDecoration: 'none',
     fontWeight: 'bold',
     fontSize: '1rem',
-    lineHeight: '1.5'
+    lineHeight: '1',
+    verticalAlign: 'top'
   }}>
     Try a Demo
   </a>
-  <div style={{marginTop: '1rem'}}>
-    <a href="https://github.com/alisaitteke/seatmap-canvas" target="_blank" style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      color: 'var(--ifm-color-emphasis-700)',
-      textDecoration: 'none'
-    }}>
-      ⭐ Star
-      <span style={{
-        backgroundColor: 'var(--ifm-color-emphasis-200)',
-        padding: '2px 8px',
-        borderRadius: '12px',
-        fontSize: '0.85rem',
-        fontWeight: '600'
-      }}>1.2k</span>
-    </a>
-  </div>
 </div>
 
 [![LIVE DEMO](/img/screenshot_1.png)](https://seatmap.io/demo)
 
-## ✨ Features
+## Features
 
 <div className="row">
   <div className="col col--6">
