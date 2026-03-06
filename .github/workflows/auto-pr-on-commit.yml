@@ -1,0 +1,122 @@
+name: Auto PR on Commit
+
+on:
+  push:
+    branches:
+      - develop
+      - feature/**
+      - fix/**
+      - docs/**
+      - chore/**
+    # master branch'e push edildiğinde çalışmaz (yukarıda yok)
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create_pull_request:
+    runs-on: ubuntu-latest
+    name: Create PR from commit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get branch info
+        id: branch_info
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          # Son commit mesajını al
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "commit_msg<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMIT_MSG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          # Commit'leri karşılaştır
+          COMMIT_COUNT=$(git rev-list --count origin/master..HEAD 2>/dev/null || echo "0")
+          echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
+          
+          # Değişen dosyaları al
+          CHANGED_FILES=$(git diff --name-only origin/master...HEAD 2>/dev/null || echo "Initial commit")
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Check if PR already exists
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${{ steps.branch_info.outputs.branch_name }}"
+          
+          # Mevcut PR var mı kontrol et
+          PR_EXISTS=$(gh pr list --head "$BRANCH_NAME" --base master --json number --jq '.[0].number // empty')
+          
+          if [ -n "$PR_EXISTS" ]; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+            echo "pr_number=$PR_EXISTS" >> $GITHUB_OUTPUT
+            echo "ℹ️ PR already exists: #$PR_EXISTS"
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            echo "✅ No existing PR found"
+          fi
+
+      - name: Create Pull Request
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        id: create_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${{ steps.branch_info.outputs.branch_name }}"
+          COMMIT_MSG="${{ steps.branch_info.outputs.commit_msg }}"
+          CHANGED_FILES="${{ steps.branch_info.outputs.changed_files }}"
+          
+          # Create PR body
+          cat > pr_body.md <<EOF
+          ## 🤖 Auto-Generated Pull Request
+          
+          **Branch:** \`$BRANCH_NAME\`
+          **Latest Commit:** $COMMIT_MSG
+          **Commit Count:** ${{ steps.branch_info.outputs.commit_count }}
+          
+          ### 📝 Changed Files
+          \`\`\`
+          $CHANGED_FILES
+          \`\`\`
+          
+          ---
+          *This PR was automatically created. PR-Agent review will start automatically.*
+          EOF
+          
+          # PR oluştur (label'lar optional - yoksa hata vermez)
+          PR_URL=$(gh pr create \
+            --base master \
+            --head "$BRANCH_NAME" \
+            --title "🤖 Auto PR: $BRANCH_NAME" \
+            --body-file pr_body.md) || {
+              # Label hatası varsa label'sız dene
+              PR_URL=$(gh pr create \
+                --base master \
+                --head "$BRANCH_NAME" \
+                --title "🤖 Auto PR: $BRANCH_NAME" \
+                --body-file pr_body.md)
+          }
+          
+          # Try to add labels (continue even if labels don't exist)
+          gh pr edit "$PR_URL" --add-label "automated" 2>/dev/null || echo "⚠️ Label 'automated' not found, skipping"
+          gh pr edit "$PR_URL" --add-label "auto-pr" 2>/dev/null || echo "⚠️ Label 'auto-pr' not found, skipping"
+          
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "✅ PR Created: $PR_URL"
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.check_pr.outputs.pr_exists }}" == "true" ]; then
+            echo "ℹ️ PR already exists: #${{ steps.check_pr.outputs.pr_number }}"
+          else
+            echo "✅ New PR created: ${{ steps.create_pr.outputs.pr_url }}"
+          fi

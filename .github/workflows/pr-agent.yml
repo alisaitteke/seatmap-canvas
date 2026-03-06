@@ -1,0 +1,48 @@
+name: PR Agent
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+  issue_comment:
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: write
+
+jobs:
+  pr_agent_job:
+    # Allow github-actions bot but block other bots
+    if: ${{ github.event.sender.type != 'Bot' || github.event.sender.login == 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    name: AI-powered PR review and description
+    steps:
+      - name: PR Agent
+        id: pragent
+        uses: qodo-ai/pr-agent@main
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Model configuration
+          config.model: "gpt-4o-mini"
+          
+          # Project-specific review instructions
+          pr_reviewer.extra_instructions: |
+            - Check TypeScript and D3.js best practices
+            - Identify canvas performance issues
+            - Review React/Vue wrapper optimizations
+            - Examine SVG rendering and zoom manager usage
+            - Ensure proper event handling patterns
+          
+          # Code suggestions configuration
+          pr_code_suggestions.num_code_suggestions: 6
+          pr_code_suggestions.suggestions_score_threshold: 7
+          
+          # Automatic features
+          github_action_config.auto_review: "true"
+          github_action_config.auto_describe: "true"
+          github_action_config.auto_improve: "true"
+          
+          # PR events to trigger on
+          github_action_config.pr_actions: '["opened", "reopened", "ready_for_review"]'
