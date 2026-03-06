@@ -2,8 +2,10 @@ name: PR Agent
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review]
+    types: [opened, reopened, ready_for_review, synchronize]
   issue_comment:
+  pull_request_target:
+    types: [opened, reopened, ready_for_review]
 
 permissions:
   issues: write
@@ -43,4 +45,4 @@ jobs:
           github_action_config.auto_improve: "true"
           
           # PR events to trigger on
-          github_action_config.pr_actions: '["opened", "reopened", "ready_for_review"]'
+          github_action_config.pr_actions: '["opened", "reopened", "ready_for_review", "synchronize"]'
