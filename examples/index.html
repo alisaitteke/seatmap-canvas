@@ -58,12 +58,12 @@
         <button id="mobile-menu-btn" class="xl:hidden w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
             <i class="fa-solid fa-bars text-lg"></i>
         </button>
-        
+
         <!-- Logo (Center on mobile, left on desktop) -->
         <div class="flex-1 xl:flex-initial flex justify-center xl:justify-start">
             <img class="h-11 py-1" src="logo_small.jpg" alt="Logo">
         </div>
-        
+
         <!-- Dark Mode Button (Right) -->
         <button id="dark-mode-btn" class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
             <svg class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -73,7 +73,7 @@
     </div>
     <!-- Mobile Overlay Backdrop -->
     <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden transition-opacity"></div>
-    
+
     <!-- Checkout Modal -->
     <div id="checkout-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
@@ -91,7 +91,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Modal Content -->
             <div class="p-6">
                 <!-- Selected Seats Summary -->
@@ -101,7 +101,7 @@
                         <!-- Seats will be inserted here -->
                     </div>
                 </div>
-                
+
                 <!-- Price Breakdown -->
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mb-6">
                     <div class="space-y-2">
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Demo Form -->
                 <div class="space-y-4">
                     <div>
@@ -131,7 +131,7 @@
                         <input type="tel" placeholder="+1 (555) 123-4567" class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-green-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all">
                     </div>
                 </div>
-                
+
                 <!-- Action Buttons -->
                 <div class="mt-6 space-y-3">
                     <button id="confirm-checkout" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 text-white font-semibold py-3.5 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
@@ -142,7 +142,7 @@
                         Cancel
                     </button>
                 </div>
-                
+
                 <!-- Trust Badges -->
                 <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                     <div class="flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
@@ -163,7 +163,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Main Content Area -->
     <div class="flex flex-row flex-1 overflow-hidden">
         <!-- Left Sidebar (Controls) -->
@@ -266,13 +266,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Seats List (Scrollable, fills space) -->
             <div class="flex-1 overflow-y-auto">
                 <div id="selected-seats">
                     <!-- Seats will be inserted here -->
                 </div>
-                
+
                 <!-- Empty State -->
                 <div id="empty-basket" class="flex flex-col items-center justify-center py-12 px-6 text-center">
                     <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
@@ -282,7 +282,7 @@
                     <p class="text-gray-500 dark:text-gray-400 text-xs">Click on a seat to add it</p>
                 </div>
             </div>
-            
+
             <!-- Footer/Summary (Sticky to bottom) -->
             <div id="basket-footer" class="hidden flex-shrink-0 border-t border-t-gray-200 dark:border-t-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
                 <div class="space-y-2 mb-3">
