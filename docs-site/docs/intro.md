@@ -112,7 +112,7 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
 | **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Docs](/frameworks/vanilla-js) |
 | **React** | ✅ Available | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](/frameworks/react) |
 | **Vue.js 3** | ✅ Available | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](/frameworks/vue) |
-| **Next.js** | ✅ Available | `@alisaitteke/seatmap-canvas/nextjs` | Coming Soon |
+| **Next.js** | ✅ Available | `@alisaitteke/seatmap-canvas/nextjs` | [📖 Docs](/frameworks/nextjs) |
 | **Angular** | ✅ Available | `@alisaitteke/seatmap-canvas/angular` | [📖 Docs](/frameworks/angular) |
 | **Svelte** | 🔜 Coming Soon | - | - |
 
