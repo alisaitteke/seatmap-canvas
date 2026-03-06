@@ -6,9 +6,9 @@ on:
       - develop
       - feature/**
       - fix/**
-    # master branch'e direkt push'ları hariç tut
-    branches-ignore:
-      - master
+      - docs/**
+      - chore/**
+    # master branch'e push edildiğinde çalışmaz (yukarıda yok)
 
 permissions:
   contents: write
