@@ -36,6 +36,10 @@ jobs:
           echo "$COMMIT_MSG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
+          # Commit subject (first line only) - PR title için
+          COMMIT_SUBJECT=$(git log -1 --pretty=%s)
+          echo "commit_subject=$COMMIT_SUBJECT" >> $GITHUB_OUTPUT
+          
           # Commit'leri karşılaştır
           COMMIT_COUNT=$(git rev-list --count origin/master..HEAD 2>/dev/null || echo "0")
           echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
@@ -45,6 +49,32 @@ jobs:
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+          
+          # PR title oluştur - commit mesajı conventional ise kullan, değilse branch-based
+          if [[ "$COMMIT_SUBJECT" =~ ^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?:\ .+ ]]; then
+            # Conventional commit - direkt kullan
+            PR_TITLE="$COMMIT_SUBJECT"
+          else
+            # Conventional değil - branch'e göre type belirle
+            if [[ "$BRANCH_NAME" == feature/* ]]; then
+              SCOPE="${BRANCH_NAME#feature/}"
+              PR_TITLE="feat($SCOPE): $COMMIT_SUBJECT"
+            elif [[ "$BRANCH_NAME" == fix/* ]]; then
+              SCOPE="${BRANCH_NAME#fix/}"
+              PR_TITLE="fix($SCOPE): $COMMIT_SUBJECT"
+            elif [[ "$BRANCH_NAME" == docs/* ]]; then
+              SCOPE="${BRANCH_NAME#docs/}"
+              PR_TITLE="docs($SCOPE): $COMMIT_SUBJECT"
+            elif [[ "$BRANCH_NAME" == chore/* ]]; then
+              SCOPE="${BRANCH_NAME#chore/}"
+              PR_TITLE="chore($SCOPE): $COMMIT_SUBJECT"
+            else
+              # Default - branch adını kullan
+              PR_TITLE="$COMMIT_SUBJECT"
+            fi
+          fi
+          
+          echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
 
       - name: Check if PR already exists
         id: check_pr
@@ -92,17 +122,19 @@ jobs:
           *This PR was automatically created. PR-Agent review will start automatically.*
           EOF
           
-          # PR oluştur (label'lar optional - yoksa hata vermez)
+          # PR oluştur (Conventional Commits formatında)
+          PR_TITLE="${{ steps.branch_info.outputs.pr_title }}"
+          
           PR_URL=$(gh pr create \
             --base master \
             --head "$BRANCH_NAME" \
-            --title "🤖 Auto PR: $BRANCH_NAME" \
+            --title "$PR_TITLE" \
             --body-file pr_body.md) || {
-              # Label hatası varsa label'sız dene
+              # Hata varsa basit title ile dene
               PR_URL=$(gh pr create \
                 --base master \
                 --head "$BRANCH_NAME" \
-                --title "🤖 Auto PR: $BRANCH_NAME" \
+                --title "$PR_TITLE" \
                 --body-file pr_body.md)
           }
           
