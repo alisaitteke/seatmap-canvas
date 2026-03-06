@@ -132,9 +132,10 @@ const sidebars: SidebarsConfig = {
       label: 'Models',
       collapsed: false,
       items: [
-        'api/models/seat-model',
-        'api/models/block-model',
         'api/models/data-model',
+        'api/models/block-model',
+        'api/models/seat-model',
+        'api/models/label-model',
       ],
     },
   ],
