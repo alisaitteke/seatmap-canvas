@@ -2,8 +2,10 @@ name: PR Agent
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review]
+    types: [opened, reopened, ready_for_review, synchronize]
   issue_comment:
+  pull_request_target:
+    types: [opened, reopened, ready_for_review]
 
 permissions:
   issues: write
