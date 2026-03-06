@@ -56,6 +56,10 @@
       "types": "./src/nextjs/pages-router/index.ts",
       "import": "./src/nextjs/pages-router/index.ts"
     },
+    "./angular": {
+      "types": "./src/angular/index.ts",
+      "import": "./src/angular/index.ts"
+    },
     "./dist/*": "./dist/*"
   },
   "devDependencies": {
@@ -85,12 +89,21 @@
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
+    "@angular/common": ">=14.0.0",
+    "@angular/core": ">=14.0.0",
     "next": ">=13.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "rxjs": "^7.0.0",
     "vue": "^3.3.0"
   },
   "peerDependenciesMeta": {
+    "@angular/common": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    },
     "next": {
       "optional": true
     },
@@ -98,6 +111,9 @@
       "optional": true
     },
     "react-dom": {
+      "optional": true
+    },
+    "rxjs": {
       "optional": true
     },
     "vue": {
@@ -112,6 +128,11 @@
     "seating",
     "seatmap",
     "seat-selection",
+    "angular",
+    "angular-component",
+    "angular-directive",
+    "angular14",
+    "angular17",
     "vue",
     "vue3",
     "vuejs",
