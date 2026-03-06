@@ -30,9 +30,14 @@ const sidebars: SidebarsConfig = {
       label: 'Frameworks',
       collapsed: false,
       items: [
-        'frameworks/vanilla-js',
+        {
+          type: 'doc',
+          id: 'frameworks/vanilla-js',
+          label: 'Vanilla',
+        },
         'frameworks/react',
         'frameworks/vue',
+        'frameworks/nextjs',
         'frameworks/angular',
       ],
     },
