@@ -75,21 +75,21 @@ jobs:
           COMMIT_MSG="${{ steps.branch_info.outputs.commit_msg }}"
           CHANGED_FILES="${{ steps.branch_info.outputs.changed_files }}"
           
-          # PR body oluştur
+          # Create PR body
           cat > pr_body.md <<EOF
-          ## 🤖 Otomatik Oluşturulan Pull Request
+          ## 🤖 Auto-Generated Pull Request
           
           **Branch:** \`$BRANCH_NAME\`
-          **Son Commit:** $COMMIT_MSG
-          **Commit Sayısı:** ${{ steps.branch_info.outputs.commit_count }}
+          **Latest Commit:** $COMMIT_MSG
+          **Commit Count:** ${{ steps.branch_info.outputs.commit_count }}
           
-          ### 📝 Değişen Dosyalar
+          ### 📝 Changed Files
           \`\`\`
           $CHANGED_FILES
           \`\`\`
           
           ---
-          *Bu PR otomatik olarak oluşturuldu. PR-Agent review'ı otomatik başlayacak.*
+          *This PR was automatically created. PR-Agent review will start automatically.*
           EOF
           
           # PR oluştur (label'lar optional - yoksa hata vermez)
@@ -106,7 +106,7 @@ jobs:
                 --body-file pr_body.md)
           }
           
-          # Label'ları eklemeye çalış (hata verse bile devam et)
+          # Try to add labels (continue even if labels don't exist)
           gh pr edit "$PR_URL" --add-label "automated" 2>/dev/null || echo "⚠️ Label 'automated' not found, skipping"
           gh pr edit "$PR_URL" --add-label "auto-pr" 2>/dev/null || echo "⚠️ Label 'auto-pr' not found, skipping"
           
