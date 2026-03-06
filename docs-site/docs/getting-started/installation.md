@@ -66,6 +66,30 @@ npm install @alisaitteke/seatmap-canvas
 Vue 3.3.0 or higher is required.
 :::
 
+### Next.js
+
+Install the core package (Next.js wrapper is included):
+
+```bash npm2yarn
+npm install @alisaitteke/seatmap-canvas
+```
+
+:::info
+Next.js 13.0.0 or higher is required. Supports both App Router and Pages Router.
+:::
+
+### Angular
+
+Install the core package with Angular dependencies:
+
+```bash npm2yarn
+npm install @alisaitteke/seatmap-canvas @angular/core @angular/common rxjs
+```
+
+:::info
+Angular 14.0.0 or higher is required. RxJS 7.0.0 or higher.
+:::
+
 ## Package Contents
 
 After installation, you'll have access to:
@@ -73,6 +97,8 @@ After installation, you'll have access to:
 - **Core Library**: `@alisaitteke/seatmap-canvas`
 - **React Components**: `@alisaitteke/seatmap-canvas/react`
 - **Vue 3 Components**: `@alisaitteke/seatmap-canvas/vue`
+- **Next.js Components**: `@alisaitteke/seatmap-canvas/nextjs`
+- **Angular Components**: `@alisaitteke/seatmap-canvas/angular`
 - **TypeScript Types**: Included in the package
 - **CSS Styles**: `dist/seatmap.canvas.css`
 
@@ -90,7 +116,7 @@ Now that you have Seatmap Canvas installed, you can:
 
 - Follow the [Quick Start Guide](/getting-started/quick-start)
 - Learn about [Data Structure](/getting-started/data-structure)
-- Choose your framework: [Vanilla JS](/frameworks/vanilla-js) | [React](/frameworks/react) | [Vue](/frameworks/vue)
+- Choose your framework: [Vanilla JS](/frameworks/vanilla-js) | [React](/frameworks/react) | [Vue](/frameworks/vue) | [Angular](/frameworks/angular)
 
 ## Troubleshooting
 
