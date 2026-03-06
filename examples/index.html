@@ -55,7 +55,8 @@
     <!-- Header -->
     <div class="flex-shrink-0 bg-[#ab1f34] flex flex-row justify-between items-center px-4 xl:px-6 h-14 border-b border-[#d05063]">
         <!-- Mobile Menu Button (Left) -->
-        <button id="mobile-menu-btn" class="xl:hidden w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+        <button id="mobile-menu-btn"
+                class="xl:hidden w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
             <i class="fa-solid fa-bars text-lg"></i>
         </button>
 
@@ -65,17 +66,20 @@
         </div>
 
         <!-- Dark Mode Button (Right) -->
-        <button id="dark-mode-btn" class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+        <button id="dark-mode-btn"
+                class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
             <svg class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                 <path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
             </svg>
         </button>
     </div>
     <!-- Mobile Overlay Backdrop -->
-    <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden transition-opacity"></div>
+    <div id="mobile-overlay"
+         class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden transition-opacity"></div>
 
     <!-- Checkout Modal -->
-    <div id="checkout-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+    <div id="checkout-modal"
+         class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <!-- Modal Header -->
             <div class="sticky top-0 bg-gradient-to-r from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 p-6 rounded-t-2xl">
@@ -86,7 +90,8 @@
                         </div>
                         <h2 class="text-white text-xl font-bold">Order Summary</h2>
                     </div>
-                    <button id="close-checkout-modal" class="text-white hover:bg-white/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                    <button id="close-checkout-modal"
+                            class="text-white hover:bg-white/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -96,7 +101,8 @@
             <div class="p-6">
                 <!-- Selected Seats Summary -->
                 <div class="mb-6">
-                    <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wide">Your Seats</h3>
+                    <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wide">Your
+                        Seats</h3>
                     <div id="checkout-seats" class="space-y-2">
                         <!-- Seats will be inserted here -->
                     </div>
@@ -107,7 +113,8 @@
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600 dark:text-gray-400">Subtotal</span>
-                            <span id="checkout-subtotal" class="font-semibold text-gray-900 dark:text-white">$0.00</span>
+                            <span id="checkout-subtotal"
+                                  class="font-semibold text-gray-900 dark:text-white">$0.00</span>
                         </div>
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600 dark:text-gray-400">Service Fee</span>
@@ -115,7 +122,8 @@
                         </div>
                         <div class="border-t border-gray-200 dark:border-gray-700 pt-2 flex justify-between">
                             <span class="text-base font-bold text-gray-900 dark:text-white">Total</span>
-                            <span id="checkout-total" class="text-xl font-bold text-green-600 dark:text-green-500">$0.00</span>
+                            <span id="checkout-total"
+                                  class="text-xl font-bold text-green-600 dark:text-green-500">$0.00</span>
                         </div>
                     </div>
                 </div>
@@ -124,21 +132,25 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
-                        <input type="email" placeholder="you@example.com" class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-green-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all">
+                        <input type="email" placeholder="you@example.com"
+                               class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-green-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
-                        <input type="tel" placeholder="+1 (555) 123-4567" class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-green-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all">
+                        <input type="tel" placeholder="+1 (555) 123-4567"
+                               class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-green-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all">
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="mt-6 space-y-3">
-                    <button id="confirm-checkout" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 text-white font-semibold py-3.5 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
+                    <button id="confirm-checkout"
+                            class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 text-white font-semibold py-3.5 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
                         <i class="fa-solid fa-lock mr-2"></i>
                         Complete Booking
                     </button>
-                    <button id="cancel-checkout" class="w-full border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-lg transition-all duration-200">
+                    <button id="cancel-checkout"
+                            class="w-full border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-lg transition-all duration-200">
                         Cancel
                     </button>
                 </div>
@@ -167,7 +179,8 @@
     <!-- Main Content Area -->
     <div class="flex flex-row flex-1 overflow-hidden">
         <!-- Left Sidebar (Controls) -->
-        <div id="left-sidebar" class="fixed xl:relative left-0 top-0 xl:top-auto w-64 xl:w-48 bg-gray-100 dark:bg-gray-800 border-r border-r-gray-300 dark:border-r-gray-600 h-screen xl:h-full z-50 transition-transform duration-300 -translate-x-full xl:translate-x-0 flex-shrink-0 overflow-y-auto">
+        <div id="left-sidebar"
+             class="fixed xl:relative left-0 top-0 xl:top-auto w-64 xl:w-48 bg-gray-100 dark:bg-gray-800 border-r border-r-gray-300 dark:border-r-gray-600 h-screen xl:h-full z-50 transition-transform duration-300 -translate-x-full xl:translate-x-0 flex-shrink-0 overflow-y-auto">
             <div class="flex flex-col gap-3 px-3 py-4 text-xs">
                 <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
                     <div class="text-center dark:text-white">Example Data</div>
@@ -184,16 +197,19 @@
                     </div>
                 </div>
 
-                <div id="zoom-blocks-buttons" class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-600 rounded-md text-center"></div>
+                <div id="zoom-blocks-buttons"
+                     class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-600 rounded-md text-center"></div>
 
                 <div class="w-full flex flex-col gap-1.5 p-2 dark:bg-gray-700 rounded-md">
                     <div class="text-center dark:text-white font-semibold">Backgrounds</div>
                     <div class="w-full flex flex-col gap-1.5">
-                        <button id="toggle-global-bg" class="bg-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200">
+                        <button id="toggle-global-bg"
+                                class="bg-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200">
                             <i class="fa-solid fa-image mr-2"></i>
                             <span id="global-bg-text">Global BG: Off</span>
                         </button>
-                        <button id="toggle-block-bg" class="bg-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200">
+                        <button id="toggle-block-bg"
+                                class="bg-btn border text-left border-slate-500 bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 text-slate-800 py-1 px-3 rounded-md hover:bg-slate-200">
                             <i class="fa-solid fa-images mr-2"></i>
                             <span id="block-bg-text">Block BG: Off</span>
                         </button>
@@ -241,14 +257,17 @@
         <!-- Seatmap Canvas (Main Area) -->
         <div id="seats_container" class="flex-1 bg-white dark:bg-gray-700 relative overflow-hidden">
             <!-- Mobile Basket Button (Floating) -->
-            <button id="mobile-basket-btn" class="xl:hidden hidden fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-30 flex items-center justify-center">
+            <button id="mobile-basket-btn"
+                    class="xl:hidden hidden fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-30 flex items-center justify-center">
                 <i class="fa-solid fa-shopping-cart text-xl"></i>
-                <span id="mobile-seat-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
+                <span id="mobile-seat-badge"
+                      class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
             </button>
         </div>
 
         <!-- Right Sidebar (Basket) -->
-        <div id="right-sidebar" class="fixed xl:relative right-0 top-0 xl:top-auto flex flex-col bg-white dark:bg-gray-800 w-80 xl:w-80 border-l border-l-gray-300 dark:border-l-gray-600 h-screen xl:h-full z-50 transition-transform duration-300 translate-x-full xl:translate-x-0 flex-shrink-0">
+        <div id="right-sidebar"
+             class="fixed xl:relative right-0 top-0 xl:top-auto flex flex-col bg-white dark:bg-gray-800 w-80 xl:w-80 border-l border-l-gray-300 dark:border-l-gray-600 h-screen xl:h-full z-50 transition-transform duration-300 translate-x-full xl:translate-x-0 flex-shrink-0">
             <!-- Header (Fixed) -->
             <div class="flex-shrink-0 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900 p-4 border-b border-blue-800 dark:border-blue-900">
                 <div class="flex items-center justify-between">
@@ -257,10 +276,12 @@
                         <h3 class="text-white font-semibold text-base">Your Selection</h3>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div id="seat-count" class="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                        <div id="seat-count"
+                             class="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full">
                             0
                         </div>
-                        <button class="xl:hidden text-white hover:bg-white/10 w-7 h-7 rounded flex items-center justify-center" id="close-basket-btn">
+                        <button class="xl:hidden text-white hover:bg-white/10 w-7 h-7 rounded flex items-center justify-center"
+                                id="close-basket-btn">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
@@ -284,14 +305,16 @@
             </div>
 
             <!-- Footer/Summary (Sticky to bottom) -->
-            <div id="basket-footer" class="hidden flex-shrink-0 border-t border-t-gray-200 dark:border-t-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
+            <div id="basket-footer"
+                 class="hidden flex-shrink-0 border-t border-t-gray-200 dark:border-t-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
                 <div class="space-y-2 mb-3">
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-600 dark:text-gray-400">Subtotal</span>
                         <span id="subtotal" class="font-semibold text-gray-900 dark:text-white">$0.00</span>
                     </div>
                 </div>
-                <button id="proceed-checkout-btn" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
+                <button id="proceed-checkout-btn"
+                        class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
                     <i class="fa-solid fa-check mr-2"></i>
                     Proceed to Checkout
                 </button>
@@ -309,7 +332,8 @@
                data-icon="octicon-repo-forked" aria-label="Fork alisaitteke/seatmap-canvas on GitHub">Fork</a>
         </div>
         <div class="flex gap-4 items-center">
-            <a href="/" class="hidden xl:flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#ab1f34] dark:hover:text-[#d05063] transition-colors">
+            <a href="/"
+               class="hidden xl:flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#ab1f34] dark:hover:text-[#d05063] transition-colors">
                 <i class="fa-solid fa-book"></i>
                 <span>Documentation</span>
             </a>
@@ -320,12 +344,34 @@
     </div>
 </div>
 <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_8y1ou6p0wYOEuhyoaBtVdabmiASDVwcS6VBMRaxy89Q', {api_host: 'https://eu.i.posthog.com', defaults: '2026-01-30'});
+    !function (t, e) {
+        var o, n, p, r;
+        e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) {
+            function g(t, e) {
+                var o = e.split(".");
+                2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () {
+                    t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                }
+            }
+
+            (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
+            var u = e;
+            for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) {
+                var e = "posthog";
+                return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e
+            }, u.people.toString = function () {
+                return u.toString(1) + ".people (stub)"
+            }, o = "init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "), n = 0; n < o.length; n++) g(u, o[n]);
+            e._i.push([i, s, a])
+        }, e.__SV = 1)
+    }(document, window.posthog || []);
+    posthog.init('phc_8y1ou6p0wYOEuhyoaBtVdabmiASDVwcS6VBMRaxy89Q', {
+        api_host: 'https://eu.i.posthog.com',
+        defaults: '2026-01-30'
+    });
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
 <script type="text/javascript" src="example.js"></script>
 </body>
 </html>
