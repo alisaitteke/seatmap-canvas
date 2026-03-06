@@ -11,13 +11,34 @@ import type { BlockData, ServerActionResult } from '../types';
 
 /**
  * Load seatmap data from a data source
- * @param dataSource - URL or data identifier
+ * @param venueId - Venue identifier (sanitized)
  * @returns Server action result with block data
  */
-export async function loadSeatmapData(dataSource: string): Promise<ServerActionResult<BlockData[]>> {
+export async function loadSeatmapData(venueId: string): Promise<ServerActionResult<BlockData[]>> {
   try {
-    // This is a template - replace with actual data fetching logic
-    const response = await fetch(dataSource, {
+    // Validate and sanitize venueId to prevent SSRF
+    if (!venueId || typeof venueId !== 'string') {
+      return {
+        success: false,
+        error: 'Invalid venue ID',
+      };
+    }
+
+    // Only allow alphanumeric characters and hyphens
+    const sanitizedVenueId = venueId.replace(/[^a-zA-Z0-9-]/g, '');
+    
+    if (sanitizedVenueId !== venueId) {
+      return {
+        success: false,
+        error: 'Invalid venue ID format',
+      };
+    }
+
+    // Use a whitelist approach - construct URL from trusted base
+    const baseUrl = process.env.API_URL || 'https://api.example.com';
+    const url = `${baseUrl}/venues/${sanitizedVenueId}/seatmap`;
+
+    const response = await fetch(url, {
       next: { tags: ['seatmap'], revalidate: 3600 },
     });
 
