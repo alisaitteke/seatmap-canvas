@@ -70,7 +70,7 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
   <div className="col col--6">
     <h3><img src={require('@site/static/img/icons/lightning.svg').default} alt="Fast" style={{width: '24px', height: '24px', verticalAlign: 'middle', marginRight: '8px'}} /> Developer Friendly</h3>
     <ul>
-      <li><strong>Framework Agnostic</strong> - Works with vanilla JS, React, Vue 3</li>
+      <li><strong>Framework Agnostic</strong> - Works with vanilla JS, React, Vue, Angular, Next.js</li>
       <li><strong>TypeScript</strong> - Full type definitions included</li>
       <li><strong>Event System</strong> - Simple and powerful event handling</li>
     </ul>
@@ -110,11 +110,11 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
 | Framework | Status | Package | Documentation |
 |:----------|:------:|:--------|:-------------:|
 | **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Docs](/frameworks/vanilla-js) |
-| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](/frameworks/vue) |
-| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](/frameworks/react) |
-| **Next.js** | 🔜 Coming Soon | - | - |
+| **React** | ✅ Available | `@alisaitteke/seatmap-canvas/react` | [📖 Docs](/frameworks/react) |
+| **Vue.js 3** | ✅ Available | `@alisaitteke/seatmap-canvas/vue` | [📖 Docs](/frameworks/vue) |
+| **Next.js** | ✅ Available | `@alisaitteke/seatmap-canvas/nextjs` | Coming Soon |
+| **Angular** | ✅ Available | `@alisaitteke/seatmap-canvas/angular` | [📖 Docs](/frameworks/angular) |
 | **Svelte** | 🔜 Coming Soon | - | - |
-| **Angular** | 🔜 Coming Soon | - | - |
 
 ### 📱 Mobile Frameworks
 

@@ -33,6 +33,7 @@ const sidebars: SidebarsConfig = {
         'frameworks/vanilla-js',
         'frameworks/react',
         'frameworks/vue',
+        'frameworks/nextjs',
       ],
     },
     {
