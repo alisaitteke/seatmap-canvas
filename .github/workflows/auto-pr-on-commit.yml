@@ -8,7 +8,7 @@ on:
       - fix/**
       - docs/**
       - chore/**
-    # master branch'e push edildiğinde çalışmaz (yukarıda yok)
+    # Does not trigger on master branch pushes (not listed above)
 
 permissions:
   contents: write
@@ -30,32 +30,32 @@ jobs:
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           
-          # Son commit mesajını al
+          # Extract latest commit message
           COMMIT_MSG=$(git log -1 --pretty=%B)
           echo "commit_msg<<EOF" >> $GITHUB_OUTPUT
           echo "$COMMIT_MSG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-          # Commit subject (first line only) - PR title için
+          # Extract commit subject (first line only) for PR title
           COMMIT_SUBJECT=$(git log -1 --pretty=%s)
           echo "commit_subject=$COMMIT_SUBJECT" >> $GITHUB_OUTPUT
           
-          # Commit'leri karşılaştır
+          # Compare commits against master
           COMMIT_COUNT=$(git rev-list --count origin/master..HEAD 2>/dev/null || echo "0")
           echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
           
-          # Değişen dosyaları al
+          # Get list of changed files
           CHANGED_FILES=$(git diff --name-only origin/master...HEAD 2>/dev/null || echo "Initial commit")
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-          # PR title oluştur - commit mesajı conventional ise kullan, değilse branch-based
+          # Generate PR title - use conventional commit format if valid, otherwise derive from branch name
           if [[ "$COMMIT_SUBJECT" =~ ^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?:\ .+ ]]; then
-            # Conventional commit - direkt kullan
+            # Conventional commit detected - use as-is
             PR_TITLE="$COMMIT_SUBJECT"
           else
-            # Conventional değil - branch'e göre type belirle
+            # Not conventional - infer type from branch pattern
             if [[ "$BRANCH_NAME" == feature/* ]]; then
               SCOPE="${BRANCH_NAME#feature/}"
               PR_TITLE="feat($SCOPE): $COMMIT_SUBJECT"
@@ -69,7 +69,7 @@ jobs:
               SCOPE="${BRANCH_NAME#chore/}"
               PR_TITLE="chore($SCOPE): $COMMIT_SUBJECT"
             else
-              # Default - branch adını kullan
+              # Default - use commit subject as-is
               PR_TITLE="$COMMIT_SUBJECT"
             fi
           fi
@@ -83,7 +83,7 @@ jobs:
         run: |
           BRANCH_NAME="${{ steps.branch_info.outputs.branch_name }}"
           
-          # Mevcut PR var mı kontrol et
+          # Check if PR already exists for this branch
           PR_EXISTS=$(gh pr list --head "$BRANCH_NAME" --base master --json number --jq '.[0].number // empty')
           
           if [ -n "$PR_EXISTS" ]; then
@@ -122,7 +122,7 @@ jobs:
           *This PR was automatically created. PR-Agent review will start automatically.*
           EOF
           
-          # PR oluştur (Conventional Commits formatında)
+          # Create PR with Conventional Commits format
           PR_TITLE="${{ steps.branch_info.outputs.pr_title }}"
           
           PR_URL=$(gh pr create \
@@ -130,7 +130,7 @@ jobs:
             --head "$BRANCH_NAME" \
             --title "$PR_TITLE" \
             --body-file pr_body.md) || {
-              # Hata varsa basit title ile dene
+              # Retry with same title if error occurs
               PR_URL=$(gh pr create \
                 --base master \
                 --head "$BRANCH_NAME" \
