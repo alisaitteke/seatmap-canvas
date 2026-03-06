@@ -12,7 +12,8 @@ permissions:
 
 jobs:
   pr_agent_job:
-    if: ${{ github.event.sender.type != 'Bot' }}
+    # Allow github-actions bot but block other bots
+    if: ${{ github.event.sender.type != 'Bot' || github.event.sender.login == 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     name: AI-powered PR review and description
     steps:
