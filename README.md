@@ -31,7 +31,9 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
     <img src="https://img.shields.io/badge/React-⚠️_Testing-orange?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
   </a>
   &nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/Next.js-Coming_Soon-000000?style=for-the-badge&logo=next.js&logoColor=white&color=gray" alt="Next.js"/>
+  <a href="src/nextjs/README.md">
+    <img src="https://img.shields.io/badge/Next.js-⚠️_Testing-orange?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
+  </a>
   &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Svelte-Coming_Soon-FF3E00?style=for-the-badge&logo=svelte&logoColor=white&color=gray" alt="Svelte"/>
   &nbsp;&nbsp;
@@ -71,7 +73,7 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 | **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Documentation](#vanilla-javascript) | [🎯 Example](examples/) |
 | **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Documentation](src/vue/README.md) | [🎯 Example](examples/vue/) |
 | **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Documentation](src/react/README.md) | [🎯 Example](examples/react/) |
-| **Next.js** | 🔜 Coming Soon | - | - | - |
+| **Next.js** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/nextjs` | [📖 Documentation](src/nextjs/README.md) | [🎯 App Router](examples/nextjs-app/) • [Pages Router](examples/nextjs-pages/) |
 | **Svelte** | 🔜 Coming Soon | - | - | - |
 | **Angular** | 🔜 Coming Soon | - | - | - |
 | **Nuxt** | 🔜 Coming Soon | - | - | - |
@@ -243,6 +245,88 @@ function App() {
   <a href="https://seatmap.io/frameworks/react"><img src="https://img.shields.io/badge/📖_Full_Documentation-61DAFB?style=for-the-badge&logoColor=black" alt="Documentation"/></a>
   &nbsp;
   <a href="examples/react/"><img src="https://img.shields.io/badge/🎯_Examples-20232A?style=for-the-badge&logoColor=white" alt="Examples"/></a>
+</p>
+
+---
+
+<h3>
+  <img src="https://api.iconify.design/logos:nextjs-icon.svg" width="24" height="24" alt="Next.js" style="vertical-align: middle;" />
+  &nbsp;Next.js
+</h3>
+
+<table>
+<tr>
+<td width="50%">
+
+**Installation**
+
+```bash
+npm install @alisaitteke/seatmap-canvas next react react-dom
+```
+
+**App Router (Client Component)**
+
+```tsx
+'use client';
+
+import { SeatmapCanvas } from '@alisaitteke/seatmap-canvas/nextjs';
+import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
+
+export default function VenuePage() {
+  const handleSeatClick = (seat) => {
+    seat.isSelected() ? seat.unSelect() : seat.select();
+  };
+
+  return (
+    <SeatmapCanvas
+      data={blocks}
+      options={{ legend: true }}
+      onSeatClick={handleSeatClick}
+    />
+  );
+}
+```
+
+</td>
+<td width="50%">
+
+**Server Component + Data Fetching**
+
+```tsx
+import { SeatmapServerWrapper } from '@alisaitteke/seatmap-canvas/nextjs/app-router';
+import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
+
+export default async function VenuePage({ params }) {
+  return (
+    <SeatmapServerWrapper
+      dataSource={`/api/venues/${params.id}/seatmap`}
+      options={{ legend: true }}
+      revalidate={3600}
+    />
+  );
+}
+```
+
+**Pages Router (Dynamic Import)**
+
+```tsx
+import { SeatmapCanvas } from '@alisaitteke/seatmap-canvas/nextjs/pages-router';
+
+export default function VenuePage({ data }) {
+  return <SeatmapCanvas data={data} />;
+}
+```
+
+</td>
+</tr>
+</table>
+
+<p align="center">
+  <a href="https://seatmap.io/frameworks/nextjs"><img src="https://img.shields.io/badge/📖_Full_Documentation-000000?style=for-the-badge&logoColor=white" alt="Documentation"/></a>
+  &nbsp;
+  <a href="examples/nextjs-app/"><img src="https://img.shields.io/badge/🎯_App_Router-000000?style=for-the-badge&logoColor=white" alt="App Router"/></a>
+  &nbsp;
+  <a href="examples/nextjs-pages/"><img src="https://img.shields.io/badge/🎯_Pages_Router-000000?style=for-the-badge&logoColor=white" alt="Pages Router"/></a>
 </p>
 
 ---
