@@ -2,8 +2,6 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  */
 
-import {isArray} from "rxjs/internal/util/isArray";
-
 import {SeatMapCanvas} from "@/canvas.index";
 
 export interface EventObject {
@@ -20,7 +18,7 @@ export default class EventManager {
     }
 
     addEventListener(type: string | any, fn: any): this {
-        if (isArray(type)) {
+        if (Array.isArray(type)) {
             for (let i = 0; i < type.length; i++) {
                 this.events.push({
                     type: type[i],
