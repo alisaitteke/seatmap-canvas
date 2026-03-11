@@ -1,0 +1,72 @@
+version: 2
+updates:
+  # Main library dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      npm_and_yarn:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Separate major updates
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Documentation site dependencies
+  - package-ecosystem: "npm"
+    directory: "/docs-site"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    groups:
+      npm_and_yarn:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "documentation"
+
+  # Angular example dependencies (weekly, grouped)
+  - package-ecosystem: "npm"
+    directory: "/examples/angular"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 2
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Don't auto-update Angular major versions
+    ignore:
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "dependencies"
+      - "examples"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "ci"
