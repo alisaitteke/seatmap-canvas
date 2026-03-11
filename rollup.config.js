@@ -14,6 +14,8 @@ const license = require('rollup-plugin-license');
 const packageJson = require("./package.json");
 
 export default commandLineArgs => {
+    const isProduction = process.env.PRODUCTION;
+    
     let config = [
         {
             input: "src/lib/canvas.index.browser.ts",
@@ -34,36 +36,33 @@ export default commandLineArgs => {
                 resolve(),
                 commonjs(),
                 typescript({tsconfig: "./tsconfig.rollup.json"}),
-                terser(),
-                license({
-                    sourcemap: true,
-                    cwd: process.cwd(), // The default
-
-                    banner: {
-                        commentStyle: 'regular', // The default
-
-                        content: {
-                            file: path.join(__dirname, 'LICENSE'),
-                            encoding: 'utf-8', // Default is utf-8
+                ...(isProduction ? [
+                    terser(),
+                    license({
+                        sourcemap: true,
+                        cwd: process.cwd(),
+                        banner: {
+                            commentStyle: 'regular',
+                            content: {
+                                file: path.join(__dirname, 'LICENSE'),
+                                encoding: 'utf-8',
+                            },
+                            data() {
+                                return {
+                                    foo: 'foo',
+                                };
+                            },
                         },
-
-                        // Optional, may be an object or a function returning an object.
-                        data() {
-                            return {
-                                foo: 'foo',
-                            };
+                        thirdParty: {
+                            includePrivate: true,
+                            multipleVersions: true,
+                            output: {
+                                file: path.join(__dirname, 'dist', 'dependencies.txt'),
+                                encoding: 'utf-8',
+                            },
                         },
-                    },
-
-                    thirdParty: {
-                        includePrivate: true, // Default is false.
-                        multipleVersions: true, // Default is false.
-                        output: {
-                            file: path.join(__dirname, 'dist', 'dependencies.txt'),
-                            encoding: 'utf-8', // Default is utf-8.
-                        },
-                    },
-                }),
+                    })
+                ] : []),
             ],
             external: [],
         },
@@ -85,7 +84,7 @@ export default commandLineArgs => {
                 resolve(),
                 commonjs(),
                 typescript({tsconfig: "./tsconfig.rollup.json"}),
-                terser()
+                ...(isProduction ? [terser()] : [])
             ],
             external: [],
         },
@@ -99,7 +98,7 @@ export default commandLineArgs => {
             plugins: [scss(), dts.default()],
         },
     ];
-    if (!process.env.PRODUCTION) {
+    if (!isProduction) {
         config[0].plugins.push(livereload())
         config[0].plugins.push(serve({
             openPage: '/index.html',
