@@ -7,7 +7,7 @@
 'use client';
 
 import React, { useEffect, useRef, useImperativeHandle, forwardRef, useState } from 'react';
-import { SeatMapCanvas } from '../../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapCanvasProps, SeatmapCanvasRef } from '../types';
 
 const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
@@ -30,6 +30,13 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
     const containerRef = useRef<HTMLDivElement>(null);
     const seatmapRef = useRef<SeatMapCanvas | null>(null);
     const [mounted, setMounted] = useState(false);
+
+    // Keep latest values in refs so the init effect can run exactly once after
+    // mount. Without this, callers passing inline `options`/`data` literals
+    // would re-create the SeatMapCanvas instance on every render and trigger
+    // a "Maximum update depth exceeded" loop.
+    const optionsRef = useRef(options);
+    const onReadyRef = useRef(onReady);
     const eventHandlersRef = useRef({
       onSeatClick,
       onSeatSelect,
@@ -37,7 +44,14 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
       onBlockClick,
     });
 
-    // Update event handlers ref when props change
+    useEffect(() => {
+      optionsRef.current = options;
+    }, [options]);
+
+    useEffect(() => {
+      onReadyRef.current = onReady;
+    }, [onReady]);
+
     useEffect(() => {
       eventHandlersRef.current = {
         onSeatClick,
@@ -52,79 +66,69 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
       setMounted(true);
     }, []);
 
-    // Initialize seatmap only after component is mounted (client-side only)
+    // Initialize seatmap exactly once after the component mounts on the client.
     useEffect(() => {
       if (!mounted || !containerRef.current) return;
 
-      // Initialize Seatmap Canvas
-      seatmapRef.current = new SeatMapCanvas(containerRef.current, options);
+      const instance = new SeatMapCanvas(containerRef.current, optionsRef.current);
+      seatmapRef.current = instance;
 
-      // Setup event listeners
-      if (seatmapRef.current) {
-        const instance = seatmapRef.current;
+      instance.eventManager.addEventListener('SEAT.CLICK', (seat: any) => {
+        eventHandlersRef.current.onSeatClick?.(seat);
+      });
 
-        instance.eventManager.addEventListener('SEAT.CLICK', (seat: any) => {
-          if (eventHandlersRef.current.onSeatClick) {
-            eventHandlersRef.current.onSeatClick(seat);
-          }
-        });
+      instance.eventManager.addEventListener('SEAT.SELECT', (seat: any) => {
+        eventHandlersRef.current.onSeatSelect?.(seat);
+      });
 
-        instance.eventManager.addEventListener('SEAT.SELECT', (seat: any) => {
-          if (eventHandlersRef.current.onSeatSelect) {
-            eventHandlersRef.current.onSeatSelect(seat);
-          }
-        });
+      instance.eventManager.addEventListener('SEAT.UNSELECT', (seat: any) => {
+        eventHandlersRef.current.onSeatUnselect?.(seat);
+      });
 
-        instance.eventManager.addEventListener('SEAT.UNSELECT', (seat: any) => {
-          if (eventHandlersRef.current.onSeatUnselect) {
-            eventHandlersRef.current.onSeatUnselect(seat);
-          }
-        });
+      instance.eventManager.addEventListener('BLOCK.CLICK', (block: any) => {
+        eventHandlersRef.current.onBlockClick?.(block);
+      });
 
-        instance.eventManager.addEventListener('BLOCK.CLICK', (block: any) => {
-          if (eventHandlersRef.current.onBlockClick) {
-            eventHandlersRef.current.onBlockClick(block);
-          }
-        });
+      onReadyRef.current?.(instance);
 
-        // Load initial data
-        if (data && data.length > 0) {
-          instance.data.replaceData(data);
-          if (autoZoomToVenue) {
-            setTimeout(() => {
-              instance.zoomManager.zoomToVenue();
-            }, 100);
-          }
-        }
-
-        // Call onReady callback
-        if (onReady) {
-          onReady(instance);
-        }
-      }
-
-      // Cleanup
       return () => {
         seatmapRef.current = null;
       };
-    }, [mounted, options]); // Only run once after mount
+    }, [mounted]);
 
-    // Watch for data changes
+    // Watch for data changes. We intentionally compare by JSON-serialized
+    // payload so consumers can safely pass new array literals on every render
+    // without triggering an effect (which would otherwise loop because
+    // `replaceData` mutates internal state during the same render cycle).
+    const dataSignature = React.useMemo(() => {
+      if (!data || data.length === 0) return '';
+      try {
+        return JSON.stringify(data);
+      } catch {
+        return String(data.length);
+      }
+    }, [data]);
+
     useEffect(() => {
       if (!mounted) return;
-      
-      if (seatmapRef.current && data && data.length > 0) {
-        seatmapRef.current.data.replaceData(data);
-        if (autoZoomToVenue) {
-          setTimeout(() => {
-            seatmapRef.current?.zoomManager.zoomToVenue();
-          }, 100);
-        }
-        if (onDataChange) {
-          onDataChange(data);
-        }
+      const instance = seatmapRef.current;
+      if (!instance || !data || data.length === 0) return;
+
+      instance.data.replaceData(data);
+
+      if (autoZoomToVenue) {
+        const timer = setTimeout(() => {
+          seatmapRef.current?.zoomManager.zoomToVenue();
+        }, 100);
+        if (onDataChange) onDataChange(data);
+        return () => clearTimeout(timer);
       }
-    }, [data, autoZoomToVenue, onDataChange, mounted]);
+
+      if (onDataChange) onDataChange(data);
+    // `dataSignature` captures structural changes; `data`/`onDataChange` are
+    // intentionally excluded to avoid render-loop on inline literals.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mounted, dataSignature, autoZoomToVenue]);
 
     // Expose methods via ref
     useImperativeHandle(ref, () => ({

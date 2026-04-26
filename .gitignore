@@ -6,6 +6,9 @@
 
 # dependencies
 /node_modules
+node_modules
+examples/nextjs-app/.next
+examples/nextjs-pages/.next
 
 # IDEs and editors
 /.idea

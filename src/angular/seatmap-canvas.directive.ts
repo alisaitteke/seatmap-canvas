@@ -18,7 +18,7 @@ import {
   Inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { SeatMapCanvas } from '../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapOptions, BlockData } from './types';
 
 @Directive({
