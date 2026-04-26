@@ -16,6 +16,11 @@ const packageJson = require("./package.json");
 export default commandLineArgs => {
     const isProduction = process.env.PRODUCTION;
     
+    // Emit a single CSS bundle to the package root so consumers can import it
+    // from `@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css` regardless of
+    // whether they are using the CJS or ESM build.
+    const cssOutputPath = 'dist/seatmap.canvas.css';
+
     let config = [
         {
             input: "src/lib/canvas.index.browser.ts",
@@ -30,6 +35,7 @@ export default commandLineArgs => {
             plugins: [
                 cleandir(),
                 scss({
+                    output: cssOutputPath,
                     verbose: true
                 }),
                 peerDepsExternal(),
@@ -78,6 +84,10 @@ export default commandLineArgs => {
             plugins: [
                 cleandir(),
                 scss({
+                    // The browser bundle already emits the CSS file; suppress
+                    // a second write here to avoid redundant disk I/O while
+                    // still allowing `.scss` imports to resolve.
+                    output: false,
                     verbose: true
                 }),
                 peerDepsExternal(),
@@ -95,7 +105,10 @@ export default commandLineArgs => {
                 format: "es"
             }],
             external: [/\.scss$/],
-            plugins: [scss(), dts.default()],
+            // Use the rollup tsconfig so the `@/*`, `@model/*`, `@svg/*` path
+            // aliases are resolved into the bundled `.d.ts` instead of being
+            // emitted verbatim (which would break consumers like Next.js).
+            plugins: [scss(), dts.default({tsconfig: './tsconfig.rollup.json'})],
         },
     ];
     if (!isProduction) {

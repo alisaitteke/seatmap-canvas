@@ -6,7 +6,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { SeatMapCanvas } from '../../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapOptions, BlockData, UseSeatmapReturn } from '../types';
 
 export function useSeatmap(
@@ -19,45 +19,59 @@ export function useSeatmap(
   const [isReady, setIsReady] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState<any[]>([]);
 
+  // Hold the latest options/initialData in refs so the init effect can run
+  // exactly once after mount. Inline object literals from callers would
+  // otherwise change reference on every render and cause a re-init loop.
+  const optionsRef = useRef(options);
+  const initialDataRef = useRef(initialData);
+
+  useEffect(() => {
+    optionsRef.current = options;
+  }, [options]);
+
+  useEffect(() => {
+    initialDataRef.current = initialData;
+  }, [initialData]);
+
   // Handle client-side mounting
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Initialize seatmap only on client-side
+  // Initialize seatmap exactly once after mount on the client.
   useEffect(() => {
     if (!mounted || !containerRef.current) return;
 
-    try {
-      seatmapRef.current = new SeatMapCanvas(containerRef.current, options);
-      setIsReady(true);
+    let cancelled = false;
 
-      // Update selected seats on seat events
+    try {
+      const instance = new SeatMapCanvas(containerRef.current, optionsRef.current);
+      seatmapRef.current = instance;
+      if (!cancelled) setIsReady(true);
+
       const updateSelectedSeats = () => {
         if (seatmapRef.current) {
           setSelectedSeats(seatmapRef.current.data.getSelectedSeats());
         }
       };
 
-      seatmapRef.current.eventManager.addEventListener('SEAT.SELECT', updateSelectedSeats);
-      seatmapRef.current.eventManager.addEventListener('SEAT.UNSELECT', updateSelectedSeats);
+      instance.eventManager.addEventListener('SEAT.SELECT', updateSelectedSeats);
+      instance.eventManager.addEventListener('SEAT.UNSELECT', updateSelectedSeats);
 
-      // Load initial data if provided
-      if (initialData && initialData.length > 0) {
-        seatmapRef.current.data.replaceData(initialData);
+      const data = initialDataRef.current;
+      if (data && data.length > 0) {
+        instance.data.replaceData(data);
       }
     } catch (error) {
       console.error('Failed to initialize Seatmap Canvas:', error);
-      setIsReady(false);
+      if (!cancelled) setIsReady(false);
     }
 
-    // Cleanup
     return () => {
+      cancelled = true;
       seatmapRef.current = null;
-      setIsReady(false);
-      setSelectedSeats([]);
     };
-  }, [mounted, options]); // Only run once after mount
+  }, [mounted]);
 
   const loadData = useCallback((data: BlockData[]) => {
     if (!seatmapRef.current) {

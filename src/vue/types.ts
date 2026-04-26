@@ -3,7 +3,7 @@
  * Vue.js Plugin Types for Seatmap Canvas
  */
 
-import { SeatMapCanvas } from '../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import DefaultsModel from '../lib/models/defaults.model';
 
 export interface SeatmapOptions extends Partial<DefaultsModel> {
