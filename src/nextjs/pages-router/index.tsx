@@ -1,9 +1,10 @@
 /*
- * pages-router/index.ts
+ * pages-router/index.tsx
  * Pages Router specific exports for Next.js Plugin
  * Uses dynamic import with SSR disabled to prevent hydration issues
  */
 
+import React from 'react';
 import dynamic from 'next/dynamic';
 
 // Dynamic import with SSR disabled for Pages Router

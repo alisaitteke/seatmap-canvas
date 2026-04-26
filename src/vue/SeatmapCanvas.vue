@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
-import { SeatMapCanvas } from '../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapOptions, BlockData } from './types';
 
 export interface Props {

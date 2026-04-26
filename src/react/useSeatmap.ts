@@ -4,7 +4,7 @@
  */
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { SeatMapCanvas } from '../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapOptions, BlockData, UseSeatmapReturn } from './types';
 
 export function useSeatmap(
