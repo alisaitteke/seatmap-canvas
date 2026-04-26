@@ -1,97 +1,40 @@
-name: Release package
+name: Create GitHub Release
+
 permissions:
   contents: write
+
 on:
-  # Automatic release when version tag is pushed
+
+  # Automatically create GitHub Release when a version tag is pushed.
+  # NPM publish is handled manually outside of CI (see scripts/release.sh).
   push:
     tags:
       - 'v*.*.*'
-  # Manual release trigger
-  workflow_dispatch:
-    inputs:
-      release-type:
-        description: 'Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease'
-        required: true
+
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      # Checkout project repository
       - name: Checkout
-        uses: actions/checkout@v3
-
-      # Setup Node.js environment
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
         with:
-          registry-url: https://registry.npmjs.org/
-          node-version: '18'
+          fetch-depth: 0
 
-      # Install dependencies
-      - name: Install dependencies
-        run: npm ci
+      - name: Resolve version from tag
+        run: echo "NEW_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: Build changelog
 
-      - name: Build
-        run: npm run build
-
-      # Configure Git
-      - name: Git configuration
-        run: |
-          git config --global user.email "alisaitteke@gmail.com"
-          git config --global user.name "Ali Sait Teke"
-
-      # Set version from tag if triggered by tag push
-      - name: Set version from tag
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "NEW_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-          echo "RELEASE_TAG=latest" >> $GITHUB_ENV
-
-      # Bump package version for manual workflow dispatch
-      # Use tag latest
-      - name: Bump release version
-        if: github.event_name == 'workflow_dispatch' && startsWith(github.event.inputs.release-type, 'pre') != true
-        run: |
-          echo "NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_TYPE)" >> $GITHUB_ENV
-          echo "RELEASE_TAG=latest" >> $GITHUB_ENV
-        env:
-          RELEASE_TYPE: ${{ github.event.inputs.release-type }}
-
-      # Bump package pre-release version
-      # Use tag beta for pre-release versions
-      - name: Bump pre-release version
-        if: github.event_name == 'workflow_dispatch' && startsWith(github.event.inputs.release-type, 'pre')
-        run: |
-          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)" >> $GITHUB_ENV
-          echo "RELEASE_TAG=beta" >> $GITHUB_ENV
-        env:
-          RELEASE_TYPE: ${{ github.event.inputs.release-type }}
-
-      # Publish version to public repository
-      - name: Publish
-        run: npm publish --access public --tag ${{ env.RELEASE_TAG }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # Push repository changes (only for manual workflow dispatch)
-      - name: Push changes to repository
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITH_PACKAGE_TOKEN }}
-        run: |
-          git tag "${{ env.NEW_VERSION }}"
-          git push --tags
-
-      # Read version changelog
-      - name: "Build Changelog"
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v4.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITH_PACKAGE_TOKEN }}
 
-      # Update GitHub release with changelog
-      - name: Update GitHub release documentation
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.NEW_VERSION }}
+          name: ${{ env.NEW_VERSION }}
           body: ${{ steps.build_changelog.outputs.changelog }}
           prerelease: ${{ contains(env.NEW_VERSION, 'beta') || contains(env.NEW_VERSION, 'alpha') || contains(env.NEW_VERSION, 'rc') }}
         env:
