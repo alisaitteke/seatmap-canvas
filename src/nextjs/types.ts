@@ -3,7 +3,7 @@
  * Next.js Plugin Types for Seatmap Canvas
  */
 
-import type { SeatMapCanvas } from '../lib/canvas.index';
+import type { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type DefaultsModel from '../lib/models/defaults.model';
 import type { ReactNode } from 'react';
 

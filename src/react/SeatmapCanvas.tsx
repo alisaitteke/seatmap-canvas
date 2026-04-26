@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
-import { SeatMapCanvas } from '../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapCanvasProps } from './types';
 
 export interface SeatmapCanvasRef {

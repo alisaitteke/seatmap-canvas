@@ -53,17 +53,22 @@ export default class BlockModel extends ModelBase {
         this.background_width = item.background_width || null;
         this.background_height = item.background_height || null;
 
-        this.labels = item.labels.map((item: any) => {
-            item.block = this;
-            return new LabelModel(item);
-        }) || [];
+        // Defensive: `labels` and `seats` are documented as optional in
+        // `BlockData`, but the original implementation called `.map` directly
+        // and crashed with "Cannot read properties of undefined (reading 'map')"
+        // whenever a consumer omitted them.
+        const rawLabels: Array<any> = Array.isArray(item.labels) ? item.labels : [];
+        const rawSeats: Array<any> = Array.isArray(item.seats) ? item.seats : [];
 
+        this.labels = rawLabels.map((labelItem: any) => {
+            labelItem.block = this;
+            return new LabelModel(labelItem);
+        });
 
-        this.seats = item.seats.map((item: any) => {
-            item.block = this;
-            let seat: SeatModel = new SeatModel(item);
-            return seat;
-        }) || [];
+        this.seats = rawSeats.map((seatItem: any) => {
+            seatItem.block = this;
+            return new SeatModel(seatItem);
+        });
     }
 
 

@@ -74,15 +74,16 @@ export default class DefaultsModel {
 
         this.style = new StyleConfig()
 
-        this.style.seat = Object.assign(new SeatStyle(), config.style.seat)
-        this.style.block = Object.assign(new BLockStyle(), config.style.block)
-        this.style.legend = Object.assign(new LegendStyle(), config.style.legend)
-        this.style.label = Object.assign(new LabelStyle(), config.style.label)
-        this.style.tooltip = Object.assign(new TooltipStyle(), config.style.tooltip)
+        // Defensive: callers may omit `style` entirely, or pass a partial
+        // override (e.g. only `seat`). Treat any missing branch as an empty
+        // object so `Object.assign` falls back to the defaults.
+        const styleOverrides: any = config.style || {};
 
-        if (config.style) {
-
-        }
+        this.style.seat = Object.assign(new SeatStyle(), styleOverrides.seat || {})
+        this.style.block = Object.assign(new BLockStyle(), styleOverrides.block || {})
+        this.style.legend = Object.assign(new LegendStyle(), styleOverrides.legend || {})
+        this.style.label = Object.assign(new LabelStyle(), styleOverrides.label || {})
+        this.style.tooltip = Object.assign(new TooltipStyle(), styleOverrides.tooltip || {})
 
 
         this.lang = {

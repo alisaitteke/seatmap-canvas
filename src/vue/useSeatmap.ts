@@ -4,7 +4,7 @@
  */
 
 import { ref, Ref, onMounted, onBeforeUnmount } from 'vue';
-import { SeatMapCanvas } from '../lib/canvas.index';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
 import type { SeatmapOptions, BlockData, SeatClickEvent } from './types';
 
 export interface UseSeatmapReturn {
