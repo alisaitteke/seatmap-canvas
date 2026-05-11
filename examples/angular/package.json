@@ -19,7 +19,7 @@
     "@alisaitteke/seatmap-canvas": "file:../..",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "^0.14.0"
+    "zone.js": "^0.16.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.0",
