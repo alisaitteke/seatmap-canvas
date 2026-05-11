@@ -74,7 +74,7 @@
     "d3": "^7.9.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "reflect-metadata": "^0.1.12",
+    "reflect-metadata": "^0.2.2",
     "rollup": "^4.9.1",
     "rollup-plugin-cleandir": "^2.0.0",
     "rollup-plugin-dts": "^6.1.0",
