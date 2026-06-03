@@ -16,14 +16,14 @@
  * tests, the converter) without pulling in D3 or DOM types.
  */
 
-/** Diameter of a chair in document units (`.Chair.width`). */
+/** Diameter of a chair in document units (`Chair.width`). */
 export const CHAIR_WIDTH = 16;
 
-/** Stroke width of a chair outline in document units (`.Chair.strokeWidth`). */
+/** Stroke width of a chair outline in document units (`Chair.strokeWidth`). */
 export const CHAIR_STROKE_WIDTH = 1;
 
 /**
- * Radius of a chair's rendered circle (`.Chair.drawRadius`). The visible
+ * Radius of a chair's rendered circle (`Chair.drawRadius`). The visible
  * circle is one unit smaller than half the chair width so adjacent chairs do
  * not visually touch. This replaces the legacy canvas default of `12`.
  */

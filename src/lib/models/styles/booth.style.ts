@@ -1,8 +1,8 @@
 import {CanvasPalette, getPalette} from "@model/theme.palette";
 
 /**
- * Styling for a booth object: a rounded rectangle with the reference diagonal
- * "cross" lines, selectable as a whole. Mirrors `.Booth.createShapes` /
+ * Styling for a booth object: a rounded rectangle with the diagonal
+ * "cross" lines, selectable as a whole. Mirrors `Booth.createShapes` /
  * studio `BoothView`.
  */
 export class BoothStyle {

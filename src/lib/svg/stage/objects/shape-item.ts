@@ -5,7 +5,7 @@
  * Decorative shape renderer — a fully data-driven path (fill / stroke / width
  * picked by the user) with optional rotation around its center. The drawing
  * band (background vs foreground) is decided by the objects layer from the
- * model `layer`. Mirrors studio `ShapeView` / `.ShapedObject.draw`.
+ * model `layer`. Mirrors studio `ShapeView` / `ShapedObject.draw`.
  */
 
 import {dom} from "@decorator/dom";

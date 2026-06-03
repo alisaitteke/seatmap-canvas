@@ -5,7 +5,7 @@
  * Focal-point overlay — the venue orientation marker (stage/pitch). A chart-level
  * singleton (not an {@link ObjectData}) read from {@link DataModel.getFocalPoint},
  * drawn as three concentric glow rings behind a filled outer and inner dot.
- * Mirrors studio `Scene.renderFocalPoint` / `.FocalPoint.createShapes`.
+ * Mirrors studio `Scene.renderFocalPoint` / `FocalPoint.createShapes`.
  *
  * Screen-stable sizing: the marker lives inside the zoomed stage, so its own
  * group is counter-scaled by `1 / zoom` and the circles are drawn in screen

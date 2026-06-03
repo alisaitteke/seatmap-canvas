@@ -3,7 +3,7 @@
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  *
  * Booth renderer — rounded rect, diagonal cross lines, optional label, full-body
- * rotation. Mirrors studio `BoothView` / .Booth.createShapes.
+ * rotation. Mirrors studio `BoothView` / Booth.createShapes.
  */
 
 import {dom} from "@decorator/dom";
