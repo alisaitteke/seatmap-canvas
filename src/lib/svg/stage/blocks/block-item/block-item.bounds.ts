@@ -40,6 +40,11 @@ export default class BlockBounds extends SvgBase {
     // drawn (it remains an invisible hit/zoom region). A custom background image
     // also hides the hull.
     private shouldHideHull(): boolean {
+        // The section polygon (objects layer) is the visible boundary; never
+        // paint the block hull on top of it when this block is id-linked.
+        if (this.parent.isSectionBacked()) {
+            return true;
+        }
         return !this.item.bounds_is_manual || !!this.item.background_image;
     }
 

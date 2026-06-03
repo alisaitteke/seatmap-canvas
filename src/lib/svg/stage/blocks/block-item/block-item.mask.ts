@@ -41,6 +41,9 @@ export default class BlockMask extends SvgBase {
 
         // Check if block has custom background image
         const hasBackground = !!this.item.background_image;
+        // Section drill-down uses the chart-level polygon as the visual; the hull
+        // mask must never flash on top of it when the block is revealed.
+        const hideMasks = hasBackground || this.parent.isSectionBacked();
 
         // add Border Bounds container
         this.seatLevelMask = new BoundItem(this, this.item);
@@ -49,9 +52,10 @@ export default class BlockMask extends SvgBase {
         this.seatLevelMask.attr("stroke", this.item.color);
         this.seatLevelMask.tags.push("seat-level");
         this.seatLevelMask.classed("seat-level-mask");
-        // Hide mask if background image exists
-        if (hasBackground) {
+        if (hideMasks) {
             this.seatLevelMask.attr("opacity", 0);
+            // `classed` is queued until the path node exists (see `SvgBase.classed`).
+            this.seatLevelMask.classed("bound-hide", true);
         }
 
 
@@ -62,9 +66,9 @@ export default class BlockMask extends SvgBase {
         this.blockLevelMask.attr("stroke", this.item.color);
         this.blockLevelMask.tags.push("block-level");
         this.blockLevelMask.classed("block-level-mask");
-        // Hide mask if background image exists
-        if (hasBackground) {
+        if (hideMasks) {
             this.blockLevelMask.attr("opacity", 0);
+            this.blockLevelMask.classed("bound-hide", true);
         }
 
         this.addChild(this.seatLevelMask);
