@@ -20,10 +20,15 @@ export default class BlocksSearchCircle extends SvgBase {
     public circle: Circle;
     public is_enable: boolean = true;
 
+    // `true` while the view is drilled into a section-backed block. The
+    // mouse-following circle (and its seat-color focus effect) is suppressed
+    // inside sections; plain blocks keep the legacy behavior.
+    public in_section: boolean = false;
+
     constructor(public parent: Stage) {
         super(parent);
         this.global.eventManager.addEventListener(EventType.MOUSE_MOVE, (mouse: any) => {
-            if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK && this.is_enable) {
+            if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK && this.is_enable && !this.in_section) {
                 this.node.attr("transform", "translate(" + mouse + ")");
             }
         });
@@ -32,6 +37,16 @@ export default class BlocksSearchCircle extends SvgBase {
             if (zoom_level.level === ZoomLevel.VENUE || zoom_level.level === ZoomLevel.SEAT) {
                 this.node.classed("show", false);
             }
+        });
+
+        // Inside a section the circle stays hidden; force-hide on enter so it
+        // does not linger from a previous plain-block hover.
+        this.global.eventManager.addEventListener(EventType.SECTION_ENTER, () => {
+            this.in_section = true;
+            this.node.classed("show", false);
+        });
+        this.global.eventManager.addEventListener(EventType.SECTION_EXIT, () => {
+            this.in_section = false;
         });
 
 
@@ -64,7 +79,8 @@ export default class BlocksSearchCircle extends SvgBase {
                 if (this.global.zoomManager.zoomLevel === ZoomLevel.VENUE) {
                     this.node.classed("show", false);
                 } else if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {
-                    this.node.classed("show", true);
+                    // Keep the circle hidden while drilled into a section.
+                    this.node.classed("show", !this.in_section);
                 } else if (this.global.zoomManager.zoomLevel === ZoomLevel.SEAT) {
                     this.node.classed("show", false);
                 }

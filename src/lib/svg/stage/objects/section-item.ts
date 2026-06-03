@@ -76,6 +76,15 @@ export class SectionItem extends ObjectItem {
         // `zoomToBlock` also dispatches the public `SECTION.ENTER` event.
         this.node.style("cursor", "pointer");
         this.node.on("click.sectionenter", () => {
+            // The section polygon sits beneath the block/seats. Once this
+            // section is entered, the block group is transparent, so clicks that
+            // fall through the gaps between seats land on this polygon again —
+            // re-drilling would re-frame (reset) the section the viewer is
+            // already inside. Only drill in from the overview / another section.
+            const enteredId = this.global.zoomManager.enteredBlockId;
+            if (enteredId != null && enteredId.toString() === this.item.id.toString()) {
+                return;
+            }
             this.global.zoomManager.zoomToBlock(this.item.id);
         });
         this.global.eventManager.addEventListener(EventType.SECTION_ENTER, () => {
