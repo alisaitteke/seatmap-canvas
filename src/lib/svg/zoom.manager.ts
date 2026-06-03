@@ -438,6 +438,12 @@ export default class ZoomManager {
     public zoomToBlock(id: string | number, animation: boolean = true, fastAnimated: boolean = false) {
         // console.log('id', id)
         let _block = this._self.data.getBlocks().find((block) => block.id.toString() === id.toString());
+        // #region agent log
+        try {
+            const sectionObj: any = this._self.data.getObjects("section").find((o: any) => o.id.toString() === id.toString());
+            fetch('http://127.0.0.1:7338/ingest/eed4d821-d25d-4c9e-b38a-cf2bfb61c766',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ee490f'},body:JSON.stringify({sessionId:'ee490f',hypothesisId:'A,C',location:'zoom.manager.ts:440',message:'zoomToBlock entry',data:{id,blockFound:!!_block,hasZoomBBox:!!_block?.zoom_bbox,objIsZone:sectionObj?.zone ?? null},timestamp:Date.now()})}).catch(()=>{});
+        } catch(e){}
+        // #endregion
         if (_block) {
             // Mark the drilled-into block before the zoom event fires so the
             // matching block reveals its seats while the rest stay in overview.
