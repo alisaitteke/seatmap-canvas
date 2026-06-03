@@ -22,6 +22,8 @@ import type Objects from "./objects.index";
  */
 const DIMMED_FILL_FACTOR = 0.15;
 const DIMMED_STROKE_OPACITY = 0.25;
+/** Caption fade on inactive floors (CSS also applies; kept in sync for inline refresh). */
+const DIMMED_LABEL_OPACITY = 0.3;
 
 @dom({
     tag: "g",
@@ -32,6 +34,7 @@ const DIMMED_STROKE_OPACITY = 0.25;
 export class SectionItem extends ObjectItem {
 
     private shape: ObjectItemPath | null = null;
+    private label: ObjectItemLabel | null = null;
 
     constructor(parent: Objects, public item: SectionObjectData) {
         super(parent, item);
@@ -54,14 +57,17 @@ export class SectionItem extends ObjectItem {
         if (this.item.label_shown !== false) {
             const caption = this.buildCaption();
             const anchor = labelAt(this.item.center);
-            this.addChild(new ObjectItemLabel(this, caption, {
+            this.label = new ObjectItemLabel(this, caption, {
                 x: anchor.x,
                 y: anchor.y,
                 fill: style.label_color,
                 font_size: this.item.label_size ?? style.label_size,
                 font_weight: style.label_weight,
                 font_family: style.font_family,
-            }));
+            });
+            this.addChild(this.label);
+        } else {
+            this.label = null;
         }
 
         this.updateChilds();
@@ -144,12 +150,14 @@ export class SectionItem extends ObjectItem {
                 .attr("fill-opacity", style.fill_opacity * DIMMED_FILL_FACTOR)
                 .attr("stroke-opacity", DIMMED_STROKE_OPACITY);
             this.node.style("pointer-events", "none");
+            this.refreshLabelOpacity(DIMMED_LABEL_OPACITY);
             return;
         }
 
         // Active floor: clicking the polygon must drill in again, so restore
         // pointer events (CSS only suppresses them on inactive floors).
         this.node.style("pointer-events", null);
+        this.refreshLabelOpacity(1);
 
         const enteredId = this.global.zoomManager.enteredBlockId;
         const isEntered =
@@ -161,6 +169,13 @@ export class SectionItem extends ObjectItem {
         this.shape.node
             .attr("fill-opacity", fillOpacity)
             .attr("stroke-opacity", strokeOpacity);
+    }
+
+    private refreshLabelOpacity(opacity: number): void {
+        if (!this.label?.node) {
+            return;
+        }
+        this.label.node.style("opacity", opacity === 1 ? null : String(opacity));
     }
 
     /** Walk up to the owning `.floor` group and report its inactive state. */
