@@ -11,6 +11,8 @@ import {dom} from "@decorator/dom";
 import BlocksSearchCircle from "./blocks.search-circle";
 import StageBackground from "./stage.background";
 import FocalPoint from "./focal-point.index";
+import Floors from "./floors/floors.index";
+import Floor from "./floors/floor.index";
 
 
 
@@ -21,45 +23,52 @@ import FocalPoint from "./focal-point.index";
 })
 export default class Stage extends SvgBase {
 
-    public blocks: Blocks;
-    public objectsBackground: Objects;
-    public objectsForeground: Objects;
-    public focal: FocalPoint;
-    public searchCircle:BlocksSearchCircle;
+    public floors: Floors;
+    public searchCircle: BlocksSearchCircle;
     public background: StageBackground;
 
     constructor(public parent: Svg) {
         super(parent);
     }
 
+    /**
+     * The active floor's subtree. Single-floor charts have exactly one floor, so
+     * these getters preserve the previous `stage.blocks` / `stage.focal` / etc.
+     * API for the zoom manager and every existing consumer.
+     */
+    public get activeFloor(): Floor {
+        return this.floors.getActiveFloorGroup();
+    }
+
+    public get blocks(): Blocks {
+        return this.activeFloor.blocks;
+    }
+
+    public get objectsBackground(): Objects {
+        return this.activeFloor.objectsBackground;
+    }
+
+    public get objectsForeground(): Objects {
+        return this.activeFloor.objectsForeground;
+    }
+
+    public get focal(): FocalPoint {
+        return this.activeFloor.focal;
+    }
 
     update() {
-        // Add global background image (first, at the bottom) - only if configured
+        // Global background image (bottom of the stack), if configured.
         if (this.global.config.background_image) {
             this.background = new StageBackground(this);
             this.addChild(this.background);
         }
 
-        // Background objects (shapes, sections, GA, table/booth bodies) sit
-        // beneath the seating layer.
-        this.objectsBackground = new Objects(this, 'background');
-        this.addChild(this.objectsBackground);
-
-        this.blocks = new Blocks(this);
-        this.addChild(this.blocks);
-
-        // Foreground objects (foreground shapes, icons, text) sit above seats.
-        this.objectsForeground = new Objects(this, 'foreground');
-        this.addChild(this.objectsForeground);
-
-        // Focal point overlay sits above every object/seat (below interaction
-        // overlays). Always created; it hides itself when no focal point is set.
-        this.focal = new FocalPoint(this);
-        this.addChild(this.focal);
+        // Every floor's layer stack lives inside the floors container.
+        this.floors = new Floors(this);
+        this.addChild(this.floors);
 
         this.searchCircle = new BlocksSearchCircle(this);
         this.addChild(this.searchCircle);
-
 
         this.updateChilds();
     }

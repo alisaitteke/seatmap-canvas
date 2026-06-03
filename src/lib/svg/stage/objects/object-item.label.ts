@@ -6,7 +6,6 @@
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
 import type {Point2D} from "@model/object.model";
-import type {ObjectItem} from "./object-item.base";
 
 export interface ObjectLabelOptions {
     x: number;
@@ -27,7 +26,7 @@ export interface ObjectLabelOptions {
 })
 export class ObjectItemLabel extends SvgBase {
 
-    constructor(public parent: ObjectItem, text: string, options: ObjectLabelOptions) {
+    constructor(public parent: SvgBase, text: string, options: ObjectLabelOptions) {
         super(parent);
         this.text(text);
         this.attr("x", options.x);

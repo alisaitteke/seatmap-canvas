@@ -32,8 +32,13 @@ export default class BlockBounds extends SvgBase {
 
     update(): this {
 
-        // Check if block has custom background image
+        // Hide the filled hull when the block paints its own background, either a
+        // custom background image or block-local table bodies (the table body is
+        // the cluster background). The bounds geometry is still computed so
+        // `center_position` and zoom-to-block keep working.
         const hasBackground = !!this.item.background_image;
+        const hasTables = !!(this.item.tables && this.item.tables.length);
+        const hideHull = hasBackground || hasTables;
 
         // add Border Bounds container
         this.bound1 = new BoundItem(this, this.item);
@@ -41,8 +46,7 @@ export default class BlockBounds extends SvgBase {
         this.bound1.attr("stroke-width", 70);
         this.bound1.attr("stroke", this.parent.item.border_color);
         this.bound1.classed("block-hull-border");
-        // Hide bounds if background image exists
-        if (hasBackground) {
+        if (hideHull) {
             this.bound1.attr("opacity", 0);
         }
 
@@ -52,8 +56,7 @@ export default class BlockBounds extends SvgBase {
         this.bound2.attr("stroke-width", 60);
         this.bound2.attr("stroke", this.item.color);
         this.bound2.classed("block-hull");
-        // Hide bounds if background image exists
-        if (hasBackground) {
+        if (hideHull) {
             this.bound2.attr("opacity", 0);
         }
 

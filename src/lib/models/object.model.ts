@@ -112,6 +112,36 @@ export interface TableObjectData extends ObjectDataBase {
 }
 
 /**
+ * A block-local table body. Unlike {@link TableObjectData} (a chart-level
+ * object), this lives inside its owning {@link BlockData} alongside the chairs:
+ * it rotates with the block and its body is painted as the seating cluster
+ * background (above the block hull, beneath the chairs). Geometry mirrors the
+ * chart-level table body fields, minus the chart-object base (`id` is optional,
+ * no `type`/selection state).
+ */
+export interface BlockTableData {
+    /** Optional stable id (studio table uuid); used only for diffing/debug. */
+    id?: string;
+    /** Body geometry kind. */
+    shape: 'round' | 'rect';
+    center: Point2D;
+    /** Radius of a round table body (`shape: 'round'`). */
+    radius?: number;
+    /** Width of a rectangular table body (`shape: 'rect'`). */
+    width?: number;
+    /** Height of a rectangular table body (`shape: 'rect'`). */
+    height?: number;
+    /** Corner radius of a rectangular body (defaults to the table style). */
+    corner_radius?: number;
+    /** Rotation (degrees) applied around `center` (rect tables). */
+    rotation?: number;
+    /** Body fill override (defaults to the theme `table_fill`). */
+    color?: string;
+    label?: string | null;
+    label_shown?: boolean;
+}
+
+/**
  * A bookable booth: a rounded rectangle with the diagonal "cross" lines,
  * rotated around its center and selectable as a whole.
  */
@@ -189,14 +219,41 @@ export type ObjectData =
 /** The point a venue's content is oriented around (e.g. stage/pitch). */
 export interface FocalPointData extends Point2D {}
 
+/** How a multi-floor chart is laid out when every floor is shown at once. */
+export type MultiFloorView = 'stage' | 'isometric';
+
 /**
- * Minimal shape of a full chart document accepted by {@link DataModel.replaceData}
- * alongside the legacy `BlockData[]` array form. `blocks` stays loosely typed
- * here so this dependency-free model never has to import the renderer's
- * `BlockModel`/`BlockData`.
+ * A single floor of a multi-floor venue. Each floor carries its own seating,
+ * chart-level objects, focal point and (optionally) background image, mirroring
+ * the legacy player's per-floor `subChart`. `blocks` stays loosely typed so this
+ * dependency-free model never imports the renderer's `BlockModel`/`BlockData`.
  */
-export interface CanvasChartData {
+export interface FloorData {
+    /** Stable identifier (legacy `floorName`); used by the name-based API. */
+    id: string;
+    /** Optional UI label (legacy `floorDisplayName`); falls back to `id`. */
+    display_name?: string;
     blocks: any[];
     objects?: ObjectData[];
     focal_point?: FocalPointData | null;
+    /** Per-floor background image URL; falls back to the chart-level background. */
+    background_image?: string | null;
+}
+
+/**
+ * Minimal shape of a full chart document accepted by {@link DataModel.replaceData}
+ * alongside the legacy `BlockData[]` array form.
+ *
+ * Backward compatible: single-floor charts keep using `blocks`/`objects`/
+ * `focal_point`. Multi-floor charts instead provide `floors[]`; when present it
+ * is the source of truth and the flat fields are ignored.
+ */
+export interface CanvasChartData {
+    blocks?: any[];
+    objects?: ObjectData[];
+    focal_point?: FocalPointData | null;
+    /** Multi-floor venues (max 9 floors). Omitted/empty for single-floor charts. */
+    floors?: FloorData[];
+    /** Stacked-view layout for multi-floor charts (defaults to `stage`). */
+    multi_floor_view?: MultiFloorView;
 }

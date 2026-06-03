@@ -5,7 +5,6 @@
 
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
-import type {ObjectItem} from "./object-item.base";
 
 @dom({
     tag: "rect",
@@ -15,7 +14,7 @@ import type {ObjectItem} from "./object-item.base";
 export class ObjectItemRect extends SvgBase {
 
     constructor(
-        public parent: ObjectItem,
+        public parent: SvgBase,
         attrs: Record<string, string | number>
     ) {
         super(parent);

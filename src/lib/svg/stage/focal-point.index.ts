@@ -18,7 +18,6 @@ import {dom} from "@decorator/dom";
 import SvgBase from "@svg/svg.base";
 import {EventType} from "@enum/global";
 import {ObjectItemCircle} from "./objects/object-item.circle";
-import Stage from "./stage.index";
 
 @dom({
     tag: "g",
@@ -27,7 +26,7 @@ import Stage from "./stage.index";
 })
 export default class FocalPoint extends SvgBase {
 
-    constructor(public parent: Stage) {
+    constructor(public parent: SvgBase) {
         super(parent);
         // Keep the marker screen-stable when the discrete zoom level changes.
         // Continuous zoom ticks are handled by the zoom manager calling
