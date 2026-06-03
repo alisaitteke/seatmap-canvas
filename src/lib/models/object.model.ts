@@ -64,6 +64,11 @@ export interface SectionObjectData extends ObjectDataBase {
     label_size?: number | null;
     /** Seat count appended to the caption ("label · N") when greater than 0. */
     seat_count?: number;
+    /**
+     * Zone key this section/zone-area belongs to (zoned venues only). Mirrors the
+     * seat-level `custom_data.zoneKey`, letting consumers group sections by zone.
+     */
+    zone?: string | number | null;
 }
 
 /**

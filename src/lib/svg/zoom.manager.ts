@@ -53,6 +53,12 @@ export default class ZoomManager {
     public zoomLevel: ZoomLevel;
     private lastPointer: [number, number] | null = null;
 
+    // Id of the block the viewer has drilled into (section drill-down parity).
+    // A section-backed block only reveals its seats while it is the entered
+    // block; everything else stays in the venue/polygon overview. Cleared on
+    // any return to the venue level. `null` at the venue overview.
+    public enteredBlockId: string | number | null = null;
+
 
     constructor(private _self: SeatMapCanvas) {
         this.activeBlocks = [];
@@ -236,9 +242,24 @@ export default class ZoomManager {
         }
 
         if (_zoomLevel !== this.zoomLevel) {
+            // Free zoom-out (scroll/pinch) back to the venue exits any entered
+            // section, so a later free zoom-in does not falsely reveal a stale
+            // section's seats.
+            if (_zoomLevel === ZoomLevel.VENUE) {
+                this.exitSection();
+            }
             this.zoomLevel = _zoomLevel as ZoomLevel;
             this.dispatchZoomEvent();
         }
+    }
+
+    /** Clear the entered-section state and notify consumers (idempotent). */
+    private exitSection(): void {
+        if (this.enteredBlockId === null) {
+            return;
+        }
+        this.enteredBlockId = null;
+        this._self.eventManager.dispatch(EventType.SECTION_EXIT, null);
     }
 
     canvasScopeHandler() {
@@ -418,6 +439,9 @@ export default class ZoomManager {
         // console.log('id', id)
         let _block = this._self.data.getBlocks().find((block) => block.id.toString() === id.toString());
         if (_block) {
+            // Mark the drilled-into block before the zoom event fires so the
+            // matching block reveals its seats while the rest stay in overview.
+            this.enteredBlockId = id;
             if (animation) {
                 if (fastAnimated) {
                     this._self.svg.node.interrupt().call(this.zoomTypes.fastAnimated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.fastAnimated.scaleTo, _block.zoom_bbox.k);
@@ -438,12 +462,24 @@ export default class ZoomManager {
             }
 
             this.dispatchZoomEvent();
+
+            // Public drill-down event: only when the target block is backed by a
+            // section polygon (id-linked), so `SECTION.ENTER` stays semantic and
+            // is not fired for plain (SIMPLE) block zooms.
+            const section = this._self.data
+                .getObjects("section")
+                .find((object) => object.id.toString() === id.toString());
+            if (section) {
+                this._self.eventManager.dispatch(EventType.SECTION_ENTER, section);
+            }
         }
     }
 
     public zoomToVenue(animation: boolean = true, fastAnimated: boolean = false) {
 
         console.info('zoomToVenue')
+        // Returning to the overview exits any entered section.
+        this.exitSection();
         let x = this.zoomLevels.VENUE.x;
         let y = this.zoomLevels.VENUE.y;
         let k = this.zoomLevels.VENUE.k;
@@ -488,6 +524,9 @@ export default class ZoomManager {
         if (!bbox || !bbox.width || !bbox.height || !wm.width || !wm.height) {
             return this;
         }
+
+        // The stacked all-floors view is a venue-level overview.
+        this.exitSection();
 
         const padding = 0.85;
         let k = Math.min(wm.width / bbox.width, wm.height / bbox.height) * padding;

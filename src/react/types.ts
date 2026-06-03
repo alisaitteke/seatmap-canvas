@@ -85,6 +85,12 @@ export interface SeatData {
   y: number;
   color?: string;
   salable?: boolean;
+  /**
+   * Opaque provenance echoed back on seat events. The studio converter sets:
+   * `categoryKey` (studio category id), `sectionId` (owning section uuid, equal
+   * to the section block/object id so the drill-down player can reveal that
+   * section's seats) and `zoneKey` (owning zone, zoned venues only).
+   */
   custom_data?: any;
   note?: string;
   tags?: any;

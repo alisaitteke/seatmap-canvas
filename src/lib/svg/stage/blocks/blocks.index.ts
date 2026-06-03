@@ -56,6 +56,13 @@ export default class Blocks extends SvgBase {
                 Array.isArray(block_item.bounds) &&
                 block_item.bounds.length >= 3;
 
+            // Flag the geometry source for the renderer. The convex hull is kept
+            // as an invisible hit/zoom region (mask + `zoom_bbox` + center), but
+            // only an explicit manual `_bounds` polygon is ever painted as the
+            // visible section boundary (see `block-item.bounds.ts`). This stops
+            // the legacy automatic hull ("hule") from being drawn.
+            block_item.bounds_is_manual = hasProvidedBounds;
+
             if (!hasProvidedBounds) {
                 let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
 

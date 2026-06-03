@@ -41,6 +41,12 @@ export default class Block extends SvgBase {
         y: null
     };
 
+    // `true` when a chart-level `section` polygon (id-linked) backs this block.
+    // Section-backed blocks follow the legacy "onlyAfterZoom" drill-down: hidden
+    // in the venue overview (the section polygon below is the visual + hit
+    // target) and revealed only while this block is the entered one.
+    private section_backed: boolean = false;
+
     constructor(public parent: BlocksManager, public item: BlockModel) {
         super(parent);
         this.attr("id", item.id);
@@ -62,6 +68,17 @@ export default class Block extends SvgBase {
                 this.seats.resetSeatsColors(false);
                 this.infosToTop();
             }
+            this.applyDrillDownVisibility(levelObject.level);
+        });
+
+        // A section may be entered/exited without a zoom-level change (e.g.
+        // clicking an adjacent section while already at block zoom), so react to
+        // the drill-down events too.
+        this.global.eventManager.addEventListener(EventType.SECTION_ENTER, () => {
+            this.applyDrillDownVisibility(this.global.zoomManager.zoomLevel);
+        });
+        this.global.eventManager.addEventListener(EventType.SECTION_EXIT, () => {
+            this.applyDrillDownVisibility(this.global.zoomManager.zoomLevel);
         });
 
         this.global.eventManager.addEventListener(EventType.MULTI_SELECT_ENABLE, () => {
@@ -122,6 +139,11 @@ export default class Block extends SvgBase {
 
     public update() {
 
+        // A section polygon (same id) makes this block a drill-down target.
+        this.section_backed = this.global.data
+            .getObjects("section")
+            .some((object) => object.id.toString() === this.item.id.toString());
+
         // add Background Image (first, at the bottom of z-index) - only if configured
         if (this.item.background_image) {
             this.background = new BlockBackground(this, this.item);
@@ -171,7 +193,13 @@ export default class Block extends SvgBase {
         this.infosToCenter();
 
 
-        this.node.interrupt().transition().duration(this.global.config.animation_speed).attr("opacity", 1);
+        // Fade the block in, unless it is a section-backed block that should
+        // stay hidden in the current (overview) state — in that case settle
+        // straight to the hidden state so the section polygon shows without a
+        // flash of seats.
+        const revealed = this.isRevealed(this.global.zoomManager.zoomLevel);
+        this.node.interrupt().transition().duration(this.global.config.animation_speed).attr("opacity", revealed ? 1 : 0);
+        this.node.style("pointer-events", revealed ? null : "none");
         this.node.attr("transform-origin", `${this.center_position.x} ${this.center_position.y}`);
         if (this.item.rotate) {
 
@@ -180,6 +208,45 @@ export default class Block extends SvgBase {
 
 
         return this;
+    }
+
+    /**
+     * Whether this block's interior (seats/labels) should be visible at the
+     * given zoom level. SIMPLE blocks are always revealed (their seats are kept
+     * behind the venue mask by the existing logic). A section-backed block is
+     * revealed only when it is the entered block and the view has drilled past
+     * the venue overview.
+     */
+    private isRevealed(level: string): boolean {
+        if (!this.section_backed) {
+            return true;
+        }
+        if (level === ZoomLevel.VENUE) {
+            return false;
+        }
+        const entered = this.global.zoomManager.enteredBlockId;
+        return entered != null && entered.toString() === this.item.id.toString();
+    }
+
+    /**
+     * Toggle a section-backed block between the venue overview (hidden — the
+     * section polygon beneath is the visual + click target) and the entered
+     * state (revealed — its seats/labels are shown and interactive). No-op for
+     * SIMPLE blocks, which keep their original mask-driven behavior.
+     */
+    private applyDrillDownVisibility(level: string): void {
+        if (!this.section_backed || !this.node) {
+            return;
+        }
+        const revealed = this.isRevealed(level);
+        this.node
+            .interrupt()
+            .transition()
+            .duration(this.global.config.animation_speed)
+            .attr("opacity", revealed ? 1 : 0);
+        // Hidden blocks must not intercept pointer events so the section polygon
+        // below stays clickable.
+        this.node.style("pointer-events", revealed ? null : "none");
     }
 
     public infosToTop() {
