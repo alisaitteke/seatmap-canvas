@@ -59,6 +59,16 @@ export interface BlockData {
    * it verbatim instead of recomputing a convex hull from the seats.
    */
   _bounds?: Point2D[];
+  /**
+   * Explicit auto/manual background mode for the block hull:
+   * - `true`  — the renderer always recomputes the convex hull from the seats
+   *   and ignores any `_bounds`.
+   * - `false` — the renderer honors `_bounds` verbatim (falling back to the
+   *   computed hull only when `_bounds` is missing/invalid).
+   * - `undefined` — legacy heuristic: a usable `_bounds` polygon wins, otherwise
+   *   the hull is computed. Existing fixtures keep rendering unchanged.
+   */
+  auto_bounds?: boolean;
   /** Display rotation (degrees) applied to the block around its center. */
   rotate?: number;
   /**

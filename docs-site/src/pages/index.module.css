@@ -337,6 +337,8 @@
 
 .modalContent {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 1200px;
   max-height: calc(100vh - 2rem);
@@ -345,6 +347,297 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   animation: modalSlideIn 0.25s ease-out;
+  transition:
+    max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s ease;
+}
+
+.modalContentMobile {
+  max-width: 454px;
+}
+
+.modalHeader {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.modalTitle {
+  justify-self: start;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  white-space: nowrap;
+}
+
+.viewSwitcher {
+  display: inline-flex;
+  justify-self: center;
+  grid-column: 2;
+  padding: 2px;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+}
+
+.viewSwitcherBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 32px;
+  padding: 0;
+  color: var(--ifm-font-color-secondary);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.viewSwitcherIcon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.viewSwitcherBtn:hover {
+  color: var(--ifm-font-color-base);
+}
+
+.viewSwitcherBtnActive {
+  color: var(--ifm-color-primary-contrast-foreground);
+  background: var(--ifm-color-primary);
+}
+
+.viewSwitcherBtnActive:hover {
+  color: var(--ifm-color-primary-contrast-foreground);
+}
+
+.modalFrame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  background: var(--ifm-color-emphasis-100);
+  overflow: hidden;
+}
+
+.previewHostDesktop {
+  width: 100%;
+}
+
+.previewViewportDesktop {
+  width: 100%;
+}
+
+.previewContent {
+  width: 100%;
+}
+
+.demoIframeHost {
+  width: 100%;
+}
+
+.demoIframe {
+  display: block;
+  width: 100%;
+  height: min(85vh, 700px);
+  min-height: 400px;
+  border: none;
+  background: #000;
+}
+
+.demoIframeMobile {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: none;
+  border-radius: 49px;
+}
+
+.iphoneScaler {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iphoneScaleSlot {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.deviceShellMobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 428px;
+  height: 868px;
+}
+
+.iphoneFrame {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 428px;
+  height: 868px;
+  padding: 19px;
+  background: #010101;
+  border: 1px solid #101315;
+  border-radius: 68px;
+  box-shadow:
+    inset 0 0 4px 2px #b0b8c0,
+    inset 0 0 0 6px #272c31,
+    0 16px 48px rgba(0, 0, 0, 0.28);
+}
+
+.iphoneStripe::before,
+.iphoneStripe::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 7px;
+  border: solid rgba(1, 1, 1, 0.25);
+  border-width: 0 7px;
+}
+
+.iphoneStripe::before {
+  bottom: 85px;
+}
+
+.iphoneStripe::after {
+  top: 85px;
+}
+
+.iphoneNotch {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  z-index: 2;
+  width: 160px;
+  height: 30px;
+  margin-left: -80px;
+  background: #010101;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  pointer-events: none;
+}
+
+.iphoneNotch::before,
+.iphoneNotch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.iphoneNotch::before {
+  right: -10px;
+  background: radial-gradient(
+    circle at bottom right,
+    transparent 0,
+    transparent 75%,
+    #010101 75%,
+    #010101 100%
+  );
+}
+
+.iphoneNotch::after {
+  left: -10px;
+  background: radial-gradient(
+    circle at bottom left,
+    transparent 0,
+    transparent 75%,
+    #010101 75%,
+    #010101 100%
+  );
+}
+
+.iphoneSensors::before,
+.iphoneSensors::after {
+  content: '';
+  position: absolute;
+}
+
+.iphoneSensors::after {
+  top: 8px;
+  left: 50%;
+  width: 70px;
+  height: 7px;
+  margin-left: -35px;
+  background: #151515;
+  border: 1px solid #010101;
+  border-radius: 4px;
+  box-shadow: 0 0 4px #151515;
+  pointer-events: none;
+}
+
+.iphoneSensors::before {
+  top: 26px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -60px;
+  background:
+    radial-gradient(farthest-corner at 20% 20%, #6074bf 0, transparent 40%),
+    radial-gradient(farthest-corner at 80% 80%, #513785 0, #24555e 20%, transparent 50%);
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.iphoneBtns {
+  position: absolute;
+  top: 115px;
+  left: -2px;
+  width: 3px;
+  height: 32px;
+  background: #101315;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.iphoneBtns::before,
+.iphoneBtns::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 62px;
+  background: #101315;
+  border-radius: 2px;
+}
+
+.iphoneBtns::before {
+  top: 140px;
+}
+
+.iphoneBtns::after {
+  top: 60px;
+}
+
+.iphonePower {
+  position: absolute;
+  top: 200px;
+  right: -2px;
+  width: 3px;
+  height: 100px;
+  background: #101315;
+  border-radius: 2px;
+  pointer-events: none;
 }
 
 @keyframes modalSlideIn {
@@ -359,10 +652,8 @@
 }
 
 .modalClose {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 10;
+  justify-self: end;
+  grid-column: 3;
   width: 36px;
   height: 36px;
   display: flex;
@@ -383,12 +674,11 @@
   color: var(--ifm-color-primary);
 }
 
-.modalIframe {
-  display: block;
-  width: 100%;
-  height: min(85vh, 700px);
-  min-height: 400px;
-  border: none;
+@media (prefers-reduced-motion: reduce) {
+  .modalContent,
+  .modalFrame {
+    transition: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -406,15 +696,90 @@
     min-height: 100dvh;
     border-radius: 0;
     box-shadow: none;
+    transition: none;
   }
 
-  .modalIframe {
+  .modalContentMobile {
+    max-width: none;
+  }
+
+  .modalHeader {
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .viewSwitcher {
+    display: none;
+  }
+
+  .modalFrame {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: var(--ifm-background-color);
+    transition: none;
+  }
+
+  .previewHostDesktop,
+  .previewViewportDesktop,
+  .previewContent,
+  .demoIframeHost {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .demoIframe {
+    flex: 1;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .demoIframeMobile {
+    width: 100%;
     height: 100%;
-    min-height: 100%;
+    border-radius: 0;
   }
 
-  .modalClose {
-    top: max(0.5rem, env(safe-area-inset-top));
-    right: max(0.5rem, env(safe-area-inset-right));
+  .iphoneScaler {
+    flex: 1;
+    min-height: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .iphoneScaleSlot {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .deviceShellMobile {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+  }
+
+  .iphoneFrame {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .iphoneStripe,
+  .iphoneNotch,
+  .iphoneSensors,
+  .iphoneBtns,
+  .iphonePower {
+    display: none;
   }
 }

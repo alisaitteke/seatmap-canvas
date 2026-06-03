@@ -130,6 +130,13 @@ export class SeatMapCanvas {
         this.eventManager.dispatch(EventType.READY, this);
     }
 
+    /** Measure the container and recalculate zoom ratios for the current viewport. */
+    public reflow(animation: boolean = false): this {
+        this.windowManager.resizeHandler();
+        this.zoomManager.reflowViewport(animation);
+        return this;
+    }
+
     registerConverters() {
         this.parsers['pretix'] = new PretixParser();
     }
