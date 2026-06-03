@@ -41,12 +41,20 @@ export default class Blocks extends SvgBase {
                 _seats[0].x += 0.0001;
             }
 
-            // Honor a producer-supplied outline (`BlockData._bounds`, e.g. a studio
-            // section polygon) verbatim instead of recomputing a convex hull. The
-            // studio already emits the exact section shape, and the hull algorithm
-            // would otherwise round off concave sections. Only fall back to the
-            // computed hull when no usable polygon (>= 3 points) was provided.
-            const hasProvidedBounds = Array.isArray(block_item.bounds) && block_item.bounds.length >= 3;
+            // Explicit auto/manual background contract:
+            //   auto_bounds === true   -> always recompute the convex hull,
+            //                             ignoring any provided `_bounds`.
+            //   auto_bounds === false  -> honor `_bounds` verbatim (fall back to
+            //                             the hull only if it is missing/invalid).
+            //   auto_bounds === undefined -> legacy heuristic: a usable `_bounds`
+            //                             polygon (>= 3 points) wins, otherwise hull.
+            // Studio sections emit the exact polygon, and the hull algorithm would
+            // otherwise round off concave sections.
+            const autoBounds = block_item.auto_bounds === true;
+            const hasProvidedBounds =
+                !autoBounds &&
+                Array.isArray(block_item.bounds) &&
+                block_item.bounds.length >= 3;
 
             if (!hasProvidedBounds) {
                 let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));

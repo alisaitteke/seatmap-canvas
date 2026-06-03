@@ -86,6 +86,29 @@ export default class ZoomManager {
             this.zoomEnable();
         });
 
+        let viewportReflowTimer: ReturnType<typeof setTimeout> | null = null;
+        this._self.eventManager.addEventListener(EventType.RESIZE_WINDOW, () => {
+            if (viewportReflowTimer) {
+                clearTimeout(viewportReflowTimer);
+            }
+            viewportReflowTimer = setTimeout(() => {
+                this.reflowViewport(false);
+            }, 200);
+        });
+
+    }
+
+    /** Recalculate zoom ratios for the current container size and refit the view. */
+    public reflowViewport(animation: boolean = false): this {
+        const blocks = this._self.data.getBlocks();
+        if (!blocks.length) {
+            return this;
+        }
+
+        this.calculateZoomLevels(blocks);
+        this.calculateActiveBlocks(blocks);
+        this.zoomToVenue(animation);
+        return this;
     }
 
     zoomInit() {

@@ -16,6 +16,7 @@ export default class BlockModel extends ModelBase {
     tables: Array<TableModel>;
     title: String;
     bounds: any;
+    auto_bounds?: boolean;
     width: number;
     height: number;
     x: number;
@@ -42,6 +43,11 @@ export default class BlockModel extends ModelBase {
         this.x = item.x || null;
         this.y = item.y || null;
         this.bounds = item._bounds || [];
+        // Explicit auto/manual background contract. `true` forces the renderer
+        // to recompute the convex hull (ignoring `_bounds`); `false` forces it
+        // to honor `_bounds` verbatim; `undefined` keeps the legacy heuristic
+        // (presence of `_bounds` decides).
+        this.auto_bounds = typeof item.auto_bounds === "boolean" ? item.auto_bounds : undefined;
         this.color = item.color || "#f1f1f1";
         this.border_color = item.border_color || "#f1f1f1";
         this.title = item.title;

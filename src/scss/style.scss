@@ -241,7 +241,12 @@
   .stage {
     .floors {
       .floor {
-        transition: opacity 0.3s ease, transform 0.4s ease;
+        // The stack/elevate slide is driven by d3 transitions on the SVG
+        // `transform` attribute (see floors.index.ts), so we must NOT declare a
+        // CSS `transform` transition here — under SVG2 the attribute maps to the
+        // CSS property and the two animations would fight. Opacity keeps a CSS
+        // transition purely for the smooth elevator hover dim.
+        transition: opacity 0.3s ease;
 
         &.floor-dimmed {
           opacity: 0.22;

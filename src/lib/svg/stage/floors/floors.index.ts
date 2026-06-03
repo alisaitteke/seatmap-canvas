@@ -33,6 +33,16 @@ const ISO_ELEVATION = 0.55;
 const ISO_SPREAD_X = 0.12;
 /** Gap between flat ("stage" view) stacked floors, as a fraction of floor height. */
 const STAGE_GAP = 1.18;
+/**
+ * Fallback duration (ms) for the floor slide/elevate transition when the chart
+ * config does not define an `animation_speed`. The real duration is taken from
+ * `config.animation_speed` so the floor motion stays in sync with the camera,
+ * which animates with the same value (see {@link ZoomManager}).
+ */
+const FLOOR_TRANSITION_MS = 600;
+/** Identity transform for the selected (flattened) floor — explicit so d3 can
+ *  interpolate from the stacked transform instead of snapping to `null`. */
+const FLOOR_IDENTITY_TRANSFORM = "translate(0,0)";
 
 @dom({
     tag: "g",
@@ -117,7 +127,7 @@ export default class Floors extends SvgBase {
             return this;
         }
         data.setCurrentFloor(index);
-        this.applyView();
+        this.applyView(animated);
         this.frameActiveFloor(animated);
         this.dispatchFloorChanged();
         return this;
@@ -130,7 +140,7 @@ export default class Floors extends SvgBase {
             return this;
         }
         data.setCurrentFloor(ALL_FLOORS);
-        this.applyView();
+        this.applyView(animated);
         this.framePicking(animated);
         this.dispatchFloorChanged();
         return this;
@@ -149,15 +159,26 @@ export default class Floors extends SvgBase {
      * Layout / camera
      * ------------------------------------------------------------------ */
 
-    /** Position/show floors for the current selection. */
-    public applyView(): this {
+    /**
+     * Position/show floors for the current selection.
+     *
+     * When `animated` is true the floor `<g>` transforms (and opacity) glide via
+     * d3 transitions whose duration matches the camera, so the stack collapses /
+     * expands in lockstep with the zoom. When false the layout is applied
+     * instantly (initial framing, single-floor charts).
+     */
+    public applyView(animated: boolean = false): this {
         const data = this.global.data;
         const groups = this.getFloorGroups();
 
         if (!data.isMultiFloor()) {
             const only = groups[0];
             if (only) {
-                only.node.attr("transform", null).style("display", null).classed("floor-dimmed", false);
+                only.node.interrupt()
+                    .attr("transform", null)
+                    .style("display", null)
+                    .style("opacity", null)
+                    .classed("floor-dimmed", false);
             }
             this.node.classed("multi-floor", false).classed("picking", false);
             return this;
@@ -168,28 +189,31 @@ export default class Floors extends SvgBase {
 
         if (current < 0) {
             this.node.classed("picking", true);
-            this.stackFloors(groups);
+            this.showAllFloors(groups, animated);
         } else {
             this.node.classed("picking", false);
-            groups.forEach((group, i) => {
-                if (i === current) {
-                    group.node.attr("transform", null).style("display", null).classed("floor-dimmed", false);
-                } else {
-                    group.node.style("display", "none");
-                }
-            });
+            this.showSingleFloor(groups, current, animated);
         }
         return this;
     }
 
-    /** Apply the stacked (stage or isometric) transforms to every floor group. */
-    private stackFloors(groups: Array<Floor>): void {
+    /** The floor transition duration, kept in sync with the camera animation. */
+    private transitionDuration(): number {
+        return this.global.config.animation_speed ?? FLOOR_TRANSITION_MS;
+    }
+
+    /**
+     * Compute the stacked (stage or isometric) transform string for every floor
+     * group. Floors are forced visible first because `getBBox()` returns zeros
+     * for a `display:none` element — the caller is about to (re)show/stack them.
+     */
+    private computeStackTransforms(groups: Array<Floor>): Array<string> {
         const isometric = this.global.data.multiFloorView === 'isometric';
 
         // Tallest raw floor drives the stacking gap so floors never overlap.
         let maxHeight = 0;
         groups.forEach((group) => {
-            group.node.attr("transform", null).style("display", null).classed("floor-dimmed", false);
+            group.node.style("display", null);
             const box = group.contentBBox();
             if (box.height > maxHeight) {
                 maxHeight = box.height;
@@ -199,19 +223,73 @@ export default class Floors extends SvgBase {
             maxHeight = 400;
         }
 
-        groups.forEach((group, i) => {
-            let transform: string;
+        return groups.map((_group, i) => {
             if (isometric) {
                 const elevation = maxHeight * ISO_ELEVATION;
                 const spread = maxHeight * ISO_SPREAD_X;
-                transform =
-                    `translate(${i * spread}, ${-i * elevation}) ` +
+                return `translate(${i * spread}, ${-i * elevation}) ` +
                     `matrix(1, 0, ${ISO_SHEAR_X}, ${ISO_Y_SCALE}, 0, 0)`;
-            } else {
-                const gap = maxHeight * STAGE_GAP;
-                transform = `translate(0, ${i * gap})`;
             }
-            group.node.attr("transform", transform);
+            const gap = maxHeight * STAGE_GAP;
+            return `translate(0, ${i * gap})`;
+        });
+    }
+
+    /** Expand into the stacked all-floors view (every floor visible). */
+    private showAllFloors(groups: Array<Floor>, animated: boolean): void {
+        const transforms = this.computeStackTransforms(groups);
+        const duration = this.transitionDuration();
+
+        groups.forEach((group, i) => {
+            const sel = group.node;
+            sel.interrupt().style("display", null).classed("floor-dimmed", false);
+            if (animated) {
+                sel.transition()
+                    .duration(duration)
+                    .attr("transform", transforms[i])
+                    .style("opacity", 1)
+                    // Hand opacity back to CSS so the elevator hover dim works.
+                    .on("end", () => sel.style("opacity", null));
+            } else {
+                sel.attr("transform", transforms[i]).style("opacity", null);
+            }
+        });
+    }
+
+    /** Collapse into a single floor: selected flattens, the rest fade + stack. */
+    private showSingleFloor(groups: Array<Floor>, current: number, animated: boolean): void {
+        const transforms = this.computeStackTransforms(groups);
+        const duration = this.transitionDuration();
+
+        groups.forEach((group, i) => {
+            const sel = group.node;
+            sel.interrupt().classed("floor-dimmed", false);
+
+            if (i === current) {
+                sel.style("display", null);
+                if (animated) {
+                    sel.transition()
+                        .duration(duration)
+                        .attr("transform", FLOOR_IDENTITY_TRANSFORM)
+                        .style("opacity", 1)
+                        .on("end", () => sel.attr("transform", null).style("opacity", null));
+                } else {
+                    sel.attr("transform", null).style("opacity", null);
+                }
+            } else {
+                if (animated) {
+                    // Keep the floor visible while it slides to its stacked slot
+                    // and fades, then drop it out of the layout/hit-testing.
+                    sel.style("display", null)
+                        .transition()
+                        .duration(duration)
+                        .attr("transform", transforms[i])
+                        .style("opacity", 0)
+                        .on("end", () => sel.style("display", "none"));
+                } else {
+                    sel.attr("transform", transforms[i]).style("opacity", 0).style("display", "none");
+                }
+            }
         });
     }
 

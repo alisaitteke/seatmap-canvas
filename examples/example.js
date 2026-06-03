@@ -126,6 +126,13 @@ $(document).ready(function () {
     });
 
 
+    window.addEventListener("message", function (event) {
+        if (event.data && event.data.type === "seatmap-demo-resize" && seatmap.reflow) {
+            seatmap.reflow(false);
+        }
+    });
+
+
     seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
         // Only allow interaction with salable seats
         if (!seat.item.salable) return;

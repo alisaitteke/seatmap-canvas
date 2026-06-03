@@ -25,6 +25,12 @@ export default class WindowManager {
             this.resizeHandler();
         });
 
+        const container = d3Select(this.parent.container_selector).node();
+        if (container && typeof ResizeObserver !== "undefined") {
+            new ResizeObserver(() => {
+                this.resizeHandler();
+            }).observe(container);
+        }
     }
 
     resizeHandler(): this {
