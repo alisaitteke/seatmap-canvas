@@ -33,6 +33,12 @@ export enum EventType {
     UPDATE_OBJECT = "OBJECT.UPDATE",
     CLICK_OBJECT = "OBJECT.CLICK",
 
+    // Section drill-down (legacy "onlyAfterZoom" parity): dispatched with the
+    // entered `SectionObjectData` when a section polygon is clicked/zoomed into,
+    // and on the matching zoom-out so consumers can react to overview <-> section.
+    SECTION_ENTER = "SECTION.ENTER",
+    SECTION_EXIT = "SECTION.EXIT",
+
     ZOOM_LEVEL_CHANGE = "ZOOM_LEVEL_CHANGE",
     BOUND_CLICK = "BOUND.CLICK",
 

@@ -17,6 +17,12 @@ export default class BlockModel extends ModelBase {
     title: String;
     bounds: any;
     auto_bounds?: boolean;
+    // Runtime flag set by the renderer (see `blocks.index.ts`): `true` when the
+    // `bounds` polygon is an explicit author-supplied `_bounds` (manual area),
+    // `false` when it is the auto-computed convex hull. The visible hull
+    // fill/border is painted only for manual bounds; the auto hull stays
+    // geometry-only (mask + zoom framing). Not part of the serialized contract.
+    bounds_is_manual?: boolean;
     width: number;
     height: number;
     x: number;

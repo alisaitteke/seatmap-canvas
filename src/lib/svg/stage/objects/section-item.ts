@@ -67,6 +67,18 @@ export class SectionItem extends ObjectItem {
         this.shape.setStroke(stroke, style.stroke_width);
     }
 
+    afterGenerate(): void {
+        // Preserve the base selection wiring (only active when `selectable`).
+        super.afterGenerate();
+        // The section polygon is the venue overview's hit target: clicking it
+        // drills into the id-linked block, which reveals that section's seats.
+        // `zoomToBlock` also dispatches the public `SECTION.ENTER` event.
+        this.node.style("cursor", "pointer");
+        this.node.on("click.sectionenter", () => {
+            this.global.zoomManager.zoomToBlock(this.item.id);
+        });
+    }
+
     private buildCaption(): string {
         const raw = this.item.label?.trim();
         const caption = raw ? raw : "Section";
