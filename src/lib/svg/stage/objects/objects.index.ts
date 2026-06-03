@@ -18,7 +18,6 @@
  * generic and never special-cases a render type.
  */
 
-import StageManager from "../stage.index";
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
 import {ObjectData, ObjectType} from "@model/object.model";
@@ -59,7 +58,7 @@ const Z_ORDER: Record<ObjectType, number> = {
 })
 export default class Objects extends SvgBase {
 
-    constructor(public parent: StageManager, public band: ObjectBand) {
+    constructor(public parent: SvgBase, public band: ObjectBand) {
         super(parent);
         // Distinguish the two sibling layers in the DOM for debugging/styling.
         this.classed("objects-" + band);

@@ -4,7 +4,6 @@
 
 import {polygonHull, polygonCentroid} from 'd3-polygon'
 
-import StageManager from "../stage.index";
 import Block from "./block-item/block-item.index";
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
@@ -24,7 +23,7 @@ export default class Blocks extends SvgBase {
     public seats: Array<SeatItem>;
 
 
-    constructor(public parent: StageManager) {
+    constructor(public parent: SvgBase) {
         super(parent);
         return this;
     }

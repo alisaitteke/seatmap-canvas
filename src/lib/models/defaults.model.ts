@@ -55,6 +55,20 @@ export default class DefaultsModel {
     background_width: number | null = null;
     background_height: number | null = null;
 
+    /* ---------------------------------------------------------------- *
+     * Multi-floor (floor) options. All optional and default to the
+     * single-floor behavior, so existing flat charts are unaffected.
+     * ---------------------------------------------------------------- */
+
+    /** Floor id (`FloorData.id`) to open on; `null` opens the all-floors view. */
+    active_floor: string | null = null;
+    /** Lock the active floor so the elevator/`goToFloor` cannot change it. */
+    lock_active_floor: boolean = false;
+    /** Show the floor elevator UI on multi-floor charts. */
+    show_floor_elevator: boolean = true;
+    /** Stacked-view layout for multi-floor charts. */
+    multi_floor_view: 'stage' | 'isometric' = 'stage';
+
     /**
      * Chrome theme for object/seat strokes, fills and labels. Selects the
      * light/dark palette (see {@link getPalette}) that seeds every style group.
@@ -93,6 +107,11 @@ export default class DefaultsModel {
         this.background_y = config.background_y !== undefined ? config.background_y : null;
         this.background_width = config.background_width || null;
         this.background_height = config.background_height || null;
+
+        this.active_floor = config.active_floor != null ? String(config.active_floor) : null;
+        this.lock_active_floor = config.lock_active_floor === true;
+        this.show_floor_elevator = config.show_floor_elevator === false ? false : true;
+        this.multi_floor_view = config.multi_floor_view === 'isometric' ? 'isometric' : 'stage';
 
         this.theme = config.theme === 'dark' ? 'dark' : 'light';
         const palette = getPalette(this.theme);

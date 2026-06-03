@@ -14,6 +14,7 @@ import Labels from "./block-item.labels.index";
 import BlockModel from "@model/block.model";
 import SeatModel from "@model/seat.model";
 import BlockBackground from "./block-item.background";
+import BlockTables from "./block-item.tables.index";
 
 @dom({
     tag: "g",
@@ -28,6 +29,7 @@ export default class Block extends SvgBase {
     public info: BlockInfo;
     public mask: BlockMask;
     public bounds: BlockBounds;
+    public tables: BlockTables;
     public background: BlockBackground;
 
     public center_position: any = {
@@ -73,7 +75,7 @@ export default class Block extends SvgBase {
         // grid search
         this.global.eventManager.addEventListener(EventType.MOUSEMOVE_BLOCK, (block_item: Block, _datum: any, cor: [number, number]) => {
 
-            if (!this.parent.parent.searchCircle.is_enable) return;
+            if (!this.global.root.svg.stage.searchCircle.is_enable) return;
             if (this.global.multi_select) return;
             let gap = this.global.config.zoom_focus_circle_radius;
 
@@ -129,6 +131,11 @@ export default class Block extends SvgBase {
         // add Block Bounds container (for zoom calculations)
         this.bounds = new BlockBounds(this, this.item);
         this.addChild(this.bounds);
+
+
+        // add block-local Table bodies (above the hull, beneath the chairs)
+        this.tables = new BlockTables(this, this.item);
+        this.addChild(this.tables);
 
 
         // add Seat container

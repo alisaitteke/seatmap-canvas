@@ -242,6 +242,12 @@ export default class ZoomManager {
         let _wm = this._self.windowManager;
         let _stage = _wm.stage;
 
+        // Reset the accumulated extents so switching to a smaller floor reframes
+        // correctly (the extents only ever grew before, which broke multi-floor
+        // switching). Single-floor charts call this once, so behavior is unchanged.
+        _stage.width = 0;
+        _stage.height = 0;
+
         blocks.map((block: BlockModel) => {
 
             block.seats.map((seat: SeatModel) => {
@@ -448,6 +454,35 @@ export default class ZoomManager {
 
     }
 
+
+    /**
+     * Fit an arbitrary bounding box (in stage-local coordinates) into the
+     * viewport. Used by the multi-floor "all floors" view to frame the whole
+     * stacked composition, which the per-floor venue zoom cannot express.
+     */
+    public zoomToBBox(bbox: { x: number; y: number; width: number; height: number }, animation: boolean = true): this {
+        let wm = this._self.windowManager;
+        if (!bbox || !bbox.width || !bbox.height || !wm.width || !wm.height) {
+            return this;
+        }
+
+        const padding = 0.85;
+        let k = Math.min(wm.width / bbox.width, wm.height / bbox.height) * padding;
+        k = Math.min(k, this._self.config.max_zoom);
+
+        // Allow zooming out far enough to frame the full stack.
+        this._self.config.min_zoom = Math.min(this._self.config.min_zoom, k);
+        this.zoomInit();
+
+        const cx = bbox.x + bbox.width / 2;
+        const cy = bbox.y + bbox.height / 2;
+        const zoomer = animation ? this.zoomTypes.animated : this.zoomTypes.normal;
+        this._self.svg.node.interrupt().call(zoomer.translateTo, cx, cy).call(zoomer.scaleTo, k);
+
+        this.zoomLevel = ZoomLevel.VENUE;
+        this.dispatchZoomEvent();
+        return this;
+    }
 
     public zoomEnable(): this {
         this._self.svg.node.call(this.zoomTypes.normal);

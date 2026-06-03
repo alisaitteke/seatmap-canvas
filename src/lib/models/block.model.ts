@@ -5,6 +5,7 @@
 
 import SeatModel from "@model/seat.model";
 import LabelModel from "@model/label.model";
+import TableModel from "@model/table.model";
 import ModelBase from "@model/model.base";
 
 
@@ -12,6 +13,7 @@ export default class BlockModel extends ModelBase {
     id: string;
     seats: Array<SeatModel>;
     labels: Array<LabelModel>;
+    tables: Array<TableModel>;
     title: String;
     bounds: any;
     width: number;
@@ -59,6 +61,7 @@ export default class BlockModel extends ModelBase {
         // whenever a consumer omitted them.
         const rawLabels: Array<any> = Array.isArray(item.labels) ? item.labels : [];
         const rawSeats: Array<any> = Array.isArray(item.seats) ? item.seats : [];
+        const rawTables: Array<any> = Array.isArray(item.tables) ? item.tables : [];
 
         this.labels = rawLabels.map((labelItem: any) => {
             labelItem.block = this;
@@ -69,6 +72,10 @@ export default class BlockModel extends ModelBase {
             seatItem.block = this;
             return new SeatModel(seatItem);
         });
+
+        // Block-local table bodies (round/rect). Optional and additive: blocks
+        // without tables keep the convex-hull rendering.
+        this.tables = rawTables.map((tableItem: any) => new TableModel(tableItem));
     }
 
 
@@ -81,7 +88,8 @@ export default class BlockModel extends ModelBase {
             y: this.y,
             color: this.color,
             width: this.width,
-            height: this.height
+            height: this.height,
+            tables: this.tables.map((table: TableModel) => table.toJson())
 
         }
     }

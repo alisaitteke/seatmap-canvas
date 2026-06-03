@@ -235,4 +235,84 @@
       }
     }
   }
+
+  // Multi-floor: per-floor groups. Single-floor charts have one floor with an
+  // identity transform, so these rules are inert for them.
+  .stage {
+    .floors {
+      .floor {
+        transition: opacity 0.3s ease, transform 0.4s ease;
+
+        &.floor-dimmed {
+          opacity: 0.22;
+        }
+      }
+
+      &.picking {
+        .floor {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+// Floor elevator overlay (HTML sibling of the SVG, inside the container).
+.sm-floor-picker {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+  padding: 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  .sm-floor-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    &.active {
+      background: #2c2828;
+      color: #fff;
+    }
+  }
+
+  .sm-floor-all {
+    font-size: 16px;
+  }
+}
+
+.sm-floor-label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(44, 40, 40, 0.9);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
 }

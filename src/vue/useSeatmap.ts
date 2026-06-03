@@ -21,6 +21,14 @@ export interface UseSeatmapReturn {
   destroy: () => void;
   addEventListener: (event: string, callback: Function) => void;
   removeEventListener: (event: string, callback: Function) => void;
+  /** Enter a floor by its public id (multi-floor charts). */
+  goToFloor: (floorId: string) => void;
+  /** Leave the selected floor for the stacked all-floors view. */
+  goToAllFloorsView: () => void;
+  /** All floors as `{ index, id, display_name }`. */
+  getFloors: () => Array<{ index: number; id: string; display_name: string }>;
+  /** The active floor, or `{ index: -1 }` for the all-floors view. */
+  getCurrentFloor: () => { index: number; id: string | null; display_name: string | null };
 }
 
 export function useSeatmap(autoInit: boolean = false): UseSeatmapReturn {
@@ -101,6 +109,22 @@ export function useSeatmap(autoInit: boolean = false): UseSeatmapReturn {
     console.warn('removeEventListener not implemented in core library');
   };
 
+  const goToFloor = (floorId: string) => {
+    seatmapInstance.value?.goToFloor(floorId);
+  };
+
+  const goToAllFloorsView = () => {
+    seatmapInstance.value?.goToAllFloorsView();
+  };
+
+  const getFloors = () => {
+    return seatmapInstance.value?.getFloors() ?? [];
+  };
+
+  const getCurrentFloor = () => {
+    return seatmapInstance.value?.getCurrentFloor() ?? { index: -1, id: null, display_name: null };
+  };
+
   const destroy = () => {
     if (seatmapInstance.value) {
       // Cleanup event listeners if needed
@@ -128,5 +152,9 @@ export function useSeatmap(autoInit: boolean = false): UseSeatmapReturn {
     destroy,
     addEventListener,
     removeEventListener,
+    goToFloor,
+    goToAllFloorsView,
+    getFloors,
+    getCurrentFloor,
   };
 }

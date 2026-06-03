@@ -52,6 +52,9 @@ export enum EventType {
     BEST_AVAILABLE_ENABLE = "BEST_AVAILABLE_ENABLE",
     MBEST_AVAILABLE_DISABLE = "MBEST_AVAILABLE_DISABLE",
 
+    // Multi-floor: dispatched when the active floor (or the all-floors view) changes.
+    FLOOR_CHANGED = "FLOOR.CHANGED",
+
     READY = "READY"
 
 }
