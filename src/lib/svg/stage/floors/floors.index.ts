@@ -178,7 +178,8 @@ export default class Floors extends SvgBase {
                     .attr("transform", null)
                     .style("display", null)
                     .style("opacity", null)
-                    .classed("floor-dimmed", false);
+                    .classed("floor-dimmed", false)
+                    .classed("floor-inactive", false);
             }
             this.node.classed("multi-floor", false).classed("picking", false);
             return this;
@@ -242,7 +243,10 @@ export default class Floors extends SvgBase {
 
         groups.forEach((group, i) => {
             const sel = group.node;
-            sel.interrupt().style("display", null).classed("floor-dimmed", false);
+            sel.interrupt()
+                .style("display", null)
+                .classed("floor-dimmed", false)
+                .classed("floor-inactive", false);
             if (animated) {
                 sel.transition()
                     .duration(duration)
@@ -256,17 +260,33 @@ export default class Floors extends SvgBase {
         });
     }
 
-    /** Collapse into a single floor: selected flattens, the rest fade + stack. */
+    /**
+     * Collapse onto a single floor. The selected floor flattens to the identity
+     * transform; the rest stay **stacked and visible** as muted spatial context
+     * (mirrors the legacy player's `outOfFocus` floors rather than hiding them).
+     *
+     * Inactive floors are only marked with `floor-inactive` and re-stacked here —
+     * their dimming is delegated so opacity never stacks unpredictably:
+     *   - seating/non-section objects are hidden via CSS (`.floor-inactive`),
+     *   - section polygons are muted per-path in {@link SectionItem}.
+     * We therefore animate the `transform` only and hand opacity back to CSS.
+     */
     private showSingleFloor(groups: Array<Floor>, current: number, animated: boolean): void {
         const transforms = this.computeStackTransforms(groups);
         const duration = this.transitionDuration();
 
         groups.forEach((group, i) => {
             const sel = group.node;
-            sel.interrupt().classed("floor-dimmed", false);
+            const isActive = i === current;
+            // `floor-dimmed` is the transient elevator-hover dim — clear it.
+            // `floor-inactive` flags the context floors for CSS + section refresh;
+            // set it synchronously so the FLOOR_CHANGED listeners read it correctly.
+            sel.interrupt()
+                .style("display", null)
+                .classed("floor-dimmed", false)
+                .classed("floor-inactive", !isActive);
 
-            if (i === current) {
-                sel.style("display", null);
+            if (isActive) {
                 if (animated) {
                     sel.transition()
                         .duration(duration)
@@ -277,17 +297,16 @@ export default class Floors extends SvgBase {
                     sel.attr("transform", null).style("opacity", null);
                 }
             } else {
+                // Clear any leftover inline opacity (from the old fade-out path or
+                // a prior elevator hover) so the floor renders at full opacity and
+                // the muting comes purely from CSS / section fill-opacity.
+                sel.style("opacity", null);
                 if (animated) {
-                    // Keep the floor visible while it slides to its stacked slot
-                    // and fades, then drop it out of the layout/hit-testing.
-                    sel.style("display", null)
-                        .transition()
+                    sel.transition()
                         .duration(duration)
-                        .attr("transform", transforms[i])
-                        .style("opacity", 0)
-                        .on("end", () => sel.style("display", "none"));
+                        .attr("transform", transforms[i]);
                 } else {
-                    sel.attr("transform", transforms[i]).style("opacity", 0).style("display", "none");
+                    sel.attr("transform", transforms[i]);
                 }
             }
         });

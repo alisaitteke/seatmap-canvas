@@ -267,6 +267,26 @@
         }
       }
 
+      // Single-floor selection: inactive floors stay in the stack as muted
+      // spatial context. Seating and non-section objects are hidden so they do
+      // not compete with the active floor; section polygons stay visible and are
+      // muted per-path in section-item.ts. Group opacity is intentionally left
+      // untouched so those per-path fill-opacities stay predictable.
+      // `:not(.picking)` keeps the all-floors (picking) view fully visible.
+      &:not(.picking) .floor.floor-inactive {
+        pointer-events: none;
+
+        .blocks {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .object:not(.object--section) {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+
       &.picking {
         .floor {
           cursor: pointer;
