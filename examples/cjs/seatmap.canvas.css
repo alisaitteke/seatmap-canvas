@@ -43,6 +43,20 @@
   transition-timing-function: ease-in-out;
   filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0));
 }
+.seatmap-svg .stage .blocks .block.section-backed {
+  filter: none;
+}
+.seatmap-svg .stage .blocks .block.section-backed:hover {
+  transform: none;
+  filter: none;
+}
+.seatmap-svg .stage .blocks .block.section-backed .bounds {
+  display: none;
+}
+.seatmap-svg .stage .blocks .block.section-backed .masks .block-level-mask,
+.seatmap-svg .stage .blocks .block.section-backed .masks .seat-level-mask {
+  display: none;
+}
 .seatmap-svg .stage .blocks .block .bounds .block-hull-border {
   stroke-linejoin: round;
   opacity: 0.5;
@@ -152,4 +166,89 @@
 .seatmap-svg .legend .legend-item text {
   text-anchor: start;
   dominant-baseline: central;
+}
+.seatmap-svg .stage .floors .floor {
+  transition: opacity 0.3s ease;
+}
+.seatmap-svg .stage .floors .floor.floor-dimmed {
+  opacity: 0.22;
+}
+.seatmap-svg .stage .floors:not(.picking) .floor.floor-inactive {
+  pointer-events: none;
+}
+.seatmap-svg .stage .floors:not(.picking) .floor.floor-inactive .blocks {
+  opacity: 0;
+  pointer-events: none;
+}
+.seatmap-svg .stage .floors:not(.picking) .floor.floor-inactive .object:not(.object--section) {
+  opacity: 0;
+  pointer-events: none;
+}
+.seatmap-svg .stage .floors:not(.picking) .floor.floor-inactive .object--section .object-label {
+  opacity: 0.3;
+}
+.seatmap-svg .stage .floors:not(.picking) .floor.floor-inactive .floor-background {
+  opacity: 0.12;
+}
+.seatmap-svg .stage .floors:not(.picking) .floor.floor-inactive .focal-point {
+  opacity: 0;
+  pointer-events: none;
+}
+.seatmap-svg .stage .floors.picking .floor {
+  cursor: pointer;
+}
+
+.sm-floor-picker {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+  padding: 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.sm-floor-picker .sm-floor-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sm-floor-picker .sm-floor-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+.sm-floor-picker .sm-floor-btn.active {
+  background: #2c2828;
+  color: #fff;
+}
+.sm-floor-picker .sm-floor-all {
+  font-size: 16px;
+}
+
+.sm-floor-label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(44, 40, 40, 0.9);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
 }

@@ -285,6 +285,21 @@
           opacity: 0;
           pointer-events: none;
         }
+
+        // Muted section captions (path fill is handled in section-item.ts).
+        .object--section .object-label {
+          opacity: 0.3;
+        }
+
+        // Per-floor background and focal marker are context-only on inactive floors.
+        .floor-background {
+          opacity: 0.12;
+        }
+
+        .focal-point {
+          opacity: 0;
+          pointer-events: none;
+        }
       }
 
       &.picking {
