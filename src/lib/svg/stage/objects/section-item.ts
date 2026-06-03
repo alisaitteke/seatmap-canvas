@@ -6,6 +6,7 @@
  */
 
 import {dom} from "@decorator/dom";
+import {EventType} from "@enum/global";
 import {SectionObjectData} from "@model/object.model";
 import {registerObjectItem} from "./object-item.factory";
 import {ObjectItem} from "./object-item.base";
@@ -77,6 +78,34 @@ export class SectionItem extends ObjectItem {
         this.node.on("click.sectionenter", () => {
             this.global.zoomManager.zoomToBlock(this.item.id);
         });
+        this.global.eventManager.addEventListener(EventType.SECTION_ENTER, () => {
+            this.refreshDrillDownAppearance();
+        });
+        this.global.eventManager.addEventListener(EventType.SECTION_EXIT, () => {
+            this.refreshDrillDownAppearance();
+        });
+        this.refreshDrillDownAppearance();
+    }
+
+    /**
+     * Fade non-entered section polygons while drilled in (legacy player
+     * `useContentsShownAppearance` / designer `drawDimmedNeighboringSections`).
+     */
+    private refreshDrillDownAppearance(): void {
+        if (!this.shape?.node) {
+            return;
+        }
+        const style = this.global.config.style.section;
+        const enteredId = this.global.zoomManager.enteredBlockId;
+        const isEntered =
+            enteredId != null &&
+            enteredId.toString() === this.item.id.toString();
+        const dimmed = enteredId != null && !isEntered;
+        const fillOpacity = dimmed ? style.fill_opacity * 0.15 : style.fill_opacity;
+        const strokeOpacity = dimmed ? 0.25 : 1;
+        this.shape.node
+            .attr("fill-opacity", fillOpacity)
+            .attr("stroke-opacity", strokeOpacity);
     }
 
     private buildCaption(): string {

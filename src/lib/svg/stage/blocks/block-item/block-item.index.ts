@@ -47,26 +47,47 @@ export default class Block extends SvgBase {
     // target) and revealed only while this block is the entered one.
     private section_backed: boolean = false;
 
+    /** Whether a chart-level `section` polygon (same id) backs this block. */
+    public isSectionBacked(): boolean {
+        return this.section_backed;
+    }
+
     constructor(public parent: BlocksManager, public item: BlockModel) {
         super(parent);
         this.attr("id", item.id);
         this.attr("opacity", 0);
 
         this.global.eventManager.addEventListener(EventType.ZOOM_LEVEL_CHANGE, (levelObject: any) => {
-            if (levelObject.level === ZoomLevel.VENUE) {
-                this.mask.blockLevelMask.show();
-                this.mask.seatLevelMask.show();
+            // `zoomToVenue` can fire before this block's first `update()` finishes.
+            if (!this.mask?.blockLevelMask || !this.mask?.seatLevelMask) {
+                this.applyDrillDownVisibility(levelObject.level);
+                return;
+            }
+            // Section-backed blocks never use hull masks (the section polygon is
+            // the visual); skip show/hide so zoom events stay safe.
+            if (!this.section_backed) {
+                if (levelObject.level === ZoomLevel.VENUE) {
+                    this.mask.blockLevelMask.show();
+                    this.mask.seatLevelMask.show();
+                    this.seats?.resetSeatsColors(false);
+                    this.infosToCenter();
+                } else if (levelObject.level === ZoomLevel.BLOCK) {
+                    this.mask.blockLevelMask.hide();
+                    this.mask.seatLevelMask.show();
+                    this.infosToTop();
+                } else if (levelObject.level === ZoomLevel.SEAT) {
+                    this.mask.blockLevelMask.hide();
+                    this.mask.seatLevelMask.hide();
+                    this.seats?.resetSeatsColors(false);
+                    this.infosToTop();
+                }
+            } else if (this.seats) {
                 this.seats.resetSeatsColors(false);
-                this.infosToCenter();
-            } else if (levelObject.level === ZoomLevel.BLOCK) {
-                this.mask.blockLevelMask.hide();
-                this.mask.seatLevelMask.show();
-                this.infosToTop();
-            } else if (levelObject.level === ZoomLevel.SEAT) {
-                this.mask.blockLevelMask.hide();
-                this.mask.seatLevelMask.hide();
-                this.seats.resetSeatsColors(false);
-                this.infosToTop();
+                if (levelObject.level === ZoomLevel.VENUE) {
+                    this.infosToCenter();
+                } else {
+                    this.infosToTop();
+                }
             }
             this.applyDrillDownVisibility(levelObject.level);
         });
@@ -130,7 +151,7 @@ export default class Block extends SvgBase {
         // });
 
         this.parent.node.on("mouseleave.seats", () => {
-            this.seats.resetSeatsColors(false);
+            this.seats?.resetSeatsColors(false);
         });
 
         return this;
@@ -143,6 +164,7 @@ export default class Block extends SvgBase {
         this.section_backed = this.global.data
             .getObjects("section")
             .some((object) => object.id.toString() === this.item.id.toString());
+        this.node.classed("section-backed", this.section_backed);
 
         // add Background Image (first, at the bottom of z-index) - only if configured
         if (this.item.background_image) {
@@ -198,7 +220,10 @@ export default class Block extends SvgBase {
         // straight to the hidden state so the section polygon shows without a
         // flash of seats.
         const revealed = this.isRevealed(this.global.zoomManager.zoomLevel);
-        this.node.interrupt().transition().duration(this.global.config.animation_speed).attr("opacity", revealed ? 1 : 0);
+        const revealDuration = this.section_backed
+            ? 0
+            : this.global.config.animation_speed;
+        this.node.interrupt().transition().duration(revealDuration).attr("opacity", revealed ? 1 : 0);
         this.node.style("pointer-events", revealed ? null : "none");
         this.node.attr("transform-origin", `${this.center_position.x} ${this.center_position.y}`);
         if (this.item.rotate) {
@@ -239,10 +264,13 @@ export default class Block extends SvgBase {
             return;
         }
         const revealed = this.isRevealed(level);
+        // Section-backed blocks sit above the author polygon; skip the opacity
+        // transition so the convex-hull mask never flashes through on enter.
+        const duration = this.section_backed ? 0 : this.global.config.animation_speed;
         this.node
             .interrupt()
             .transition()
-            .duration(this.global.config.animation_speed)
+            .duration(duration)
             .attr("opacity", revealed ? 1 : 0);
         // Hidden blocks must not intercept pointer events so the section polygon
         // below stays clickable.
