@@ -4,7 +4,7 @@
  *
  * Free-floating text caption renderer. Drawn at its origin, centered both ways,
  * with data-driven color/size/weight/style and rotation around the origin.
- * Mirrors studio `TextView` / `seatsio.TextInput.draw`.
+ * Mirrors studio `TextView` / `TextInput.draw`.
  */
 
 import {dom} from "@decorator/dom";

@@ -7,7 +7,7 @@
  * These are the single source of truth for the canvas and are mirrored by
  * `seatmap-studio/src/document/defaults.ts`. A studio sync-guard test imports
  * this module and asserts equality, so the two repos cannot silently drift.
- * The values originate from the seats.io reference geometry:
+ * The values originate from the studio reference geometry:
  *   - `Chair.width = 16`, `Chair.drawRadius = width/2 - 1 = 7`
  *   - `Chair.strokeWidth = 1`
  *   - `Row.DEFAULT_CHAIR_SPACING = 5`, `Row.DEFAULT_SPACING = 14`
@@ -16,14 +16,14 @@
  * tests, the converter) without pulling in D3 or DOM types.
  */
 
-/** Diameter of a chair in document units (`seatsio.Chair.width`). */
+/** Diameter of a chair in document units (`Chair.width`). */
 export const CHAIR_WIDTH = 16;
 
-/** Stroke width of a chair outline in document units (`seatsio.Chair.strokeWidth`). */
+/** Stroke width of a chair outline in document units (`Chair.strokeWidth`). */
 export const CHAIR_STROKE_WIDTH = 1;
 
 /**
- * Radius of a chair's rendered circle (`seatsio.Chair.drawRadius`). The visible
+ * Radius of a chair's rendered circle (`Chair.drawRadius`). The visible
  * circle is one unit smaller than half the chair width so adjacent chairs do
  * not visually touch. This replaces the legacy canvas default of `12`.
  */

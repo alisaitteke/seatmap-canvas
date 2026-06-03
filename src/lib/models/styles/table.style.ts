@@ -3,7 +3,7 @@ import {CanvasPalette, getPalette} from "@model/theme.palette";
 /**
  * Styling for a table body object (round circle or rounded rect). Chairs around
  * the table are rendered as real seats in a block; this only styles the body and
- * its optional label. Mirrors `seatsio.Table.draw` / studio `TableView`.
+ * its optional label. Mirrors `Table.draw` / studio `TableView`.
  */
 export class TableStyle {
     /** Body fill (theme `table_fill`). */

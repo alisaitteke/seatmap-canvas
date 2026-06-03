@@ -2,7 +2,7 @@
  * section-item.ts
  * https://github.com/alisaitteke/seatmap-canvas Copyright 2023 Ali Sait TEKE
  *
- * Section polygon renderer — mirrors studio `SectionView` / seatsio.Section.draw.
+ * Section polygon renderer — mirrors studio `SectionView` / Section.draw.
  */
 
 import {dom} from "@decorator/dom";

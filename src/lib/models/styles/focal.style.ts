@@ -3,7 +3,7 @@ import {CanvasPalette, getPalette} from "@model/theme.palette";
 /**
  * Styling for the chart focal point: three concentric glow rings plus an outer
  * and inner dot, drawn at a screen-stable size. Mirrors studio `Scene` /
- * `seatsio.FocalPoint.createShapes`.
+ * `FocalPoint.createShapes`.
  *
  * The marker keeps a constant on-screen size at any zoom: the renderer draws
  * it inside a group that is counter-scaled by `1 / zoom`, so every length here

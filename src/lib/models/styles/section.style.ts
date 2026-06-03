@@ -1,7 +1,7 @@
 import {CanvasPalette, getPalette} from "@model/theme.palette";
 
 /**
- * Styling for a section polygon object. Mirrors `seatsio.Section.draw` /
+ * Styling for a section polygon object. Mirrors `Section.draw` /
  * studio `SectionView`: a category-tinted, low-opacity fill with a rounded
  * stroke and a bold centered caption.
  */

@@ -2,7 +2,7 @@ import {CanvasPalette, getPalette} from "@model/theme.palette";
 
 /**
  * Styling for a general-admission area object. Mirrors
- * `seatsio.GeneralAdmissionArea.draw` / studio `GeneralAdmissionView`: a
+ * `GeneralAdmissionArea.draw` / studio `GeneralAdmissionView`: a
  * translucent category-tinted region with a stroke and a muted capacity caption.
  */
 export class GaStyle {
