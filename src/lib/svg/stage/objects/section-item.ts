@@ -94,13 +94,20 @@ export class SectionItem extends ObjectItem {
             if (enteredId != null && enteredId.toString() === this.item.id.toString()) {
                 return;
             }
-            // #region agent log
-            try {
-                const blockExists = !!this.global.data.getBlocks().find((b: any) => b.id.toString() === this.item.id.toString());
-                fetch('http://127.0.0.1:7338/ingest/eed4d821-d25d-4c9e-b38a-cf2bfb61c766',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ee490f'},body:JSON.stringify({sessionId:'ee490f',hypothesisId:'A,B',location:'section-item.ts:97',message:'section/zone polygon clicked',data:{id:this.item.id,zone:(this.item as any).zone ?? null,blockExists,enteredId},timestamp:Date.now()})}).catch(()=>{});
-            } catch(e){}
-            // #endregion
-            this.global.zoomManager.zoomToBlock(this.item.id);
+            // A zone is emitted as a `section`-typed object with no backing
+            // block. Those drill into the zone (fit all its sections); real
+            // sections drill into their block (fit the seats).
+            const isZone =
+                this.item.zone !== null &&
+                this.item.zone !== undefined &&
+                !this.global.data
+                    .getBlocks()
+                    .some((block) => block.id.toString() === this.item.id.toString());
+            if (isZone) {
+                this.global.zoomManager.zoomToZone(this.item.zone as string | number);
+            } else {
+                this.global.zoomManager.zoomToBlock(this.item.id);
+            }
         });
         this.global.eventManager.addEventListener(EventType.SECTION_ENTER, () => {
             this.refreshAppearance();

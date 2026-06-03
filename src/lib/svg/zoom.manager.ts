@@ -438,12 +438,6 @@ export default class ZoomManager {
     public zoomToBlock(id: string | number, animation: boolean = true, fastAnimated: boolean = false) {
         // console.log('id', id)
         let _block = this._self.data.getBlocks().find((block) => block.id.toString() === id.toString());
-        // #region agent log
-        try {
-            const sectionObj: any = this._self.data.getObjects("section").find((o: any) => o.id.toString() === id.toString());
-            fetch('http://127.0.0.1:7338/ingest/eed4d821-d25d-4c9e-b38a-cf2bfb61c766',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ee490f'},body:JSON.stringify({sessionId:'ee490f',hypothesisId:'A,C',location:'zoom.manager.ts:440',message:'zoomToBlock entry',data:{id,blockFound:!!_block,hasZoomBBox:!!_block?.zoom_bbox,objIsZone:sectionObj?.zone ?? null},timestamp:Date.now()})}).catch(()=>{});
-        } catch(e){}
-        // #endregion
         if (_block) {
             // Mark the drilled-into block before the zoom event fires so the
             // matching block reveals its seats while the rest stay in overview.
@@ -479,6 +473,95 @@ export default class ZoomManager {
                 this._self.eventManager.dispatch(EventType.SECTION_ENTER, section);
             }
         }
+    }
+
+    /**
+     * Fit every section that belongs to `zoneKey` into the viewport (zoned
+     * venues). A zone is emitted by the studio as a `section`-typed render object
+     * (`zone-<key>`) with no backing block, so clicking it cannot drill into a
+     * block. Instead we frame the combined bounds of the zone's real sections so
+     * the viewer drills venue → zone → section → seats.
+     */
+    public zoomToZone(zoneKey: string | number, animation: boolean = true): void {
+        const key = zoneKey?.toString();
+        if (!key) {
+            return;
+        }
+        // Every section in the zone (its own polygon carries the same key).
+        const sections = this._self.data
+            .getObjects("section")
+            .filter((object) => {
+                const zone = (object as any).zone;
+                return zone !== null && zone !== undefined && zone.toString() === key;
+            });
+
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        const union = (left: number, top: number, right: number, bottom: number) => {
+            if (left < minX) minX = left;
+            if (top < minY) minY = top;
+            if (right > maxX) maxX = right;
+            if (bottom > maxY) maxY = bottom;
+        };
+
+        sections.forEach((object) => {
+            // Frame the real seating: the rendered block group's bbox already
+            // encloses both the seats and the hull, in document coordinates
+            // (the zoom transform lives on an ancestor, so getBBox is unscaled).
+            const blockItem = this._self.svg.stage.blocks.getBlock(object.id);
+            if (blockItem) {
+                const bbox = blockItem.node.node().getBBox();
+                if (bbox.width || bbox.height) {
+                    union(bbox.x, bbox.y, bbox.x + bbox.width, bbox.y + bbox.height);
+                }
+            }
+            // Also union the polygon outline so the framed area never clips the
+            // section shape (and covers the zone's own polygon, which has no block).
+            const bounds = objectBounds(object);
+            if (bounds) {
+                union(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY);
+            }
+        });
+
+        if (!Number.isFinite(minX)) {
+            return;
+        }
+
+        this.fitBounds(
+            {x: minX, y: minY, width: maxX - minX, height: maxY - minY},
+            animation,
+        );
+    }
+
+    /**
+     * Center and fit an arbitrary document-space bounding box into the viewport
+     * with a comfortable margin (so the content never touches the edges). Used
+     * for the zone-level frame; leaves the entered-section state cleared since a
+     * zone frame is an overview, not a section drill-down.
+     */
+    private fitBounds(
+        bbox: { x: number; y: number; width: number; height: number },
+        animation: boolean = true,
+    ): void {
+        const wm = this._self.windowManager;
+        if (!bbox.width || !bbox.height || !wm.width || !wm.height) {
+            return;
+        }
+        this.exitSection();
+
+        // 0.8 keeps a ~20% breathing margin around the framed zone.
+        const padding = 0.8;
+        let k = Math.min(wm.width / bbox.width, wm.height / bbox.height) * padding;
+        k = Math.min(k, this._self.config.max_zoom);
+        k = Math.max(k, this._self.config.min_zoom);
+
+        const cx = bbox.x + bbox.width / 2;
+        const cy = bbox.y + bbox.height / 2;
+
+        const zoomer = animation ? this.zoomTypes.animated : this.zoomTypes.normal;
+        this._self.svg.node.interrupt().call(zoomer.translateTo, cx, cy).call(zoomer.scaleTo, k);
+
+        this.zoomLevel = ZoomLevel.BLOCK;
+        this.dispatchZoomEvent();
     }
 
     public zoomToVenue(animation: boolean = true, fastAnimated: boolean = false) {
