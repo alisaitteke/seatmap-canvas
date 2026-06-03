@@ -115,6 +115,9 @@ export default class Block extends SvgBase {
 
             if (!this.global.root.svg.stage.searchCircle.is_enable) return;
             if (this.global.multi_select) return;
+            // Section-backed blocks suppress the search circle, so their seats
+            // must not pick up the mouse-following FOCUS color either.
+            if (block_item.isSectionBacked()) return;
             let gap = this.global.config.zoom_focus_circle_radius;
 
             if (this.global.zoomManager.zoomLevel === ZoomLevel.BLOCK) {

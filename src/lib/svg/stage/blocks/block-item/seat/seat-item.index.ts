@@ -13,7 +13,7 @@ import {SeatItemRect} from "./seat-item.rect";
 import {SeatItemPath} from "./seat-item.path";
 import {CoordinateModel} from "@model/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
-import {SeatAction} from "@enum/global";
+import {EventType, SeatAction} from "@enum/global";
 import {SeatItemCheck} from "./seat-item.check";
 import {SeatItemCustomSvg} from "@svg/stage/blocks/block-item/seat/seat-item.custom";
 import {SeatItemCustomSvgCheck} from "@svg/stage/blocks/block-item/seat/seat-item.custom-check";
@@ -105,6 +105,7 @@ export class SeatItem extends SvgBase {
         if (this.check) {
             this.check.show();
         }
+        this.global.eventManager.dispatch(EventType.SELECT_SEAT, this);
         return this;
     }
 
@@ -133,6 +134,7 @@ export class SeatItem extends SvgBase {
         if (this.check) {
             this.check.hide();
         }
+        this.global.eventManager.dispatch(EventType.UNSELECT_SEAT, this);
         return this;
     }
 
