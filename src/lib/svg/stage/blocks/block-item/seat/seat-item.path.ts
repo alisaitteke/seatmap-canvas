@@ -47,8 +47,8 @@ export class SeatItemPath extends SvgBase {
             .attr("d", path)
             .attr("transform", `scale(${scale}) translate(${-centerX},${-centerY})`)
             .attr("fill", this.global.config.style.seat.color)
-            .attr("stroke", "rgba(0,0,0,0.3)")
-            .attr("stroke-width", 1 / scale)
+            .attr("stroke", this.global.config.style.seat.stroke)
+            .attr("stroke-width", this.global.config.style.seat.stroke_width / scale)
             .attr("pointer-events", "none");
         
         this.updateChilds();
