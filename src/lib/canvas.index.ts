@@ -126,3 +126,21 @@ export class SeatMapCanvas {
         this.parsers['pretix'] = new PretixParser();
     }
 }
+
+// Public geometry contract — mirrored by seatmap-studio and asserted by its
+// sync-guard test, so the two repos cannot silently drift.
+export {
+    CHAIR_WIDTH,
+    CHAIR_STROKE_WIDTH,
+    CHAIR_RADIUS,
+    CHAIR_SPACING,
+    ROW_SPACING,
+    SPACE_PER_CHAIR,
+    SEAT_SELECTED_STROKE_WIDTH,
+    GEOMETRY_DEFAULTS,
+} from "@model/geometry.constants";
+export type {GeometryDefaults} from "@model/geometry.constants";
+
+// Theme palette so consumers can resolve the same chrome colors as the editor.
+export {LIGHT_PALETTE, DARK_PALETTE, getPalette} from "@model/theme.palette";
+export type {CanvasTheme, CanvasPalette} from "@model/theme.palette";

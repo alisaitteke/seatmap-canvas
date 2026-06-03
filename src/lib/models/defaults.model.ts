@@ -11,6 +11,14 @@ import {BLockStyle} from "@model/styles/block.style";
 import {LegendStyle} from "@model/styles/legend.style";
 import {LabelStyle} from "@model/styles/label.style";
 import {TooltipStyle} from "@model/styles/tooltip.style";
+import {SectionStyle} from "@model/styles/section.style";
+import {GaStyle} from "@model/styles/ga.style";
+import {TableStyle} from "@model/styles/table.style";
+import {BoothStyle} from "@model/styles/booth.style";
+import {IconStyle} from "@model/styles/icon.style";
+import {TextStyle} from "@model/styles/text.style";
+import {FocalStyle} from "@model/styles/focal.style";
+import {CanvasTheme, getPalette} from "@model/theme.palette";
 import {ParserEnum} from "@enum/parser.enum";
 
 export class StyleConfig {
@@ -19,6 +27,13 @@ export class StyleConfig {
     legend: LegendStyle
     label: LabelStyle
     tooltip: TooltipStyle
+    section: SectionStyle
+    ga: GaStyle
+    table: TableStyle
+    booth: BoothStyle
+    icon: IconStyle
+    text: TextStyle
+    focal: FocalStyle
 }
 
 export default class DefaultsModel {
@@ -39,6 +54,13 @@ export default class DefaultsModel {
     background_y: number | null = null;
     background_width: number | null = null;
     background_height: number | null = null;
+
+    /**
+     * Chrome theme for object/seat strokes, fills and labels. Selects the
+     * light/dark palette (see {@link getPalette}) that seeds every style group.
+     * Data-driven category colors are never themed.
+     */
+    theme: CanvasTheme = 'light';
 
     style: StyleConfig;
 
@@ -72,18 +94,29 @@ export default class DefaultsModel {
         this.background_width = config.background_width || null;
         this.background_height = config.background_height || null;
 
+        this.theme = config.theme === 'dark' ? 'dark' : 'light';
+        const palette = getPalette(this.theme);
+
         this.style = new StyleConfig()
 
         // Defensive: callers may omit `style` entirely, or pass a partial
         // override (e.g. only `seat`). Treat any missing branch as an empty
-        // object so `Object.assign` falls back to the defaults.
+        // object so `Object.assign` falls back to the defaults. Style groups
+        // are seeded from the resolved theme palette, then user overrides win.
         const styleOverrides: any = config.style || {};
 
-        this.style.seat = Object.assign(new SeatStyle(), styleOverrides.seat || {})
+        this.style.seat = Object.assign(new SeatStyle(palette), styleOverrides.seat || {})
         this.style.block = Object.assign(new BLockStyle(), styleOverrides.block || {})
         this.style.legend = Object.assign(new LegendStyle(), styleOverrides.legend || {})
         this.style.label = Object.assign(new LabelStyle(), styleOverrides.label || {})
         this.style.tooltip = Object.assign(new TooltipStyle(), styleOverrides.tooltip || {})
+        this.style.section = Object.assign(new SectionStyle(palette), styleOverrides.section || {})
+        this.style.ga = Object.assign(new GaStyle(palette), styleOverrides.ga || {})
+        this.style.table = Object.assign(new TableStyle(palette), styleOverrides.table || {})
+        this.style.booth = Object.assign(new BoothStyle(palette), styleOverrides.booth || {})
+        this.style.icon = Object.assign(new IconStyle(palette), styleOverrides.icon || {})
+        this.style.text = Object.assign(new TextStyle(palette), styleOverrides.text || {})
+        this.style.focal = Object.assign(new FocalStyle(palette), styleOverrides.focal || {})
 
 
         this.lang = {
