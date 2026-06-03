@@ -43,8 +43,8 @@ export class SeatItemRect extends SvgBase {
             .attr("rx", cornerRadius)
             .attr("ry", cornerRadius)
             .attr("fill", this.global.config.style.seat.color)
-            .attr("stroke", "rgba(0,0,0,0.3)")
-            .attr("stroke-width", 1)
+            .attr("stroke", this.global.config.style.seat.stroke)
+            .attr("stroke-width", this.global.config.style.seat.stroke_width)
             .attr("pointer-events", "none");
         
         this.updateChilds();

@@ -9,6 +9,7 @@ import {SeatMapCanvas} from "@/canvas.index";
 import SeatModel from "@model/seat.model";
 import {ParserEnum} from "@enum/parser.enum";
 import {PretixModel} from "@/converters/pretix/pretix.model";
+import {CanvasChartData, ObjectData, FocalPointData} from "@model/object.model";
 
 interface BlockQuery {
     id?: number | string
@@ -17,12 +18,24 @@ interface BlockQuery {
 export default class DataModel {
     blocks: Array<BlockModel>;
 
+    /**
+     * Chart-level render objects (sections, GA, table/booth bodies, shapes,
+     * icons, text). Pre-resolved into document coordinates by the producer and
+     * drawn by the chart-level objects layer. Empty for legacy seating-only data.
+     */
+    objects: Array<ObjectData>;
+
+    /** Venue orientation point (stage/pitch), or `null` when none is set. */
+    focalPoint: FocalPointData | null;
+
 
     private eventManager: EventManager;
     public addEventListener: any;
 
     constructor(private _self: SeatMapCanvas) {
         this.blocks = [];
+        this.objects = [];
+        this.focalPoint = null;
         this.eventManager = _self.eventManager;
         this.addEventListener = _self.eventManager.addEventListener;
     }
@@ -54,10 +67,41 @@ export default class DataModel {
         return this;
     }
 
-    public replaceData(block_data: BlockModel[] | PretixModel): this {
+    /**
+     * Load a full chart. Accepts either:
+     *  - a `BlockData[]`/`PretixModel` (legacy, seating only), or
+     *  - a {@link CanvasChartData} `{ blocks, objects?, focal_point? }` so the
+     *    chart-level objects layer and focal point load in the same pass.
+     *
+     * Objects/focal are only honored for the native (`seatmap`) JSON model; a
+     * pretix payload is also a non-array object, so we gate the chart branch on
+     * the configured parser to avoid mis-reading it.
+     */
+    public replaceData(block_data: BlockModel[] | PretixModel | CanvasChartData): this {
         this.blocks = [];
-        this.addBulkBlock(block_data);
+
+        if (this.isCanvasChart(block_data)) {
+            this.objects = block_data.objects || [];
+            this.focalPoint = block_data.focal_point || null;
+            this.addBulkBlock(block_data.blocks as BlockModel[]);
+        } else {
+            this.objects = [];
+            this.focalPoint = null;
+            this.addBulkBlock(block_data as BlockModel[] | PretixModel);
+        }
+
+        this.eventManager.dispatch(EventType.UPDATE_OBJECT, this.objects);
         return this;
+    }
+
+    /** True when `data` is the `{ blocks, ... }` chart form (native model only). */
+    private isCanvasChart(data: any): data is CanvasChartData {
+        return (
+            this._self.config.json_model === ParserEnum.SEATMAP &&
+            !Array.isArray(data) &&
+            data != null &&
+            Array.isArray(data.blocks)
+        );
     }
 
     public getBlock(id: string | number): BlockModel | null {
@@ -124,10 +168,25 @@ export default class DataModel {
         return this.blocks.filter((item: BlockModel) => item.id === query.id)
     }
 
+    /** Chart-level render objects (optionally filtered by type). */
+    public getObjects(type?: ObjectData["type"]): Array<ObjectData> {
+        if (type) {
+            return this.objects.filter((item: ObjectData) => item.type === type);
+        }
+        return this.objects;
+    }
+
+    /** Venue focal point, or `null` when none is set. */
+    public getFocalPoint(): FocalPointData | null {
+        return this.focalPoint;
+    }
+
 
     toJson() {
         return {
-            blocks: this.blocks
+            blocks: this.blocks,
+            objects: this.objects,
+            focal_point: this.focalPoint
         }
     }
 }

@@ -28,6 +28,11 @@ export enum EventType {
     MOUSEOUT_SEAT = "SEAT.MOUSEOUT",
     ADD_SEAT = "SEAT.ADD",
     REMOVE_SEAT = "SEAT.REMOVE",
+
+    // Chart-level render objects (sections, GA, tables, booths, shapes, icons, text).
+    UPDATE_OBJECT = "OBJECT.UPDATE",
+    CLICK_OBJECT = "OBJECT.CLICK",
+
     ZOOM_LEVEL_CHANGE = "ZOOM_LEVEL_CHANGE",
     BOUND_CLICK = "BOUND.CLICK",
 

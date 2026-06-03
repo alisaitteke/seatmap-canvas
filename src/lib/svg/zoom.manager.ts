@@ -11,6 +11,7 @@ import {EventType, ZoomLevel} from "@enum/global";
 import SeatModel from "@model/seat.model";
 import BlockModel from "@model/block.model";
 import LabelModel from "@model/label.model";
+import {objectBounds} from "@svg/stage/objects/object-bounds";
 
 interface ZoomCoordinate {
     x: number,
@@ -115,6 +116,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k);
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
             // _self.canvasScopeHandler();
@@ -128,6 +130,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed);
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
         }
@@ -140,6 +143,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed / 2);
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
         }
@@ -152,6 +156,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k);
             _self.calculateZoomLevel(k);
         }
     }
@@ -164,6 +169,7 @@ export default class ZoomManager {
             let k = event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed);
             //_self.calculateZoomLevel(k);
         }
     }
@@ -176,6 +182,7 @@ export default class ZoomManager {
             let k = event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed / 2);
             //_self.calculateZoomLevel(k);
         }
     }
@@ -255,6 +262,18 @@ export default class ZoomManager {
                 if (label.y > _stage.height) _stage.height = label.y;
             });
 
+        });
+
+        // Extend the stage extents with chart-level objects (GA areas, sections,
+        // decorative shapes/icons/text) so zoom-to-fit frames them too — seats
+        // alone would clip GA-only or decoration-only regions.
+        this._self.data.getObjects().forEach((object) => {
+            const bounds = objectBounds(object);
+            if (!bounds) {
+                return;
+            }
+            if (bounds.maxX > _stage.width) _stage.width = bounds.maxX;
+            if (bounds.maxY > _stage.height) _stage.height = bounds.maxY;
         });
 
         if (_wm.width && _wm.height) {

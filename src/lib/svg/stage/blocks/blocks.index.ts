@@ -42,30 +42,24 @@ export default class Blocks extends SvgBase {
                 _seats[0].x += 0.0001;
             }
 
-            let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
-            // console.log('bound_items', JSON.stringify(bound_items))
+            // Honor a producer-supplied outline (`BlockData._bounds`, e.g. a studio
+            // section polygon) verbatim instead of recomputing a convex hull. The
+            // studio already emits the exact section shape, and the hull algorithm
+            // would otherwise round off concave sections. Only fall back to the
+            // computed hull when no usable polygon (>= 3 points) was provided.
+            const hasProvidedBounds = Array.isArray(block_item.bounds) && block_item.bounds.length >= 3;
 
-            // const poly = polygon([[[0,29],[3.5,29],[2.5,32],[0,29]]]);
-            // const scaledPoly = TurfTransformScale(poly, 3);
+            if (!hasProvidedBounds) {
+                let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
 
-            // Scale işlemi için merkez noktasını hesapla
+                block_item.bounds = polygonHull(bound_items);
 
+                const centroid = polygonCentroid(block_item.bounds);
 
-            // Ölçekleme fonksiyonu
+                const expandedHull = this.expandPolygon(block_item.bounds, block_item.gap, centroid);
 
-
-            block_item.bounds = polygonHull(bound_items);
-
-            const centroid = polygonCentroid(block_item.bounds);
-
-            const scaleFactor = 1.4;
-            const scaledHull = this.scalePolygon(block_item.bounds, scaleFactor, centroid);
-
-            const expandedHull = this.expandPolygon(block_item.bounds, block_item.gap, centroid);
-
-            block_item.bounds = polygonHull(expandedHull);
-            // console.log("Scaled Hull:", scaledHull);
-            // console.log("expandedHull Hull:", expandedHull);
+                block_item.bounds = polygonHull(expandedHull);
+            }
 
             this.addChild(_blockItem);
         });

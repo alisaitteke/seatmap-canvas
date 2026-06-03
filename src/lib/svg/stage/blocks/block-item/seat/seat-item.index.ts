@@ -125,9 +125,9 @@ export class SeatItem extends SvgBase {
         }
         
         if (this.seatCustomSvg) {
-            this.circle.node.attr("fill", this.global.config.style.seat.color);
+            this.circle.node.attr("fill", this.baseColor());
         } else {
-            targetElement.attr("fill", this.global.config.style.seat.color);
+            targetElement.attr("fill", this.baseColor());
         }
 
         if (this.check) {
@@ -152,6 +152,16 @@ export class SeatItem extends SvgBase {
         this.setColor(this.getColor());
     }
 
+    /**
+     * Resting fill of a salable, unselected seat: its own category color
+     * (`SeatData.color`) when present, otherwise the configured default. This is
+     * what makes per-seat category colors actually render — previously the model
+     * color was stored but ignored, so every seat fell back to the global default.
+     */
+    public baseColor(): string {
+        return this.item.color || this.global.config.style.seat.color;
+    }
+
     public getColor(action: SeatAction | null = null): string {
 
         if (this.isSalable()) {
@@ -173,7 +183,7 @@ export class SeatItem extends SvgBase {
                 if (this.isSelected()) {
                     return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.style.seat.color;
+                    return this.baseColor();
                 }
             } else if (action == SeatAction.SELECT) {
                 if (this.isSelected()) {
@@ -185,7 +195,7 @@ export class SeatItem extends SvgBase {
                 if (this.isSelected()) {
                     return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.style.seat.color;
+                    return this.baseColor();
                 }
             }
 

@@ -118,6 +118,13 @@ export class SeatMapCanvas {
             this.zoomManager.zoomToVenue(false);
         });
 
+        // re-render the chart-level objects layer when objects/focal change
+        this.eventManager.addEventListener(EventType.UPDATE_OBJECT, () => {
+            this.svg.stage.objectsBackground.update();
+            this.svg.stage.objectsForeground.update();
+            this.svg.stage.focal.update();
+        });
+
         // Ready
         this.eventManager.dispatch(EventType.READY, this);
     }
@@ -144,3 +151,21 @@ export type {GeometryDefaults} from "@model/geometry.constants";
 // Theme palette so consumers can resolve the same chrome colors as the editor.
 export {LIGHT_PALETTE, DARK_PALETTE, getPalette} from "@model/theme.palette";
 export type {CanvasTheme, CanvasPalette} from "@model/theme.palette";
+
+// Chart-level object types (source of truth) so the studio converter and other
+// consumers can build `objects[]` against the same contract the renderer reads.
+export type {
+    Point2D,
+    ObjectType,
+    ObjectDataBase,
+    SectionObjectData,
+    GaObjectData,
+    TableObjectData,
+    BoothObjectData,
+    ShapeObjectData,
+    IconObjectData,
+    TextObjectData,
+    ObjectData,
+    FocalPointData,
+    CanvasChartData,
+} from "@model/object.model";
