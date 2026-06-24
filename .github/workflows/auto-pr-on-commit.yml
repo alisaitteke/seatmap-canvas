@@ -50,12 +50,13 @@ jobs:
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
+          # Squashed commits sometimes concatenate multiple subjects on one line — keep only the first
+          COMMIT_SUBJECT=$(echo "$COMMIT_SUBJECT" | sed -E 's/ (feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\([^)]+\))?:.*//')
+
           # Generate PR title - use conventional commit format if valid, otherwise derive from branch name
           if [[ "$COMMIT_SUBJECT" =~ ^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?:\ .+ ]]; then
-            # Conventional commit detected - use as-is
             PR_TITLE="$COMMIT_SUBJECT"
           else
-            # Not conventional - infer type from branch pattern
             if [[ "$BRANCH_NAME" == feature/* ]]; then
               SCOPE="${BRANCH_NAME#feature/}"
               PR_TITLE="feat($SCOPE): $COMMIT_SUBJECT"
@@ -69,12 +70,20 @@ jobs:
               SCOPE="${BRANCH_NAME#chore/}"
               PR_TITLE="chore($SCOPE): $COMMIT_SUBJECT"
             else
-              # Default - use commit subject as-is
               PR_TITLE="$COMMIT_SUBJECT"
             fi
           fi
-          
-          echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
+
+          # GitHub PR titles are limited to 256 characters
+          if [ ${#PR_TITLE} -gt 256 ]; then
+            PR_TITLE="${PR_TITLE:0:253}..."
+          fi
+
+          {
+            echo "pr_title<<EOF"
+            echo "$PR_TITLE"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Check if PR already exists
         id: check_pr

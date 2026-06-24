@@ -4,7 +4,6 @@
 
 import {polygonHull, polygonCentroid} from 'd3-polygon'
 
-import StageManager from "../stage.index";
 import Block from "./block-item/block-item.index";
 import SvgBase from "@svg/svg.base";
 import {dom} from "@decorator/dom";
@@ -24,7 +23,7 @@ export default class Blocks extends SvgBase {
     public seats: Array<SeatItem>;
 
 
-    constructor(public parent: StageManager) {
+    constructor(public parent: SvgBase) {
         super(parent);
         return this;
     }
@@ -42,30 +41,39 @@ export default class Blocks extends SvgBase {
                 _seats[0].x += 0.0001;
             }
 
-            let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
-            // console.log('bound_items', JSON.stringify(bound_items))
+            // Explicit auto/manual background contract:
+            //   auto_bounds === true   -> always recompute the convex hull,
+            //                             ignoring any provided `_bounds`.
+            //   auto_bounds === false  -> honor `_bounds` verbatim (fall back to
+            //                             the hull only if it is missing/invalid).
+            //   auto_bounds === undefined -> legacy heuristic: a usable `_bounds`
+            //                             polygon (>= 3 points) wins, otherwise hull.
+            // Studio sections emit the exact polygon, and the hull algorithm would
+            // otherwise round off concave sections.
+            const autoBounds = block_item.auto_bounds === true;
+            const hasProvidedBounds =
+                !autoBounds &&
+                Array.isArray(block_item.bounds) &&
+                block_item.bounds.length >= 3;
 
-            // const poly = polygon([[[0,29],[3.5,29],[2.5,32],[0,29]]]);
-            // const scaledPoly = TurfTransformScale(poly, 3);
+            // Flag the geometry source for the renderer. The convex hull is kept
+            // as an invisible hit/zoom region (mask + `zoom_bbox` + center), but
+            // only an explicit manual `_bounds` polygon is ever painted as the
+            // visible section boundary (see `block-item.bounds.ts`). This stops
+            // the legacy automatic hull ("hule") from being drawn.
+            block_item.bounds_is_manual = hasProvidedBounds;
 
-            // Scale işlemi için merkez noktasını hesapla
+            if (!hasProvidedBounds) {
+                let bound_items: Array<any> = _seats.map((item: SeatModel) => [item.x, item.y]).concat(block_item.labels.map((item: LabelModel) => [item.x, item.y]));
 
+                block_item.bounds = polygonHull(bound_items);
 
-            // Ölçekleme fonksiyonu
+                const centroid = polygonCentroid(block_item.bounds);
 
+                const expandedHull = this.expandPolygon(block_item.bounds, block_item.gap, centroid);
 
-            block_item.bounds = polygonHull(bound_items);
-
-            const centroid = polygonCentroid(block_item.bounds);
-
-            const scaleFactor = 1.4;
-            const scaledHull = this.scalePolygon(block_item.bounds, scaleFactor, centroid);
-
-            const expandedHull = this.expandPolygon(block_item.bounds, block_item.gap, centroid);
-
-            block_item.bounds = polygonHull(expandedHull);
-            // console.log("Scaled Hull:", scaledHull);
-            // console.log("expandedHull Hull:", expandedHull);
+                block_item.bounds = polygonHull(expandedHull);
+            }
 
             this.addChild(_blockItem);
         });

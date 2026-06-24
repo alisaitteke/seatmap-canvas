@@ -20,6 +20,8 @@ export enum EventType {
     MOUSELEAVE_BLOCK = "BLOCK.MOUSELEAVE",
     UPDATE_BLOCK = "BLOCK.UPDATE",
     CLICK_SEAT = "SEAT.CLICK",
+    SELECT_SEAT = "SEAT.SELECT",
+    UNSELECT_SEAT = "SEAT.UNSELECT",
     TOUCHSTART_SEAT = "SEAT.TOUCHSTART",
     MOUSEMOVE_SEAT = "SEAT.MOUSEMOVE",
     MOUSEDOWN_SEAT = "SEAT.MOUSEDOWN",
@@ -28,6 +30,17 @@ export enum EventType {
     MOUSEOUT_SEAT = "SEAT.MOUSEOUT",
     ADD_SEAT = "SEAT.ADD",
     REMOVE_SEAT = "SEAT.REMOVE",
+
+    // Chart-level render objects (sections, GA, tables, booths, shapes, icons, text).
+    UPDATE_OBJECT = "OBJECT.UPDATE",
+    CLICK_OBJECT = "OBJECT.CLICK",
+
+    // Section drill-down (legacy "onlyAfterZoom" parity): dispatched with the
+    // entered `SectionObjectData` when a section polygon is clicked/zoomed into,
+    // and on the matching zoom-out so consumers can react to overview <-> section.
+    SECTION_ENTER = "SECTION.ENTER",
+    SECTION_EXIT = "SECTION.EXIT",
+
     ZOOM_LEVEL_CHANGE = "ZOOM_LEVEL_CHANGE",
     BOUND_CLICK = "BOUND.CLICK",
 
@@ -46,6 +59,9 @@ export enum EventType {
 
     BEST_AVAILABLE_ENABLE = "BEST_AVAILABLE_ENABLE",
     MBEST_AVAILABLE_DISABLE = "MBEST_AVAILABLE_DISABLE",
+
+    // Multi-floor: dispatched when the active floor (or the all-floors view) changes.
+    FLOOR_CHANGED = "FLOOR.CHANGED",
 
     READY = "READY"
 

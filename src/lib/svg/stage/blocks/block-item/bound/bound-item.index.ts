@@ -24,11 +24,15 @@ export class BoundItem extends SvgBase {
     }
 
     show(){
-        this.node.classed("bound-hide",false);
+        if (this.node) {
+            this.node.classed("bound-hide", false);
+        }
     }
 
     hide(){
-        this.node.classed("bound-hide",true);
+        if (this.node) {
+            this.node.classed("bound-hide", true);
+        }
     }
 
     update(): this {

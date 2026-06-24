@@ -1,0 +1,35 @@
+import SvgBase from "@svg/svg.base";
+import SeatModel from "@model/seat.model";
+import Seats from "../block-item.seats.index";
+import { SeatItemCircle } from "./seat-item.circle";
+import { SeatItemRect } from "./seat-item.rect";
+import { SeatItemPath } from "./seat-item.path";
+import { CoordinateModel } from "@model/coordinate.model";
+import { SeatItemTitle } from "./seat-item.title";
+import { SeatAction } from "@enum/global";
+import { SeatItemCheck } from "./seat-item.check";
+import { SeatItemCustomSvg } from "@svg/stage/blocks/block-item/seat/seat-item.custom";
+import { SeatItemCustomSvgCheck } from "@svg/stage/blocks/block-item/seat/seat-item.custom-check";
+export declare class SeatItem extends SvgBase {
+    parent: Seats;
+    item: SeatModel;
+    circle: SeatItemCircle | SeatItemRect | SeatItemPath | SeatItemCustomSvg;
+    seatCustomSvg: SeatItemCustomSvg | null;
+    title: SeatItemTitle;
+    coordinates: CoordinateModel;
+    check: SeatItemCheck | SeatItemCustomSvgCheck;
+    constructor(parent: Seats, item: SeatModel, seatCustomSvg: any);
+    setColor(color: string, animation?: boolean): this;
+    updateColor(color?: string | null): this;
+    select(color?: string | null): this;
+    unSelect(): this;
+    isSelected(): Boolean;
+    isSalable(): Boolean;
+    hover(): void;
+    blur(): void;
+    baseColor(): string;
+    getColor(action?: SeatAction | null): string;
+    update(): this;
+    private getShapeType;
+    afterGenerate(): void;
+}

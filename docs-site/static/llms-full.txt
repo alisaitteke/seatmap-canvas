@@ -1,0 +1,38 @@
+Seatmap Canvas — condensed reference for AI agents
+==================================================
+
+WHAT IT IS
+Seatmap Canvas (@alisaitteke/seatmap-canvas) is an open-source JavaScript/TypeScript library for interactive seat selection in stadiums, theaters, cinemas, and event spaces. It renders SVG seat maps with D3.js, supports zoom/pan at venue/block/seat levels, and ships React, Vue, Angular, and Next.js wrappers. MIT license.
+
+INSTALL
+  npm install @alisaitteke/seatmap-canvas
+
+MINIMAL USAGE (vanilla JS)
+  import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
+  import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
+
+  const seatmap = new SeatMapCanvas('.container', { resizable: true });
+  seatmap.data.replaceData([
+    {
+      id: 1,
+      title: 'Section A',
+      seats: [
+        { id: 'A1', x: 0, y: 0, title: 'A1', salable: true },
+        { id: 'A2', x: 40, y: 0, title: 'A2', salable: true },
+      ],
+    },
+  ]);
+
+DATA MODEL
+  DataModel → BlockModel[] → SeatModel[]
+  BlockData: { id, title, seats[], labels?, color?, gap?, rotate? }
+  SeatData: { id, x, y, title?, salable?, color?, note?, custom_data? }
+  Load data via seatmap.data.replaceData(blocks[]) — there is no setData().
+
+LINKS
+  Docs:     https://seatmap.io/
+  Demo:     https://seatmap.io/demo
+  NPM:      https://www.npmjs.com/package/@alisaitteke/seatmap-canvas
+  GitHub:   https://github.com/alisaitteke/seatmap-canvas
+  React:    https://seatmap.io/frameworks/react
+  FAQ:      https://seatmap.io/seo/faq

@@ -113,6 +113,20 @@
         transition-duration: 0.17s;
         transition-timing-function: ease-in-out;
         filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0));
+        &.section-backed {
+          filter: none;
+          &:hover {
+            transform: none;
+            filter: none;
+          }
+          .bounds {
+            display: none;
+          }
+          .masks .block-level-mask,
+          .masks .seat-level-mask {
+            display: none;
+          }
+        }
         .bounds {
           .block-hull-border {
             stroke-linejoin: round;
@@ -235,4 +249,124 @@
       }
     }
   }
+
+  // Multi-floor: per-floor groups. Single-floor charts have one floor with an
+  // identity transform, so these rules are inert for them.
+  .stage {
+    .floors {
+      .floor {
+        // The stack/elevate slide is driven by d3 transitions on the SVG
+        // `transform` attribute (see floors.index.ts), so we must NOT declare a
+        // CSS `transform` transition here — under SVG2 the attribute maps to the
+        // CSS property and the two animations would fight. Opacity keeps a CSS
+        // transition purely for the smooth elevator hover dim.
+        transition: opacity 0.3s ease;
+
+        &.floor-dimmed {
+          opacity: 0.22;
+        }
+      }
+
+      // Single-floor selection: inactive floors stay in the stack as muted
+      // spatial context. Seating and non-section objects are hidden so they do
+      // not compete with the active floor; section polygons stay visible and are
+      // muted per-path in section-item.ts. Group opacity is intentionally left
+      // untouched so those per-path fill-opacities stay predictable.
+      // `:not(.picking)` keeps the all-floors (picking) view fully visible.
+      &:not(.picking) .floor.floor-inactive {
+        pointer-events: none;
+
+        .blocks {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .object:not(.object--section) {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        // Muted section captions (path fill is handled in section-item.ts).
+        .object--section .object-label {
+          opacity: 0.3;
+        }
+
+        // Per-floor background and focal marker are context-only on inactive floors.
+        .floor-background {
+          opacity: 0.12;
+        }
+
+        .focal-point {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+
+      &.picking {
+        .floor {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+// Floor elevator overlay (HTML sibling of the SVG, inside the container).
+.sm-floor-picker {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+  padding: 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  .sm-floor-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    &.active {
+      background: #2c2828;
+      color: #fff;
+    }
+  }
+
+  .sm-floor-all {
+    font-size: 16px;
+  }
+}
+
+.sm-floor-label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(44, 40, 40, 0.9);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
 }

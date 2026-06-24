@@ -26,6 +26,9 @@ examples/nextjs-pages/.next
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# local planning docs (agent-generated, not versioned)
+docs/plans/
+
 # misc
 /.sass-cache
 /connect.lock

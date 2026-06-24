@@ -11,6 +11,7 @@ import {EventType, ZoomLevel} from "@enum/global";
 import SeatModel from "@model/seat.model";
 import BlockModel from "@model/block.model";
 import LabelModel from "@model/label.model";
+import {objectBounds} from "@svg/stage/objects/object-bounds";
 
 interface ZoomCoordinate {
     x: number,
@@ -52,6 +53,12 @@ export default class ZoomManager {
     public zoomLevel: ZoomLevel;
     private lastPointer: [number, number] | null = null;
 
+    // Id of the block the viewer has drilled into (section drill-down parity).
+    // A section-backed block only reveals its seats while it is the entered
+    // block; everything else stays in the venue/polygon overview. Cleared on
+    // any return to the venue level. `null` at the venue overview.
+    public enteredBlockId: string | number | null = null;
+
 
     constructor(private _self: SeatMapCanvas) {
         this.activeBlocks = [];
@@ -85,6 +92,29 @@ export default class ZoomManager {
             this.zoomEnable();
         });
 
+        let viewportReflowTimer: ReturnType<typeof setTimeout> | null = null;
+        this._self.eventManager.addEventListener(EventType.RESIZE_WINDOW, () => {
+            if (viewportReflowTimer) {
+                clearTimeout(viewportReflowTimer);
+            }
+            viewportReflowTimer = setTimeout(() => {
+                this.reflowViewport(false);
+            }, 200);
+        });
+
+    }
+
+    /** Recalculate zoom ratios for the current container size and refit the view. */
+    public reflowViewport(animation: boolean = false): this {
+        const blocks = this._self.data.getBlocks();
+        if (!blocks.length) {
+            return this;
+        }
+
+        this.calculateZoomLevels(blocks);
+        this.calculateActiveBlocks(blocks);
+        this.zoomToVenue(animation);
+        return this;
     }
 
     zoomInit() {
@@ -115,6 +145,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k);
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
             // _self.canvasScopeHandler();
@@ -128,6 +159,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed);
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
         }
@@ -140,6 +172,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed / 2);
             _self.calculateActiveBlocks();
             _self.calculateZoomLevel(k);
         }
@@ -152,6 +185,7 @@ export default class ZoomManager {
             let y = event.transform.y;
             let k = event.transform.k;
             _self._self.svg.stage.node.interrupt().attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k);
             _self.calculateZoomLevel(k);
         }
     }
@@ -164,6 +198,7 @@ export default class ZoomManager {
             let k = event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed);
             //_self.calculateZoomLevel(k);
         }
     }
@@ -176,6 +211,7 @@ export default class ZoomManager {
             let k = event.transform.k;
 
             _self._self.svg.stage.node.interrupt().transition().duration(_self._self.config.animation_speed / 2).attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")");
+            _self._self.svg.stage.focal?.applyZoom(k, _self._self.config.animation_speed / 2);
             //_self.calculateZoomLevel(k);
         }
     }
@@ -206,9 +242,24 @@ export default class ZoomManager {
         }
 
         if (_zoomLevel !== this.zoomLevel) {
+            // Free zoom-out (scroll/pinch) back to the venue exits any entered
+            // section, so a later free zoom-in does not falsely reveal a stale
+            // section's seats.
+            if (_zoomLevel === ZoomLevel.VENUE) {
+                this.exitSection();
+            }
             this.zoomLevel = _zoomLevel as ZoomLevel;
             this.dispatchZoomEvent();
         }
+    }
+
+    /** Clear the entered-section state and notify consumers (idempotent). */
+    private exitSection(): void {
+        if (this.enteredBlockId === null) {
+            return;
+        }
+        this.enteredBlockId = null;
+        this._self.eventManager.dispatch(EventType.SECTION_EXIT, null);
     }
 
     canvasScopeHandler() {
@@ -235,6 +286,12 @@ export default class ZoomManager {
         let _wm = this._self.windowManager;
         let _stage = _wm.stage;
 
+        // Reset the accumulated extents so switching to a smaller floor reframes
+        // correctly (the extents only ever grew before, which broke multi-floor
+        // switching). Single-floor charts call this once, so behavior is unchanged.
+        _stage.width = 0;
+        _stage.height = 0;
+
         blocks.map((block: BlockModel) => {
 
             block.seats.map((seat: SeatModel) => {
@@ -255,6 +312,18 @@ export default class ZoomManager {
                 if (label.y > _stage.height) _stage.height = label.y;
             });
 
+        });
+
+        // Extend the stage extents with chart-level objects (GA areas, sections,
+        // decorative shapes/icons/text) so zoom-to-fit frames them too — seats
+        // alone would clip GA-only or decoration-only regions.
+        this._self.data.getObjects().forEach((object) => {
+            const bounds = objectBounds(object);
+            if (!bounds) {
+                return;
+            }
+            if (bounds.maxX > _stage.width) _stage.width = bounds.maxX;
+            if (bounds.maxY > _stage.height) _stage.height = bounds.maxY;
         });
 
         if (_wm.width && _wm.height) {
@@ -370,6 +439,9 @@ export default class ZoomManager {
         // console.log('id', id)
         let _block = this._self.data.getBlocks().find((block) => block.id.toString() === id.toString());
         if (_block) {
+            // Mark the drilled-into block before the zoom event fires so the
+            // matching block reveals its seats while the rest stay in overview.
+            this.enteredBlockId = id;
             if (animation) {
                 if (fastAnimated) {
                     this._self.svg.node.interrupt().call(this.zoomTypes.fastAnimated.translateTo, _block.zoom_bbox.x, _block.zoom_bbox.y).call(this.zoomTypes.fastAnimated.scaleTo, _block.zoom_bbox.k);
@@ -390,12 +462,113 @@ export default class ZoomManager {
             }
 
             this.dispatchZoomEvent();
+
+            // Public drill-down event: only when the target block is backed by a
+            // section polygon (id-linked), so `SECTION.ENTER` stays semantic and
+            // is not fired for plain (SIMPLE) block zooms.
+            const section = this._self.data
+                .getObjects("section")
+                .find((object) => object.id.toString() === id.toString());
+            if (section) {
+                this._self.eventManager.dispatch(EventType.SECTION_ENTER, section);
+            }
         }
+    }
+
+    /**
+     * Fit every section that belongs to `zoneKey` into the viewport (zoned
+     * venues). A zone is emitted by the studio as a `section`-typed render object
+     * (`zone-<key>`) with no backing block, so clicking it cannot drill into a
+     * block. Instead we frame the combined bounds of the zone's real sections so
+     * the viewer drills venue → zone → section → seats.
+     */
+    public zoomToZone(zoneKey: string | number, animation: boolean = true): void {
+        const key = zoneKey?.toString();
+        if (!key) {
+            return;
+        }
+        // Every section in the zone (its own polygon carries the same key).
+        const sections = this._self.data
+            .getObjects("section")
+            .filter((object) => {
+                const zone = (object as any).zone;
+                return zone !== null && zone !== undefined && zone.toString() === key;
+            });
+
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        const union = (left: number, top: number, right: number, bottom: number) => {
+            if (left < minX) minX = left;
+            if (top < minY) minY = top;
+            if (right > maxX) maxX = right;
+            if (bottom > maxY) maxY = bottom;
+        };
+
+        sections.forEach((object) => {
+            // Frame the real seating: the rendered block group's bbox already
+            // encloses both the seats and the hull, in document coordinates
+            // (the zoom transform lives on an ancestor, so getBBox is unscaled).
+            const blockItem = this._self.svg.stage.blocks.getBlock(object.id);
+            if (blockItem) {
+                const bbox = blockItem.node.node().getBBox();
+                if (bbox.width || bbox.height) {
+                    union(bbox.x, bbox.y, bbox.x + bbox.width, bbox.y + bbox.height);
+                }
+            }
+            // Also union the polygon outline so the framed area never clips the
+            // section shape (and covers the zone's own polygon, which has no block).
+            const bounds = objectBounds(object);
+            if (bounds) {
+                union(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY);
+            }
+        });
+
+        if (!Number.isFinite(minX)) {
+            return;
+        }
+
+        this.fitBounds(
+            {x: minX, y: minY, width: maxX - minX, height: maxY - minY},
+            animation,
+        );
+    }
+
+    /**
+     * Center and fit an arbitrary document-space bounding box into the viewport
+     * with a comfortable margin (so the content never touches the edges). Used
+     * for the zone-level frame; leaves the entered-section state cleared since a
+     * zone frame is an overview, not a section drill-down.
+     */
+    private fitBounds(
+        bbox: { x: number; y: number; width: number; height: number },
+        animation: boolean = true,
+    ): void {
+        const wm = this._self.windowManager;
+        if (!bbox.width || !bbox.height || !wm.width || !wm.height) {
+            return;
+        }
+        this.exitSection();
+
+        // 0.8 keeps a ~20% breathing margin around the framed zone.
+        const padding = 0.8;
+        let k = Math.min(wm.width / bbox.width, wm.height / bbox.height) * padding;
+        k = Math.min(k, this._self.config.max_zoom);
+        k = Math.max(k, this._self.config.min_zoom);
+
+        const cx = bbox.x + bbox.width / 2;
+        const cy = bbox.y + bbox.height / 2;
+
+        const zoomer = animation ? this.zoomTypes.animated : this.zoomTypes.normal;
+        this._self.svg.node.interrupt().call(zoomer.translateTo, cx, cy).call(zoomer.scaleTo, k);
+
+        this.zoomLevel = ZoomLevel.BLOCK;
+        this.dispatchZoomEvent();
     }
 
     public zoomToVenue(animation: boolean = true, fastAnimated: boolean = false) {
 
         console.info('zoomToVenue')
+        // Returning to the overview exits any entered section.
+        this.exitSection();
         let x = this.zoomLevels.VENUE.x;
         let y = this.zoomLevels.VENUE.y;
         let k = this.zoomLevels.VENUE.k;
@@ -429,6 +602,38 @@ export default class ZoomManager {
 
     }
 
+
+    /**
+     * Fit an arbitrary bounding box (in stage-local coordinates) into the
+     * viewport. Used by the multi-floor "all floors" view to frame the whole
+     * stacked composition, which the per-floor venue zoom cannot express.
+     */
+    public zoomToBBox(bbox: { x: number; y: number; width: number; height: number }, animation: boolean = true): this {
+        let wm = this._self.windowManager;
+        if (!bbox || !bbox.width || !bbox.height || !wm.width || !wm.height) {
+            return this;
+        }
+
+        // The stacked all-floors view is a venue-level overview.
+        this.exitSection();
+
+        const padding = 0.85;
+        let k = Math.min(wm.width / bbox.width, wm.height / bbox.height) * padding;
+        k = Math.min(k, this._self.config.max_zoom);
+
+        // Allow zooming out far enough to frame the full stack.
+        this._self.config.min_zoom = Math.min(this._self.config.min_zoom, k);
+        this.zoomInit();
+
+        const cx = bbox.x + bbox.width / 2;
+        const cy = bbox.y + bbox.height / 2;
+        const zoomer = animation ? this.zoomTypes.animated : this.zoomTypes.normal;
+        this._self.svg.node.interrupt().call(zoomer.translateTo, cx, cy).call(zoomer.scaleTo, k);
+
+        this.zoomLevel = ZoomLevel.VENUE;
+        this.dispatchZoomEvent();
+        return this;
+    }
 
     public zoomEnable(): this {
         this._self.svg.node.call(this.zoomTypes.normal);
