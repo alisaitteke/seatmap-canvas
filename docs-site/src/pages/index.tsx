@@ -319,7 +319,7 @@ function HomepageHeader() {
           </Link>
         </div>
         <Heading as="h1" className="hero__title">
-          {siteConfig.title}
+          Open Source Interactive Seat Map Library
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
@@ -363,8 +363,8 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Interactive Seat Selection Library`}
-      description="Advanced, open-source library for interactive seat selection in stadiums, theaters, and event spaces. Built with D3.js and TypeScript.">
+      title="Open Source Interactive Seat Map Library for React & Vue"
+      description="Seatmap Canvas is a free, open-source JavaScript seat selection library for stadiums, theaters, and events. React, Vue, TypeScript, D3.js. npm: @alisaitteke/seatmap-canvas">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

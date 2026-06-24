@@ -1,0 +1,31 @@
+# Seatmap Canvas
+
+> Open-source interactive seat map library for stadiums, theaters, and event spaces. Built with D3.js and TypeScript. MIT licensed.
+
+## Documentation
+
+- [Home](https://seatmap.io/): Product overview and getting started
+- [Installation](https://seatmap.io/getting-started/installation): npm install `@alisaitteke/seatmap-canvas`
+- [Quick Start](https://seatmap.io/getting-started/quick-start): First seatmap in minutes
+- [Data Structure](https://seatmap.io/getting-started/data-structure): BlockModel and SeatModel JSON schema
+- [React](https://seatmap.io/frameworks/react): React seat map component wrapper
+- [API Reference](https://seatmap.io/api/overview): Configuration, methods, and events
+
+## Live demo
+
+- [Interactive demo](https://seatmap.io/demo): Stadium, theater, and event-space examples
+
+## Package & source
+
+- [NPM](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas): `@alisaitteke/seatmap-canvas`
+- [GitHub](https://github.com/alisaitteke/seatmap-canvas): Source code and issues
+
+## Learn (SEO guides)
+
+- [FAQ](https://seatmap.io/seo/faq): Common questions about seat map libraries
+- [seats.io alternative](https://seatmap.io/seo/alternatives/seats-io-alternative): Open-source comparison
+- [Open-source seat map libraries](https://seatmap.io/seo/alternatives/open-source-seat-map-libraries): Library roundup
+- [Stadium seating](https://seatmap.io/seo/use-cases/stadium-seating): Stadium seat map use case
+- [Theater booking](https://seatmap.io/seo/use-cases/theater-booking): Theater seating chart widget
+- [Ticketing platforms](https://seatmap.io/seo/use-cases/ticketing-platforms): Embed patterns for ticketing apps
+- [What is an interactive seat map?](https://seatmap.io/seo/what-is-interactive-seat-map): Definition and overview

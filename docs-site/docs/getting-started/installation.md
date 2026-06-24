@@ -1,13 +1,19 @@
+---
+title: Install Seatmap Canvas — npm, yarn, pnpm
+description: Install @alisaitteke/seatmap-canvas via npm, yarn, or pnpm. JavaScript seat map library for React, Vue, and vanilla JS projects. Node 18+.
+keywords: [install seatmap canvas, npm seat map, seating chart npm, seatmap-canvas npm]
+---
+
 # Installation
 
-Install Seatmap Canvas in your project.
+Install **Seatmap Canvas** (`@alisaitteke/seatmap-canvas`) in your JavaScript or TypeScript project with npm, yarn, or pnpm.
 
-## Prerequisites
+## What are the prerequisites?
 
 - **Node.js**: Version 18.0.0 or higher
 - **Package Manager**: npm, yarn, or pnpm
 
-## NPM Installation
+## How do I install Seatmap Canvas with npm?
 
 Install the package using your preferred package manager:
 

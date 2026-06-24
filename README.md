@@ -1,19 +1,107 @@
 # Seatmap Canvas
-Seatmap Canvas is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Designed with d3.js, this code version is optimized for developers looking for a customizable and efficient solution to handle seat arrangements and user interactions.
+
+**Seatmap Canvas** is an open-source, MIT-licensed JavaScript and TypeScript library for **interactive seat map** and **seating chart** selection in **stadiums**, **theaters**, cinemas, and event spaces. Install `@alisaitteke/seatmap-canvas` from npm, pass venue JSON via `replaceData()`, and embed in React, Vue, or vanilla JS apps — self-hosted with no per-seat SaaS fees.
+
+Built with **D3.js** for smooth SVG rendering, three-level zoom (VENUE → BLOCK → SEAT), TypeScript definitions, and official framework wrappers for **seat selection** and **ticketing** flows.
 
 [![LIVE DEMO](assets/banner_ui.png)](https://seatmap.io/demo)
 
-**[📖 Documentation](https://seatmap.io)** | **[🎯 Live Demo](https://seatmap.io/demo)**
+[![npm version](https://img.shields.io/npm/v/@alisaitteke/seatmap-canvas?style=flat-square)](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square)](https://github.com/alisaitteke/seatmap-canvas/blob/master/LICENSE) **[📖 Documentation](https://seatmap.io)** | **[🎯 Live Demo](https://seatmap.io/demo)** | **[📦 NPM](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)**
 
 ## Features
 
-- **Framework Agnostic** - Core library works with vanilla JS, plus official React and Vue 3 wrappers
-- **Dynamic Seat Selection** - Interactive selection, categorization, and location of seats
-- **Custom Background Images** - Global and per-block background images with positioning control
-- **Customizable Styles** - Extensive styling options for seats, blocks, and labels
-- **Interactive Seat Models** - Define properties like salability, notes, colors, and custom data
-- **Block Organization** - Organize seats into blocks with titles, colors, and labels
-- **Event System** - Simplified event listeners for seat interactions
+### Highly Customizable
+
+- **Custom Shapes** — Circles, rectangles, paths, and SVG files
+- **Background Images** — Global and per-block backgrounds with positioning control (see [Custom Background Images](#-custom-background-images) below)
+- **Styling Options** — Full control over seat, block, and label colors, sizes, and appearance
+- **Custom Data** — Attach arbitrary metadata to seats via `custom_data`
+
+### Developer Friendly
+
+- **Framework Agnostic** — Vanilla JS plus official React, Vue 3, Next.js, and Angular wrappers
+- **TypeScript** — Full type definitions included
+- **Event System** — `SEAT.CLICK`, `BLOCK.CLICK`, and zoom-level change events
+- **Pluggable Parsers** — Register custom formats with `addParser()` (Pretix built-in)
+
+### Performance
+
+- **Built with D3.js** — Smooth SVG rendering and interactions
+- **Three-Level Zoom** — VENUE → BLOCK → SEAT with mouse and touch pan
+- **Optimized** — Handles thousands of seats efficiently
+
+### Easy to Use
+
+- **Simple API** — `replaceData(blocks)` plus event listeners
+- **Block Organization** — Titles, colors, and row/section labels
+- **Flexible Install** — npm package or CDN
+
+## Use Cases
+
+| Use case | Description | Link |
+| -------- | ----------- | ---- |
+| Stadium seating | Section zoom, large venues | [Guide](https://seatmap.io/seo/use-cases/stadium-seating) |
+| Theater booking | Row labels, sold/available states | [Guide](https://seatmap.io/seo/use-cases/theater-booking) |
+| Ticketing platforms | Hold and checkout flows | [Guide](https://seatmap.io/seo/use-cases/ticketing-platforms) |
+| Event spaces | Conferences, flexible layouts | [Example](https://seatmap.io/examples/event-space) |
+| Restaurants | Table and seat management | [Examples](examples/) |
+| Transportation | Bus, train, and plane seating | [Examples](examples/) |
+| [All event types](#event-types--seatmap-features) | Industry mapping with feature jargon | Below |
+
+## FAQ
+
+<details>
+<summary><strong>What is the best open-source seat map library for React?</strong></summary>
+
+Seatmap Canvas (`@alisaitteke/seatmap-canvas`) is a strong open-source choice for React: MIT licensed, D3.js rendering, three-level zoom, and an official React wrapper at `@alisaitteke/seatmap-canvas/react`.
+
+</details>
+
+<details>
+<summary><strong>Is Seatmap Canvas free?</strong></summary>
+
+Yes. Seatmap Canvas is MIT licensed and free to use in commercial projects. You host the library yourself; there are no per-seat renderer fees from the open-source package.
+
+</details>
+
+<details>
+<summary><strong>What is a seats.io alternative?</strong></summary>
+
+Seatmap Canvas is an open-source, self-hosted seats.io alternative. You bring your own venue JSON and backend; seats.io provides a hosted chart designer and SaaS API.
+
+</details>
+
+<details>
+<summary><strong>Can I use Seatmap Canvas for stadium ticketing?</strong></summary>
+
+Yes. Seatmap Canvas handles large venues with block-level organization, venue/block/seat zoom, and seat click events suitable for ticketing hold and checkout flows.
+
+</details>
+
+<details>
+<summary><strong>How do I embed a seat map on my website?</strong></summary>
+
+Add a container div, install `@alisaitteke/seatmap-canvas`, pass venue JSON via `replaceData()`, and listen for seat click events to update your cart or booking API.
+
+</details>
+
+<details>
+<summary><strong>How do I load seat data into Seatmap Canvas?</strong></summary>
+
+Call `seatmap.data.replaceData(blocks)` with an array of blocks, each containing seats with `id`, `x`, `y`, and `salable` properties. There is no `setData()` method.
+
+</details>
+
+[Full FAQ →](https://seatmap.io/seo/faq)
+
+## Why Seatmap Canvas?
+
+- **MIT licensed and self-hosted** — no vendor lock-in or per-event renderer fees from the OSS package
+- **Official npm packages** for React, Vue, Next.js, and Angular
+- **Three-level zoom** built in (venue overview → block focus → seat view)
+- **Bring your own venue JSON and backend** — full control over inventory and pricing
+- **Open-source seats.io alternative** — embed in your ticketing stack without SaaS chart fees
+- Read the full [seats.io alternative guide](https://seatmap.io/seo/alternatives/seats-io-alternative)
 
 ## Screenshot
 [![LIVE DEMO](assets/screenshot_1.png)](https://seatmap.io/demo)
@@ -24,20 +112,22 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 
 <p align="center">
   <a href="src/vue/README.md">
-    <img src="https://img.shields.io/badge/Vue.js_3-⚠️_Testing-orange?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
+    <img src="https://img.shields.io/badge/Vue.js_3-✅_Available-brightgreen?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js 3"/>
   </a>
   &nbsp;&nbsp;
   <a href="src/react/README.md">
-    <img src="https://img.shields.io/badge/React-⚠️_Testing-orange?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
+    <img src="https://img.shields.io/badge/React-✅_Available-brightgreen?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
   </a>
   &nbsp;&nbsp;
   <a href="src/nextjs/README.md">
-    <img src="https://img.shields.io/badge/Next.js-⚠️_Testing-orange?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
+    <img src="https://img.shields.io/badge/Next.js-✅_Available-brightgreen?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
   </a>
   &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Svelte-Coming_Soon-FF3E00?style=for-the-badge&logo=svelte&logoColor=white&color=gray" alt="Svelte"/>
   &nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/Angular-Coming_Soon-dd0031?style=for-the-badge&logo=angular&logoColor=white&color=gray" alt="Angular"/>
+  <a href="examples/angular/">
+    <img src="https://img.shields.io/badge/Angular-✅_Available-brightgreen?style=for-the-badge&logo=angular&logoColor=white" alt="Angular"/>
+  </a>
   &nbsp;&nbsp;
   <img src="https://img.shields.io/badge/Nuxt-Coming_Soon-00dc82?style=for-the-badge&logo=nuxt.js&logoColor=white&color=gray" alt="Nuxt"/>
   &nbsp;&nbsp;
@@ -71,11 +161,11 @@ Seatmap Canvas is an advanced, open-source library for interactive seat selectio
 | Framework | Status | Package | Documentation | Example |
 |:----------|:------:|:--------|:-------------:|:-------:|
 | **Vanilla JS** | ✅ Available | `@alisaitteke/seatmap-canvas` | [📖 Documentation](#vanilla-javascript) | [🎯 Example](examples/) |
-| **Vue.js 3** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/vue` | [📖 Documentation](src/vue/README.md) | [🎯 Example](examples/vue/) |
-| **React** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/react` | [📖 Documentation](src/react/README.md) | [🎯 Example](examples/react/) |
-| **Next.js** | ⚠️ Testing | `@alisaitteke/seatmap-canvas/nextjs` | [📖 Documentation](src/nextjs/README.md) | [🎯 App Router](examples/nextjs-app/) • [Pages Router](examples/nextjs-pages/) |
+| **Vue.js 3** | ✅ Available | `@alisaitteke/seatmap-canvas/vue` | [📖 Documentation](src/vue/README.md) | [🎯 Example](examples/vue/) |
+| **React** | ✅ Available | `@alisaitteke/seatmap-canvas/react` | [📖 Documentation](src/react/README.md) | [🎯 Example](examples/react/) |
+| **Next.js** | ✅ Available | `@alisaitteke/seatmap-canvas/nextjs` | [📖 Documentation](src/nextjs/README.md) | [🎯 App Router](examples/nextjs-app/) • [Pages Router](examples/nextjs-pages/) |
 | **Svelte** | 🔜 Coming Soon | - | - | - |
-| **Angular** | 🔜 Coming Soon | - | - | - |
+| **Angular** | ✅ Available | `@alisaitteke/seatmap-canvas/angular` | [📖 Documentation](https://seatmap.io/frameworks/angular) | [🎯 Example](examples/angular/) |
 | **Nuxt** | 🔜 Coming Soon | - | - | - |
 | **Solid.js** | 🔜 Coming Soon | - | - | - |
 | **Astro** | 🔜 Coming Soon | - | - | - |
@@ -566,12 +656,153 @@ background_fit: "contain"
 
 ---
 
+## Event Types & Seatmap Features
+
+Seatmap Canvas is a **renderer and selection widget** — not a full ticketing stack. Inventory, holds, and checkout live in your backend; the map drives visual selection via `SEAT.CLICK`, `OBJECT.CLICK`, and `replaceData()` updates to `salable` / `selected`.
+
+Every event type below maps to at least one library capability. Jargon terms are shown in parentheses.
+
+### Feature legend
+
+| Shorthand | Jargon | What it maps to in Seatmap Canvas |
+| --------- | ------ | --------------------------------- |
+| **S+Z** | *reserved seating + zoom* | `blocks` / `seats` with VENUE → BLOCK → SEAT zoom |
+| **Sec** | *section polygon / drill-down* | Chart-level `section` object; `SECTION.ENTER` / `SECTION.EXIT` |
+| **Lbl** | *row / block labels* | `labels[]` on blocks (row names, “Stage”, etc.) |
+| **Tbl** | *table seating* | `table` objects (`round` / `rect`) + chair seats |
+| **GA** | *general admission (GA) area* | Chart-level `ga` object; capacity zone, selectable as a whole |
+| **Bth** | *booth / box* | Chart-level `booth`; suite, stand, or VIP pod |
+| **Ico** | *venue icons / POI* | `icon` objects: stage, entrance, exit, restrooms, bar, food |
+| **FP** | *focal point* | `focal_point` — orientation anchor (stage, pitch, screen) |
+| **MF** | *multi-floor* | `floors[]` (up to 9) + floor picker / stacked view |
+| **BG** | *floor-plan background* | `background_image` (global, per-block, or per-floor) |
+| **CD** | *seat metadata / pricing tiers* | `custom_data`, `color`, `salable` for categories and holds |
+| **Shp** | *decorative shapes* | `shape` objects (zones, paths, foreground/background layers) |
+| **Txt** | *free text labels* | `text` objects for captions and wayfinding |
+
+### Sports
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Football (soccer) | **Sec** (*section polygon*) + **S+Z** (*reserved seating + zoom*) + **FP** (*focal point*) + **Ico** (*venue icons*) |
+| Basketball / hockey / volleyball | **Sec** + **S+Z** + **FP** — arena bowl layers |
+| American football / baseball | **Sec** + **S+Z** + **MF** (*multi-floor*) |
+| Tennis / golf | **S+Z** + **GA** (*general admission*) + **BG** (*floor-plan background*) |
+| Boxing / MMA / wrestling | **S+Z** + **FP** + **Bth** (*booth / box*) |
+| Motorsport (F1, MotoGP, etc.) | **Sec** + **GA** + **S+Z** |
+| Horse racing | **Sec** + **Bth** + **Ico** |
+| Esports | **S+Z** + **FP** + **Ico** (*stage*) |
+| School / amateur sports | **S+Z** + **Sec** |
+
+### Performing arts & culture
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Theatre | **S+Z** + **Lbl** (*row labels*) + **MF** + **BG** |
+| Opera / ballet | **S+Z** + **CD** (*pricing tiers*) + **MF** |
+| Concert (indoor hall) | **S+Z** + **FP** + **CD** |
+| Stand-up comedy | **S+Z** + **Tbl** (*table seating*) |
+| Musical (Broadway-style) | **S+Z** + **Sec** + **MF** |
+| Dance performance | **S+Z** + **FP** + **Ico** (*stage*) |
+| Circus | **S+Z** + **GA** |
+| Orchestra / classical | **S+Z** + **Lbl** + **CD** |
+| Cinema (premium) | **S+Z** + **Lbl** |
+| Outdoor cinema | **GA** + **Tbl** |
+| Film festival | **S+Z** + **Sec** |
+
+### Festivals & outdoor
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Music festival | **GA** + **Sec** / **Bth** (VIP) + **Ico** (*stage / bar*) |
+| Food festival | **GA** + **Bth** (*vendor booth*) |
+| Arts / culture festival | **GA** + **Ico** (*stage*) + **Shp** (*zone shapes*) |
+| Fair / trade fair (outdoor) | **Bth** + **GA** + **Ico** |
+| Carnival / street festival | **GA** + **Shp** |
+
+### Corporate & professional
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Conference / summit | **S+Z** + **Lbl** + **FP** |
+| Convention / congress | **Sec** + **MF** + **Ico** |
+| Trade show / expo | **Bth** (*exhibitor stand*) + **GA** + **Ico** |
+| Seminar / workshop | **S+Z** + **Tbl** |
+| Product launch | **S+Z** + **CD** |
+| Networking event | **Tbl** (*round tables*) + **GA** |
+| Training / certification | **S+Z** + **Lbl** |
+| Corporate AGM | **S+Z** + **CD** |
+| Gala / awards ceremony | **Tbl** + **S+Z** + **Ico** (*stage*) |
+| Corporate dinner / banquet | **Tbl** + **S+Z** |
+
+### Social & private events
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Wedding reception | **Tbl** (*round / rect*) + **S+Z** + **BG** |
+| Engagement / henna night | **Tbl** + **Shp** + **Ico** |
+| Birthday party | **Tbl** + **GA** |
+| Graduation ball (prom) | **Tbl** + **S+Z** |
+| Charity gala | **Tbl** + **Bth** (*sponsor booth / VIP box*) |
+| University graduation ceremony | **S+Z** + **Sec** + **MF** |
+| School convocation | **S+Z** + **Lbl** + **Sec** |
+
+### Nightlife & entertainment
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Nightclub / DJ set | **GA** + **Tbl** / **Bth** |
+| Private party (club night) | **Tbl** + **Ico** (*bar*) + **GA** |
+| Cabaret / dinner show | **Tbl** + **FP** + **Ico** (*stage*) |
+| Bar event | **GA** + **Tbl** |
+
+### Tourism, experiences & other
+
+| Event | Seatmap feature |
+| ----- | --------------- |
+| Museum / exhibition | **GA** + **MF** + **Ico** |
+| Theme park | **GA** + **Sec** + **S+Z** |
+| Guided tour | **GA** + **Ico** + **Txt** (*text labels*) |
+| Cruise / ship event | **Tbl** + **MF** + **S+Z** |
+| Zoo / aquarium | **GA** + **Sec** + **Ico** |
+| Large religious gathering (hall) | **S+Z** + **Sec** + **MF** |
+| Political rally / demonstration | **GA** + **Sec** + **FP** |
+| Marathon (spectator side) | **GA** + **Ico** |
+| Camp / retreat | **Tbl** + **GA** + **Shp** |
+| Online webinar (hybrid visual) | **Sec** + **GA** |
+| Book signing | **GA** + **S+Z** |
+| Live podcast (studio audience) | **S+Z** + **Tbl** |
+| Transportation (bus / train / plane) | **S+Z** + **Lbl** |
+
+### Minimum viable feature by scenario
+
+| Scenario | Lowest-fit Seatmap layer |
+| -------- | ------------------------ |
+| Standing / crowd-heavy | **GA** (*general admission area*) — capacity polygon, `OBJECT.CLICK` |
+| Stall / sponsor / VIP pod | **Bth** (*booth / box*) — single selectable unit |
+| Seated audience | **S+Z** (*reserved seating + zoom*) — `blocks` + `seats` |
+| Large venue | **Sec** (*section drill-down*) + zoom |
+| Seated dinner / wedding | **Tbl** (*table seating*) + seats |
+| Wayfinding | **Ico** + **Txt** + **FP** |
+| Multi-level building / ship | **MF** (*multi-floor*) |
+| Overlay on real plan | **BG** + **Shp** |
+
+---
+
 ## Links
 
 - 📖 [Full Documentation](https://seatmap.io)
 - 🎯 [Live Demo](https://seatmap.io/demo)
 - 📦 [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
 - 🐛 [Report Issues](https://github.com/alisaitteke/seatmap-canvas/issues)
+- ❓ [FAQ](https://seatmap.io/seo/faq)
+- 🏟️ [Stadium seating guide](https://seatmap.io/seo/use-cases/stadium-seating)
+- 🔄 [seats.io alternative](https://seatmap.io/seo/alternatives/seats-io-alternative)
+- 📍 [What is an interactive seat map?](https://seatmap.io/seo/what-is-interactive-seat-map)
+
+## License
+
+Seatmap Canvas is [MIT licensed](https://github.com/alisaitteke/seatmap-canvas/blob/master/LICENSE).
 
 ## Author
 

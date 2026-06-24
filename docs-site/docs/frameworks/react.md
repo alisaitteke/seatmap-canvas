@@ -1,8 +1,44 @@
+---
+title: React Seat Map Component — Seatmap Canvas
+description: Use Seatmap Canvas as a React seat map component. Official wrapper, TypeScript types, and npm package @alisaitteke/seatmap-canvas/react.
+keywords: [react seat map component, react seating chart, seatmap canvas react, interactive seat map react]
+---
+
 # React
 
-Use Seatmap Canvas with React.
+**Seatmap Canvas** provides an official **React seat map component** for interactive ticketing and booking UIs. Import `SeatmapCanvas` from `@alisaitteke/seatmap-canvas/react`, pass `blocks` JSON, and handle seat clicks in your cart flow.
 
-## Installation
+:::tip Open-source alternative
+Comparing hosted seating APIs? See our [seats.io alternative](/seo/alternatives/seats-io-alternative) guide.
+:::
+
+## Minimal React example
+
+```tsx
+import { SeatmapCanvas } from '@alisaitteke/seatmap-canvas/react';
+import '@alisaitteke/seatmap-canvas/dist/seatmap.canvas.css';
+
+const blocks = [
+  {
+    id: 1,
+    title: 'Section A',
+    seats: [
+      { id: 'A1', x: 0, y: 0, title: 'A1', salable: true },
+      { id: 'A2', x: 40, y: 0, title: 'A2', salable: true },
+    ],
+  },
+];
+
+export default function App() {
+  return (
+    <div style={{ width: '100%', height: 600 }}>
+      <SeatmapCanvas data={blocks} options={{ resizable: true }} />
+    </div>
+  );
+}
+```
+
+## How do I install Seatmap Canvas for React?
 
 ```bash npm2yarn
 npm install @alisaitteke/seatmap-canvas react react-dom

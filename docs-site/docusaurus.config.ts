@@ -5,8 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Seatmap',
-  tagline: 'Interactive Seat Selection Library for Stadiums, Theaters, and Event Spaces',
+  title: 'Seatmap Canvas — Open Source Interactive Seat Map Library',
+  tagline:
+    'Interactive seat selection for stadiums, theaters, and events. React, Vue, TypeScript, D3.js.',
   favicon: 'img/favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -48,6 +49,7 @@ const config: Config = {
           routeBasePath: '/', // docs at site root (e.g. /intro/, /getting-started/...)
           editUrl:
             'https://github.com/alisaitteke/seatmap-canvas/tree/master/docs-site/',
+          exclude: ['**/tutorial-basics/**', '**/tutorial-extras/**'],
         },
         blog: false, // Disable blog
         theme: {
@@ -57,11 +59,18 @@ const config: Config = {
     ],
   ],
 
-  plugins: ['./plugins/posthog.js'],
+  plugins: ['./plugins/posthog.js', './plugins/seo-schema.js'],
 
   themeConfig: {
     // Replace with your project's social card
     image: 'img/seatmap-social-card.png',
+    metadata: [
+      {
+        name: 'keywords',
+        content:
+          'seat map, seating chart, interactive seat map, javascript, react, vue, typescript, open source, seat selection, d3',
+      },
+    ],
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -134,6 +143,23 @@ const config: Config = {
             {
               label: 'Vue 3',
               to: '/frameworks/vue',
+            },
+          ],
+        },
+        {
+          title: 'Learn',
+          items: [
+            {
+              label: 'FAQ',
+              to: '/seo/faq',
+            },
+            {
+              label: 'seats.io Alternative',
+              to: '/seo/alternatives/seats-io-alternative',
+            },
+            {
+              label: 'Stadium Seating',
+              to: '/seo/use-cases/stadium-seating',
             },
           ],
         },

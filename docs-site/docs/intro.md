@@ -1,6 +1,14 @@
+---
+title: Seatmap Canvas — Interactive Seat Map Library
+description: "Seatmap Canvas is an open-source JavaScript seat map library for stadiums, theaters, and events. D3.js, TypeScript, React, and Vue."
+keywords: [seatmap canvas, interactive seat map, seating chart, d3, typescript, react, open source]
+---
+
 # Seatmap Canvas
 
-Build performant seatmaps for stadiums, theaters, and event spaces. Built with **D3.js** and **TypeScript**.
+**Seatmap Canvas** is an open-source JavaScript and TypeScript library for interactive seat selection in stadiums, theaters, cinemas, and event spaces. Install `@alisaitteke/seatmap-canvas` from npm, pass venue JSON via `replaceData()`, and embed in React, Vue, or vanilla JS apps — no per-seat SaaS fees.
+
+Built with **D3.js** for smooth SVG rendering, three-level zoom, and a simple event API.
 
 <div style={{textAlign: 'center', margin: '2rem 0 1.5rem'}}>
   <a href="/getting-started/installation" style={{
@@ -142,6 +150,22 @@ Build performant seatmaps for stadiums, theaters, and event spaces. Built with *
     <p>Student seating arrangements</p>
   </div>
 </div>
+
+## Frequently asked questions
+
+### What is the best open-source seat map library for React?
+
+[Seatmap Canvas](/frameworks/react) ships an official React wrapper with TypeScript types. See the full [FAQ](/seo/faq) for more answers.
+
+### Is there a free seats.io alternative?
+
+Yes — Seatmap Canvas is MIT licensed and self-hosted. Compare features in our [seats.io alternative guide](/seo/alternatives/seats-io-alternative).
+
+### Can I use this for stadium or theater ticketing?
+
+Yes. See [stadium seating](/seo/use-cases/stadium-seating) and [theater booking](/seo/use-cases/theater-booking) guides.
+
+[More FAQ →](/seo/faq)
 
 ## 🚀 Getting Started
 

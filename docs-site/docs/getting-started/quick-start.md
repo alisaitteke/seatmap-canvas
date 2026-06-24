@@ -1,8 +1,14 @@
+---
+title: Quick Start — Create Your First Seat Map
+description: Create your first interactive seat map in under 5 minutes with Seatmap Canvas. Vanilla JavaScript example with npm install and replaceData.
+keywords: [seat map quick start, seating chart tutorial, javascript seat map example]
+---
+
 # Quick Start
 
-Create your first seatmap in minutes.
+**How do you create your first seatmap in under 5 minutes?** Install `@alisaitteke/seatmap-canvas`, add a container element, and call `replaceData()` with a block of seats — the library renders an interactive SVG you can click and zoom.
 
-## Basic Example
+## What is the minimal working example?
 
 Here's a complete example to get you started:
 
