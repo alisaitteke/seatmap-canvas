@@ -10,3 +10,10 @@
   font-size: 4rem;
   margin-bottom: 1rem;
 }
+
+.learnMore {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-700);
+}

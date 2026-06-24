@@ -1,0 +1,31 @@
+import { ElementRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { SeatMapCanvas } from '@alisaitteke/seatmap-canvas';
+import type { SeatmapOptions, BlockData } from './types';
+export declare class SeatmapCanvasDirective implements OnInit, OnDestroy, OnChanges {
+    private el;
+    private platformId;
+    options?: SeatmapOptions;
+    seatmapData?: BlockData[];
+    seatmapAutoZoom: boolean;
+    seatmapReady: any;
+    seatmapSeatClick: any;
+    seatmapSeatSelect: any;
+    seatmapSeatUnselect: any;
+    seatmapBlockClick: any;
+    seatmapDataChange: any;
+    private seatmapInstance;
+    private isBrowser;
+    private isInitialized;
+    constructor(el: ElementRef, platformId: Object);
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
+    private initializeSeatmap;
+    getInstance(): SeatMapCanvas | null;
+    loadData(data: BlockData[]): void;
+    getSelectedSeats(): any[];
+    getSeat(seatId: string, blockId: string): any;
+    getBlocks(): any[];
+    zoomToBlock(blockId: string): void;
+    zoomToVenue(): void;
+}

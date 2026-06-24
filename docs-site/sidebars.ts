@@ -93,6 +93,20 @@ const sidebars: SidebarsConfig = {
         'migration/changelog',
       ],
     },
+    {
+      type: 'category',
+      label: 'Learn',
+      collapsed: true,
+      items: [
+        'seo/faq',
+        'seo/what-is-interactive-seat-map',
+        'seo/use-cases/stadium-seating',
+        'seo/use-cases/theater-booking',
+        'seo/use-cases/ticketing-platforms',
+        'seo/alternatives/seats-io-alternative',
+        'seo/alternatives/open-source-seat-map-libraries',
+      ],
+    },
   ],
   apiSidebar: [
     'api/overview',
