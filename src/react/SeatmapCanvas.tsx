@@ -10,6 +10,14 @@ import type { SeatmapCanvasProps } from './types';
 export interface SeatmapCanvasRef {
   getInstance: () => SeatMapCanvas | null;
   seatmap: SeatMapCanvas | null;
+  /** Enter a floor by its public id (multi-floor charts). */
+  goToFloor: (floorId: string) => void;
+  /** Leave the selected floor for the stacked all-floors view. */
+  goToAllFloorsView: () => void;
+  /** All floors as `{ index, id, display_name }`. */
+  getFloors: () => Array<{ index: number; id: string; display_name: string }>;
+  /** The active floor, or `{ index: -1 }` for the all-floors view. */
+  getCurrentFloor: () => { index: number; id: string | null; display_name: string | null };
 }
 
 const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
@@ -26,6 +34,7 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
       onSeatUnselect,
       onBlockClick,
       onDataChange,
+      onFloorChanged,
     },
     ref
   ) => {
@@ -36,6 +45,7 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
       onSeatSelect,
       onSeatUnselect,
       onBlockClick,
+      onFloorChanged,
     });
 
     // Update event handlers ref when props change
@@ -45,8 +55,9 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
         onSeatSelect,
         onSeatUnselect,
         onBlockClick,
+        onFloorChanged,
       };
-    }, [onSeatClick, onSeatSelect, onSeatUnselect, onBlockClick]);
+    }, [onSeatClick, onSeatSelect, onSeatUnselect, onBlockClick, onFloorChanged]);
 
     // Initialize seatmap
     useEffect(() => {
@@ -80,6 +91,12 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
         instance.eventManager.addEventListener('BLOCK.CLICK', (block: any) => {
           if (eventHandlersRef.current.onBlockClick) {
             eventHandlersRef.current.onBlockClick(block);
+          }
+        });
+
+        instance.eventManager.addEventListener('FLOOR.CHANGED', (floor: any) => {
+          if (eventHandlersRef.current.onFloorChanged) {
+            eventHandlersRef.current.onFloorChanged(floor);
           }
         });
 
@@ -124,6 +141,11 @@ const SeatmapCanvasComponent = forwardRef<SeatmapCanvasRef, SeatmapCanvasProps>(
     useImperativeHandle(ref, () => ({
       getInstance: () => seatmapRef.current,
       seatmap: seatmapRef.current,
+      goToFloor: (floorId: string) => seatmapRef.current?.goToFloor(floorId),
+      goToAllFloorsView: () => seatmapRef.current?.goToAllFloorsView(),
+      getFloors: () => seatmapRef.current?.getFloors() ?? [],
+      getCurrentFloor: () =>
+        seatmapRef.current?.getCurrentFloor() ?? { index: -1, id: null, display_name: null },
     }));
 
     return (

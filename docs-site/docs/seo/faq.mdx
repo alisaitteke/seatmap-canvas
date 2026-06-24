@@ -1,0 +1,35 @@
+---
+title: Seat Map Library FAQ
+description: Answers to common questions about interactive seat maps, Seatmap Canvas, React integration, seats.io alternatives, and open-source licensing.
+keywords: [seat map faq, seating chart questions, seats.io alternative faq, react seat map]
+---
+
+import Head from '@docusaurus/Head';
+import {faqItems, faqSchema} from '@site/src/data/faq-items';
+
+<Head>
+  <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+</Head>
+
+*Last updated: June 2026*
+
+Answers to the most common questions about **Seatmap Canvas**, interactive seat maps, and alternatives to hosted seating APIs.
+
+```bash npm2yarn
+npm install @alisaitteke/seatmap-canvas
+```
+
+[Live demo](https://seatmap.io/demo) · [Installation](/getting-started/installation) · [React](/frameworks/react)
+
+{faqItems.map((item) => (
+  <div key={item.question}>
+    <h2>{item.question}</h2>
+    <p>{item.answer}</p>
+  </div>
+))}
+
+## Related
+
+- [What is an interactive seat map?](/seo/what-is-interactive-seat-map)
+- [seats.io alternative](/seo/alternatives/seats-io-alternative)
+- [Introduction](/intro)

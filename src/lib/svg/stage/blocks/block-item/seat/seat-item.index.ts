@@ -13,7 +13,7 @@ import {SeatItemRect} from "./seat-item.rect";
 import {SeatItemPath} from "./seat-item.path";
 import {CoordinateModel} from "@model/coordinate.model";
 import {SeatItemTitle} from "./seat-item.title";
-import {SeatAction} from "@enum/global";
+import {EventType, SeatAction} from "@enum/global";
 import {SeatItemCheck} from "./seat-item.check";
 import {SeatItemCustomSvg} from "@svg/stage/blocks/block-item/seat/seat-item.custom";
 import {SeatItemCustomSvgCheck} from "@svg/stage/blocks/block-item/seat/seat-item.custom-check";
@@ -105,6 +105,7 @@ export class SeatItem extends SvgBase {
         if (this.check) {
             this.check.show();
         }
+        this.global.eventManager.dispatch(EventType.SELECT_SEAT, this);
         return this;
     }
 
@@ -125,14 +126,15 @@ export class SeatItem extends SvgBase {
         }
         
         if (this.seatCustomSvg) {
-            this.circle.node.attr("fill", this.global.config.style.seat.color);
+            this.circle.node.attr("fill", this.baseColor());
         } else {
-            targetElement.attr("fill", this.global.config.style.seat.color);
+            targetElement.attr("fill", this.baseColor());
         }
 
         if (this.check) {
             this.check.hide();
         }
+        this.global.eventManager.dispatch(EventType.UNSELECT_SEAT, this);
         return this;
     }
 
@@ -150,6 +152,16 @@ export class SeatItem extends SvgBase {
 
     public blur() {
         this.setColor(this.getColor());
+    }
+
+    /**
+     * Resting fill of a salable, unselected seat: its own category color
+     * (`SeatData.color`) when present, otherwise the configured default. This is
+     * what makes per-seat category colors actually render — previously the model
+     * color was stored but ignored, so every seat fell back to the global default.
+     */
+    public baseColor(): string {
+        return this.item.color || this.global.config.style.seat.color;
     }
 
     public getColor(action: SeatAction | null = null): string {
@@ -173,7 +185,7 @@ export class SeatItem extends SvgBase {
                 if (this.isSelected()) {
                     return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.style.seat.color;
+                    return this.baseColor();
                 }
             } else if (action == SeatAction.SELECT) {
                 if (this.isSelected()) {
@@ -185,7 +197,7 @@ export class SeatItem extends SvgBase {
                 if (this.isSelected()) {
                     return this.global.config.style.seat.selected;
                 } else {
-                    return this.global.config.style.seat.color;
+                    return this.baseColor();
                 }
             }
 

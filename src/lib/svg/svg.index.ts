@@ -13,6 +13,7 @@ import {EventType, ZoomLevel} from "@enum/global";
 import ZoomOutBg from "@svg/zoom-out.bg";
 import Legend from "@svg/legend";
 import Tooltip from "@svg/tooltip";
+import FloorPicker from "@svg/floor-picker";
 
 
 
@@ -28,6 +29,7 @@ export default class Svg extends SvgBase {
     public zoomOutBg: ZoomOutBg;
     public legend: Legend;
     public tooltip: Tooltip;
+    public floorPicker: FloorPicker;
 
 
     constructor(public parent: SeatMapCanvas) {
@@ -48,6 +50,9 @@ export default class Svg extends SvgBase {
         }
 
         this.tooltip = new Tooltip(this).addToParent();
+
+        // HTML elevator overlay (renders itself only for multi-floor charts).
+        this.floorPicker = new FloorPicker(this.parent);
 
 
         this.updateChilds();

@@ -13,7 +13,7 @@ https://seatmap.io/
 ## URLs
 
 - **Live Demo**: https://seatmap.io/demo
-- **Documentation**: https://seatmap.io/docs
+- **Documentation**: https://seatmap.io/
 
 ## Deployment Workflow
 
@@ -22,8 +22,8 @@ The `.github/workflows/static.yml` workflow automatically:
 1. **Builds the library** (`npm run build`)
 2. **Builds Docusaurus** (`cd docs-site && npm run build`)
 3. **Combines outputs**:
-   - Demo → `deploy/` (root)
-   - Docs → `deploy/docs/`
+   - Docs → `deploy/` (root)
+   - Demo → `deploy/demo/`
 4. **Deploys to GitHub Pages**
 
 ## Triggered By
@@ -100,7 +100,7 @@ Repository Settings → Pages:
 If you get 404 errors on documentation links:
 
 1. Check `baseUrl` in `docs-site/docusaurus.config.ts`
-2. Ensure it's set to `/seatmap-canvas/docs/`
+2. Ensure it's set to `/` (docs are served at site root)
 3. Rebuild and redeploy
 
 ### Demo Not Loading Assets

@@ -92,6 +92,22 @@ export function useSeatmap(
     seatmapRef.current.eventManager.addEventListener(event, callback);
   }, []);
 
+  const goToFloor = useCallback((floorId: string) => {
+    seatmapRef.current?.goToFloor(floorId);
+  }, []);
+
+  const goToAllFloorsView = useCallback(() => {
+    seatmapRef.current?.goToAllFloorsView();
+  }, []);
+
+  const getFloors = useCallback(() => {
+    return seatmapRef.current?.getFloors() ?? [];
+  }, []);
+
+  const getCurrentFloor = useCallback(() => {
+    return seatmapRef.current?.getCurrentFloor() ?? { index: -1, id: null, display_name: null };
+  }, []);
+
   return {
     seatmapInstance: seatmapRef.current,
     isReady,
@@ -104,5 +120,9 @@ export function useSeatmap(
     zoomToBlock,
     zoomToVenue,
     addEventListener,
+    goToFloor,
+    goToAllFloorsView,
+    getFloors,
+    getCurrentFloor,
   };
 }

@@ -62,6 +62,10 @@ jobs:
           # Demo under /demo
           cp -r ./examples/* ./deploy/demo/
           cp -r ./dist/cjs ./deploy/demo/
+          # CSS now ships at the package root (dist/seatmap.canvas.css);
+          # examples/index.html references it with a relative path, so it
+          # must sit alongside index.html in the deployed demo folder.
+          cp ./dist/seatmap.canvas.css ./deploy/demo/
           cp ./assets/logo_small.jpg ./deploy/demo/
           echo "Deployment structure ready"
           ls -la ./deploy

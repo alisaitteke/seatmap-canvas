@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
@@ -64,6 +65,14 @@ export default function HomepageFeatures(): ReactNode {
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}
+        </div>
+        <div className={styles.learnMore}>
+          <span>Learn more: </span>
+          <Link to="/seo/use-cases/stadium-seating">Stadium seating</Link>
+          <span> · </span>
+          <Link to="/seo/alternatives/seats-io-alternative">seats.io alternative</Link>
+          <span> · </span>
+          <Link to="/seo/faq">FAQ</Link>
         </div>
       </div>
     </section>

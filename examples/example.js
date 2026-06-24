@@ -126,7 +126,75 @@ $(document).ready(function () {
     });
 
 
+    window.addEventListener("message", function (event) {
+        if (event.data && event.data.type === "seatmap-demo-resize" && seatmap.reflow) {
+            seatmap.reflow(false);
+        }
+    });
+
+    function seatmapDebugSnapshot() {
+        const zm = seatmap.zoomManager;
+        const sc = seatmap.svg?.stage?.searchCircle;
+        return {
+            zoomLevel: zm?.zoomLevel ?? null,
+            enteredBlockId: zm?.enteredBlockId ?? null,
+            in_section: sc?.in_section ?? null,
+            searchCircleEnabled: sc?.is_enable ?? null,
+        };
+    }
+
+    function logSeatmapDebug(event, detail) {
+        console.info("[seatmap-demo]", event, detail, seatmapDebugSnapshot());
+    }
+
+    seatmap.eventManager.addEventListener("SEAT.SELECT", (seat) => {
+        logSeatmapDebug("SEAT.SELECT", {
+            seatId: seat?.item?.id,
+            blockId: seat?.parent?.parent?.item?.id,
+        });
+    });
+
+    seatmap.eventManager.addEventListener("SEAT.UNSELECT", (seat) => {
+        logSeatmapDebug("SEAT.UNSELECT", {
+            seatId: seat?.item?.id,
+            blockId: seat?.parent?.parent?.item?.id,
+        });
+    });
+
+    seatmap.eventManager.addEventListener("ZOOM_LEVEL_CHANGE", (payload) => {
+        logSeatmapDebug("ZOOM_LEVEL_CHANGE", payload);
+    });
+
+    seatmap.eventManager.addEventListener("SECTION.ENTER", (section) => {
+        logSeatmapDebug("SECTION.ENTER", {
+            sectionId: section?.id,
+            label: section?.label,
+        });
+    });
+
+    seatmap.eventManager.addEventListener("SECTION.EXIT", () => {
+        logSeatmapDebug("SECTION.EXIT", null);
+    });
+
+    seatmap.eventManager.addEventListener("ZOOM-OUT-BG.CLICK", () => {
+        logSeatmapDebug("ZOOM-OUT-BG.CLICK → zoomToVenue", null);
+    });
+
+    seatmap.eventManager.addEventListener("BLOCK.CLICK", (block) => {
+        logSeatmapDebug("BLOCK.CLICK", {
+            blockId: block?.item?.id,
+            title: block?.item?.title,
+        });
+    });
+
     seatmap.eventManager.addEventListener("SEAT.CLICK", (seat) => {
+        logSeatmapDebug("SEAT.CLICK (before)", {
+            seatId: seat?.item?.id,
+            blockId: seat?.parent?.parent?.item?.id,
+            salable: seat?.item?.salable,
+            selected: seat?.isSelected?.(),
+        });
+
         // Only allow interaction with salable seats
         if (!seat.item.salable) return;
 
@@ -137,6 +205,10 @@ $(document).ready(function () {
         }
 
         updateSelectedSeats()
+        logSeatmapDebug("SEAT.CLICK (after toggle)", {
+            seatId: seat?.item?.id,
+            selected: seat?.isSelected?.(),
+        });
     });
 
 

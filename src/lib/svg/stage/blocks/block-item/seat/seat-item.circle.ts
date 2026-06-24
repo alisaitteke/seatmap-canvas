@@ -20,8 +20,8 @@ export class SeatItemCircle extends SvgBase {
         this.attr("block-id", parent.item.block.id);
         this.attr("r", this.global.config.style.seat.radius);
         this.attr("fill", this.global.config.style.seat.color);
-        this.attr("stroke", "rgba(0,0,0,0.3)");
-        this.attr("stroke-width", 1);
+        this.attr("stroke", this.global.config.style.seat.stroke);
+        this.attr("stroke-width", this.global.config.style.seat.stroke_width);
         return this;
     }
 
