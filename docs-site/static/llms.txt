@@ -1,0 +1,27 @@
+# Seatmap Canvas
+
+> Open-source interactive seat map library for stadiums, theaters, and event spaces. Built with D3.js and TypeScript. MIT licensed.
+
+## Documentation
+
+- [Introduction](https://seatmap.io/intro): Docs entry point and library overview
+- [Installation](https://seatmap.io/getting-started/installation): npm install `seatmap-canvas`
+- [Quick Start](https://seatmap.io/getting-started/quick-start): First seatmap in minutes
+- [Data Structure](https://seatmap.io/getting-started/data-structure): BlockModel and SeatModel JSON schema
+- [React](https://seatmap.io/frameworks/react): React seat map component wrapper
+- [API Reference](https://seatmap.io/api/overview): Configuration, methods, and events
+
+## Live demo
+
+- [Interactive demo](https://seatmap.io/demo): Stadium, theater, and event-space examples
+
+## Package & source
+
+- [NPM](https://www.npmjs.com/package/seatmap-canvas): `seatmap-canvas`
+- [GitHub](https://github.com/alisaitteke/seatmap-canvas): Source code and issues
+
+## Commercial product
+
+- [Seatmap Platform](https://seatmap.io/en/product/platform): Multi-tenant event ticketing platform
+- [Canvas v4](https://seatmap.io/en/product/canvas): Maintained commercial seat-map renderer
+- [FAQ](https://seatmap.io/en/faq): Product and platform questions

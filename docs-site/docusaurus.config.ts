@@ -53,13 +53,24 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        sitemap: {
+          filename: 'sitemap-canvas-v1.xml',
+        },
       } satisfies Preset.Options,
     ],
   ],
 
-  plugins: ['./plugins/posthog.js'],
+  plugins: ['./plugins/posthog.js', './plugins/seo-schema.js'],
 
   themeConfig: {
+    announcementBar: {
+      id: 'canvas_v1_deprecated',
+      content:
+        'Canvas v1 is no longer developed — <a href="https://seatmap.io/en">see the maintained commercial platform</a>.',
+      backgroundColor: '#fff3cd',
+      textColor: '#091E42',
+      isCloseable: false,
+    },
     // Replace with your project's social card
     image: 'img/seatmap-social-card.png',
     colorMode: {
@@ -71,6 +82,7 @@ const config: Config = {
         alt: 'Seatmap Logo',
         src: 'img/seatmap-logo-small.png',
         srcDark: 'img/seatmap-logo-small.png',
+        href: '/intro',
         "width": 62,
         "height": 32,
         style: { borderRadius: '4px' },
