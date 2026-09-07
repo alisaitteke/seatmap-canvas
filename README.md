@@ -1,9 +1,14 @@
 # Seatmap Canvas
+
+> **Canvas v1 is no longer developed.** It remains MIT-licensed and available on npm as [`@alisaitteke/seatmap-canvas`](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas). Documentation stays at the same URLs.
+>
+> The maintained commercial platform (WebGL2 renderer, editor, and booking) is at [seatmap.io](https://seatmap.io/en).
+
 Seatmap Canvas is an advanced, open-source library for interactive seat selection in various settings such as stadiums, theaters, and event spaces. Designed with d3.js, this code version is optimized for developers looking for a customizable and efficient solution to handle seat arrangements and user interactions.
 
 [![LIVE DEMO](assets/banner_ui.png)](https://seatmap.io/demo)
 
-**[📖 Documentation](https://seatmap.io)** | **[🎯 Live Demo](https://seatmap.io/demo)**
+**[📖 Documentation](https://seatmap.io/intro)** | **[🎯 Live Demo](https://seatmap.io/demo)**
 
 ## Features
 
@@ -568,7 +573,7 @@ background_fit: "contain"
 
 ## Links
 
-- 📖 [Full Documentation](https://seatmap.io)
+- 📖 [Full Documentation](https://seatmap.io/intro)
 - 🎯 [Live Demo](https://seatmap.io/demo)
 - 📦 [NPM Package](https://www.npmjs.com/package/@alisaitteke/seatmap-canvas)
 - 🐛 [Report Issues](https://github.com/alisaitteke/seatmap-canvas/issues)
